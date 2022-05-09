@@ -1,19 +1,10 @@
+const intialState = {};
 
-
-
-
-const intialState = {
-
-};
-
-
-export default function rootReducer (state = intialState, {type, payload}){
+export default function rootReducer(state = intialState, { type, payload }) {
     switch (type) {
-    
-        default: 
+        default:
             return {
-            ...state
-            }
-        
-        }
+                ...state,
+            };
+    }
 }
