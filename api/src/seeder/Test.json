@@ -1,0 +1,82 @@
+{
+    "result": [
+	{
+            "id": "86b27501-d71f-4bc2-b245-e91a94be0929",
+            "sku": "HQ4116",
+            "brand": "adidas",
+            "name": "adidas Yeezy Slide Glow Green (2022) (Kids)",
+            "colorway": "Glow Green/Glow Green/Glow Green",
+            "gender": "child",
+            "silhouette": "Yeezy Slides",
+            "releaseYear": "2022",
+            "releaseDate": "2022-05-31",
+            "retailPrice": 60,
+            "estimatedMarketValue": 100,
+            "story": "",
+            "image": {
+                "360": [],
+                "original": "",
+                "small": "",
+                "thumbnail": ""
+            },
+            "links": {
+                "stockX": "https://stockx.com/adidas-yeezy-slide-glow-green-2022-kids",
+                "goat": "",
+                "flightClub": "https://flightclub.com/yeezy-slide-kids-glow-green-2022-hq4116",
+                "stadiumGoods": ""
+            }
+        },
+        {
+            "id": "311a1202-26d6-4f36-981c-80cebfa63257",
+            "sku": "GZ4000",
+            "brand": "adidas",
+            "name": "adidas Ultra Boost Web DNA Solar Red (GS)",
+            "colorway": "Solar Red/Night Metallic/Core Black",
+            "gender": "child",
+            "silhouette": "UltraBoost",
+            "releaseYear": "2022",
+            "releaseDate": "2022-04-18",
+            "retailPrice": 160,
+            "estimatedMarketValue": 110,
+            "story": "",
+            "image": {
+                "360": [],
+                "original": "https://image.goat.com/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png",
+                "small": "https://image.goat.com/750/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png",
+                "thumbnail": "https://image.goat.com/375/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png"
+            },
+            "links": {
+                "stockX": "https://stockx.com/adidas-ultra-boost-web-dna-solar-red-gs",
+                "goat": "https://goat.com/sneakers/ultraboost-web-dna-j-solar-red-gz4000",
+                "flightClub": "https://flightclub.com/ultraboost-web-dna-j-solar-red-gz4000",
+                "stadiumGoods": ""
+            }
+        },
+        {
+            "id": "98abeb88-af91-4c9b-a667-4172d5014459",
+            "sku": "GY4805",
+            "brand": "adidas",
+            "name": "adidas Yeezy Boost 700 MNVN Geode (Kids)",
+            "colorway": "Geode/Geode/Geode",
+            "gender": "child",
+            "silhouette": "Yeezy Boost 700 MNVM",
+            "releaseYear": "2022",
+            "releaseDate": "2022-04-18",
+            "retailPrice": 160,
+            "estimatedMarketValue": 176,
+            "story": "",
+            "image": {
+                "360": [],
+                "original": "https://image.goat.com/attachments/product_template_pictures/images/071/130/533/original/GY4805.png.png",
+                "small": "https://image.goat.com/750/attachments/product_template_pictures/images/071/130/533/original/GY4805.png.png",
+                "thumbnail": "https://image.goat.com/375/attachments/product_template_pictures/images/071/130/533/original/GY4805.png.png"
+            },
+            "links": {
+                "stockX": "https://stockx.com/adidas-yeezy-boost-700-mnvn-geode-kids",
+                "goat": "https://goat.com/sneakers/yeezy-boost-700-mnvn-kids-geode-gy4805",
+                "flightClub": "https://flightclub.com/yeezy-boost-700-mnvn-kids-geode-gy4805",
+                "stadiumGoods": ""
+            }
+        }
+    ]
+}
