@@ -1,13 +1,10 @@
+
 import { GET_ALL_PRODUCTS } from "../actions/types";
-
-
-
 
 const intialState = {
     products:[],
     allProducts:[],
 };
-
 
 export default function rootReducer (state = intialState, {type, payload}){
     switch (type) {
@@ -17,10 +14,9 @@ export default function rootReducer (state = intialState, {type, payload}){
                 products: payload,
                 allProducts: payload,
             };
-        default: 
+        default:
             return {
-            ...state
-            }
-        
-        }
+                ...state,
+            };
+    }
 }
