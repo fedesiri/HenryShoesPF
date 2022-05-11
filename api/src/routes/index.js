@@ -15,9 +15,4 @@ const router = Router();
 
 router.get("/detail/:id", getDetails);
 
-
-
 module.exports = router;
-
-
-

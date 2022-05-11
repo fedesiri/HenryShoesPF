@@ -1,5 +1,5 @@
 
-const { Models } = require("../../db");
+const { Models } = require("../db");
 
 const getDetails = async (req, res) => {
     let id = req.params.id
