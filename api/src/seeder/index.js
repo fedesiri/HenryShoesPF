@@ -35,6 +35,8 @@ async function seeder(){
                     gender: shoe.gender?shoe.gender:"generic",
                     model: shoe.name?shoe.name:"generic",
                     price: shoe.estimatedMarketValue?shoe.estimatedMarketValue:100,
+                    description: shoe.story ? shoe.story : "The footwear that everyone wants to have",
+                    images: shoe.image.original ? shoe.image.original : "https://image.goat.com/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png"
                  }
                 })
         })

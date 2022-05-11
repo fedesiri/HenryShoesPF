@@ -9,38 +9,40 @@ import {
     SET_CURRENT_PAGE
 } from "./types"
 
-export const getAllProducts = (model)=>{
-    return (dispatch) =>{
-        axios.get(`http://localhost:3001/zapatillas?name=${model ? model : ""}`)
-        .then((response)=>{
-            return dispatch({
-            type: GET_ALL_PRODUCTS,
-            payload: response.data,
+
+export const getAllProducts = () => {
+    return dispatch => {
+        axios
+            .get("http://localhost:3001/models")
+            .then(response => {
+                return dispatch({
+                    type: GET_ALL_PRODUCTS,
+                    payload: response.data,
+                });
+            })
+            .catch(error => {
+                alert(error.response.data.message);
             });
-        })
-        .catch((error) => {
-            alert(error.response.data.message);
-        });
-    }
+    };
 };
 
 export function getProductById(payload) {
     return function (dispatch) {
         try {
-           // direccion a cambiar 
-            return fetch(`http://localhost:3001/zapatillas/${payload}`)
+            // direccion a cambiar
+            return fetch(`http://localhost:3001/models/${payload}`)
                 .then(response => response.json())
                 .then(details => {
                     dispatch({
                         type: GET_PRODUCT_BY_ID,
-                        payload: details.data
+                        payload: details.data,
                     });
-                })
+                });
         } catch (error) {
             alert(error.details.data.message);
         }
     };
-};
+}
 
 export const createCategory = (category)=>{
     return async (dispatch)=>{
@@ -54,17 +56,6 @@ export const createCategory = (category)=>{
             console.log(error)
         }
     }
-};
-
-export function postLogIn (payload) {
-    return async function (dispatch) {
-        // cambiar la ruta
-        const result = await axios.post("http://localhost:3001/zapatillas", payload);
-        return dispatch({
-            type: POST_LOG_IN,
-            payload: result
-        })
-    };
 };
     
 export const filterByBrands = filter => {
@@ -80,6 +71,16 @@ export const filterByGender = filter => {
         payload: filter,
     };
 };
+
+
+export function postLogIn(payload) {
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.post("http://localhost:3001/models", payload);
+        return dispatch({
+            type: POST_LOG_IN,
+            payload: result,
+        });
 
 export const orderProducts = (payload)=>{
     return {
