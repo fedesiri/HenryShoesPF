@@ -19,32 +19,33 @@ const jsonRead = JSON.parse(
 
 //console.log("probandoooooo")
 
-async function seeder(){
+async function seeder() {
     const shoes = jsonRead.result;
-    console.log(shoes[0], "esto es shoes")
+    // console.log(shoes[0], "esto es shoes")
     //console.log('funcion seeder')
-    
-    try{
-    const dbFull = await Models.findAll();
-    if(dbFull.length>0){console.log("la base ya tiene datos")}
-    else{
-        shoes.map ((shoe) => {
-             Models.findOrCreate({
-                 where: {
-                    brandId: shoe.brand?shoe.brand:"generic",
-                    gender: shoe.gender?shoe.gender:"generic",
-                    model: shoe.name?shoe.name:"generic",
-                    price: shoe.estimatedMarketValue?shoe.estimatedMarketValue:100,
-                 }
-                })
-        })
-        return "Database is Loaded";
-    }
-    }catch(err){
-        console.log(err)
-    };}
 
-module.exports = {seeder}
+    try {
+        const dbFull = await Models.findAll();
+        if (dbFull.length > 0) { console.log("la base ya tiene datos") }
+        else {
+            shoes.map((shoe) => {
+                Models.findOrCreate({
+                    where: {
+                        brandId: shoe.brand ? shoe.brand : "generic",
+                        gender: shoe.gender ? shoe.gender : "generic",
+                        model: shoe.name ? shoe.name : "generic",
+                        price: shoe.estimatedMarketValue ? shoe.estimatedMarketValue : 100,
+                    }
+                })
+            })
+            return "Database is Loaded";
+        }
+    } catch (err) {
+        console.log(err)
+    };
+}
+
+module.exports = { seeder }
 
 // const getApiCountries = async () => {
 //     try {
