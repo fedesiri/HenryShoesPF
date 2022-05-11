@@ -1,13 +1,14 @@
-
 import { 
-  GET_ALL_PRODUCTS, 
-  GET_PRODUCT_BY_ID,
-  CREATE_CATEGORY,
-  POST_LOG_IN, 
-  FILTER_BY_BRANDS, 
-  FILTER_BY_GENDER, 
-  ORDER_PRODUCTS 
+    GET_ALL_PRODUCTS, 
+    GET_PRODUCT_BY_ID,
+    CREATE_CATEGORY,
+    POST_LOG_IN, 
+    FILTER_BY_BRANDS, 
+    FILTER_BY_GENDER, 
+    ORDER_PRODUCTS, 
+    SET_CURRENT_PAGE
 } from "./types"
+
 
 export const getAllProducts = () => {
     return dispatch => {
@@ -55,16 +56,6 @@ export const createCategory = (category)=>{
             console.log(error)
         }
     }
-
-export function postLogIn (payload) {
-    return async function (dispatch) {
-        // cambiar la ruta
-        const result = await axios.post("http://localhost:3001/zapatillas", payload);
-        return dispatch({
-            type: POST_LOG_IN,
-            payload: result
-        })
-    };
 };
     
 export const filterByBrands = filter => {
@@ -96,4 +87,11 @@ export const orderProducts = (payload)=>{
         type: ORDER_PRODUCTS,
         payload,
     };
-}
+};
+
+export const setCurrentPage = (payload) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload,
+    };
+};

@@ -7,6 +7,7 @@ const intialState = {
     allProducts:[],
     postMsj: [],
     details: {},
+    page: 1,
 };
 
 export default function rootReducer (state = intialState, {type, payload}){
