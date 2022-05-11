@@ -1,5 +1,13 @@
-import { CREATE_CATEGORY, GET_ALL_PRODUCTS, ORDER_PRODUCTS } from "./types"
 
+import { 
+  GET_ALL_PRODUCTS, 
+  GET_PRODUCT_BY_ID,
+  CREATE_CATEGORY,
+  POST_LOG_IN, 
+  FILTER_BY_BRANDS, 
+  FILTER_BY_GENDER, 
+  ORDER_PRODUCTS 
+} from "./types"
 
 export const getAllProducts = ()=>{
     return (dispatch) =>{
@@ -16,10 +24,21 @@ export const getAllProducts = ()=>{
     }
 };
 
-export const orderProducts = (payload)=>{
-    return {
-        type: ORDER_PRODUCTS,
-        payload,
+export function getProductById(payload) {
+    return function (dispatch) {
+        try {
+           // direccion a cambiar 
+            return fetch(`http://localhost:3001/zapatillas/${payload}`)
+                .then(response => response.json())
+                .then(details => {
+                    dispatch({
+                        type: GET_PRODUCT_BY_ID,
+                        payload: details.data
+                    });
+                })
+        } catch (error) {
+            alert(error.details.data.message);
+        }
     };
 };
 
@@ -35,4 +54,35 @@ export const createCategory = (category)=>{
             console.log(error)
         }
     }
+
+export function postLogIn (payload) {
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.post("http://localhost:3001/zapatillas", payload);
+        return dispatch({
+            type: POST_LOG_IN,
+            payload: result
+        })
+    };
+};
+    
+export const filterByBrands = filter => {
+    return {
+        type: FILTER_BY_BRANDS,
+        payload: filter,
+    };
+};
+
+export const filterByGender = filter => {
+    return {
+        type: FILTER_BY_GENDER,
+        payload: filter,
+    };
+};
+
+export const orderProducts = (payload)=>{
+    return {
+        type: ORDER_PRODUCTS,
+        payload,
+    };
 };
