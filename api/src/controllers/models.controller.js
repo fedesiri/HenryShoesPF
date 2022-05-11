@@ -4,8 +4,8 @@ const { Op } = require("sequelize");
 const getAllModels = async (req, res) => {
   try {
     const allModels = await Models.findAll();
-   
-    if(req.query.model) {
+
+    if (req.query.model) {
       let shoes = await Models.findAll({
         where: {
           model: {
@@ -13,12 +13,12 @@ const getAllModels = async (req, res) => {
           }
         }
       })
-      if(shoes.length === 0) {
-        return res.status(404).send({message: "No shoes found"});
-      } else{
+      if (shoes.length === 0) {
+        return res.status(404).send({ message: "No shoes found" });
+      } else {
         res.status(200).send(shoes);
       }
-    }else{
+    } else {
       res.status(200).send(allModels);
     }
   } catch (error) {
@@ -67,8 +67,38 @@ const getAllBrands = (req, res) => {
     });
 };
 
+
+
+
+const getDetails = async (req, res) => {
+  let id = req.params.id
+  try {
+    const Models_Id = await Models.findByPk(id)
+    if (Models_Id !== null) {
+      res.status(200).json(Models_Id)
+    } else {
+      res.status(404).send({ message: "Models not found" })
+    }
+
+  } catch (err) {
+    console.log(err, "error en busqueda por id")
+    res.send({ message: "fallo" });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
 module.exports = {
   getAllModels,
   getAllModelsByBrand,
   getAllBrands,
+  getDetails
 };
