@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS } from "../actions/types";
+import { GET_ALL_PRODUCTS, ORDER_PRODUCTS } from "../actions/types";
 
 
 
@@ -17,6 +17,21 @@ export default function rootReducer (state = intialState, {type, payload}){
                 products: payload,
                 allProducts: payload,
             };
+        case ORDER_PRODUCTS:
+            let ordered = state.products;
+            payload === "Mayor precio" && ordered.sort((a,b)=>{
+                return b.prices - a.prices;
+            });
+            payload === "Menor precio" && ordered.sort((a, b)=> {
+                return a.prices - b.prices;
+            });
+            payload === "Mas recientes" && ordered.sort((a, b)=>{
+                return b.releaseDate - a.releaseDate;
+            });
+            payload === "Menos recientes" && ordered.sort((a, b)=>{
+                return a.releaseDate - b.releaseDate;
+            })
+            return { ...state, product: ordered};
         default: 
             return {
             ...state

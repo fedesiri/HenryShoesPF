@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS } from "./types"
+import { CREATE_CATEGORY, GET_ALL_PRODUCTS, ORDER_PRODUCTS } from "./types"
 
 
 export const getAllProducts = ()=>{
@@ -16,3 +16,23 @@ export const getAllProducts = ()=>{
     }
 };
 
+export const orderProducts = (payload)=>{
+    return {
+        type: ORDER_PRODUCTS,
+        payload,
+    };
+};
+
+export const createCategory = (category)=>{
+    return async (dispatch)=>{
+        try {
+            await axios.post("base de datos HenryShoes", category);
+            return dispatch({
+                type: CREATE_CATEGORY,
+            });
+        } catch (error) {
+
+            console.log(error)
+        }
+    }
+};
