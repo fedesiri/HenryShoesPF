@@ -1,17 +1,17 @@
-
 import { 
-  GET_ALL_PRODUCTS, 
-  GET_PRODUCT_BY_ID,
-  CREATE_CATEGORY,
-  POST_LOG_IN, 
-  FILTER_BY_BRANDS, 
-  FILTER_BY_GENDER, 
-  ORDER_PRODUCTS 
+    GET_ALL_PRODUCTS, 
+    GET_PRODUCT_BY_ID,
+    CREATE_CATEGORY,
+    POST_LOG_IN, 
+    FILTER_BY_BRANDS, 
+    FILTER_BY_GENDER, 
+    ORDER_PRODUCTS, 
+    SET_CURRENT_PAGE
 } from "./types"
 
-export const getAllProducts = ()=>{
+export const getAllProducts = (model)=>{
     return (dispatch) =>{
-        axios.get("base de datos Henryshoes")
+        axios.get(`http://localhost:3001/zapatillas?name=${model ? model : ""}`)
         .then((response)=>{
             return dispatch({
             type: GET_ALL_PRODUCTS,
@@ -54,6 +54,7 @@ export const createCategory = (category)=>{
             console.log(error)
         }
     }
+};
 
 export function postLogIn (payload) {
     return async function (dispatch) {
@@ -83,6 +84,13 @@ export const filterByGender = filter => {
 export const orderProducts = (payload)=>{
     return {
         type: ORDER_PRODUCTS,
+        payload,
+    };
+};
+
+export const setCurrentPage = (payload) => {
+    return {
+        type: SET_CURRENT_PAGE,
         payload,
     };
 };

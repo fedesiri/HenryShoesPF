@@ -32,7 +32,7 @@ const FormularioInicio = () => {
   function handleSubmit(e) {
     e.preventDefault();
     if ((input.email === "" ||  input.password === "" )) {
-      return alert("No se puede enviar , complete las categorias");
+      return alert("complete las categorias");
     } else {
         dispatch(postInicioSesion(input));
       setInput({
@@ -78,18 +78,18 @@ const FormularioInicio = () => {
 
 
   return (
-    <>
-    <h1> Ingresar a mi cuenta</h1>
+    <div>
+    <h3>Login</h3>
 
     <form  onSubmit={e => handleSubmit(e)}  >
-    <label >Email:
-            <input  type="email"
-              name="email"
-              placeholder="Email"
-              value={input.email}
-              onChange={e => handleChange(e)}
-            />
-          </label>
+      <label >Email:
+        <input  type="email"
+          name="email"
+          placeholder="Email"
+          value={input.email}
+          onChange={e => handleChange(e)}
+        />
+      </label>
 
           <label >Password:
             <input  type="password"
@@ -100,22 +100,10 @@ const FormularioInicio = () => {
             />
           </label>
 
-<button type='submit'> Iniciar sesión</button>
-<Link to="/create_cuenta" >  <div> Crear cuenta</div> </Link>
-
- 
-
-
-
+<button type='submit'>Enter</button>
     </form>
-    
-    
-    
-    
-    
-    
-    
-    </>
+    <Link to="/create_cuenta" >  <div> Crear cuenta</div> </Link>
+    </div>
   )
 }
 
