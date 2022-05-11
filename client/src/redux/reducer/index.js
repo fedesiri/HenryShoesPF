@@ -1,9 +1,10 @@
-
-import { GET_ALL_PRODUCTS } from "../actions/types";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT } from "../actions/types";
 
 const intialState = {
     products:[],
     allProducts:[],
+    postMsj: [],
+    details: {},
 };
 
 export default function rootReducer (state = intialState, {type, payload}){
@@ -14,9 +15,25 @@ export default function rootReducer (state = intialState, {type, payload}){
                 products: payload,
                 allProducts: payload,
             };
-        default:
+        case GET_PRODUCT_BY_ID:
             return {
                 ...state,
+                details: payload,
             };
+        case POST_LOG_IN:
+            return {
+                ...state,
+                postMsj: payload,
+            };
+        default:
+            return { ...state };
     }
 }
+
+
+
+
+
+
+
+
