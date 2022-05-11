@@ -1,14 +1,25 @@
-import { FILTER_BY_BRANDS, FILTER_BY_GENDER, CALL_ID, POST_RESULT  } from "../actions";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER  } from "../actions/types";
 
 const intialState = {
-    allProducts: [],
-    products: [],
-    details: [],
-    postmsj: [],
+    products:[],
+    allProducts:[],
+    postMsj: [],
+    details: {},
 };
 
-export default function rootReducer(state = intialState, { type, payload }) {
+export default function rootReducer (state = intialState, {type, payload}){
     switch (type) {
+        case GET_ALL_PRODUCTS:
+            return {
+                ...state,
+                products: payload,
+                allProducts: payload,
+            };
+        case GET_PRODUCT_BY_ID:
+            return {
+                ...state,
+                details: payload,
+            };
         case FILTER_BY_BRANDS:
             let productFiltersByBrands = [...state.allProducts];
             let shoesByBrand = [];
@@ -20,15 +31,10 @@ export default function rootReducer(state = intialState, { type, payload }) {
                         }
                     }
                 }
-                return {
-                    ...state,
-                    products: shoesByBrand,
-                };
+                return { ...state, products: shoesByBrand };
             }
-            return {
-                ...state,
-                allProducts: allProducts,
-            };
+            return { ...state, products: allProducts};
+        
         case FILTER_BY_GENDER:
             let productFiltersByGender = [...state.allProducts];
             let shoesByGender = [];
@@ -40,34 +46,17 @@ export default function rootReducer(state = intialState, { type, payload }) {
                         }
                     }
                 }
-                return {
-                    ...state,
-                    products: shoesByGender,
-                };
+                return { ...state, products: shoesByGender };
             }
+            return { ...state, products: allProducts }
+        
+        case POST_LOG_IN:
             return {
                 ...state,
-                allProducts: allProducts,
+                postMsj: payload,
             };
-
-        case CALL_ID:
-            return {
-                ...state,
-                details: payload,
-            }
-
-        case POST_RESULT:
-            return {
-                ...state,
-                postmsj: payload,
-
-            };
-
         default:
-            return {
-                ...state
-            }
-
+            return { ...state };
     }
 }
 
