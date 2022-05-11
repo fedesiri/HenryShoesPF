@@ -26,6 +26,28 @@ const getAllModels = async (req, res) => {
   }
 };
 
+const getAllModelsByBrand = async (req, res) => {
+  let { id } = req.params;
+  id.toLowerCase();
+  try {
+    const brand = await Models.findAll({
+      where: {
+        brandId: {
+          [Op.iLike]: `%${id}%`,
+        },
+      },
+    });
+    if (brand.length !== 0) {
+      res.status(200).send(brand);
+    } else {
+      res.status(404).send({ message: "No brand found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllModels,
+  getAllModelsByBrand
 };
