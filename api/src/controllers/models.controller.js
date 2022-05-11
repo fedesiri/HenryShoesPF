@@ -2,6 +2,7 @@ const { Models, Brands, Colors, Stocks, Sizes } = require("../db.js");
 const { Op } = require("sequelize");
 
 const getAllModels = async (req, res) => {
+
   try {
     const allModels = await Models.findAll();
 
@@ -21,50 +22,44 @@ const getAllModels = async (req, res) => {
     } else {
       res.status(200).send(allModels);
     }
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
 };
 
-
 const getAllModelsByBrand = async (req, res) => {
-  let { id } = req.params;
-  id.toLowerCase();
-  try {
-    const brand = await Models.findAll({
-      where: {
-        brandId: {
-          [Op.iLike]: `%${id}%`,
-        },
-      },
-    });
-    if (brand.length !== 0) {
-      res.status(200).send(brand);
-    } else {
-      res.status(404).send({ message: "No brand found" });
+    let { id } = req.params;
+    id.toLowerCase();
+    try {
+        const brand = await Models.findAll({
+            where: {
+                brandId: {
+                    [Op.iLike]: `%${id}%`,
+                },
+            },
+        });
+        if (brand.length !== 0) {
+            res.status(200).send(brand);
+        } else {
+            res.status(404).send({ message: "No brand found" });
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message });
     }
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-}
+};
 
 const getAllBrands = (req, res) => {
-  Models.findAll({
-    attributes: ["brandId"],
-  })
-    .then((brands) => {
-      if (brands.length === 0) {
-        res.status(404).send({ message: "No brands found" });
-      } else {
-        const brandSet = Array.from(
-          new Set(brands.map((brand) => brand.brandId))
-        );
-        res.status(200).send(brandSet);
-      }
+    Models.findAll({
+        attributes: ["brandId"],
     })
-    .catch((error) => {
-      res.status(500).send({ message: error.message });
-    });
+        .then(brands => {
+            if (brands.length === 0) {
+                res.status(404).send({ message: "No brands found" });
+            } else {
+                const brandSet = Array.from(new Set(brands.map(brand => brand.brandId)));
+                res.status(200).send(brandSet);
+            }
+        })
+        .catch(error => {
+            res.status(500).send({ message: error.message });
+        });
 };
 
 
@@ -75,5 +70,4 @@ module.exports = {
   getAllModels,
   getAllModelsByBrand,
   getAllBrands,
-
 };
