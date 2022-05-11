@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {
     getDetails
-} = require("./controllers/details.controller");
+} = require("../controllers/details.controller");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
