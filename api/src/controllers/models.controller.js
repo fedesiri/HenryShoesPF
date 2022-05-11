@@ -26,6 +26,29 @@ const getAllModels = async (req, res) => {
   }
 };
 
+
+async function GetShoesByGender (req,res){
+    
+  const gender = req.params.gender
+
+  try{
+  
+  const ShoesByGender = await Shoes.findOne({
+        
+    where:{
+         gender: gender
+          }
+    });
+    res.send(ShoesByGender)
+    }catch(error)
+    {
+      res.status(404).send({message: error.message})
+    }
+}
+
+
+
 module.exports = {
   getAllModels,
+  GetShoesByGender,
 };
