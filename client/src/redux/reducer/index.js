@@ -1,5 +1,6 @@
 const intialState = {
     details: [],
+    postmsj: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -12,7 +13,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 details: payload,
             }
 
+        case "POST_RESULT":
+            return {
+                ...state,
+                postmsj: payload,
 
+            };
 
         default:
             return {

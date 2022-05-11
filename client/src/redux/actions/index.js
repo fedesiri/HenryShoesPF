@@ -16,3 +16,18 @@ export function callId(payload) {
         }
     };
 }
+
+export function postInicioSesion(payload) {
+    return async function (dispatch) {
+        //----------------
+        // cambiar la ruta
+        //---------------------
+
+        const result = await axios.post("http://localhost:3001/zapatillas", payload);
+        return dispatch({
+            type: "POST_RESULT",
+            payload: result
+        })
+
+    }
+}
