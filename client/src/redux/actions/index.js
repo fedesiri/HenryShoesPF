@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_LOG_IN } from "./types"
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_LOG_IN, FILTER_BY_BRANDS, FILTER_BY_GENDER } from "./types"
 
 
 export const getAllProducts = ()=>{
@@ -19,9 +19,7 @@ export const getAllProducts = ()=>{
 export function getProductById(payload) {
     return function (dispatch) {
         try {
-            // -----------------------
-            // direccion a cambiar 
-            //-----------------------------------
+           // direccion a cambiar 
             return fetch(`http://localhost:3001/zapatillas/${payload}`)
                 .then(response => response.json())
                 .then(details => {
@@ -34,19 +32,29 @@ export function getProductById(payload) {
             alert(error.details.data.message);
         }
     };
-}
+};
+
+export const filterByBrands = filter => {
+    return {
+        type: FILTER_BY_BRANDS,
+        payload: filter,
+    };
+};
+
+export const filterByGender = filter => {
+    return {
+        type: FILTER_BY_GENDER,
+        payload: filter,
+    };
+};
 
 export function postLogIn (payload) {
     return async function (dispatch) {
-        //----------------
         // cambiar la ruta
-        //---------------------
         const result = await axios.post("http://localhost:3001/zapatillas", payload);
         return dispatch({
             type: POST_LOG_IN,
             payload: result
         })
-
-    }
-}
-
+    };
+};
