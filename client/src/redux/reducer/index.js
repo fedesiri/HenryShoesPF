@@ -1,4 +1,6 @@
+
 import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER  } from "../actions/types";
+
 
 const intialState = {
     products:[],
@@ -15,11 +17,19 @@ export default function rootReducer (state = intialState, {type, payload}){
                 products: payload,
                 allProducts: payload,
             };
+
         case GET_PRODUCT_BY_ID:
             return {
                 ...state,
                 details: payload,
             };
+
+        case POST_LOG_IN:
+            return {
+                ...state,
+                postMsj: payload,
+            };
+        
         case FILTER_BY_BRANDS:
             let productFiltersByBrands = [...state.allProducts];
             let shoesByBrand = [];
@@ -50,11 +60,22 @@ export default function rootReducer (state = intialState, {type, payload}){
             }
             return { ...state, products: allProducts }
         
-        case POST_LOG_IN:
-            return {
-                ...state,
-                postMsj: payload,
-            };
+        case ORDER_PRODUCTS:
+            let ordered = state.products;
+            payload === "Mayor precio" && ordered.sort((a,b)=>{
+                return b.prices - a.prices;
+            });
+            payload === "Menor precio" && ordered.sort((a, b)=> {
+                return a.prices - b.prices;
+            });
+            payload === "Mas recientes" && ordered.sort((a, b)=>{
+                return b.releaseDate - a.releaseDate;
+            });
+            payload === "Menos recientes" && ordered.sort((a, b)=>{
+                return a.releaseDate - b.releaseDate;
+            })
+            return { ...state, product: ordered};
+        
         default:
             return { ...state };
     }
