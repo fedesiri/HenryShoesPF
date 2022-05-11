@@ -1,8 +1,10 @@
-import { FILTER_BY_BRANDS, FILTER_BY_GENDER } from "../actions";
+import { FILTER_BY_BRANDS, FILTER_BY_GENDER, CALL_ID, POST_RESULT  } from "../actions";
 
 const intialState = {
     allProducts: [],
     products: [],
+    details: [],
+    postmsj: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -47,9 +49,32 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 allProducts: allProducts,
             };
-        default:
+
+        case CALL_ID:
             return {
                 ...state,
+                details: payload,
+            }
+
+        case POST_RESULT:
+            return {
+                ...state,
+                postmsj: payload,
+
             };
+
+        default:
+            return {
+                ...state
+            }
+
     }
 }
+
+
+
+
+
+
+
+
