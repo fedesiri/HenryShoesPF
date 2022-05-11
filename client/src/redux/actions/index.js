@@ -1,4 +1,22 @@
-export function callId(payload) {
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_LOG_IN } from "./types"
+
+
+export const getAllProducts = ()=>{
+    return (dispatch) =>{
+        axios.get("base de datos Henryshoes")
+        .then((response)=>{
+            return dispatch({
+            type: GET_ALL_PRODUCTS,
+            payload: response.data,
+            });
+        })
+        .catch((error) => {
+            alert(error.response.data.message);
+        });
+    }
+};
+
+export function getProductById(payload) {
     return function (dispatch) {
         try {
             // -----------------------
@@ -8,26 +26,27 @@ export function callId(payload) {
                 .then(response => response.json())
                 .then(details => {
                     dispatch({
-                        type: "CALL_ID", payload: details
+                        type: GET_PRODUCT_BY_ID,
+                        payload: details.data
                     });
                 })
         } catch (error) {
-            throw new Error(error)
+            alert(error.details.data.message);
         }
     };
 }
 
-export function postInicioSesion(payload) {
+export function postLogIn (payload) {
     return async function (dispatch) {
         //----------------
         // cambiar la ruta
         //---------------------
-
         const result = await axios.post("http://localhost:3001/zapatillas", payload);
         return dispatch({
-            type: "POST_RESULT",
+            type: POST_LOG_IN,
             payload: result
         })
 
     }
 }
+
