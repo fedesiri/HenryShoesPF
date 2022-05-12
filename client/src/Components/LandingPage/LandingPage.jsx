@@ -2,7 +2,7 @@ import React from 'react'
 import './LandinPage.css'
 import Slider from './Slider'
 import Promotion from './Promotion'
-
+import BestSellers from './BestSellers'
 
 
 
@@ -24,6 +24,7 @@ const LandingPage = () => {
    <hr/>
 
    <h2>Destacados</h2>
+   <BestSellers/>
 
 
 
