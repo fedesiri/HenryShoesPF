@@ -1,4 +1,4 @@
-export default function Filter({ shoes, handleOrdered, handleFilterGender, handleFilterBrands }) {
+export default function Filter({ products, handleOrdered, handleFilterGender, handleFilterBrands }) {
     return (
         <div>
             <select onChange={handleOrdered}>
@@ -22,7 +22,7 @@ export default function Filter({ shoes, handleOrdered, handleFilterGender, handl
 
             <select name="select" onChange={handleFilterBrands}>
                 <option value="filterByBrands">Brands</option>
-                {shoes?.map(brand => {
+                {products?.map(brand => {
                     return (
                         <option value={brand.brand} key={brand.id}>
                             {brand.brand}
