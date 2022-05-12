@@ -7,6 +7,7 @@ import {
     FILTER_BY_GENDER,
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
+    GET_ALL_BRANDS,
 } from "./types";
 
 export const getAllProducts = () => {
@@ -92,5 +93,21 @@ export const setCurrentPage = payload => {
     return {
         type: SET_CURRENT_PAGE,
         payload,
+    };
+};
+
+export const getAllBrands = () => {
+    return dispatch => {
+        axios
+            .get("http://localhost:3001/brand")
+            .then(response => {
+                return dispatch({
+                    type: GET_ALL_BRANDS,
+                    payload: response.data,
+                });
+            })
+            .catch(error => {
+                alert(error.response.data.message);
+            });
     };
 };

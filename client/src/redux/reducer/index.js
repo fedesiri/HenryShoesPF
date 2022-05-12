@@ -1,5 +1,5 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER  } from "../actions/types";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS  } from "../actions/types";
 
 
 const intialState = {
@@ -8,6 +8,7 @@ const intialState = {
     postMsj: [],
     details: {},
     page: 1,
+    brands: [],
 };
 
 export default function rootReducer (state = intialState, {type, payload}){
@@ -76,6 +77,12 @@ export default function rootReducer (state = intialState, {type, payload}){
                 return a.releaseDate - b.releaseDate;
             })
             return { ...state, product: ordered};
+
+        case GET_ALL_BRANDS:
+            return{
+                ...state,
+                brands: payload
+            }
         
         default:
             return { ...state };
