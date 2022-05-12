@@ -1,11 +1,13 @@
 var express = require("express");
-
-const { getAllModels, getAllBrands, getAllModelsByBrand } = require("../controllers/products.controller");
+const { getAllProducts, getAllBrands, GetShoesByGender } = require("../controllers/products.controller");
 const { getDetails } = require("../controllers/details.controller");
-var models = express.Router();
 
-models.get("/", getAllModels);
-models.get("/brand", getAllBrands);
-models.get("/brand/:id", getAllModelsByBrand);
-models.get("/details/:id", getDetails);
-module.exports = models;
+var products = express.Router();
+
+products.get("/", getAllProducts);
+products.get("/brand", getAllBrands);
+products.get("/gender/:gender", GetShoesByGender);
+products.get("/details/:id", getDetails);
+
+
+module.exports = products;
