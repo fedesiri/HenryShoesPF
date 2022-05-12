@@ -9,6 +9,8 @@ import {
     SET_CURRENT_PAGE,
     GET_ALL_BRANDS,
 } from "./types";
+const axios = require('axios')
+
 
 export const getAllProducts = () => {
     return dispatch => {

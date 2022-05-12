@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { postInicioSesion } from "../../redux/actions/index"
+import { postLogIn } from "../redux/actions/index"
 
 
 const FormularioInicio = () => {
@@ -34,7 +34,7 @@ const FormularioInicio = () => {
     if ((input.email === "" ||  input.password === "" )) {
       return alert("complete las categorias");
     } else {
-        dispatch(postInicioSesion(input));
+        dispatch(postLogIn(input));
       setInput({
         email: "",
         password: "",
