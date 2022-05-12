@@ -68,7 +68,6 @@ const Promotion = () => {
     const indexLastProduct = pagina * sizeArray
     const indexFirstProduct = indexLastProduct - sizeArray
     const currentProducto = product_Promotion.slice(indexFirstProduct, indexLastProduct)
-    const pageNumber=[1,2,3]
     if ( pagina=== 0){ 
         setPagina(3)
      }
@@ -88,7 +87,8 @@ const Promotion = () => {
 {  currentProducto.map(e => <div> 
     <img src={e.images} />
     <h3>{e.model}</h3> 
-<h3>{e.price}</h3>
+       <h3>{e.price}$ 20%</h3>       
+
 
 
  </div>)}

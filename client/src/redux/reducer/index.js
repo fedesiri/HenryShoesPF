@@ -1,5 +1,5 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS } from "../actions/types";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS, POST_LOG_IN, ORDER_PRODUCTS } from "../actions/types";
 
 
 const intialState = {
@@ -45,7 +45,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 }
                 return { ...state, products: shoesByBrand };
             }
-            return { ...state, products: allProducts };
+        // return { ...state, products: allProducts };
 
         case FILTER_BY_GENDER:
             let productFiltersByGender = [...state.allProducts];
@@ -60,7 +60,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 }
                 return { ...state, products: shoesByGender };
             }
-            return { ...state, products: allProducts }
+        // return { ...state, products: allProducts }
 
         case ORDER_PRODUCTS:
             let ordered = state.products;
