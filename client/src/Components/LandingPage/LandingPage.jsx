@@ -3,6 +3,8 @@ import './LandinPage.css'
 import Slider from './Slider'
 import Promotion from './Promotion'
 import BestSellers from './BestSellers'
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -12,6 +14,12 @@ const LandingPage = () => {
   return (
     <>
     <h1> HENRY SHOES</h1>
+<div>   
+<button>  <Link to="/login" > Inicio sesión </Link>   </button> 
+<button>   <Link to="/shopping_cart" > Carrito  </Link>  </button>
+</div>
+
+
     <>
     <Slider/>
     </>

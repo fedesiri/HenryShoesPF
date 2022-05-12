@@ -1,17 +1,17 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS  } from "../actions/types";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS } from "../actions/types";
 
 
 const intialState = {
-    products:[],
-    allProducts:[],
+    products: [],
+    allProducts: [],
     postMsj: [],
     details: {},
     page: 1,
     brands: [],
 };
 
-export default function rootReducer (state = intialState, {type, payload}){
+export default function rootReducer(state = intialState, { type, payload }) {
     switch (type) {
         case GET_ALL_PRODUCTS:
             return {
@@ -31,7 +31,7 @@ export default function rootReducer (state = intialState, {type, payload}){
                 ...state,
                 postMsj: payload,
             };
-        
+
         case FILTER_BY_BRANDS:
             let productFiltersByBrands = [...state.allProducts];
             let shoesByBrand = [];
@@ -45,8 +45,8 @@ export default function rootReducer (state = intialState, {type, payload}){
                 }
                 return { ...state, products: shoesByBrand };
             }
-            return { ...state, products: allProducts};
-        
+            return { ...state, products: allProducts };
+
         case FILTER_BY_GENDER:
             let productFiltersByGender = [...state.allProducts];
             let shoesByGender = [];
@@ -61,29 +61,29 @@ export default function rootReducer (state = intialState, {type, payload}){
                 return { ...state, products: shoesByGender };
             }
             return { ...state, products: allProducts }
-        
+
         case ORDER_PRODUCTS:
             let ordered = state.products;
-            payload === "Mayor precio" && ordered.sort((a,b)=>{
+            payload === "Mayor precio" && ordered.sort((a, b) => {
                 return b.prices - a.prices;
             });
-            payload === "Menor precio" && ordered.sort((a, b)=> {
+            payload === "Menor precio" && ordered.sort((a, b) => {
                 return a.prices - b.prices;
             });
-            payload === "Mas recientes" && ordered.sort((a, b)=>{
+            payload === "Mas recientes" && ordered.sort((a, b) => {
                 return b.releaseDate - a.releaseDate;
             });
-            payload === "Menos recientes" && ordered.sort((a, b)=>{
+            payload === "Menos recientes" && ordered.sort((a, b) => {
                 return a.releaseDate - b.releaseDate;
             })
-            return { ...state, product: ordered};
+            return { ...state, product: ordered };
 
         case GET_ALL_BRANDS:
-            return{
+            return {
                 ...state,
                 brands: payload
             }
-        
+
         default:
             return { ...state };
     }
