@@ -30,8 +30,6 @@ const getAllModels = async (req, res) => {
 async function GetShoesByGender (req,res){
     
   const gender = req.params.gender
-  console.log(gender, "esto es gender")
-  
 
   try{
   
@@ -45,7 +43,6 @@ async function GetShoesByGender (req,res){
     }catch(error)
     {
       res.status(500).send({message: error.message})
-      console.log("quii")
     }
 }
 
