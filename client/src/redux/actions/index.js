@@ -37,7 +37,7 @@ export function getProductById(payload) {
                 .then(details => {
                     dispatch({
                         type: GET_PRODUCT_BY_ID,
-                        payload: details.data,
+                        payload: details,
                     });
                 });
         } catch (error) {

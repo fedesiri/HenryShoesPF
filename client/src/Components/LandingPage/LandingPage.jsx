@@ -6,7 +6,7 @@ import BestSellers from './BestSellers'
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar'
 import NavBar from '../NavBar'
-import Filter from '../Filters'
+// import Filter from '../Filters'
 
 
 const LandingPage = () => {
@@ -26,7 +26,7 @@ const LandingPage = () => {
     <SearchBar/>
     <hr/>
     <> <h3> Filtrado por hombre, mujer , niños </h3></>
-    <Filter/>
+    {/* <Filter/> */}
     <hr/>
    <h2>Promociones</h2>
   <Promotion/> 
