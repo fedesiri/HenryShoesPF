@@ -1,8 +1,8 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
-import CatalogPage from "./components/catalogPage/CatalogPage";
-import LandingPage from './components/LandingPage/LandingPage';
-import FormularioInicio from './components/FormularioInicio'
+import CatalogPage from "./Components/catalogPage/catalogPage";
+import LandingPage from './Components/LandingPage/LandingPage';
+import FormularioInicio from './Components/FormularioInicio'
 
 
 function App() {

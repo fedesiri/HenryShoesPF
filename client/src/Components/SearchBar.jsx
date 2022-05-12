@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllProducts } from "../redux/actions";
+import { getAllProducts, getAllProductsByBrands, setCurrentPage } from "../redux/actions";
 
 export default function SearchBar() {
     const [search, setSearch] = useState("");
@@ -17,7 +17,9 @@ export default function SearchBar() {
         if (!search) {
             alert("Insert shoes name");
         } else {
+            dispatch(getAllProductsByBrands(search))
             dispatch(getAllProducts(search));
+            dispatch(setCurrentPage(1))
             setSearch("");
         }
     };
@@ -25,14 +27,13 @@ export default function SearchBar() {
     return (
         <div>
             <form onSubmit={handleOnClick}>
-                <input 
-                // className={s.inputBuscar} 
-                type="submit" value="Search" />
+                <button onClick={handleOnClick} >BUSCAR</button>
                 <input
                     type="text"
-                    placeholder="Shoes..."
+                    placeholder="Search Product..."
                     onChange={handleOnChange}
                     value={search}
+                    autoComplete="off"
                 />
             </form>
         </div>
