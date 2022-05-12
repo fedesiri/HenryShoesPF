@@ -90,6 +90,8 @@ const FormularioInicio = () => {
           onChange={e => handleChange(e)}
         />
       </label>
+      {error.email && (<p>{error.email} </p>)}
+
 
           <label >Password:
             <input  type="password"
@@ -99,10 +101,13 @@ const FormularioInicio = () => {
               onChange={e => handleChange(e)}
             />
           </label>
+          {error.password && (<p>{error.password} </p>)}
 
-<button type='submit'>Enter</button>
+
+<button type='submit'>Iniciar sesión</button>
+<Link to="/create_cuenta" >  <div> Crear cuenta</div> </Link>
     </form>
-    <Link to="/create_cuenta" >  <div> Crear cuenta</div> </Link>
+   
     </div>
   )
 }
