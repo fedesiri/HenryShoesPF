@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+const Product = require("./models/Products");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME);
@@ -40,25 +41,33 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 // const { Brands } = sequelize.models;
 const {
+  Products,
   Brands,
-  Colors,
-  Models,
-  Orders,
   Sizes,
-  Users,
-  ModelColors,
-  ModelColorSizes,
-  Stocks,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Models.belongsToMany(Colors, { through: ModelColors });
-Colors.belongsToMany(Models, { through: ModelColors });
+Brands.hasMany(Products, {
+  foreignKey: 'brandId',
+  sourceKey: 'id',
+})
 
-ModelColors.belongsToMany(Sizes, { through: ModelColorSizes });
-Sizes.belongsToMany(ModelColors, { through: ModelColorSizes });
+Products.belongsTo(Brands, {
+  foreignKey: 'brandId',
+  targetKey: 'id',
+})
+
+Products.belongsToMany(Sizes,{ through: "product_sizes" })
+Sizes.belongsToMany(Products,{ through: "product_sizes" })
+
+
+// Models.belongsToMany(Colors, { through: ModelColors });
+// Colors.belongsToMany(Models, { through: ModelColors });
+
+// ModelColors.belongsToMany(Sizes, { through: ModelColorSizes });
+// Sizes.belongsToMany(ModelColors, { through: ModelColorSizes });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -7,7 +7,7 @@ const router = Router();
 
 
 //* Routes' middlewares
-router.use('/models', modelsRoutes )
+router.use('/products', modelsRoutes )
 
 
 module.exports = router;
