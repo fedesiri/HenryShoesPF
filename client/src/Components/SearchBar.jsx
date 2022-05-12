@@ -25,7 +25,9 @@ export default function SearchBar() {
     return (
         <div>
             <form onSubmit={handleOnClick}>
-                <input className={s.inputBuscar} type="submit" value="Search" />
+                <input 
+                // className={s.inputBuscar} 
+                type="submit" value="Search" />
                 <input
                     type="text"
                     placeholder="Shoes..."
