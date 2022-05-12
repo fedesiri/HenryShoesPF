@@ -1,6 +1,6 @@
 var express = require("express");
 
-const { getAllModels, getAllBrands, getAllModelsByBrand } = require("../controllers/models.controller");
+const { getAllModels, getAllBrands, getAllModelsByBrand } = require("../controllers/products.controller");
 const { getDetails } = require("../controllers/details.controller");
 var models = express.Router();
 

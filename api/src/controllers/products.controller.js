@@ -1,12 +1,12 @@
-const { Models, Brands, Colors, Stocks, Sizes } = require("../db.js");
+const { Products, Brands, Colors, Stocks, Sizes } = require("../db.js");
 const { Op } = require("sequelize");
 
 const getAllModels = async (req, res) => {
     try {
-        const allModels = await Models.findAll();
+        const allModels = await Products.findAll();
 
         if (req.query.model) {
-            let shoes = await Models.findAll({
+            let shoes = await Products.findAll({
                 where: {
                     model: {
                         [Op.iLike]: `%${req.query.model}%`,
@@ -30,7 +30,7 @@ const getAllModelsByBrand = async (req, res) => {
     let { id } = req.params;
     id.toLowerCase();
     try {
-        const brand = await Models.findAll({
+        const brand = await Products.findAll({
             where: {
                 brandId: {
                     [Op.iLike]: `%${id}%`,
@@ -48,7 +48,7 @@ const getAllModelsByBrand = async (req, res) => {
 };
 
 const getAllBrands = (req, res) => {
-    Models.findAll({
+    Products.findAll({
         attributes: ["brandId"],
     })
         .then(brands => {
@@ -71,7 +71,7 @@ async function GetShoesByGender (req,res){
 
   try{
   
-  const ShoesByGender = await Models.findAll({
+  const ShoesByGender = await Products.findAll({
         
     where:{
          gender: gender

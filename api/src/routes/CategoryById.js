@@ -1,5 +1,5 @@
 var express = require("express");
-const { GetShoesByGender } = require("../controllers/models.controller");
+const { GetShoesByGender } = require("../controllers/products.controller");
 
 
 var models = express.Router();
