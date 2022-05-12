@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect} from "react";
 import { Link } from 'react-router-dom';
-import { callId } from "../../redux/actions/index"
+import { getProductById } from "../redux/actions/index"
 
 
 
@@ -19,7 +19,7 @@ const Details = () => {
 
     useEffect(() => {
 
-        dispatch(callId(addres))
+        dispatch(getProductById(addres))
 
 
 
