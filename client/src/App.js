@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import LandingPage from './Components/LandingPage/LandingPage';
 import FormularioInicio from './Components/FormularioInicio'
+import Details from './Components/Details'
 
 function App() {
     return (
@@ -11,7 +12,7 @@ function App() {
             <Route path="/home" />
             <Route path="/login" element={<FormularioInicio />} />
 
-            <Route path="/details" />
+            <Route path="/details" element={<Details />} />
             <Route path="/formInicio" />
 
 
