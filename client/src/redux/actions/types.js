@@ -6,3 +6,4 @@ export const POST_LOG_IN = "POST_LOG_IN";
 export const FILTER_BY_BRANDS = "FILTER_BY_BRANDS";
 export const FILTER_BY_GENDER = "FILTER_BY_GENDER";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+export const GET_ALL_BRANDS = "GET_ALL_BRANDS";
