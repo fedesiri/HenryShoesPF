@@ -6,7 +6,8 @@ import NavBar from "../NavBar";
 import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
-import CardProduct from "../CardProduct";
+import CardProduct from "../cardProduct";
+import SearchBar from "../SearchBar";
 
 
 export default function Catalog(){
@@ -79,6 +80,9 @@ export default function Catalog(){
                     handleFilterBrands={handleFilterBrands}
                     />
                 )}
+            </div>
+            <div>
+                <SearchBar/>
             </div>
             <Paged productsPerPage={productsPerPage}/>
             <div>

@@ -1,5 +1,6 @@
 import {
     GET_ALL_PRODUCTS,
+    GET_ALL_PRODUCTS_BY_BRANDS,
     GET_PRODUCT_BY_ID,
     CREATE_CATEGORY,
     POST_LOG_IN,
@@ -12,13 +13,29 @@ import {
 const axios = require('axios')
 
 
-export const getAllProducts = () => {
+export const getAllProducts = (name) => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/products")
+            .get(`http://localhost:3001/products/?name=${name ? name : ""}`)
             .then(response => {
                 return dispatch({
                     type: GET_ALL_PRODUCTS,
+                    payload: response.data,
+                });
+            })
+            .catch(error => {
+                alert(error.response.data.message);
+            });
+    };
+};
+
+export const getAllProductsByBrands = (brand) => {
+    return dispatch => {
+        axios
+            .get(`http://localhost:3001/products/?brand=${brand ? brand : ""}`)
+            .then(response => {
+                return dispatch({
+                    type: GET_ALL_PRODUCTS_BY_BRANDS,
                     payload: response.data,
                 });
             })

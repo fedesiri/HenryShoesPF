@@ -8,11 +8,13 @@ import {
     POST_LOG_IN, 
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
+    GET_ALL_PRODUCTS_BY_BRANDS,
 } from "../actions/types";
 
 
 const intialState = {
     products: [],
+    productsByBrand: [],
     allProducts: [],
     postMsj: [],
     details: {},
@@ -27,6 +29,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 products: payload,
                 allProducts: payload,
+            };
+        
+        case GET_ALL_PRODUCTS_BY_BRANDS:
+            return {
+                ...state,
+                productsByBrand: payload,
             };
 
         case GET_PRODUCT_BY_ID:

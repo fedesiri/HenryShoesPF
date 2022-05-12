@@ -7,22 +7,23 @@ const getAllProducts = async (req, res) => {
       include: Brands,
     });
 
-    if (req.query.brand) {
-      let shoes = await Brands.findAll({
-        include: Products,
-        where: {
-          name: {
-            [Op.iLike]: `%${req.query.brand}%`,
-          },
+    const { name } = req.query;
+    const productsName = await Products.findAll({
+      where: {
+        model: {
+          [Op.iLike]: `%${name}%`,
         },
-      });
-      if (shoes.length === 0) {
-        return res.status(404).send({ message: "No shoes found" });
+      },
+    });
+
+    if (name) {
+      if (productsName.length === 0) {
+        res.status(404).send({ message: "No products found" });
       } else {
-        res.status(200).send(shoes);
+        res.send(productsName);
       }
     } else {
-      res.status(200).send(allProducts);
+      res.send(allProducts);
     }
   } catch (error) {
     res.status(500).send({ message: error.message });
