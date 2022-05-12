@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 
 
-export default function CardProduct ({ id, brand, model, image, descripcion }){
+export default function CardProduct ({ id, model, description, price, image }){
     return (
         <div>
-            <Link to={`/home/detailProduct/${id}`}>
-                <img src={image} alt="image" />
+            <Link to={`/home/details/${id}`}>
+                <img src={image} alt="" height="200px"/>
                 <div>
                     <h2>{model}</h2>
-                    <h2>{brand}</h2>
                     <p>
-                        <span>Descripcion</span>:{descripcion} <br/>
+                        <span>price</span>:$ {price} <br />
+                    </p>
+                    <p>
+                        <span>Descripcion</span>: {description} <br/>
                     </p>
                 </div>
             </Link>

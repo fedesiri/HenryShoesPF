@@ -1,20 +1,17 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
-
-import LandingPage from './Components/LandingPage/LandingPage';
-import FormularioInicio from './Components/FormularioInicio'
+import CatalogPage from "./components/catalogPage/CatalogPage";
+import LandingPage from './components/LandingPage/LandingPage';
+import FormularioInicio from './components/FormularioInicio'
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/home" />
             <Route path="/login" element={<FormularioInicio />} />
-
-            <Route path="/details" />
+            <Route path="catalogPage" element={<CatalogPage/>} />
+            <Route path="/details/:id" />
             <Route path="/formInicio" />
-
-
         </Routes>
     );
 }

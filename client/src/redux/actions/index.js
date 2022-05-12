@@ -15,7 +15,7 @@ const axios = require('axios')
 export const getAllProducts = () => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/models")
+            .get("http://localhost:3001/products")
             .then(response => {
                 return dispatch({
                     type: GET_ALL_PRODUCTS,
