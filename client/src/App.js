@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from "react-router-dom";
 
 import LandingPage from './Components/LandingPage/LandingPage';
+import CreateProduct from './Components/CreateProduct';
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
             <Route path="/home" />
             <Route path="/details" />
             <Route path="/formInicio" />
+            <Route path="/CreateProduct" element={<CreateProduct/>}/>
 
 
         </Routes>

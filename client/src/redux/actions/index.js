@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     GET_ALL_PRODUCTS,
     GET_PRODUCT_BY_ID,
