@@ -11,7 +11,7 @@ export default function Filter({ products, handleOrdered, handleFilterGender, ha
 
             <select name="select" onChange={handleFilterGender}>
                 <option value="filterByGender">Gender</option>
-                {shoes?.map(elemento => {
+                {products?.map(elemento => {
                     return (
                         <option value={elemento.gender} key={elemento.id}>
                             {elemento.gender}

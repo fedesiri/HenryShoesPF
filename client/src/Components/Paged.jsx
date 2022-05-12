@@ -8,11 +8,11 @@ export default function Paged({ productsPerPage }) {
 
     const pageProducts = [];
 
-    const changePage = (pageNumber)=> {
+    const changePage = (pageNumber) => {
         dispatch(setCurrentPage(pageNumber));
     };
 
-    for( let i=1; i < Math.trunc((products.length / productsPerPage)+2); i++) {
+    for( let i=1; i < Math.ceil((products.length / productsPerPage)); i++) {
         pageProducts.push(i);
     }
 
@@ -27,17 +27,17 @@ export default function Paged({ productsPerPage }) {
                             Pagina {page} de {pageProducts.length}
                         </span>
                         <button onClick={() => changePage(page + 1)} disabled={page >= pageProducts.length}>NEXT</button>
-                        <button onClick={() => changePage(pageCountries.length)} disabled={page >= pageProducts.length}>LAST</button>
+                        <button onClick={() => changePage(pageProducts.length)} disabled={page >= pageProducts.length}>LAST</button>
                     </div>
                 </div>
             )}
-            <div>
+            {/* <div>
                 {pageProducts?.map((page) =>(
                     <span onClick={() => changePage(page)} key={page}>
                         {page}
                     </span>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }

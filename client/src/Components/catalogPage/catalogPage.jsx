@@ -3,12 +3,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByBrands, filterByGender, getAllProducts, orderProducts, setCurrentPage } from "../../redux/actions";
 import NavBar from "../NavBar";
-import SearchBar from "../SearchBar";
 import Filters from "../Filters";
-import Loader from "../Loader";
+import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../CardProduct";
-import noResults from "../../static/noResults";
+
 
 export default function Catalog(){
     const dispatch = useDispatch();
@@ -17,11 +16,14 @@ export default function Catalog(){
     const [filters, setFilters] = useState(false);
     const [ ,setOrder ] = useState();
 
-    const productsPerPage = 12;
-    const indexLastProduct= page * productsPerPage;
+    const productsPerPage = 6;
+    const indexLastProduct = page * productsPerPage;
     const indexFirstProduct = indexLastProduct - productsPerPage;
 
-    const currentProducts = products.slice(indexFirstProduct, indexLastProduct);
+    const currentProducts = products.slice(
+        indexFirstProduct, 
+        indexLastProduct
+    );
 
     const timer = (time) =>
         setTimeout(()=>{
@@ -66,7 +68,6 @@ export default function Catalog(){
     return (
         <div>
             <NavBar handleClick={handleClick}/>
-            <SearchBar />
             <div>
                 <button onClick={handleClick}>RELOAD</button>
                 <button onClick={()=> setFilters(!filters)} >Filters</button>
@@ -89,14 +90,13 @@ export default function Catalog(){
                                 <CardProduct
                                 key={index}
                                 id={product.id}
-                                brand={product.brand}
+                                price={product.price}
                                 model={product.model}
                                 image={product.image}
                                 description={product.description}
                                 /> 
                             ))) || (
                                 <div>
-                                    <img src={noResults} alt="no results" />
                                     <h2>No results found</h2>
                                 </div>                            
                             )
