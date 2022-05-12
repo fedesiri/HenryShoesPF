@@ -30,10 +30,12 @@ const getAllModels = async (req, res) => {
 async function GetShoesByGender (req,res){
     
   const gender = req.params.gender
+  console.log(gender, "esto es gender")
+  
 
   try{
   
-  const ShoesByGender = await Shoes.findOne({
+  const ShoesByGender = await Models.findAll({
         
     where:{
          gender: gender
@@ -42,7 +44,8 @@ async function GetShoesByGender (req,res){
     res.send(ShoesByGender)
     }catch(error)
     {
-      res.status(404).send({message: error.message})
+      res.status(500).send({message: error.message})
+      console.log("quii")
     }
 }
 
