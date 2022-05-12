@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const modelsRoutes = require("./models.js")
-const { GetShoesByGender } = require("../controllers/models.controller");
+const modelsRoutes = require("./products.js")
+const { GetShoesByGender } = require("../controllers/products.controller");
 
 
 

@@ -25,7 +25,7 @@ const {seeder} = require('../api/src/seeder/index.js');
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     console.log('Listening at 3001'); // eslint-disable-line no-
-    let load = await seeder();
+    // let load = await seeder();
    
   });
 });
