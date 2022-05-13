@@ -39,6 +39,7 @@ const jsonRead = JSON.parse(
 //     };}
 
 async function seeder() {
+
   const shoes = jsonRead.result;
   try {
     shoes.map(async (shoe) => {
@@ -52,6 +53,7 @@ async function seeder() {
           : "https://image.goat.com/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png",
         price: shoe.estimatedMarketValue ? shoe.estimatedMarketValue : 100,
         gender: shoe.gender ? shoe.gender : "unisex",
+        year: shoe.releaseYear,
       });
       const brandProduct = await Brands.findOne({
         where: {
@@ -73,7 +75,7 @@ async function seedBrand() {
       console.log("brands ya tiene datos");
     } else {
       shoes.map((brand) => {
-        Brands.findOrCreate({
+        Brands.findOrCreate({     
           where: {
             name: brand.brand,
           },
