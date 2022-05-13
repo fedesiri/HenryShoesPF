@@ -4,7 +4,6 @@ import Slider from './Slider'
 import Promotion from './Promotion'
 import BestSellers from './BestSellers'
 import { Link } from 'react-router-dom';
-import SearchBar from '../SearchBar'
 import NavBar from '../NavBar'
 import Filter from '../Filters'
 
@@ -12,7 +11,10 @@ import Filter from '../Filters'
 const LandingPage = () => {
   return (
     <>
-    <NavBar/>
+    
+      <NavBar/>
+    
+    
 <div>   
 <button>  <Link to="/login" > Inicio sesión </Link>   </button> 
 <button>   <Link to="/shopping_cart" > Carrito  </Link>  </button>
@@ -22,11 +24,9 @@ const LandingPage = () => {
     <>
     <Slider/>
     </>
-    <>  <h3> Search  </h3></>
-    <SearchBar/>
     <hr/>
     <> <h3> Filtrado por hombre, mujer , niños </h3></>
-    <Filter/>
+    
     <hr/>
    <h2>Promociones</h2>
   <Promotion/> 

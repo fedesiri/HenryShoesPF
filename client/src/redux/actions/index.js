@@ -118,7 +118,7 @@ export const setCurrentPage = payload => {
 export const getAllBrands = () => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/brand")
+            .get("http://localhost:3001/brands")
             .then(response => {
                 return dispatch({
                     type: GET_ALL_BRANDS,

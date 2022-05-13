@@ -1,4 +1,12 @@
-export default function Filter({ products, handleOrdered, handleFilterGender, handleFilterBrands }) {
+export default function Filter({ allProducts, handleOrdered, handleFilterGender, handleFilterBrands }) {
+     
+    let brands = [];
+    function allUniqueProducts (allProducts) {
+        allProducts?.map(product=> {if(!brands.includes(product.brand.name)) brands.push(product.brand.name)});
+        
+    }
+    allUniqueProducts(allProducts);
+    console.log(brands)
     return (
         <div>
             <select onChange={handleOrdered}>
@@ -8,28 +16,20 @@ export default function Filter({ products, handleOrdered, handleFilterGender, ha
                 <option value="Mas recientes">Mas recientes</option>
                 <option value="Menos recientes">Menos recientes</option>
             </select>
-
-            <select name="select" onChange={handleFilterGender}>
-                <option value="filterByGender">Gender</option>
-                {products?.map(elemento => {
-                    return (
-                        <option value={elemento.gender} key={elemento.id}>
-                            {elemento.gender}
-                        </option>
-                    );
-                })}
-            </select>
-
-            <select name="select" onChange={handleFilterBrands}>
-                <option value="filterByBrands">Brands</option>
-                {products?.map(brand => {
-                    return (
-                        <option value={brand.brand} key={brand.id}>
-                            {brand.brand}
-                        </option>
-                    );
-                })}
+            <select onChange={handleFilterBrands}>
+                <option value="All">All brands</option>
+                
+                {brands?.map((product, index) => (
+                <option key={index} value={product}>
+                    {product}
+                </option>
+                    ))}
             </select>
         </div>
     );
 }
+//function BreedGetter(dogsRedux){
+//dogsRedux?.map( dog => {if(!BreedGroups.includes(dog.breedGroup)) BreedGroups.push(dog.breedGroup)});
+//console.log(BreedGroups)
+//};
+//BreedGetter(dogsRedux);
