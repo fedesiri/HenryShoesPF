@@ -78,6 +78,7 @@ export default function Catalog(){
                     handleOrdered={handleOrdered}
                     handleFilterGender={handleFilterGender}
                     handleFilterBrands={handleFilterBrands}
+                    products={products}
                     />
                 )}
             </div>

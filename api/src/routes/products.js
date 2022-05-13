@@ -15,9 +15,11 @@ products.get("/brand", getAllBrands);
 products.get("/gender/:gender", GetShoesByGender);
 products.get("/details/:id", getDetails);
 
+products.post("/create", createProduct );
+
+
 products.post("/ofert", ofertSelect)
 
-products.post("/", createProduct );
 
 
 module.exports = products;

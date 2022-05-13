@@ -1,18 +1,18 @@
-export default function Filter({ allProducts, handleOrdered, handleFilterGender, handleFilterBrands }) {
+export default function Filter({ allProducts, handleOrdered, handleFilterGender, handleFilterBrands, products }) {
      
     let brands = [];
-    function allUniqueProducts (allProducts) {
-        allProducts?.map(product=> {if(!brands.includes(product.brand.name)) brands.push(product.brand.name)});
+    function allUniqueProducts (products) {
+        allProducts?.map(product=> {if(!brands.includes(product.brand?.name)) brands.push(product.brand?.name)});
         
     }
     allUniqueProducts(allProducts);
     console.log(brands)
 
-    // const genders = [];
-    // function allGenders (allProducts) {
-    //     allProducts?.map(product=> {if(!genders.includes(product.gender)) genders.push(product.brand.name)});    
-    // };
-    // allGenders(allProducts);
+    const genders = [];
+    function allGenders (allProducts) {
+        allProducts?.map(product=> {if(!genders.includes(product?.gender)) genders.push(product?.gender)});    
+    };
+    allGenders(allProducts);
 
     return (
         <div>
@@ -34,11 +34,11 @@ export default function Filter({ allProducts, handleOrdered, handleFilterGender,
             </select>
             <select onChange={handleFilterGender}>
                     <option value="filterByGender">All genders</option>
-                    <option value="infant">Infant</option>
-                    <option value="child">Child</option>
-                    <option value="unisex">Unisex</option>
-                    <option value="man">Man</option>
-                    <option value="women">Women</option>
+                    {genders?.map((product, index) => (
+                <option key={index} value={product}>
+                    {product}
+                </option>
+                    ))};
             </select>
         </div>
     );
