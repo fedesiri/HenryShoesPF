@@ -1,0 +1,38 @@
+.container{
+  width: 13rem;
+  border:solid thin;
+    border-radius: 2rem;
+    margin: 0.5rem;
+    position: relative;
+}
+.container >img{
+    width: 11rem;
+    height: 10rem;
+
+}
+.container >div{
+    position: relative;
+    width: 14rem;
+margin-top: -4rem;
+}
+.father{
+    display: flex;
+    flex-wrap: wrap;
+}
+.icono{
+    border:solid;
+    height: 1rem;
+    width: 1rem;
+    background: blueviolet;
+    position: absolute;
+    margin-top: -13rem;
+    margin-left: 10rem;
+    cursor: pointer;
+}
+.icono:hover{
+    background: red;
+}
+.mather{
+    display: flex;
+    flex-direction: column;
+}

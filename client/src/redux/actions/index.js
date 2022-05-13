@@ -9,6 +9,8 @@ import {
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
     GET_ALL_BRANDS,
+    SELECT_OFERT,
+    SEND_OFERT_BACK,
 } from "./types";
 const axios = require('axios')
 
@@ -130,3 +132,22 @@ export const getAllBrands = () => {
             });
     };
 };
+
+export const selectOfert = payload => {
+    return {
+        type: SELECT_OFERT,
+        payload,
+    };
+};
+
+
+export function sendOfertToBack(payload) {
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.post("http://localhost:3001/products/ofert", payload);
+        return dispatch({
+            type: SEND_OFERT_BACK,
+            payload: result,
+        });
+    };
+}

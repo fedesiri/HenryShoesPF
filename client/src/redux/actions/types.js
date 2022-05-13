@@ -8,3 +8,7 @@ export const FILTER_BY_BRANDS = "FILTER_BY_BRANDS";
 export const FILTER_BY_GENDER = "FILTER_BY_GENDER";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const GET_ALL_BRANDS = "GET_ALL_BRANDS";
+export const SELECT_OFERT = "SELECT_OFERT";
+export const SEND_OFERT_BACK = "SEND_OFERT_BACK";
+
+
