@@ -7,6 +7,13 @@ export default function Filter({ allProducts, handleOrdered, handleFilterGender,
     }
     allUniqueProducts(allProducts);
     console.log(brands)
+
+    // const genders = [];
+    // function allGenders (allProducts) {
+    //     allProducts?.map(product=> {if(!genders.includes(product.gender)) genders.push(product.brand.name)});    
+    // };
+    // allGenders(allProducts);
+
     return (
         <div>
             <select onChange={handleOrdered}>
@@ -24,6 +31,14 @@ export default function Filter({ allProducts, handleOrdered, handleFilterGender,
                     {product}
                 </option>
                     ))}
+            </select>
+            <select onChange={handleFilterGender}>
+                    <option value="filterByGender">All genders</option>
+                    <option value="infant">Infant</option>
+                    <option value="child">Child</option>
+                    <option value="unisex">Unisex</option>
+                    <option value="man">Man</option>
+                    <option value="women">Women</option>
             </select>
         </div>
     );

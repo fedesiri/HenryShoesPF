@@ -65,13 +65,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
             let productFiltersByGender = state.allProducts;
             let shoesByGender = [];
             if (payload !== "filterByGender") {
-                for (let i = 0; i < productFiltersByGender?.length; i++) {
-                    for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
-                        if (productFiltersByGender[i].results[j].gender === payload) {
-                            shoesByGender.push(productFiltersByGender[i]);
-                        }
-                    }
-                }
+                // for (let i = 0; i < productFiltersByGender?.length; i++) {
+                //     for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
+                //         if (productFiltersByGender[i].results[j].gender === payload) {
+                //             shoesByGender.push(productFiltersByGender[i]);
+                //         }
+                //     }
+                // }
+                shoesByGender = productFiltersByGender.filter((product) => product.gender.includes(payload))
                 return { ...state, products: shoesByGender };
             }
         return { ...state, products: productFiltersByGender }
