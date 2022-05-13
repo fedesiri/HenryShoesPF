@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {seeder, seedBrand} = require('../api/src/seeder/index.js');
+const {seeder, seedBrand, createRoles} = require('../api/src/seeder/index.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -27,9 +27,9 @@ conn.sync({ force: true }).then(() => {
     console.log('Listening at 3001'); // eslint-disable-line no-
     // let load = await seeder();
     await seedBrand();
-    console.log('brands loaded')
+    await createRoles();
     await seeder();
-    console.log('products loaded')
+    console.log('brands, roles and products loaded')
    
   });
 });
