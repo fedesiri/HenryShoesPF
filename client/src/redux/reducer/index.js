@@ -15,8 +15,8 @@ import {
 
 const intialState = {
     products: [],
-    productsByBrand: [],
     allProducts: [],
+    productsByBrand: [],
     postMsj: [],
     details: {},
     page: 1,
@@ -51,32 +51,30 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 postMsj: payload,
             };
 
+        
         case FILTER_BY_BRANDS:
-            let productFiltersByBrands = state.allProducts;
-            let shoesByBrand = [];
-            if (payload !== "filterByBrands") {
-                for (let i = 0; i < productFiltersByBrands?.length; i++) {
-                    for (let j = 0; j < productFiltersByBrands[i].results.length; j++) {
-                        if (productFiltersByBrands[i].results[j].brand === payload) {
-                            shoesByBrand.push(productFiltersByBrands[i]);
-                        }
-                    }
-                }
-                return { ...state, products: shoesByBrand };
-            }
-            return { ...state, products: productFiltersByBrands };
-
+            const allProductsBrand = state.allProducts;
+            const brandFilter = payload === "All"
+                ? allProductsBrand.filter((product) => product.length >= 0)
+                : allProductsBrand.filter((product) => (product.brand.name).includes(payload));
+                return { ...state,
+                    products: brandFilter,
+                    
+                };
+        
+        
         case FILTER_BY_GENDER:
             let productFiltersByGender = state.allProducts;
             let shoesByGender = [];
             if (payload !== "filterByGender") {
-                for (let i = 0; i < productFiltersByGender?.length; i++) {
-                    for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
-                        if (productFiltersByGender[i].results[j].gender === payload) {
-                            shoesByGender.push(productFiltersByGender[i]);
-                        }
-                    }
-                }
+                // for (let i = 0; i < productFiltersByGender?.length; i++) {
+                //     for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
+                //         if (productFiltersByGender[i].results[j].gender === payload) {
+                //             shoesByGender.push(productFiltersByGender[i]);
+                //         }
+                //     }
+                // }
+                shoesByGender = productFiltersByGender.filter((product) => product.gender.includes(payload))
                 return { ...state, products: shoesByGender };
             }
             return { ...state, products: productFiltersByGender }
@@ -84,10 +82,10 @@ export default function rootReducer(state = intialState, { type, payload }) {
         case ORDER_PRODUCTS:
             let ordered = state.products;
             payload === "Mayor precio" && ordered.sort((a, b) => {
-                return b.prices - a.prices;
+                return b.price - a.price;
             });
             payload === "Menor precio" && ordered.sort((a, b) => {
-                return a.prices - b.prices;
+                return a.price - b.price;
             });
             payload === "Mas recientes" && ordered.sort((a, b) => {
                 return b.releaseDate - a.releaseDate;

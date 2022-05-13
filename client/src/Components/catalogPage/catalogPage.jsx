@@ -7,17 +7,17 @@ import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../cardProduct";
-import SearchBar from "../SearchBar";
+
 
 
 export default function Catalog(){
     const dispatch = useDispatch();
-    const { products, page } = useSelector((state) => state);
+    const { allProducts, products, page } = useSelector((state) => state);
     const [loader, setLoader] = useState(true);
     const [filters, setFilters] = useState(false);
     const [ ,setOrder ] = useState();
 
-    const productsPerPage = 6;
+    const productsPerPage = 30;
     const indexLastProduct = page * productsPerPage;
     const indexFirstProduct = indexLastProduct - productsPerPage;
 
@@ -34,7 +34,7 @@ export default function Catalog(){
     useEffect(()=>{
         setLoader(true)
         dispatch(getAllProducts())
-        timer(1000);
+        timer(500);
         return ()=> clearTimeout(timer);
     }, [dispatch]);
 
@@ -74,15 +74,12 @@ export default function Catalog(){
                 <button onClick={()=> setFilters(!filters)} >Filters</button>
                 {filters && (
                     <Filters
-                    products={products}
+                    allProducts={allProducts}
                     handleOrdered={handleOrdered}
                     handleFilterGender={handleFilterGender}
                     handleFilterBrands={handleFilterBrands}
                     />
                 )}
-            </div>
-            <div>
-                <SearchBar/>
             </div>
             <Paged productsPerPage={productsPerPage}/>
             <div>

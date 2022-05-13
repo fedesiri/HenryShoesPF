@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     GET_ALL_PRODUCTS,
     GET_ALL_PRODUCTS_BY_BRANDS,
@@ -12,7 +13,7 @@ import {
     SELECT_OFERT,
     SEND_OFERT_BACK,
 } from "./types";
-const axios = require('axios')
+
 
 
 export const getAllProducts = (name) => {
@@ -120,7 +121,7 @@ export const setCurrentPage = payload => {
 export const getAllBrands = () => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/brand")
+            .get("http://localhost:3001/brands")
             .then(response => {
                 return dispatch({
                     type: GET_ALL_BRANDS,

@@ -5,7 +5,7 @@ const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Products.findAll({
       include: Brands,
-    });
+    })
 
     const { name } = req.query;
     const productsName = await Products.findAll({
