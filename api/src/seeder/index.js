@@ -39,7 +39,6 @@ const jsonRead = JSON.parse(
 //     };}
 
 async function seeder() {
-
   const shoes = jsonRead.result;
   try {
     shoes.map(async (shoe) => {
@@ -75,7 +74,7 @@ async function seedBrand() {
       console.log("brands ya tiene datos");
     } else {
       shoes.map((brand) => {
-        Brands.findOrCreate({     
+        Brands.findOrCreate({
           where: {
             name: brand.brand,
           },
