@@ -21,6 +21,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     image:{
       type: DataTypes.STRING,
       allowNull: false,
