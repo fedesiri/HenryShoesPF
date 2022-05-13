@@ -57,6 +57,7 @@ async function seeder() {
             : "https://image.goat.com/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png",
           price: shoe.estimatedMarketValue ? shoe.estimatedMarketValue : 100,
           gender: shoe.gender ? shoe.gender : "unisex",
+          year: shoe.releaseYear,
         });
         const brandProduct = await Brands.findOne({
           where: {
