@@ -12,7 +12,7 @@ export default function Paged({ productsPerPage }) {
         dispatch(setCurrentPage(pageNumber));
     };
 
-    for( let i=1; i < Math.ceil((products.length / productsPerPage)); i++) {
+    for( let i=1; i < Math.trunc((products.length / productsPerPage)+2); i++) {
         pageProducts.push(i);
     }
 
