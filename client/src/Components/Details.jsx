@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect} from "react";
 import { Link } from 'react-router-dom';
-import { callId } from "../../redux/actions/index"
+import { getProductById } from "../redux/actions/index"
 
 
 
@@ -12,14 +12,13 @@ const Details = () => {
     const dispatch = useDispatch();
     const params = useParams();
     let addres = params.id;
-
     const detail = useSelector((state) => state.details)
-
+console.log(detail)
 
 
     useEffect(() => {
 
-        dispatch(callId(addres))
+        dispatch(getProductById(addres))
 
 
 
@@ -36,15 +35,15 @@ const Details = () => {
 
         <>
 
-            <Link to="/home" > Atras  </Link>
+            <Link to="/" > Atras  </Link>
             <>
                 <img src={detail.image} alt="imagen zapa " />
-                <h4>{detail.name} </h4>
+                <h4>{detail.model} </h4>
                 <h2>${detail.price}</h2>
             </>
             <>
-                <h3>Colores:</h3>
-                <h2>{detail.colorway}</h2>
+                <h2>{detail.gender}</h2>
+                <p> {detail.description}</p>
             </>
             <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
 

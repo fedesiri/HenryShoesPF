@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
     GET_ALL_PRODUCTS,
+    GET_ALL_PRODUCTS_BY_BRANDS,
     GET_PRODUCT_BY_ID,
     CREATE_CATEGORY,
     POST_LOG_IN,
@@ -10,14 +11,32 @@ import {
     SET_CURRENT_PAGE,
     GET_ALL_BRANDS,
 } from "./types";
+const axios = require('axios')
 
-export const getAllProducts = () => {
+
+export const getAllProducts = (name) => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/models")
+            .get(`http://localhost:3001/products/?name=${name ? name : ""}`)
             .then(response => {
                 return dispatch({
                     type: GET_ALL_PRODUCTS,
+                    payload: response.data,
+                });
+            })
+            .catch(error => {
+                alert(error.response.data.message);
+            });
+    };
+};
+
+export const getAllProductsByBrands = (brand) => {
+    return dispatch => {
+        axios
+            .get(`http://localhost:3001/products/?brand=${brand ? brand : ""}`)
+            .then(response => {
+                return dispatch({
+                    type: GET_ALL_PRODUCTS_BY_BRANDS,
                     payload: response.data,
                 });
             })
@@ -31,12 +50,12 @@ export function getProductById(payload) {
     return function (dispatch) {
         try {
             // direccion a cambiar
-            return fetch(`http://localhost:3001/models/${payload}`)
+            return fetch(`http://localhost:3001/products/details/${payload}`)
                 .then(response => response.json())
                 .then(details => {
                     dispatch({
                         type: GET_PRODUCT_BY_ID,
-                        payload: details.data,
+                        payload: details,
                     });
                 });
         } catch (error) {
@@ -100,7 +119,7 @@ export const setCurrentPage = payload => {
 export const getAllBrands = () => {
     return dispatch => {
         axios
-            .get("http://localhost:3001/brand")
+            .get("http://localhost:3001/brands")
             .then(response => {
                 return dispatch({
                     type: GET_ALL_BRANDS,

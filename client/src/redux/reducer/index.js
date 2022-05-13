@@ -1,23 +1,40 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, POST_RESULT, FILTER_BY_BRANDS, FILTER_BY_GENDER, GET_ALL_BRANDS  } from "../actions/types";
+import { 
+    GET_ALL_PRODUCTS,
+    GET_PRODUCT_BY_ID, 
+    FILTER_BY_BRANDS, 
+    FILTER_BY_GENDER, 
+    GET_ALL_BRANDS, 
+    POST_LOG_IN, 
+    ORDER_PRODUCTS,
+    SET_CURRENT_PAGE,
+    GET_ALL_PRODUCTS_BY_BRANDS,
+} from "../actions/types";
 
 
 const intialState = {
-    products:[],
-    allProducts:[],
+    products: [],
+    allProducts: [],
+    productsByBrand: [],
     postMsj: [],
     details: {},
     page: 1,
     brands: [],
 };
 
-export default function rootReducer (state = intialState, {type, payload}){
+export default function rootReducer(state = intialState, { type, payload }) {
     switch (type) {
         case GET_ALL_PRODUCTS:
             return {
                 ...state,
                 products: payload,
                 allProducts: payload,
+            };
+        
+        case GET_ALL_PRODUCTS_BY_BRANDS:
+            return {
+                ...state,
+                productsByBrand: payload,
             };
 
         case GET_PRODUCT_BY_ID:
@@ -31,24 +48,21 @@ export default function rootReducer (state = intialState, {type, payload}){
                 ...state,
                 postMsj: payload,
             };
+
         
         case FILTER_BY_BRANDS:
-            let productFiltersByBrands = [...state.allProducts];
-            let shoesByBrand = [];
-            if (payload !== "filterByBrands") {
-                for (let i = 0; i < productFiltersByBrands?.length; i++) {
-                    for (let j = 0; j < productFiltersByBrands[i].results.length; j++) {
-                        if (productFiltersByBrands[i].results[j].brand === payload) {
-                            shoesByBrand.push(productFiltersByBrands[i]);
-                        }
-                    }
-                }
-                return { ...state, products: shoesByBrand };
-            }
-            return { ...state, products: allProducts};
+            const allProductsBrand = state.allProducts;
+            const brandFilter = payload === "All"
+                ? allProductsBrand.filter((product) => product.length >= 0)
+                : allProductsBrand.filter((product) => (product.brand.name).includes(payload));
+                return { ...state,
+                    products: brandFilter,
+                    
+                };
+        
         
         case FILTER_BY_GENDER:
-            let productFiltersByGender = [...state.allProducts];
+            let productFiltersByGender = state.allProducts;
             let shoesByGender = [];
             if (payload !== "filterByGender") {
                 for (let i = 0; i < productFiltersByGender?.length; i++) {
@@ -60,30 +74,32 @@ export default function rootReducer (state = intialState, {type, payload}){
                 }
                 return { ...state, products: shoesByGender };
             }
-            return { ...state, products: allProducts }
-        
+        return { ...state, products: productFiltersByGender }
+
         case ORDER_PRODUCTS:
             let ordered = state.products;
-            payload === "Mayor precio" && ordered.sort((a,b)=>{
-                return b.prices - a.prices;
+            payload === "Mayor precio" && ordered.sort((a, b) => {
+                return b.price - a.price;
             });
-            payload === "Menor precio" && ordered.sort((a, b)=> {
-                return a.prices - b.prices;
+            payload === "Menor precio" && ordered.sort((a, b) => {
+                return a.price - b.price;
             });
-            payload === "Mas recientes" && ordered.sort((a, b)=>{
+            payload === "Mas recientes" && ordered.sort((a, b) => {
                 return b.releaseDate - a.releaseDate;
             });
-            payload === "Menos recientes" && ordered.sort((a, b)=>{
+            payload === "Menos recientes" && ordered.sort((a, b) => {
                 return a.releaseDate - b.releaseDate;
             })
-            return { ...state, product: ordered};
+            return { ...state, products: ordered };
 
         case GET_ALL_BRANDS:
-            return{
+            return {
                 ...state,
                 brands: payload
             }
-        
+        case SET_CURRENT_PAGE:
+            return { ...state, page: payload};
+
         default:
             return { ...state };
     }
