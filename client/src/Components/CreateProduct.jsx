@@ -1,29 +1,32 @@
 import React,{useState, useEffect } from 'react';
 import axios from "axios";
-//import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands, getAllProducts } from '../redux/actions';
-//import rea
-//import {NavBar} from "./NavBar";
+
 
 
 const CreateProduct = () => {
 
 const dispatch = useDispatch();    
 useEffect(() => {
-    dispatch(getAllBrands());
     dispatch(getAllProducts());
 }, []);
 
 const reduxProducts = useSelector((state) => state.products)
-const reduxBrands = useSelector((state) => state.brands);
 const genders = [];
+const brands = [];
 
 function GenderGetter(reduxProducts){
-  reduxProducts?.map( product => {if(!reduxProducts.includes(product.gender)) reduxProducts.push(product.gender)});
+  reduxProducts?.map( product => {if(!genders.includes(product.gender)) genders.push(product.gender)});
   console.log(genders)
   };
   GenderGetter(reduxProducts);
+
+  function BrandGetter(reduxProducts){
+    reduxProducts?.map( product => {if(!brands.includes(product.brand.name)) brands.push(product.brand.name)});
+    console.log(brands)
+    };
+    BrandGetter(reduxProducts);
 
 //const [error, setError] = useState({});
 const [input, setInput] = useState({
@@ -34,6 +37,7 @@ const [input, setInput] = useState({
   image: "",
   gender: "",
 });
+console.log(input)
 
 const HandleOnChange = (e) => {
   setInput(PreValue => ({
@@ -47,7 +51,7 @@ e.preventDefault();
 const form = document.getElementById("CreateForm");
   axios({
     method: "post",
-    url: "http://localhost:3001/createProduct",
+    url: 'http://localhost:3001/create',
     data: {
       product: input.product,
       brand: input.brand,
@@ -69,7 +73,7 @@ const form = document.getElementById("CreateForm");
 }
 
 return (
-        <div className>
+        <div>
            <div>
 
            </div>
@@ -79,8 +83,8 @@ return (
           <label>Marca: </label>
               <div>
                 <select name= "brand" onChange={HandleOnChange}>
-                    {reduxBrands?.map( brand => <option key={brand.id} value={brand.name}>
-                        {brand.name}
+                    {brands?.map( brand => <option key={brand} value={brand}>
+                        {brand}
                         </option>
                         )};
                 </select>
@@ -111,7 +115,7 @@ return (
               <label>Precio: </label>
               </div>
               <div>
-                <input name="Price" min="1"  onChange={HandleOnChange} />
+                <input name="price" min="1"  onChange={HandleOnChange} />
               </div>
             </div>
     
@@ -124,7 +128,7 @@ return (
               <label>Imágen: </label>
             </div>
             <div>
-                <input name="image" type="image"  onChange={HandleOnChange} />
+                <input name="image" type="text"  onChange={HandleOnChange} />
             </div>
 
             <div>

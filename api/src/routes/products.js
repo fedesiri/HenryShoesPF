@@ -9,7 +9,7 @@ products.get("/", getAllProducts);
 products.get("/brand", getAllBrands);
 products.get("/gender/:gender", GetShoesByGender);
 products.get("/details/:id", getDetails);
-products.post("/", createProduct );
+products.post("/create", createProduct );
 
 
 module.exports = products;
