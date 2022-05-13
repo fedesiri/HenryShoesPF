@@ -28,6 +28,14 @@ module.exports = (sequelize) => {
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    inOferta: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    inDestacados:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {timestamps: false});
 };
