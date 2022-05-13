@@ -1,14 +1,15 @@
 
-import { 
+import {
     GET_ALL_PRODUCTS,
-    GET_PRODUCT_BY_ID, 
-    FILTER_BY_BRANDS, 
-    FILTER_BY_GENDER, 
-    GET_ALL_BRANDS, 
-    POST_LOG_IN, 
+    GET_PRODUCT_BY_ID,
+    FILTER_BY_BRANDS,
+    FILTER_BY_GENDER,
+    GET_ALL_BRANDS,
+    POST_LOG_IN,
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
     GET_ALL_PRODUCTS_BY_BRANDS,
+    SELECT_OFERT,
 } from "../actions/types";
 
 
@@ -20,6 +21,7 @@ const intialState = {
     details: {},
     page: 1,
     brands: [],
+    ofertSelect: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -30,7 +32,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 products: payload,
                 allProducts: payload,
             };
-        
+
         case GET_ALL_PRODUCTS_BY_BRANDS:
             return {
                 ...state,
@@ -75,7 +77,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 shoesByGender = productFiltersByGender.filter((product) => product.gender.includes(payload))
                 return { ...state, products: shoesByGender };
             }
-        return { ...state, products: productFiltersByGender }
+            return { ...state, products: productFiltersByGender }
 
         case ORDER_PRODUCTS:
             let ordered = state.products;
@@ -99,7 +101,20 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 brands: payload
             }
         case SET_CURRENT_PAGE:
-            return { ...state, page: payload};
+            return { ...state, page: payload };
+
+        case SELECT_OFERT:
+            const auxState = state.allProducts
+            const infoChequear = payload.length <= 4 && auxState.filter(e => e.id === Number(payload))
+            const infoModels = auxState.filter(e => e.model.toLocaleLowerCase().slice(0, 15) === payload.trim().toLocaleLowerCase().slice(0, 15))
+
+            return {
+                ...state,
+                ofertSelect: infoChequear ? infoChequear : infoModels
+            }
+
+
+
 
         default:
             return { ...state };
