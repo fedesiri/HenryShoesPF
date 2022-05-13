@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     GET_ALL_PRODUCTS,
     GET_ALL_PRODUCTS_BY_BRANDS,
