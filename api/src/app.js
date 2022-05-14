@@ -2,10 +2,15 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const cors = require('cors')
 
 require('./db.js');
 
 const server = express();
+
+server.use(cors({
+  origin:'http://localhost:3000'
+}))
 
 server.name = 'API';
 
