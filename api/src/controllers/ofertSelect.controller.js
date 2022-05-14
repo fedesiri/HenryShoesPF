@@ -35,6 +35,18 @@ const ofertSelect = (req, res) => {
             Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
         }
 
+        if (arrayDestacado.length !== 0) {
+            var Promises = [];
+            arrayDestacado.forEach(e => {
+                var newPromise = Products.update(
+                    { porcentaje: true },
+                    { where: { "id": e } }
+                )
+                Promises.push(newPromise);
+            })
+            Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
+        }
+
         res.status(200).send({ message: "informacion actualizada" })
 
 
