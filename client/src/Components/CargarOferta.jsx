@@ -1,11 +1,16 @@
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import {  selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect  } from "../redux/actions/index";
+import { selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect,filterOfertDestacado  } from "../redux/actions/index";
 import './CargarOfert.css'
+import VerOferta from "./VerOferta";
 
 const CargarOferta = () => {
     const dispatch = useDispatch()
     const onOfert = useSelector((state) => state.ofertSelect)
+    const todos = useSelector((state) => state.allProducts)
+console.log(todos)
+
+
     // console.log(onOfert)
     const [input, setInput] = useState("");
 
@@ -16,13 +21,13 @@ const CargarOferta = () => {
         porcentaje:[]
     
       })
-      console.log(validarProducts)
     
-
+    
 useEffect(() => {
   dispatch(getAllProducts())
-  
-}, [])
+  dispatch(filterOfertDestacado())
+
+}, [])//  eslint-disable-line react-hooks/exhaustive-deps
 
 function inputSearch(e) {
     e.preventDefault()
@@ -80,12 +85,7 @@ var str = e.target.value
           porcentaje: str 
         })
     
-      //   [{id: '64', porcent: '10'}, {id: '64', porcent: '30'},{id: '2367', porcent: '30'},
-      //   {id: '2367', porcent: '40'},{id: '2351', porcent: '20'}, {id: '2351', porcent: '30'},
-      //  {id: '2361', porcent: '20'},{id: '2361', porcent: '30'},{id: '2366', porcent: '30'},
-      //  {id: '2366', porcent: '40'}, {id: '2347', porcent: '30'},{id: '2347', porcent: '20'},
-      //    {id: '2370', porcent: '20'}, {id: '2370', porcent: '30'},{id: '2365', porcent: '20'},
-      //  {id: '2359', porcent: '30'},{id: '64', porcent: '10'}]
+      
   }
 
   function handleSubmit(e) {
@@ -156,14 +156,9 @@ var str = e.target.value
 
         <div>
            
-                
-
-
-
-
         </div>
 
-
+        <VerOferta/>
 
 
 

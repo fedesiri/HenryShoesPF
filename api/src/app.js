@@ -8,6 +8,10 @@ require('./db.js');
 
 const server = express();
 
+server.use(cors({
+  origin:'http://localhost:3000'
+}))
+
 server.name = 'API';
 const origin = ['http://localhost:3000'];
 const methods = ['GET', 'POST', 'OPTIONS','PUT','DELETE']
