@@ -1,64 +1,50 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByBrands, filterByGender, getAllProducts, orderProducts, setCurrentPage } from "../../redux/actions";
+import { filter, getAllProducts, orderProducts, setCurrentPage } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../cardProduct";
 
-
-
-export default function Catalog(){
+export default function Catalog() {
     const dispatch = useDispatch();
-    const { allProducts, products, page } = useSelector((state) => state);
+    const { allProducts, products, page } = useSelector(state => state);
     const [loader, setLoader] = useState(true);
     const [filters, setFilters] = useState(false);
-    const [ ,setOrder ] = useState();
+    const [, setOrder] = useState();
 
     const productsPerPage = 30;
     const indexLastProduct = page * productsPerPage;
     const indexFirstProduct = indexLastProduct - productsPerPage;
 
-    const currentProducts = products.slice(
-        indexFirstProduct, 
-        indexLastProduct
-    );
+    const currentProducts = products.slice(indexFirstProduct, indexLastProduct);
 
-    const timer = (time) =>
-        setTimeout(()=>{
+    const timer = time =>
+        setTimeout(() => {
             setLoader(false);
         }, time);
 
-    useEffect(()=>{
-        setLoader(true)
-        dispatch(getAllProducts())
+    useEffect(() => {
+        setLoader(true);
+        dispatch(getAllProducts());
         timer(500);
-        return ()=> clearTimeout(timer);
+        return () => clearTimeout(timer);
     }, [dispatch]);
 
-    const handleOrdered = (e)=>{
+    const handleOrdered = e => {
         e.preventDefault();
         dispatch(orderProducts(e.target.value));
         setOrder(e.target.value);
     };
 
-    const handleFilterGender = (e) =>{
-        e.preventDefault();
-        dispatch(filterByGender(e.target.value));
+    const handleFilter = filters => {
+        dispatch(filter(filters));
         dispatch(setCurrentPage(1));
-        setOrder(e.target.value);
     };
 
-    const handleFilterBrands = (e) =>{
-        e.preventDefault();
-        dispatch(filterByBrands(e.target.value));
-        dispatch(setCurrentPage(1));
-        setOrder(e.target.value);
-    }
-
-    const handleClick = (e) =>{
+    const handleClick = e => {
         e.preventDefault();
         setLoader(true);
         dispatch(getAllProducts());
@@ -68,41 +54,40 @@ export default function Catalog(){
 
     return (
         <div>
-            <NavBar handleClick={handleClick}/>
+            <NavBar handleClick={handleClick} />
             <div>
                 <button onClick={handleClick}>RELOAD</button>
-                <button onClick={()=> setFilters(!filters)} >Filters</button>
+                <button onClick={() => setFilters(!filters)}>Filters</button>
                 {filters && (
                     <Filters
-                    allProducts={allProducts}
-                    handleOrdered={handleOrdered}
-                    handleFilterGender={handleFilterGender}
-                    handleFilterBrands={handleFilterBrands}
-                    products={products}
+                        allProducts={allProducts}
+                        handleOrdered={handleOrdered}
+                        handleFilter={handleFilter}
+                        products={products}
                     />
                 )}
             </div>
-            <Paged productsPerPage={productsPerPage}/>
+            <Paged productsPerPage={productsPerPage} />
             <div>
-                    {loader ? (
-                        <Loader/>
-                    ): (
-                        (products.length > 0 && 
-                            currentProducts?.map((product, index)=>(
-                                <CardProduct
+                {loader ? (
+                    <Loader />
+                ) : (
+                    (products.length > 0 &&
+                        currentProducts?.map((product, index) => (
+                            <CardProduct
                                 key={index}
                                 id={product.id}
                                 price={product.price}
                                 model={product.model}
                                 image={product.image}
                                 description={product.description}
-                                /> 
-                            ))) || (
-                                <div>
-                                    <h2>No results found</h2>
-                                </div>                            
-                            )
-                    )}
+                            />
+                        ))) || (
+                        <div>
+                            <h2>No results found</h2>
+                        </div>
+                    )
+                )}
             </div>
         </div>
     );

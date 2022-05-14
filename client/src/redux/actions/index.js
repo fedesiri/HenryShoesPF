@@ -5,8 +5,7 @@ import {
     GET_PRODUCT_BY_ID,
     CREATE_CATEGORY,
     POST_LOG_IN,
-    FILTER_BY_BRANDS,
-    FILTER_BY_GENDER,
+    FILTER,
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
     GET_ALL_BRANDS,
@@ -14,9 +13,7 @@ import {
     SEND_OFERT_BACK,
 } from "./types";
 
-
-
-export const getAllProducts = (name) => {
+export const getAllProducts = name => {
     return dispatch => {
         axios
             .get(`http://localhost:3001/products/?name=${name ? name : ""}`)
@@ -32,7 +29,7 @@ export const getAllProducts = (name) => {
     };
 };
 
-export const getAllProductsByBrands = (brand) => {
+export const getAllProductsByBrands = brand => {
     return dispatch => {
         axios
             .get(`http://localhost:3001/products/?brand=${brand ? brand : ""}`)
@@ -79,16 +76,10 @@ export const createCategory = category => {
     };
 };
 
-export const filterByBrands = filter => {
+export const filter = filter => {
+    console.log("soy filter en action!", filter);
     return {
-        type: FILTER_BY_BRANDS,
-        payload: filter,
-    };
-};
-
-export const filterByGender = filter => {
-    return {
-        type: FILTER_BY_GENDER,
+        type: FILTER,
         payload: filter,
     };
 };
@@ -140,7 +131,6 @@ export const selectOfert = payload => {
         payload,
     };
 };
-
 
 export function sendOfertToBack(payload) {
     return async function (dispatch) {
