@@ -10,6 +10,7 @@ import {
     SET_CURRENT_PAGE,
     GET_ALL_PRODUCTS_BY_BRANDS,
     SELECT_OFERT,
+    CLEAR_OFERT,
 } from "../actions/types";
 
 
@@ -51,18 +52,19 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 postMsj: payload,
             };
 
-        
+
         case FILTER_BY_BRANDS:
             const allProductsBrand = state.allProducts;
             const brandFilter = payload === "All"
                 ? allProductsBrand.filter((product) => product.length >= 0)
                 : allProductsBrand.filter((product) => (product.brand.name).includes(payload));
-                return { ...state,
-                    products: brandFilter,
-                    
-                };
-        
-        
+            return {
+                ...state,
+                products: brandFilter,
+
+            };
+
+
         case FILTER_BY_GENDER:
             let productFiltersByGender = state.allProducts;
             let shoesByGender = [];
@@ -103,6 +105,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
         case SET_CURRENT_PAGE:
             return { ...state, page: payload };
 
+        case CLEAR_OFERT:
+            return {
+                ...state,
+                ofertSelect: []
+            };
+
+
         case SELECT_OFERT:
             const auxState = state.allProducts
             const infoChequear = payload.length <= 4 && auxState.filter(e => e.id === Number(payload))
@@ -111,7 +120,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
             return {
                 ...state,
                 ofertSelect: infoChequear ? infoChequear : infoModels
-            }
+            };
 
 
 
