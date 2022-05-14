@@ -171,11 +171,11 @@ try{
         {error.price? <p>{error.price}</p>: null}
         {error.incomplete? <p>{error.incomplete}</p>: null}
       </div>
-      {!error.incomplete && !error.price &&
+      
       <div>
         <button onClick={(e) => HandleOnSubmit(e)}>Confirmar</button>
       </div>
-      }
+      
     </form>
     </div>
         </div>
