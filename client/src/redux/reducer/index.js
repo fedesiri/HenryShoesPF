@@ -1,17 +1,15 @@
-
 import {
     GET_ALL_PRODUCTS,
     GET_PRODUCT_BY_ID,
-    FILTER_BY_BRANDS,
-    FILTER_BY_GENDER,
+    FILTER,
     GET_ALL_BRANDS,
     POST_LOG_IN,
     ORDER_PRODUCTS,
     SET_CURRENT_PAGE,
     GET_ALL_PRODUCTS_BY_BRANDS,
     SELECT_OFERT,
+    CLEAR_OFERT,
 } from "../actions/types";
-
 
 const intialState = {
     products: [],
@@ -22,6 +20,7 @@ const intialState = {
     page: 1,
     brands: [],
     ofertSelect: [],
+    filter: { brand: "All", gender: "filterByGender" },
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -31,6 +30,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 products: payload,
                 allProducts: payload,
+                filter: { brand: "All", gender: "filterByGender" },
             };
 
         case GET_ALL_PRODUCTS_BY_BRANDS:
@@ -51,80 +51,81 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 postMsj: payload,
             };
 
-        
-        case FILTER_BY_BRANDS:
-            const allProductsBrand = state.allProducts;
-            const brandFilter = payload === "All"
-                ? allProductsBrand.filter((product) => product.length >= 0)
-                : allProductsBrand.filter((product) => (product.brand.name).includes(payload));
-                return { ...state,
-                    products: brandFilter,
-                    
-                };
-        
-        
-        case FILTER_BY_GENDER:
-            let productFiltersByGender = state.allProducts;
-            let shoesByGender = [];
-            if (payload !== "filterByGender") {
-                // for (let i = 0; i < productFiltersByGender?.length; i++) {
-                //     for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
-                //         if (productFiltersByGender[i].results[j].gender === payload) {
-                //             shoesByGender.push(productFiltersByGender[i]);
-                //         }
-                //     }
-                // }
-                shoesByGender = productFiltersByGender.filter((product) => product.gender.includes(payload))
-                return { ...state, products: shoesByGender };
+        case FILTER:
+            function filterByBrand(products, brand) {
+                if (brand === "All") {
+                    return products;
+                } else {
+                    return products.filter(product => product.brandName.includes(brand));
+                }
             }
-            return { ...state, products: productFiltersByGender }
+
+            function filterByGender(products, gender) {
+                if (gender === "filterByGender") {
+                    return products;
+                } else {
+                    return products.filter(product => product.gender.includes(gender));
+                }
+            }
+            const productsFilterByBrands = filterByBrand(state.allProducts, payload.brand);
+            const productsFilterByGender = filterByGender(productsFilterByBrands, payload.gender);
+
+            return {
+                ...state,
+                products: productsFilterByGender,
+                filter: { brand: payload.brand, gender: payload.gender },
+            };
 
         case ORDER_PRODUCTS:
             let ordered = state.products;
-            payload === "Mayor precio" && ordered.sort((a, b) => {
-                return b.price - a.price;
-            });
-            payload === "Menor precio" && ordered.sort((a, b) => {
-                return a.price - b.price;
-            });
-            payload === "Mas recientes" && ordered.sort((a, b) => {
-                return b.releaseDate - a.releaseDate;
-            });
-            payload === "Menos recientes" && ordered.sort((a, b) => {
-                return a.releaseDate - b.releaseDate;
-            })
+            payload === "Mayor precio" &&
+                ordered.sort((a, b) => {
+                    return b.price - a.price;
+                });
+            payload === "Menor precio" &&
+                ordered.sort((a, b) => {
+                    return a.price - b.price;
+                });
+            payload === "Mas recientes" &&
+                ordered.sort((a, b) => {
+                    return b.year - a.year;
+                });
+            payload === "Menos recientes" &&
+                ordered.sort((a, b) => {
+                    return a.year - b.year;
+                });
             return { ...state, products: ordered };
 
         case GET_ALL_BRANDS:
             return {
                 ...state,
-                brands: payload
-            }
+                brands: payload,
+            };
         case SET_CURRENT_PAGE:
             return { ...state, page: payload };
 
+        case CLEAR_OFERT:
+            return {
+                ...state,
+                ofertSelect: [],
+            };
+
         case SELECT_OFERT:
-            const auxState = state.allProducts
-            const infoChequear = payload.length <= 4 && auxState.filter(e => e.id === Number(payload))
-            const infoModels = auxState.filter(e => e.model.toLocaleLowerCase().slice(0, 15) === payload.trim().toLocaleLowerCase().slice(0, 15))
+            const auxState = state.allProducts;
+            const infoChequear =
+                payload.length <= 4 && auxState.filter(e => e.id === Number(payload));
+            const infoModels = auxState.filter(
+                e =>
+                    e.model.toLocaleLowerCase().slice(0, 15) ===
+                    payload.trim().toLocaleLowerCase().slice(0, 15)
+            );
 
             return {
                 ...state,
-                ofertSelect: infoChequear ? infoChequear : infoModels
-            }
-
-
-
+                ofertSelect: infoChequear ? infoChequear : infoModels,
+            };
 
         default:
             return { ...state };
     }
 }
-
-
-
-
-
-
-
-

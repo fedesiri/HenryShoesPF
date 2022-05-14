@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 
   sequelize.define('products', {
-    id:{
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -25,8 +25,8 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    image:{
-      type: DataTypes.TEXT,
+    image: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     gender: {
@@ -37,9 +37,12 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    inDestacados:{
+    inDestacados: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    porcentaje: {
+      type: DataTypes.INTEGER,
     }
-  }, {timestamps: false});
+  }, { timestamps: false });
 };
