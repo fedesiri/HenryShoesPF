@@ -8,6 +8,7 @@ import {
     SET_CURRENT_PAGE,
     GET_ALL_PRODUCTS_BY_BRANDS,
     SELECT_OFERT,
+    CLEAR_OFERT,
 } from "../actions/types";
 
 const intialState = {
@@ -66,6 +67,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 } else {
                     return products.filter(product => product.gender.includes(gender));
                 }
+
             }
             console.log("soy all", state.allProducts);
             const productsFilterByBrands = filterByBrand(state.allProducts, payload.brand);
@@ -106,6 +108,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
             };
         case SET_CURRENT_PAGE:
             return { ...state, page: payload };
+
+        case CLEAR_OFERT:
+            return {
+                ...state,
+                ofertSelect: []
+            };
+
 
         case SELECT_OFERT:
             const auxState = state.allProducts;

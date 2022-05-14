@@ -9,3 +9,4 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const GET_ALL_BRANDS = "GET_ALL_BRANDS";
 export const SELECT_OFERT = "SELECT_OFERT";
 export const SEND_OFERT_BACK = "SEND_OFERT_BACK";
+export const CLEAR_OFERT = "CLEAR_OFERT";

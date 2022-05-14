@@ -11,6 +11,7 @@ import {
     GET_ALL_BRANDS,
     SELECT_OFERT,
     SEND_OFERT_BACK,
+    CLEAR_OFERT,
 } from "./types";
 
 export const getAllProducts = name => {
@@ -142,3 +143,10 @@ export function sendOfertToBack(payload) {
         });
     };
 }
+
+export const clearOfertSelect = payload => {
+    return {
+        type: CLEAR_OFERT,
+        payload,
+    };
+};

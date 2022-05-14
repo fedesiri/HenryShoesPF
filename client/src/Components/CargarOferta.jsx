@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react";
-
 import { useDispatch,useSelector } from "react-redux";
-import {  selectOfert,getAllProducts, sendOfertToBack  } from "../redux/actions/index";
+import {  selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect  } from "../redux/actions/index";
 import './CargarOfert.css'
 
 const CargarOferta = () => {
@@ -13,7 +12,8 @@ const CargarOferta = () => {
     const [validarProducts, setValidarProducts] = useState({
         
         id_oferta: [],
-        id_destacado: []
+        id_destacado: [],
+        porcentaje:[]
     
       })
       console.log(validarProducts)
@@ -33,6 +33,9 @@ function inputSearch(e) {
     e.preventDefault()
     dispatch(selectOfert(input))
     setInput("")
+    setValidarProducts( {  id_oferta: [],
+      id_destacado: [],
+      porcentaje:[]})
     }
   function handleValidarProductsPromotion(e){
       // e.preventDefault()
@@ -67,10 +70,31 @@ function inputSearch(e) {
         })
       }
   }
+  function handlePorcentaje(e){
+    // var str = {id: e.target.name,
+    //            porcent: e.target.value}
+var str = e.target.value
+
+      setValidarProducts({
+          ...validarProducts,
+          porcentaje: str 
+        })
+    
+      //   [{id: '64', porcent: '10'}, {id: '64', porcent: '30'},{id: '2367', porcent: '30'},
+      //   {id: '2367', porcent: '40'},{id: '2351', porcent: '20'}, {id: '2351', porcent: '30'},
+      //  {id: '2361', porcent: '20'},{id: '2361', porcent: '30'},{id: '2366', porcent: '30'},
+      //  {id: '2366', porcent: '40'}, {id: '2347', porcent: '30'},{id: '2347', porcent: '20'},
+      //    {id: '2370', porcent: '20'}, {id: '2370', porcent: '30'},{id: '2365', porcent: '20'},
+      //  {id: '2359', porcent: '30'},{id: '64', porcent: '10'}]
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(sendOfertToBack(validarProducts))
+    setValidarProducts( {  id_oferta: [],
+      id_destacado: [],
+      porcentaje:[]})
+      dispatch(clearOfertSelect())
   }
 
 
@@ -80,17 +104,25 @@ function inputSearch(e) {
 
         <form    onSubmit={e => handleSubmit(e)} >
         
-          <div  >
+          <div   >
             <input type="text" name='name' value={input} onChange={inputSearch} placeholder=" Search" />
             <button onClick={filterProducts}>Search</button>
+            {validarProducts.id_oferta.length !== 0 && <select className="selectOfert"  onChange={e => handlePorcentaje(e)}>
+                    <option value="default"> Porcentaje %: </option>
+                    <option    value="10" > 10% </option>
+                    <option       value="20"> 20% </option>
+                    <option     value="30"> 30% </option>
+                    <option   value="40"> 40% </option>
+                    <option   value="50"> 50% </option>
+                        </select>}
           </div> 
           <div className="divisor"> 
 <div className="father"> 
-{onOfert.map(e=> <div className="container">
+{  onOfert.map(e=> <div key={e.id} className="container">
             <img src={e.image}/>
-          <h3> {e.model} </h3>
+          <h2> {e.model} </h2>
           <h3> Producto Num:  {e.id}</h3>
-          <div> 
+          <div className="checkContainer"> 
           <label > Promoción
                     <input 
                         id={e.id}
@@ -99,8 +131,7 @@ function inputSearch(e) {
                         onChange={ e => handleValidarProductsPromotion(e)}
                         checked={ validarProducts.id_oferta.includes(String(e.id))?true:false}
                          />  
-                         {console.log(e.id)}
-
+                   
                 </label>
                 <label > Destacado
                     <input 
@@ -116,17 +147,7 @@ function inputSearch(e) {
 </div>        )}
 </div>
 
-<div className="mather">
-  <div>
-  <h1>Productos en Oferta</h1>
-  <h2>  {` ${validarProducts.id_oferta} `} </h2>  
-  </div>
-  <div>
-  <h1>Productos Destacados</h1>
-  <h2>  {` ${validarProducts.id_destacado}   `} </h2>  
-  </div>
 
-</div>
           
 </div> 
 <button  type='submit' > Enviar  Productos en Ofertas y Destacados</button>
