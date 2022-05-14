@@ -45,13 +45,13 @@ const { Brands, Products, User, Role } = sequelize.models;
 // Product.hasMany(Reviews);
 
 Brands.hasMany(Products, {
-  foreignKey: "brandId",
-  sourceKey: "id",
+  foreignKey: "brandName",
+  sourceKey: "name",
 });
 
 Products.belongsTo(Brands, {
-  foreignKey: "brandId",
-  targetKey: "id",
+  foreignKey: "brandName",
+  targetKey: "name",
 });
 
 Role.hasMany(User, {

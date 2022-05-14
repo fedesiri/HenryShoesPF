@@ -3,43 +3,11 @@ const fs = require("fs");
 const { Products, Brands, User, Role } = require("../db");
 
 const jsonRead = JSON.parse(
-  fs.readFileSync(`${__dirname}/AllShoes.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/AdidasChild0.json`, "utf-8")
 );
 
-// let parsedJson = require('../AllShoes.json');
-// let result = parsedJson.result;
-
-//console.log("probandoooooo")
-
-// async function seeder(){
-//     const shoes = jsonRead.result;
-//     console.log(shoes[0], "esto es shoes")
-//     //console.log('funcion seeder')
-
-//     try{
-//     const dbFull = await Models.findAll();
-//     if(dbFull.length>0){console.log("la base ya tiene datos")}
-//     else{
-//         shoes.map ((shoe) => {
-//              Models.findOrCreate({
-//                  where: {
-//                     brandId: shoe.brand?shoe.brand:"generic",
-//                     gender: shoe.gender?shoe.gender:"generic",
-//                     model: shoe.name?shoe.name:"generic",
-//                     price: shoe.estimatedMarketValue?shoe.estimatedMarketValue:100,
-//                     description: shoe.story ? shoe.story : "The footwear that everyone wants to have",
-//                     images: shoe.image.original ? shoe.image.original : "https://image.goat.com/attachments/product_template_pictures/images/070/791/134/original/GZ4000.png.png"
-//                  }
-//                 })
-//         })
-//         return "Database is Loaded";
-//     }
-//     }catch(err){
-//         console.log(err)
-//     };}
 
 async function seeder() {
-
   const shoes = jsonRead.result;
   try {
     shoes.map(async (shoe) => {
@@ -75,7 +43,7 @@ async function seedBrand() {
       console.log("brands ya tiene datos");
     } else {
       shoes.map((brand) => {
-        Brands.findOrCreate({     
+        Brands.findOrCreate({
           where: {
             name: brand.brand,
           },
