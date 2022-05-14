@@ -9,6 +9,7 @@ import {
     GET_ALL_PRODUCTS_BY_BRANDS,
     SELECT_OFERT,
     CLEAR_OFERT,
+    FILTER_OFERT_DESTACADO,
 } from "../actions/types";
 
 const intialState = {
@@ -21,6 +22,7 @@ const intialState = {
     brands: [],
     ofertSelect: [],
     filter: { brand: "All", gender: "filterByGender" },
+    inOfertDestacado: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -116,14 +118,29 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 payload.length <= 4 && auxState.filter(e => e.id === Number(payload));
             const infoModels = auxState.filter(
                 e =>
-                    e.model.toLocaleLowerCase().slice(0, 15) ===
-                    payload.trim().toLocaleLowerCase().slice(0, 15)
+                    e.model.toLocaleLowerCase().slice(0, 10) ===
+                    payload.trim().toLocaleLowerCase().slice(0, 10)
             );
 
             return {
                 ...state,
                 ofertSelect: infoChequear ? infoChequear : infoModels,
             };
+
+        case FILTER_OFERT_DESTACADO:
+            const auxState1 = state.allProducts;
+            const filterOfert = auxState1.filter(e => e.inOferta === true)
+            const filterDestacado = auxState1.filter(e => e.inDestacados === true)
+
+            const filterOfertDestacado = filterOfert.concat(filterDestacado)
+            const dataArr = new Set(filterOfertDestacado);
+            let result = [...dataArr];
+
+            return {
+                ...state,
+                inOfertDestacado: result,
+            };
+
 
         default:
             return { ...state };

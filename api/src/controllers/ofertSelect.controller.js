@@ -3,11 +3,8 @@ const { Products } = require("../db.js");
 
 const ofertSelect = (req, res) => {
     let { id_oferta, id_destacado, porcentaje } = req.body
-    console.log(id_oferta)
-    console.log(id_destacado)
-    console.log(porcentaje)
+
     var array = id_oferta
-    //me llega un array de numeros en string
     try {
         if (array.length !== 0) {
             var Promises = [];
@@ -18,6 +15,17 @@ const ofertSelect = (req, res) => {
                 )
                 Promises.push(newPromise);
             })
+            Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
+        }
+        var value_porcentaje = porcentaje
+        if (value_porcentaje.length !== 0) {
+            var Promises = [];
+            var newPromise = Products.update(
+                { porcentaje: value_porcentaje },
+                { where: { "id": array } }
+            )
+            Promises.push(newPromise);
+
             Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
         }
 
@@ -35,23 +43,11 @@ const ofertSelect = (req, res) => {
             Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
         }
 
-        if (arrayDestacado.length !== 0) {
-            var Promises = [];
-            arrayDestacado.forEach(e => {
-                var newPromise = Products.update(
-                    { porcentaje: true },
-                    { where: { "id": e } }
-                )
-                Promises.push(newPromise);
-            })
-            Promise.all(Promises).then(result => { result.forEach(r => console.log(r)) })
-        }
-
         res.status(200).send({ message: "informacion actualizada" })
 
 
     } catch (err) {
-        console.log(err, "error en la busqueda");
+        console.log(err, "error en la actualizacion");
         res.send({ message: "fallo" });
     }
 

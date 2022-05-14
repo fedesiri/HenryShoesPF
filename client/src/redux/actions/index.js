@@ -12,6 +12,7 @@ import {
     SELECT_OFERT,
     SEND_OFERT_BACK,
     CLEAR_OFERT,
+    FILTER_OFERT_DESTACADO,
 } from "./types";
 
 export const getAllProducts = name => {
@@ -147,6 +148,14 @@ export function sendOfertToBack(payload) {
 export const clearOfertSelect = payload => {
     return {
         type: CLEAR_OFERT,
+        payload,
+    };
+};
+
+
+export const filterOfertDestacado = payload => {
+    return {
+        type: FILTER_OFERT_DESTACADO,
         payload,
     };
 };

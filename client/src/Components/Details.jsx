@@ -19,10 +19,6 @@ console.log(detail)
     useEffect(() => {
 
         dispatch(getProductById(addres))
-
-
-
-
     }, [])//  eslint-disable-line react-hooks/exhaustive-deps
 
 
