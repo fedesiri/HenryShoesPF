@@ -10,6 +10,7 @@ import {
     SELECT_OFERT,
     CLEAR_OFERT,
     FILTER_OFERT_DESTACADO,
+    CLEAR_OFERT_DESTACADO,
 } from "../actions/types";
 
 const intialState = {
@@ -140,6 +141,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 inOfertDestacado: result,
             };
+
+        case CLEAR_OFERT_DESTACADO:
+            return {
+                ...state,
+                inOfertDestacado: [],
+            };
+
 
 
         default:
