@@ -4,7 +4,10 @@ const { Op } = require("sequelize");
 const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Products.findAll({
-      include: Brands,
+      include: {
+        model: Brands,
+        attributes: ["name"],
+      }
     })
 
     const { name } = req.query;
