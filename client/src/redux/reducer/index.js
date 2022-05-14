@@ -52,7 +52,6 @@ export default function rootReducer(state = intialState, { type, payload }) {
             };
 
         case FILTER:
-            //el payload es = {brand: String, gender: String}
             function filterByBrand(products, brand) {
                 if (brand === "All") {
                     return products;
@@ -67,13 +66,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 } else {
                     return products.filter(product => product.gender.includes(gender));
                 }
-
             }
-            console.log("soy all", state.allProducts);
             const productsFilterByBrands = filterByBrand(state.allProducts, payload.brand);
-            console.log("soy produt firlter by brands", productsFilterByBrands);
             const productsFilterByGender = filterByGender(productsFilterByBrands, payload.gender);
-            console.log("soy produt firlter by GENDER", productsFilterByGender);
 
             return {
                 ...state,
@@ -93,11 +88,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 });
             payload === "Mas recientes" &&
                 ordered.sort((a, b) => {
-                    return b.releaseDate - a.releaseDate;
+                    return b.year - a.year;
                 });
             payload === "Menos recientes" &&
                 ordered.sort((a, b) => {
-                    return a.releaseDate - b.releaseDate;
+                    return a.year - b.year;
                 });
             return { ...state, products: ordered };
 
@@ -112,9 +107,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
         case CLEAR_OFERT:
             return {
                 ...state,
-                ofertSelect: []
+                ofertSelect: [],
             };
-
 
         case SELECT_OFERT:
             const auxState = state.allProducts;
