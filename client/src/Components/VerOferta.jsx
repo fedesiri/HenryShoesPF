@@ -1,20 +1,26 @@
 import { useEffect,useState } from "react";
 import { useSelector,useDispatch } from 'react-redux'
-import { selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect,filterOfertDestacado  } from "../redux/actions/index";
+import { filterOfertDestacado, getAllProducts, clearOfertDestacado } from "../redux/actions/index";
 
 
 const VerOferta = () => {
    const dispatch = useDispatch()
    const [ocultar,setOcultar] = useState(false)
-console.log(ocultar)
     const productsDestacadOfert = useSelector((state) => state.inOfertDestacado)
     console.log(productsDestacadOfert)
-// useEffect(() => {
-//   dispatch(filterOfertDestacado())
-// }, [])
+
+useEffect(() => {
+  dispatch(filterOfertDestacado())
+  
+  
+}, [])
+
 
 function traerProduct(){
+  dispatch(getAllProducts())
     dispatch(filterOfertDestacado())
+    
+
     setOcultar(!ocultar)
 }
 const productOfert = productsDestacadOfert.filter(e=> e.inOferta === true)
@@ -23,7 +29,7 @@ const productDestacado = productsDestacadOfert.filter(e=> e.inDestacados === tru
 
     return  (
     <div>
-        <button    onClick={traerProduct}>ver Productos Destacado y Oferta</button>
+        <button    onClick={traerProduct}>ver Productos Promocion y Oferta</button>
         {ocultar === false? 
         <> </>: 
         <div>

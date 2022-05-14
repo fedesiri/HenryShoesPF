@@ -1,19 +1,13 @@
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect,filterOfertDestacado  } from "../redux/actions/index";
+import { selectOfert,getAllProducts, sendOfertToBack,clearOfertSelect,filterOfertDestacado,clearOfertDestacado  } from "../redux/actions/index";
 import './CargarOfert.css'
 import VerOferta from "./VerOferta";
 
 const CargarOferta = () => {
     const dispatch = useDispatch()
     const onOfert = useSelector((state) => state.ofertSelect)
-    const todos = useSelector((state) => state.allProducts)
-console.log(todos)
-
-
-    // console.log(onOfert)
     const [input, setInput] = useState("");
-
     const [validarProducts, setValidarProducts] = useState({
         
         id_oferta: [],
@@ -21,11 +15,12 @@ console.log(todos)
         porcentaje:[]
     
       })
-    
+    console.log(validarProducts)
     
 useEffect(() => {
   dispatch(getAllProducts())
   dispatch(filterOfertDestacado())
+ 
 
 }, [])//  eslint-disable-line react-hooks/exhaustive-deps
 
@@ -89,13 +84,29 @@ var str = e.target.value
   }
 
   function handleSubmit(e) {
+  
+     if (validarProducts.id_destacado.length !== 0 || validarProducts.id_oferta.length !==0){
     e.preventDefault();
     dispatch(sendOfertToBack(validarProducts))
     setValidarProducts( {  id_oferta: [],
       id_destacado: [],
       porcentaje:[]})
+      dispatch(clearOfertDestacado())
+      dispatch(getAllProducts())
       dispatch(clearOfertSelect())
+      dispatch(filterOfertDestacado())
+  } else{
+    alert("complete una categoria")
   }
+     
+}
+  function clearProducts(){
+    dispatch(clearOfertSelect())
+
+  }
+ 
+
+  
 
 
 
@@ -104,9 +115,14 @@ var str = e.target.value
 
         <form    onSubmit={e => handleSubmit(e)} >
         
-          <div   >
+          <div  className="container1" >
+            <div> 
             <input type="text" name='name' value={input} onChange={inputSearch} placeholder=" Search" />
             <button onClick={filterProducts}>Search</button>
+            <button onClick={clearProducts} > Limpiar Productos</button>
+
+            </div>
+            <div> 
             {validarProducts.id_oferta.length !== 0 && <select className="selectOfert"  onChange={e => handlePorcentaje(e)}>
                     <option value="default"> Porcentaje %: </option>
                     <option    value="10" > 10% </option>
@@ -115,6 +131,7 @@ var str = e.target.value
                     <option   value="40"> 40% </option>
                     <option   value="50"> 50% </option>
                         </select>}
+                        </div>
           </div> 
           <div className="divisor"> 
 <div className="father"> 
@@ -150,7 +167,7 @@ var str = e.target.value
 
           
 </div> 
-<button  type='submit' > Enviar  Productos en Ofertas y Destacados</button>
+    <button  type='submit' > Enviar  Productos en Promoción y Destacados</button>
 
         </form>
 
