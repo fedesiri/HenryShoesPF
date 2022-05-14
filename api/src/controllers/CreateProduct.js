@@ -24,6 +24,7 @@ const createProduct = async (req, res) => {
   }
 };
 
+
 const modifProduct = (req, res) => {
   let { model, description, price, image, gender, brandName, year } = req.body;
   let id = req.params.id;
