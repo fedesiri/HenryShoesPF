@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import CatalogPage from "./Components/catalogPage/catalogPage";
-import LandingPage from './Components/LandingPage/LandingPage';
+import CatalogPage from "./components/catalogPage/catalogPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 
-import CargarOferta from './Components/CargarOferta';
-import CreateProduct from './Components/CreateProduct';
-import FormularioInicio from './Components/FormularioInicio'
-import Details from "./Components/Details";
-
+import CargarOferta from "./components/CargarOferta";
+import CreateProduct from "./components/CreateProduct";
+import FormularioInicio from "./components/FormularioInicio";
+import Details from "./components/Details";
 
 function App() {
     return (
@@ -16,12 +15,11 @@ function App() {
             <Route path="/login" element={<FormularioInicio />} />
             <Route path="/details/:id" element={<Details />} />
 
-            <Route path='/CargarOferta' element={<CargarOferta />} />
+            <Route path="/CargarOferta" element={<CargarOferta />} />
 
-            <Route path="/catalogPage" element={<CatalogPage/>} />
+            <Route path="/catalogPage" element={<CatalogPage />} />
             <Route path="/formInicio" />
-            <Route path="/CreateProduct" element={<CreateProduct/>}/>
-
+            <Route path="/CreateProduct" element={<CreateProduct />} />
         </Routes>
     );
 }
