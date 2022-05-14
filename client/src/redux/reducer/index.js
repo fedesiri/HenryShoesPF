@@ -1,9 +1,7 @@
-
 import {
     GET_ALL_PRODUCTS,
     GET_PRODUCT_BY_ID,
-    FILTER_BY_BRANDS,
-    FILTER_BY_GENDER,
+    FILTER,
     GET_ALL_BRANDS,
     POST_LOG_IN,
     ORDER_PRODUCTS,
@@ -12,7 +10,6 @@ import {
     SELECT_OFERT,
     CLEAR_OFERT,
 } from "../actions/types";
-
 
 const intialState = {
     products: [],
@@ -23,6 +20,7 @@ const intialState = {
     page: 1,
     brands: [],
     ofertSelect: [],
+    filter: { brand: "All", gender: "filterByGender" },
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -32,6 +30,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 products: payload,
                 allProducts: payload,
+                filter: { brand: "All", gender: "filterByGender" },
             };
 
         case GET_ALL_PRODUCTS_BY_BRANDS:
@@ -52,56 +51,61 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 postMsj: payload,
             };
 
+        case FILTER:
+            //el payload es = {brand: String, gender: String}
+            function filterByBrand(products, brand) {
+                if (brand === "All") {
+                    return products;
+                } else {
+                    return products.filter(product => product.brandName.includes(brand));
+                }
+            }
 
-        case FILTER_BY_BRANDS:
-            const allProductsBrand = state.allProducts;
-            const brandFilter = payload === "All"
-                ? allProductsBrand.filter((product) => product.length >= 0)
-                : allProductsBrand.filter((product) => (product.brand.name).includes(payload));
+            function filterByGender(products, gender) {
+                if (gender === "filterByGender") {
+                    return products;
+                } else {
+                    return products.filter(product => product.gender.includes(gender));
+                }
+
+            }
+            console.log("soy all", state.allProducts);
+            const productsFilterByBrands = filterByBrand(state.allProducts, payload.brand);
+            console.log("soy produt firlter by brands", productsFilterByBrands);
+            const productsFilterByGender = filterByGender(productsFilterByBrands, payload.gender);
+            console.log("soy produt firlter by GENDER", productsFilterByGender);
+
             return {
                 ...state,
-                products: brandFilter,
-
+                products: productsFilterByGender,
+                filter: { brand: payload.brand, gender: payload.gender },
             };
-
-
-        case FILTER_BY_GENDER:
-            let productFiltersByGender = state.allProducts;
-            let shoesByGender = [];
-            if (payload !== "filterByGender") {
-                // for (let i = 0; i < productFiltersByGender?.length; i++) {
-                //     for (let j = 0; j < productFiltersByGender[i].results.length; j++) {
-                //         if (productFiltersByGender[i].results[j].gender === payload) {
-                //             shoesByGender.push(productFiltersByGender[i]);
-                //         }
-                //     }
-                // }
-                shoesByGender = productFiltersByGender.filter((product) => product.gender.includes(payload))
-                return { ...state, products: shoesByGender };
-            }
-            return { ...state, products: productFiltersByGender }
 
         case ORDER_PRODUCTS:
             let ordered = state.products;
-            payload === "Mayor precio" && ordered.sort((a, b) => {
-                return b.price - a.price;
-            });
-            payload === "Menor precio" && ordered.sort((a, b) => {
-                return a.price - b.price;
-            });
-            payload === "Mas recientes" && ordered.sort((a, b) => {
-                return b.releaseDate - a.releaseDate;
-            });
-            payload === "Menos recientes" && ordered.sort((a, b) => {
-                return a.releaseDate - b.releaseDate;
-            })
+            payload === "Mayor precio" &&
+                ordered.sort((a, b) => {
+                    return b.price - a.price;
+                });
+            payload === "Menor precio" &&
+                ordered.sort((a, b) => {
+                    return a.price - b.price;
+                });
+            payload === "Mas recientes" &&
+                ordered.sort((a, b) => {
+                    return b.releaseDate - a.releaseDate;
+                });
+            payload === "Menos recientes" &&
+                ordered.sort((a, b) => {
+                    return a.releaseDate - b.releaseDate;
+                });
             return { ...state, products: ordered };
 
         case GET_ALL_BRANDS:
             return {
                 ...state,
-                brands: payload
-            }
+                brands: payload,
+            };
         case SET_CURRENT_PAGE:
             return { ...state, page: payload };
 
@@ -113,27 +117,21 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
 
         case SELECT_OFERT:
-            const auxState = state.allProducts
-            const infoChequear = payload.length <= 4 && auxState.filter(e => e.id === Number(payload))
-            const infoModels = auxState.filter(e => e.model.toLocaleLowerCase().slice(0, 15) === payload.trim().toLocaleLowerCase().slice(0, 15))
+            const auxState = state.allProducts;
+            const infoChequear =
+                payload.length <= 4 && auxState.filter(e => e.id === Number(payload));
+            const infoModels = auxState.filter(
+                e =>
+                    e.model.toLocaleLowerCase().slice(0, 15) ===
+                    payload.trim().toLocaleLowerCase().slice(0, 15)
+            );
 
             return {
                 ...state,
-                ofertSelect: infoChequear ? infoChequear : infoModels
+                ofertSelect: infoChequear ? infoChequear : infoModels,
             };
-
-
-
 
         default:
             return { ...state };
     }
 }
-
-
-
-
-
-
-
-
