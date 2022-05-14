@@ -25,7 +25,6 @@ const {seeder, seedBrand, createRoles} = require('../api/src/seeder/index.js');
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     console.log('Listening at 3001'); // eslint-disable-line no-
-    // let load = await seeder();
     await seedBrand();
     await createRoles();
     await seeder();
