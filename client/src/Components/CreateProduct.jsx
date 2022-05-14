@@ -73,7 +73,7 @@ try{
     url: "http://localhost:3001/create",
     data: {
       model: input.product,
-      brand: input.brand,
+      brandName: input.brand,
       description: input.description,
       price: input.price,
       image: input.image,

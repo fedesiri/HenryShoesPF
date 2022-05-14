@@ -42,7 +42,11 @@ console.log(detail)
                 <p> {detail.description}</p>
             </>
             <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
-
+            <div>
+            <Link to={`/edit/${addres}`}>
+                <button>Editar Producto</button>
+            </Link>
+            </div>
 
         </>
 
