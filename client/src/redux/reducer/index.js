@@ -71,7 +71,6 @@ export default function rootReducer(state = intialState, { type, payload }) {
             }
             const productsFilterByBrands = filterByBrand(state.allProducts, payload.brand);
             const productsFilterByGender = filterByGender(productsFilterByBrands, payload.gender);
-
             return {
                 ...state,
                 products: productsFilterByGender,

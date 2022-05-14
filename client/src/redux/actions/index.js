@@ -79,7 +79,6 @@ export const createCategory = category => {
 };
 
 export const filter = filter => {
-    console.log("soy filter en action!", filter);
     return {
         type: FILTER,
         payload: filter,

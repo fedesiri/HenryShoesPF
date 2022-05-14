@@ -28,7 +28,9 @@ export default function Catalog() {
 
     useEffect(() => {
         setLoader(true);
-        dispatch(getAllProducts());
+        if (allProducts.length === 0) {
+            dispatch(getAllProducts());
+        }
         timer(500);
         return () => clearTimeout(timer);
     }, [dispatch]);
