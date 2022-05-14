@@ -24,6 +24,38 @@ const createProduct = async (req, res) => {
   }
 };
 
+const modifProduct = (req, res) => {
+  let { model, description, price, image, gender, brandName, year } = req.body;
+  let id = req.params.id;
+  let product = Products.findByPk (id);
+  let brands = Brands.findOne({
+    where: { name: brandName }
+  })
+  Promise.all ([product,brands])
+  .then(function(values){
+    let prod = values[0];
+    let bra = values [1];
+    Products.update({
+      model: model,
+      description: description,
+      price: price,
+      image: image,
+      gender: gender,
+      year: year
+    },
+    {
+      where:{
+        id: id
+      },
+    })
+    prod.setBrand(bra)
+    .then(function(brands){
+      res.status(200).json(brands)
+    })
+  })
+}
+
 module.exports = {
   createProduct,
+  modifProduct
 };
