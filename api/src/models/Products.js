@@ -23,10 +23,10 @@ module.exports = (sequelize) => {
     },
     year: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     image:{
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     gender: {

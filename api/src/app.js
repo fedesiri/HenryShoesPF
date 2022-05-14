@@ -2,13 +2,20 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const cors = require('cors')
 
 require('./db.js');
 
 const server = express();
 
 server.name = 'API';
+const origin = ['http://localhost:3000'];
+const methods = ['GET', 'POST', 'OPTIONS','PUT','DELETE']
 
+server.use(cors({
+  origin:origin,
+  methods: methods
+}));
 server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());

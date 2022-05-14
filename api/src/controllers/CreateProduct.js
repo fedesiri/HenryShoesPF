@@ -2,7 +2,7 @@ const { Products, Brands } = require("../db.js");
 const { Op } = require("sequelize");
 
 
-const createProduct = async (req, res) => {
+async function createProduct (req, res) {
     try {
         let {
             model, 
@@ -10,7 +10,8 @@ const createProduct = async (req, res) => {
             price,
             image,
             gender,
-            brand
+            brand,
+            year,
         } = req.body;
 
         let productCreate = await Products.create ({
@@ -19,13 +20,13 @@ const createProduct = async (req, res) => {
             price: price,
             image: image,
             gender: gender,
+            year: year,
         });
         let brandsDB = await Brands.findOne({
             where :{ name: brand }
         });
         productCreate.setBrand(brandsDB)
         res.status(200).json(productCreate)
-        res.send ('Producto creado con éxito');
     }catch (error){
         console.log(error)
     }
