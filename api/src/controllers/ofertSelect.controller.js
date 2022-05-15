@@ -53,7 +53,38 @@ const ofertSelect = (req, res) => {
 
 }
 
+const deleteDestacado = async (req, res) => {
+    let { id } = req.body
+    console.log(req.body)
+    console.log(id)
+    const ResultUpDate = await Products.update({
+        inDestacados: false,
+
+    },
+        { where: { "id": id } }
+
+    )
+    res.status(200).send("Actualizacion")
+}
+
+
+const deletePromotion = async (req, res) => {
+    let { id } = req.body
+    console.log(req.body)
+    console.log(id)
+    const ResultUpDate = await Products.update({
+        inOferta: false,
+        porcentaje: null
+
+    },
+        { where: { "id": id } }
+
+    )
+    res.status(200).send("Actualizacion")
+}
 
 module.exports = {
     ofertSelect,
+    deleteDestacado,
+    deletePromotion,
 };

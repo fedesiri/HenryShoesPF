@@ -1,7 +1,7 @@
 var express = require("express");
 const { getAllProducts, getAllBrands, GetShoesByGender } = require("../controllers/products.controller");
 const { getDetails } = require("../controllers/details.controller");
-const { ofertSelect } = require("../controllers/ofertSelect.controller");
+const { ofertSelect, deleteDestacado, deletePromotion } = require("../controllers/ofertSelect.controller");
 const { createProduct, modifProduct, deleteProduct } = require("../controllers/CreateProduct");
 // const {verifyToken, isAdmin} = require('../middlewares/authJwt.js')
 
@@ -12,13 +12,16 @@ products.get("/brand", getAllBrands);
 products.get("/gender/:gender", GetShoesByGender);
 products.get("/details/:id", getDetails);
 
-products.post("/create", createProduct );
-products.put ("/details/:id", modifProduct)
-products.delete("/details/:id", deleteProduct )
+products.post("/create", createProduct);
+products.put("/details/:id", modifProduct)
+products.delete("/details/:id", deleteProduct)
 
 
-products.post("/ofert", ofertSelect)
-products.post("/create", createProduct )
+products.put("/ofert", ofertSelect)
+products.put("/deletePromotion", deletePromotion)
+products.put("/deleteDestacado", deleteDestacado)
+
+products.post("/create", createProduct)
 
 
 

@@ -11,6 +11,8 @@ import {
     CLEAR_OFERT,
     FILTER_OFERT_DESTACADO,
     CLEAR_OFERT_DESTACADO,
+    DELETE_DESTACADO_PRODUCTS,
+    DELETE_PROMOTION_PRODUCTS,
 } from "../actions/types";
 
 const intialState = {
@@ -154,7 +156,17 @@ export default function rootReducer(state = intialState, { type, payload }) {
             };
 
 
+        case DELETE_DESTACADO_PRODUCTS:
+            return {
+                ...state,
+                postMsj: payload,
+            };
 
+        case DELETE_PROMOTION_PRODUCTS:
+            return {
+                ...state,
+                postMsj: payload,
+            };
         default:
             return { ...state };
     }

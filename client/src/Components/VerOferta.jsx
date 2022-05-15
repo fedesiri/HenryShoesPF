@@ -4,6 +4,8 @@ import {
   filterOfertDestacado,
   getAllProducts,
   clearOfertDestacado,
+  deletePromotion,
+  deleteDestacado,
 } from "../redux/actions/index";
 
 
@@ -22,8 +24,8 @@ const VerOferta = () => {
   console.log(productsDestacadOfert)
 
   useEffect(() => {
-    dispatch(getAllProducts())
-    dispatch(filterOfertDestacado())
+    // dispatch(getAllProducts())
+    // dispatch(filterOfertDestacado())
 
   }, []);
     
@@ -39,6 +41,36 @@ const VerOferta = () => {
     dispatch(filterOfertDestacado())
     setOcultar(!ocultar);
   }
+function retornarIdPromotion(e){
+  console.log(e.target.value)
+  dispatch(deletePromotion(e.target.value))
+  setTimeout(() => {
+    dispatch(getAllProducts())
+
+  }, 500);
+  setTimeout(() => {
+    dispatch(filterOfertDestacado())
+
+  }, 1000);
+}
+
+
+
+function retornarIdDestacado(e){
+  console.log(e.target.value)
+  dispatch(deleteDestacado(e.target.value))
+  setTimeout(() => {
+    dispatch(getAllProducts())
+
+  }, 500);
+  setTimeout(() => {
+    dispatch(filterOfertDestacado())
+
+  }, 1000);
+
+
+}
+
   const productOfert = productsDestacadOfert.filter((e) => e.inOferta === true);
   console.log(productOfert)
   const productDestacado = productsDestacadOfert.filter(
@@ -65,7 +97,7 @@ const VerOferta = () => {
               <h2> {e.model} </h2>
               <h3> Producto Num: {e.id}</h3>
               <h3> Descuento del: {e.porcentaje} %</h3>
-              <button>X</button>
+              <button  value={e.id}   onClick={e=>retornarIdPromotion(e)}>X</button>
             </div>
           ))}
           </div>
@@ -76,7 +108,7 @@ const VerOferta = () => {
               <img src={e.image} />
               <h2> {e.model} </h2>
               <h3> Producto Num: {e.id}</h3>
-              <button>X</button>
+              <button value={e.id}   onClick={e=>retornarIdDestacado(e)} >X</button>
 
             </div>
           ))}
