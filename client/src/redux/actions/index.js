@@ -1,21 +1,25 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
-  GET_ALL_PRODUCTS,
-  GET_ALL_PRODUCTS_BY_BRANDS,
-  GET_PRODUCT_BY_ID,
-  CREATE_CATEGORY,
-  POST_LOG_IN,
-  FILTER,
-  ORDER_PRODUCTS,
-  SET_CURRENT_PAGE,
-  GET_ALL_BRANDS,
-  SELECT_OFERT,
-  SEND_OFERT_BACK,
-  CLEAR_OFERT,
-  FILTER_OFERT_DESTACADO,
-  CLEAR_OFERT_DESTACADO,
-  POST_LOG_OUT,
+
+    GET_ALL_PRODUCTS,
+    GET_ALL_PRODUCTS_BY_BRANDS,
+    GET_PRODUCT_BY_ID,
+    CREATE_CATEGORY,
+    POST_LOG_IN,
+    FILTER,
+    ORDER_PRODUCTS,
+    SET_CURRENT_PAGE,
+    GET_ALL_BRANDS,
+    SELECT_OFERT,
+    SEND_OFERT_BACK,
+    CLEAR_OFERT,
+    FILTER_OFERT_DESTACADO,
+    CLEAR_OFERT_DESTACADO,
+    DELETE_DESTACADO_PRODUCTS,
+    DELETE_PROMOTION_PRODUCTS,
+   POST_LOG_OUT,
+
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -149,17 +153,16 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
-  return async function (dispatch) {
-    // cambiar la ruta
-    const result = await axios.post(
-      "http://localhost:3001/products/ofert",
-      payload
-    );
-    return dispatch({
-      type: SEND_OFERT_BACK,
-      payload: result,
-    });
-  };
+
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.put("http://localhost:3001/products/ofert", payload);
+        return dispatch({
+            type: SEND_OFERT_BACK,
+            payload: result,
+        });
+    };
+
 }
 
 export const clearOfertSelect = (payload) => {
@@ -181,4 +184,36 @@ export const filterOfertDestacado = (payload) => {
     type: FILTER_OFERT_DESTACADO,
     payload,
   };
+};
+
+
+
+export function deleteDestacado(payload) {
+    const value = { id: payload }
+    console.log("verDestacado a Eliminar", value)
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.put("http://localhost:3001/products/deleteDestacado", value);
+        return dispatch({
+            type: DELETE_DESTACADO_PRODUCTS,
+            payload: result,
+        });
+    };
+}
+
+
+
+
+
+export const deletePromotion = payload => {
+    const value = { id: payload }
+    console.log("verDestacado a Eliminar", value)
+    return async function (dispatch) {
+        // cambiar la ruta
+        const result = await axios.put("http://localhost:3001/products/deletePromotion", value);
+        return dispatch({
+            type: DELETE_PROMOTION_PRODUCTS,
+            payload: result,
+        });
+    };
 };
