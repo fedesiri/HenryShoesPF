@@ -6,7 +6,6 @@ const jsonRead = JSON.parse(
   fs.readFileSync(`${__dirname}/AdidasChild0.json`, "utf-8")
 );
 
-
 async function seeder() {
   const shoes = jsonRead.result;
   try {

@@ -7,8 +7,8 @@ const getAllProducts = async (req, res) => {
       include: {
         model: Brands,
         attributes: ["name"],
-      }
-    })
+      },
+    });
 
     const { name } = req.query;
     const productsName = await Products.findAll({
@@ -33,7 +33,6 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-
 const getAllBrands = async (req, res) => {
   try {
     const allBrands = await Brands.findAll();
@@ -46,8 +45,6 @@ const getAllBrands = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
-
-
 
 async function GetShoesByGender(req, res) {
   const gender = req.params.gender;
@@ -62,8 +59,6 @@ async function GetShoesByGender(req, res) {
     res.status(500).send({ message: error.message });
   }
 }
-
-
 
 module.exports = {
   getAllProducts,

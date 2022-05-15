@@ -30,14 +30,11 @@ const CargarOferta = () => {
   useEffect(() => {
     dispatch(getAllProducts());
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
-useEffect(() => {
-  setTimeout(() => {
-    dispatch(filterOfertDestacado());
-  }, 1000);  
-
-}, [])
-
-
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(filterOfertDestacado());
+    }, 1000);
+  }, []);
 
   function inputSearch(e) {
     e.preventDefault();
@@ -101,19 +98,17 @@ useEffect(() => {
       dispatch(sendOfertToBack(validarProducts));
       setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
       dispatch(clearOfertDestacado());
-     
+
       dispatch(clearOfertSelect());
     } else {
       alert("complete una categoria");
     }
     setTimeout(() => {
       dispatch(getAllProducts());
-
     }, 1000);
     setTimeout(() => {
       setCambio(cambio + 1);
       dispatch(filterOfertDestacado());
-
     }, 2000);
   }
   function clearProducts(e) {
@@ -136,9 +131,7 @@ useEffect(() => {
               placeholder=" Search"
             />
             <button onClick={(e) => filterProducts(e)}>Search</button>
-            <button onClick={(e) => clearProducts(e)}>
-              Limpiar Productos
-            </button>
+            <button onClick={(e) => clearProducts(e)}>Limpiar Productos</button>
           </div>
           <div>
             {validarProducts.id_oferta.length !== 0 && (
@@ -203,8 +196,7 @@ useEffect(() => {
         </button>
       </form>
       <div></div>
-      
-      <VerOferta cambio={cambio}  />
+      <VerOferta cambio={cambio} />
     </div>
   );
 };

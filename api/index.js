@@ -17,18 +17,21 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-const {seeder, seedBrand, createRoles} = require('../api/src/seeder/index.js');
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const {
+  seeder,
+  seedBrand,
+  createRoles,
+} = require("../api/src/seeder/index.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
-    console.log('Listening at 3001'); // eslint-disable-line no-
+    console.log("Listening at 3001"); // eslint-disable-line no-
     await seedBrand();
     await createRoles();
     await seeder();
-    console.log('brands, roles and products loaded')
-   
+    console.log("brands, roles and products loaded");
   });
 });
