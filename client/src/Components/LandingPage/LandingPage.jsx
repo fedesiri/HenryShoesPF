@@ -32,6 +32,10 @@ const LandingPage = () => {
                     {" "}
                     <Link to="/shopping_cart"> Carrito </Link>{" "}
                 </button>
+                <button>
+                    {" "}
+                    <Link to="/CreateProduct"> Crear Producto </Link>{" "}
+                </button>
             </div>
 
             <>
