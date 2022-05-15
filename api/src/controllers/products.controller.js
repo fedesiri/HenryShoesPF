@@ -7,8 +7,8 @@ const getAllProducts = async (req, res) => {
       include: {
         model: Brands,
         attributes: ["name"],
-      }
-    })
+      },
+    });
 
     const { name } = req.query;
     const productsName = await Products.findAll({
@@ -21,7 +21,7 @@ const getAllProducts = async (req, res) => {
 
     if (name) {
       if (productsName.length === 0) {
-        res.status(404).send({ message: "No products found" });
+        res.status(404).send({ message: "No se encontraron productos." });
       } else {
         res.send(productsName);
       }
@@ -33,12 +33,11 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-
 const getAllBrands = async (req, res) => {
   try {
     const allBrands = await Brands.findAll();
     if (allBrands.length === 0) {
-      res.status(404).send({ message: "No brands found" });
+      res.status(404).send({ message: "No se encontraron marcas." });
     } else {
       res.status(200).send(allBrands);
     }
@@ -46,8 +45,6 @@ const getAllBrands = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
-
-
 
 async function GetShoesByGender(req, res) {
   const gender = req.params.gender;
@@ -62,8 +59,6 @@ async function GetShoesByGender(req, res) {
     res.status(500).send({ message: error.message });
   }
 }
-
-
 
 module.exports = {
   getAllProducts,

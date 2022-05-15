@@ -7,11 +7,11 @@ const getDetails = async (req, res) => {
     if (Models_Id !== null) {
       res.status(200).json(Models_Id);
     } else {
-      res.status(404).send({ message: "Products not found" });
+      res.status(404).send({ message: "Producto no encontrado." });
     }
   } catch (err) {
     console.log(err, "error en busqueda por id");
-    res.send({ message: "fallo" });
+    res.status(500).send({ message: err.message });
   }
 };
 

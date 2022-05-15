@@ -29,26 +29,25 @@ const LandingPage = () => {
     <>
       <NavBar />
 
-
-            <div>
-                <button>
-                    {" "}
-                    <Link to="/login"> Inicio sesión </Link>{" "}
-                </button>
-                <button>
-                    {" "}
-                    <Link to="/shopping_cart"> Carrito </Link>{" "}
-                </button>
-                <button>
-                    {" "}
-                    <Link to="/CreateProduct"> Crear Producto </Link>{" "}
-                </button>
-            </div>
-
+      <div>
+        {userInfo ? (
+          <span>{userInfo.user.username}</span>
+        ) : (
+          <button>
+            <Link to="/login"> Inicio sesión </Link>
+          </button>
+        )}
 
         <button>
           <Link to="/shopping_cart"> Carrito </Link>{" "}
         </button>
+
+        {userInfo && userInfo.user.roleId === 1 && (
+          <button>
+            <Link to="/CreateProduct"> Crear Producto </Link>{" "}
+          </button>
+        )}
+
         {userInfo ? <button onClick={signOutHandler}>Sign Out</button> : null}
       </div>
 
