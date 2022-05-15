@@ -24,6 +24,8 @@ const intialState = {
     ofertSelect: [],
     filter: { brand: "All", gender: "filterByGender" },
     inOfertDestacado: [],
+    inOfertDestacadoAux: [],
+
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -135,13 +137,17 @@ export default function rootReducer(state = intialState, { type, payload }) {
             const filterOfertDestacado = filterOfert.concat(filterDestacado)
             const dataArr = new Set(filterOfertDestacado);
             let result = [...dataArr];
+            console.log(result)
 
             return {
                 ...state,
                 inOfertDestacado: result,
+                inOfertDestacadoAux: result,
+
             };
 
         case CLEAR_OFERT_DESTACADO:
+
             return {
                 ...state,
                 inOfertDestacado: [],
