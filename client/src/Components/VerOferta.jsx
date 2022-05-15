@@ -8,9 +8,8 @@ import {
   deleteDestacado,
 } from "../redux/actions/index";
 
-
 const divStyle = {
-  display: 'none',
+  display: "none",
 };
 
 const VerOferta = () => {
@@ -21,24 +20,24 @@ const VerOferta = () => {
   const productsDestacadOfert = useSelector(
     (state) => state.inOfertDestacadoAux
   );
-  console.log(productsDestacadOfert)
+  console.log(productsDestacadOfert);
 
   useEffect(() => {
+
     // dispatch(getAllProducts())
     // dispatch(filterOfertDestacado())
 
   }, []);
-    
-    // setTimeout(() => {
-    //   if(productOfert.length !== 0 || productDestacado.length !== 0){
-    //     setInhabilitar(false)
-    //   }
-    // }, 500);
-  
+
+  // setTimeout(() => {
+  //   if(productOfert.length !== 0 || productDestacado.length !== 0){
+  //     setInhabilitar(false)
+  //   }
+  // }, 500);
 
   function verProduct() {
-    dispatch(getAllProducts())
-    dispatch(filterOfertDestacado())
+    dispatch(getAllProducts());
+    dispatch(filterOfertDestacado());
     setOcultar(!ocultar);
   }
 function retornarIdPromotion(e){
@@ -72,24 +71,23 @@ function retornarIdDestacado(e){
 }
 
   const productOfert = productsDestacadOfert.filter((e) => e.inOferta === true);
-  console.log(productOfert)
+  console.log(productOfert);
   const productDestacado = productsDestacadOfert.filter(
     (e) => e.inDestacados === true
   );
-  console.log(productDestacado)
+  console.log(productDestacado);
 
   return (
     <div>
-      <br/>
-      <button     onClick={verProduct}>
-        ver Productos Promocion y Destacados
-      </button>
-      {ocultar === false  ? (
+      <br />
+      <button onClick={verProduct}>ver Productos Promocion y Destacados</button>
+      {ocultar === false ? (
         <> </>
       ) : (
         <div>
-          <div style={productOfert.length !== 0? null: divStyle}>
-          <h1> Productos en Promocion</h1>
+          <div style={productOfert.length !== 0 ? null : divStyle}>
+            <h1> Productos en Promocion</h1>
+
 
           {productOfert.map((e) => (
             <div key={e.id} className="container">
@@ -112,10 +110,10 @@ function retornarIdDestacado(e){
 
             </div>
           ))}
+
           </div>
         </div>
       )}
-
     </div>
   );
 };

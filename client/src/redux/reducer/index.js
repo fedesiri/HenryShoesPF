@@ -1,4 +1,5 @@
 import {
+
     GET_ALL_PRODUCTS,
     GET_PRODUCT_BY_ID,
     FILTER,
@@ -13,24 +14,27 @@ import {
     CLEAR_OFERT_DESTACADO,
     DELETE_DESTACADO_PRODUCTS,
     DELETE_PROMOTION_PRODUCTS,
+  POST_LOG_OUT,
+
 } from "../actions/types";
 
 const intialState = {
-    products: [],
-    allProducts: [],
-    productsByBrand: [],
-    postMsj: [],
-    details: {},
-    page: 1,
-    brands: [],
-    ofertSelect: [],
-    filter: { brand: "All", gender: "filterByGender" },
-    inOfertDestacado: [],
-    inOfertDestacadoAux: [],
-
+  products: [],
+  allProducts: [],
+  productsByBrand: [],
+  userInfo: localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null,
+  details: {},
+  page: 1,
+  brands: [],
+  ofertSelect: [],
+  filter: { brand: "All", gender: "filterByGender" },
+  inOfertDestacado: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
+
     switch (type) {
         case GET_ALL_PRODUCTS:
             return {
@@ -57,6 +61,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
                 ...state,
                 postMsj: payload,
             };
+        
+          case POST_LOG_OUT:
+      return {
+        ...state,
+        userInfo: null,
+      };
 
         case FILTER:
             function filterByBrand(products, brand) {
@@ -170,4 +180,5 @@ export default function rootReducer(state = intialState, { type, payload }) {
         default:
             return { ...state };
     }
+
 }

@@ -4,6 +4,7 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const ORDER_PRODUCTS = "ORDER_PRODUCTS";
 export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const POST_LOG_IN = "POST_LOG_IN";
+export const POST_LOG_OUT = "POST_LOG_OUT";
 export const FILTER = "FILTER";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const GET_ALL_BRANDS = "GET_ALL_BRANDS";

@@ -56,11 +56,11 @@ const userLogin = expressAsyncHandler(async (req, res) => {
       },
     });
     // console.log(user);
-    if (!user) return res.status(400).send({ message: "Email does not exist" });
+    if (!user) return res.status(400).send({ message: "El email ingresado no existe." });
 
     const passwordMatch = comparePassword(req.body.password, user.password);
     if (!passwordMatch)
-      return res.status(401).send({ message: "Password is incorrect" });
+      return res.status(401).send({ message: "La contraseña ingresada es incorrecta." });
     const token = generateToken(user);
     // console.log(user)
     res.send({ token: token, user: user });
