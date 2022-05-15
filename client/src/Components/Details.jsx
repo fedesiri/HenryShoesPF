@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import { useEffect} from "react";
 import { Link } from 'react-router-dom';
 import { getProductById } from "../redux/actions/index"
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Details = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
     let addres = params.id;
@@ -25,6 +27,19 @@ console.log(detail)
 
     function CargarCarrito() {
 
+    }
+
+    const HandleDelete = () => {
+        let reply = window.confirm("¿Seguro que desea eliminar el producto?");
+        if (reply==true){
+        try{
+            axios({
+                method: "delete",
+                url:`http://localhost:3001/details/${detail.id}`
+            })
+        navigate("/");
+        }catch(err){console.log(err)}
+        }
     }
 
     return (
@@ -46,7 +61,11 @@ console.log(detail)
             <Link to={`/edit/${addres}`}>
                 <button>Editar Producto</button>
             </Link>
+
+            <button onClick={(e) => HandleDelete()}> Eliminar producto</button>
+            
             </div>
+
 
         </>
 

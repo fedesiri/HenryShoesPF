@@ -29,14 +29,22 @@ const LandingPage = () => {
     <>
       <NavBar />
 
-      <div>
-        {userInfo ? (
-          <span>{userInfo.user.username}</span>
-        ) : (
-          <button>
-            <Link to="/login"> Inicio sesión </Link>
-          </button>
-        )}
+
+            <div>
+                <button>
+                    {" "}
+                    <Link to="/login"> Inicio sesión </Link>{" "}
+                </button>
+                <button>
+                    {" "}
+                    <Link to="/shopping_cart"> Carrito </Link>{" "}
+                </button>
+                <button>
+                    {" "}
+                    <Link to="/CreateProduct"> Crear Producto </Link>{" "}
+                </button>
+            </div>
+
 
         <button>
           <Link to="/shopping_cart"> Carrito </Link>{" "}
