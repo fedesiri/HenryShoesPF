@@ -1,14 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import catalogPage from "./Components/catalogPage/catalogPage";
-import LandingPage from "./Components/LandingPage/LandingPage";
-import Catalog from "./Components/catalogPage/catalogPage";
 
-import CargarOferta from "./Components/CargarOferta";
-import CreateProduct from "./Components/CreateProduct";
-import FormularioInicio from "./Components/FormularioInicio";
-import Details from "./Components/Details";
-import EditProduct from "./Components/EditProduct";
+import catalogPage from "./components/catalogPage/catalogPage";
+import LandingPage from "./components/LandingPage/LandingPage";
+import Catalog from "./components/catalogPage/catalogPage";
+
+
+import CargarOferta from "./components/CargarOferta";
+import CreateProduct from "./components/CreateProduct";
+import FormularioInicio from "./components/FormularioInicio";
+import Details from "./components/Details";
+import EditProduct from "./components/EditProduct";
 
 function App() {
     return (
@@ -16,10 +18,10 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<FormularioInicio />} />
             <Route path="/details/:id" element={<Details />} />
-            <Route path="/edit/:id" element={<EditProduct/>}/>
+            <Route path="/edit/:id" element={<EditProduct />} />
             <Route path="/cargarOferta" element={<CargarOferta />} />
 
-            <Route path="/catalogPage" element={<Catalog/>} />
+            <Route path="/catalogPage" element={<Catalog />} />
             <Route path="/formInicio" />
             <Route path="/CreateProduct" element={<CreateProduct />} />
         </Routes>

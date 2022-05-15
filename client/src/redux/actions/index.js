@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
     GET_ALL_PRODUCTS,
     GET_ALL_PRODUCTS_BY_BRANDS,
@@ -14,6 +15,7 @@ import {
     CLEAR_OFERT,
     FILTER_OFERT_DESTACADO,
     CLEAR_OFERT_DESTACADO,
+    POST_LOG_OUT,
 } from "./types";
 
 export const getAllProducts = name => {
@@ -86,16 +88,29 @@ export const filter = filter => {
     };
 };
 
-export function postLogIn(payload) {
+export function postLogIn({ email, password }) {
     return async function (dispatch) {
-        // cambiar la ruta
-        const result = await axios.post("http://localhost:3001/models", payload);
-        return dispatch({
-            type: POST_LOG_IN,
-            payload: result,
+      try {
+        const { data } = await axios.post("http://localhost:3001/auth/login", {
+          email,
+          password,
         });
+        return dispatch({
+          type: POST_LOG_IN,
+          payload: data,
+        });
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     };
-}
+  }
+  
+  export const postLogOut = () => {
+    return {
+      type: POST_LOG_OUT,
+    };
+  }
+  
 
 export const orderProducts = payload => {
     return {
