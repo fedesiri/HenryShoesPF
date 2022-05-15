@@ -8,6 +8,7 @@ import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../cardProduct";
 
+
 export default function Catalog() {
     const dispatch = useDispatch();
     const { allProducts, products, page } = useSelector(state => state);
