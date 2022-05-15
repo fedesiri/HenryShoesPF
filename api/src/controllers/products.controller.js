@@ -21,7 +21,7 @@ const getAllProducts = async (req, res) => {
 
     if (name) {
       if (productsName.length === 0) {
-        res.status(404).send({ message: "No products found" });
+        res.status(404).send({ message: "No se encontraron productos." });
       } else {
         res.send(productsName);
       }
@@ -37,7 +37,7 @@ const getAllBrands = async (req, res) => {
   try {
     const allBrands = await Brands.findAll();
     if (allBrands.length === 0) {
-      res.status(404).send({ message: "No brands found" });
+      res.status(404).send({ message: "No se encontraron marcas." });
     } else {
       res.status(200).send(allBrands);
     }

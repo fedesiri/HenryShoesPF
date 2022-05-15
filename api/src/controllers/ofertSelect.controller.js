@@ -48,10 +48,10 @@ const ofertSelect = (req, res) => {
       });
     }
 
-    res.status(200).send({ message: "informacion actualizada" });
+    res.status(200).send({ message: "La información ha sido actualizada." });
   } catch (err) {
     console.log(err, "error en la actualizacion");
-    res.send({ message: "fallo" });
+    res.send({ message: err.message });
   }
 };
 

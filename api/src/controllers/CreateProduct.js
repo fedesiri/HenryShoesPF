@@ -3,7 +3,8 @@ const { Op } = require("sequelize");
 
 async function createProduct(req, res) {
   try {
-    let { model, description, price, image, gender, brandName, year } = req.body;
+    let { model, description, price, image, gender, brandName, year } =
+      req.body;
 
     let productCreate = await Products.create({
       model: model,
@@ -17,21 +18,21 @@ async function createProduct(req, res) {
       where: { name: brandName },
     });
     productCreate.setBrand(brandsDB);
-    res.status(200).json({message: "Producto creado exitosamente"});
+    res.status(200).json({ message: "Producto creado exitosamente" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 }
 
 const modifProduct = (req, res) => {
-  try {
-    let { model, description, price, image, gender, brandName, year } = req.body;
-    let id = req.params.id;
-    let product = Products.findByPk(id);
-    let brands = Brands.findOne({
-      where: { name: brandName },
-    });
-    Promise.all([product, brands]).then(function (values) {
+  let { model, description, price, image, gender, brandName, year } = req.body;
+  let id = req.params.id;
+  let product = Products.findByPk(id);
+  let brands = Brands.findOne({
+    where: { name: brandName },
+  });
+  Promise.all([product, brands])
+    .then(function (values) {
       let prod = values[0];
       let bra = values[1];
       Products.update(
@@ -50,13 +51,12 @@ const modifProduct = (req, res) => {
         }
       );
       prod.setBrand(bra).then(function (brands) {
-        res.status(200).json({message: "Producto modificado exitosamente"});
+        res.status(200).json({ message: "Producto modificado exitosamente" });
       });
+    })
+    .catch((error) => {
+      res.status(500).send({ message: error.message });
     });
-    
-  } catch (error) {
-    res.send({ message: error.message });
-  }
 };
 
 // const deleteProduct = function(req, res, next){
@@ -86,12 +86,12 @@ const deleteProduct = (req, res) => {
     .then((confirmation) => {
       if (confirmation === 0) {
         // checking if the id passed its correct
-        return res.send({ data: "Product not found!" }).status(400); // Show proper error in DevTool to the FrontEnd guys.
+        return res.send({ message: "Producto no encontrado!" }).status(400); // Show proper error in DevTool to the FrontEnd guys.
       }
       return res.send("Product Deleted");
     })
     .catch((err) => {
-      return res.send({ data: err }).status(400); // Show proper error in DevTool to the FrontEnd guys.
+      return res.send({ message: err }).status(400); // Show proper error in DevTool to the FrontEnd guys.
     });
 };
 
