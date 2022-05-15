@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import catalogPage from "./Components/catalogPage/catalogPage";
+// import CatalogPage from "./Components/CatalogPage/catalogPage";
 import LandingPage from "./Components/LandingPage/LandingPage";
-import Catalog from "./Components/catalogPage/catalogPage";
+import Catalog from "./Components/CatalogPage/CatalogPage";
 
 import CargarOferta from "./Components/CargarOferta";
 import CreateProduct from "./Components/CreateProduct";
@@ -16,10 +16,10 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<FormularioInicio />} />
             <Route path="/details/:id" element={<Details />} />
-            <Route path="/edit/:id" element={<EditProduct/>}/>
+            <Route path="/edit/:id" element={<EditProduct />} />
             <Route path="/cargarOferta" element={<CargarOferta />} />
 
-            <Route path="/catalogPage" element={<Catalog/>} />
+            <Route path="/catalogPage" element={<Catalog />} />
             <Route path="/formInicio" />
             <Route path="/CreateProduct" element={<CreateProduct />} />
         </Routes>

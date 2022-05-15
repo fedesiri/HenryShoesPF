@@ -6,7 +6,7 @@ import NavBar from "../NavBar";
 import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
-import CardProduct from "../cardProduct";
+import CardProduct from "../CardProduct";
 
 
 export default function Catalog() {
