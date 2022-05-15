@@ -1,14 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import catalogPage from "./Components/catalogPage/catalogPage";
-import LandingPage from "./Components/LandingPage/LandingPage";
-import Catalog from "./Components/catalogPage/catalogPage";
+import catalogPage from "./components/catalogPage/catalogPage";
+import LandingPage from "./components/LandingPage/LandingPage";
+import Catalog from "./components/catalogPage/catalogPage";
 
-import CargarOferta from "./Components/CargarOferta";
-import CreateProduct from "./Components/CreateProduct";
-import FormularioInicio from "./Components/FormularioInicio";
-import Details from "./Components/Details";
-import EditProduct from "./Components/EditProduct";
+import CargarOferta from "./components/CargarOferta";
+import CreateProduct from "./components/CreateProduct";
+import FormularioInicio from "./components/FormularioInicio";
+import Details from "./components/Details";
+import EditProduct from "./components/EditProduct";
 
 function App() {
     return (
