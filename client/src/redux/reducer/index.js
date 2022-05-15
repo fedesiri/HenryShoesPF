@@ -166,4 +166,5 @@ export default function rootReducer(state = intialState, { type, payload }) {
     default:
       return { ...state };
   }
+
 }
