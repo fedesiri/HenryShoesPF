@@ -53,7 +53,7 @@ const EditProduct = () => {
     let error = {};
 
     if (!/^\d+$/.test(input.price) || input.price < 0 || input.year < 0) {
-      error.price = "solo pueden ingresarse numeros positivos";
+      error.price = "Positive numbers only";
     }
     return error;
   }
@@ -77,7 +77,7 @@ const EditProduct = () => {
     try {
       const response = await axios({
         method: "put",
-        url: `http://localhost:3001/details/${detail.id}`,
+        url: `http://localhost:3001/products/details/${detail.id}`,
         data: {
           model: input.product !== "" ? input.product : detail.model,
           brandName: input.brandName !== "" ? input.brandName : detail.model,
@@ -98,18 +98,20 @@ const EditProduct = () => {
   return (
     <div>
       <div>
-        <Link to="/"> Atras </Link>
+        <Link to="/"> Back </Link>
       </div>
 
       <div>
         <form name="CreateForm" id="CreateForm">
-          <label>Marca: </label>
+          <label>Brand: </label>
           <div>
             <select
+            defaultValue="All"
               name="brandName"
               onChange={HandleOnChange}
               placeholder={detail.brandName}
             >
+              <option value="All" disabled="disabled">Brand</option>
               {brands?.map((brand) => (
                 <option key={brand} value={brand}>
                   {brand}
@@ -120,13 +122,15 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label>Categoria: </label>
+            <label>Category gender: </label>
             <div>
               <select
+              defaultValue="All"
                 name="gender"
                 onChange={HandleOnChange}
                 placeholder={detail.gender}
               >
+                <option value="All" disabled="disabled">Gender</option>
                 {genders?.map((gender) => (
                   <option key={genders.indexOf(gender)} value={gender}>
                     {gender}
@@ -138,7 +142,7 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label>Producto: </label>
+            <label>Product: </label>
             <div>
               <input
                 type="text"
@@ -151,7 +155,7 @@ const EditProduct = () => {
 
           <div>
             <div>
-              <label>Precio: </label>
+              <label>Price: </label>
             </div>
             <div>
               <input
@@ -166,7 +170,7 @@ const EditProduct = () => {
 
           <div>
             <div>
-              <label>Año de Lanzamiento: </label>
+              <label>Release year: </label>
             </div>
             <div>
               <input
@@ -179,7 +183,7 @@ const EditProduct = () => {
             </div>
           </div>
 
-          <label>Descripción: </label>
+          <label>Description: </label>
           <div>
             <input
               name="description"
@@ -190,10 +194,10 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label>Imagen actual: </label>
-            <img src={detail.image} alt="no image :(" />
+            <label>Actual Image: </label>
+            <img src={detail.image} alt={detail.model} />
           </div>
-          <p>Nueva Imagen</p>
+          <p>New image</p>
           <div>
             <input name="image" type="text" onChange={HandleOnChange} />
           </div>
@@ -203,7 +207,7 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <button onClick={(e) => HandleOnSubmit(e)}>Confirmar</button>
+            <button onClick={(e) => HandleOnSubmit(e)}>Confirm update</button>
           </div>
         </form>
         <ToastContainer

@@ -2,8 +2,10 @@ const { Products } = require("../db.js");
 
 const ofertSelect = (req, res) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
+  console.log(req.body)
 
   var array = id_oferta;
+  console.log(array)
   try {
     if (array.length !== 0) {
       var Promises = [];
@@ -70,35 +72,20 @@ const deleteDestacado = async (req, res) => {
     res.status(200).send("Actualizacion")
 }
 
-const deleteDestacado = async (req, res) => {
-    let { id } = req.body
-    console.log(req.body)
-    console.log(id)
-    const ResultUpDate = await Products.update({
-        inDestacados: false,
+// const deleteDestacado = async (req, res) => {
+//     let { id } = req.body
+//     console.log(req.body)
+//     console.log(id)
+//     const ResultUpDate = await Products.update({
+//         inDestacados: false,
 
-    },
-        { where: { "id": id } }
+//     },
+//         { where: { "id": id } }
 
-    )
-    res.status(200).send("Actualizacion")
-}
+//     )
+//     res.status(200).send("Actualizacion")
+// }
 
-
-const deletePromotion = async (req, res) => {
-    let { id } = req.body
-    console.log(req.body)
-    console.log(id)
-    const ResultUpDate = await Products.update({
-        inOferta: false,
-        porcentaje: null
-
-    },
-        { where: { "id": id } }
-
-    )
-    res.status(200).send("Actualizacion")
-}
 
 const deletePromotion = async (req, res) => {
     let { id } = req.body
@@ -114,6 +101,21 @@ const deletePromotion = async (req, res) => {
     )
     res.status(200).send("Actualizacion")
 }
+
+// const deletePromotion = async (req, res) => {
+//     let { id } = req.body
+//     console.log(req.body)
+//     console.log(id)
+//     const ResultUpDate = await Products.update({
+//         inOferta: false,
+//         porcentaje: null
+
+//     },
+//         { where: { "id": id } }
+
+//     )
+//     res.status(200).send("Actualizacion")
+// }
 
 module.exports = {
     ofertSelect,

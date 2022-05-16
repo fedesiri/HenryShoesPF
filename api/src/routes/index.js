@@ -16,8 +16,8 @@ router.use("/products", modelsRoutes);
 router.use("/auth", authRoutes);
 
 // router.get('/models/:gender', GetShoesByGender)
-router.post("/create", createProduct);
-router.put("/details/:id", modifProduct);
-router.delete("/details/:id", deleteProduct);
+// router.post("/create", createProduct);
+// router.put("/details/:id", modifProduct);
+// router.delete("/details/:id", deleteProduct);
 
 module.exports = router;

@@ -11,7 +11,7 @@ import NavBar from "../NavBar";
 import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
-import CardProduct from "../cardProduct";
+import CardProduct from "../CardProduct";
 
 export default function Catalog() {
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ export default function Catalog() {
     <div>
       <NavBar handleClick={handleClick} />
       <div>
-        <button onClick={handleClick}>RELOAD</button>
+        <button onClick={handleClick}>Refresh</button>
         <button onClick={() => setFilters(!filters)}>Filters</button>
         {filters && (
           <Filters
