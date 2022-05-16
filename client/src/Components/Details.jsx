@@ -38,7 +38,7 @@ const Details = () => {
 
   return (
     <>
-      <Link to="/"> Back </Link>
+      <Link to="/catalogPage"> Back </Link>
       <>
         <img src={detail.image} alt={detail.model} />
         <h4>{detail.model} </h4>
