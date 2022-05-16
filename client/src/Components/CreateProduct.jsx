@@ -202,7 +202,7 @@ const CreateProduct = () => {
         </div>
         {!error.incomplete && !error.price && (
           <div>
-            <BackBtn onClick={(e) => HandleOnSubmit(e)}>Create</BackBtn>
+            <button onClick={(e) => HandleOnSubmit(e)}>Create</button>
           </div>
         )}
       </form>
