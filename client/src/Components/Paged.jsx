@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentPage } from "../redux/actions/index.js";
+import { PrevNext, ContPag, ContainerPage, LstPageBtn, FstPageBtn, BckBtn, NextBtn } from "../styles/Paged.js";
 
 export default function Paged({ productsPerPage }) {
   const dispatch = useDispatch();
@@ -18,40 +19,26 @@ export default function Paged({ productsPerPage }) {
 
   return (
     <div>
-      {pageProducts.length > 0 && (
-        <div>
-          <div>
-            <button onClick={() => changePage(1)} disabled={page === 1}>
-              FIRST
-            </button>
-            <button onClick={() => changePage(page - 1)} disabled={page === 1}>
-              BACK
-            </button>
-            <span>
-              Page {page} of {pageProducts.length}
-            </span>
-            <button
-              onClick={() => changePage(page + 1)}
-              disabled={page >= pageProducts.length}
-            >
-              NEXT
-            </button>
-            <button
-              onClick={() => changePage(pageProducts.length)}
-              disabled={page >= pageProducts.length}
-            >
-              LAST
-            </button>
-          </div>
-        </div>
-      )}
-      {/* <div>
-                {pageProducts?.map((page) =>(
-                    <span onClick={() => changePage(page)} key={page}>
-                        {page}
+        {pageProducts.length > 0 && (
+            <PrevNext>
+                <ContPag>
+                    <FstPageBtn onClick={() => changePage(1)} disabled={page === 1}>FIRST</FstPageBtn>
+                    <BckBtn onClick={() => changePage(page - 1)} disabled={page === 1}>BACK</BckBtn>
+                    <span>
+                        Page {page} from {pageProducts.length}
                     </span>
-                ))}
-            </div> */}
+                    <NextBtn onClick={() => changePage(page + 1)} disabled={page >= pageProducts.length}>NEXT</NextBtn>
+                    <LstPageBtn onClick={() => changePage(pageProducts.length)} disabled={page >= pageProducts.length}>LAST</LstPageBtn>
+                </ContPag>
+            </PrevNext>
+        )}
+        {/* <ContainerPage>
+            {pageProducts?.map((page) =>(
+                <span onClick={() => changePage(page)} key={page}>
+                    {page}
+                </span>
+            ))}
+        </ContainerPage> */}
     </div>
-  );
+);
 }

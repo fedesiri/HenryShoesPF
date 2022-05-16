@@ -1,37 +1,5 @@
 import styled from "styled-components";
-import { Button } from "./Button";
 import { Link } from "react-router-dom";
-
-
-export const BackBtn = styled.button`
-  background-color: var(--background-color)
-  border-radius: 10%;
-  display: block;
-  width: 45px;
-  height: 30px;
-  cursor:pointer;
-  
-
-  :hover {
-    opacity: 1;
-    background-color: red;
-    transform: translateY(0);
-    transition-duration: 0.35s;
-    box-shadow: 0px 0px 10px -2px rgba(222, 222, 222, 0.75);
-  }
-`;
-
-export const Container = styled.div`
-  
-  display:flex;
-  flex-direction: row;
-
-  div {
-    width:20%;
-    margin:1rem;
-    height:25rem;
-  }
-`;
 
 export const CardContainer = styled.div`
     width: 250px;
@@ -50,7 +18,6 @@ export const CardContainer = styled.div`
         background-color: rgba(192, 192, 192, 100);
     }
 `;
-
 export const CardImage = styled.div`
     display: flex;
     justify-content: center;

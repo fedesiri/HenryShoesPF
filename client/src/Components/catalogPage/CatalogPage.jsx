@@ -12,6 +12,7 @@ import Filters from "../Filters";
 import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../CardProduct";
+import { Btns, Products, ContainerHome, NoResult, ReloadBtn, Button } from "../../styles/CatalogPage"
 
 export default function Catalog() {
   const dispatch = useDispatch();
@@ -60,42 +61,42 @@ export default function Catalog() {
   };
 
   return (
-    <div>
-      <NavBar handleClick={handleClick} />
-      <div>
-        <button onClick={handleClick}>Refresh</button>
-        <button onClick={() => setFilters(!filters)}>Filters</button>
-        {filters && (
-          <Filters
-            allProducts={allProducts}
-            handleOrdered={handleOrdered}
-            handleFilter={handleFilter}
-            products={products}
-          />
-        )}
-      </div>
-      <Paged productsPerPage={productsPerPage} />
-      <div>
-        {loader ? (
-          <Loader />
-        ) : (
-          (products.length > 0 &&
-            currentProducts?.map((product, index) => (
-              <CardProduct
-                key={index}
-                id={product.id}
-                price={product.price}
-                model={product.model}
-                image={product.image}
-                description={product.description}
-              />
-            ))) || (
-            <div>
-              <h2>No results found</h2>
-            </div>
-          )
-        )}
-      </div>
-    </div>
-  );
+    <ContainerHome>
+        <NavBar handleClick={handleClick} />
+        <Btns>
+            <ReloadBtn onClick={handleClick}></ReloadBtn>
+            <Button onClick={() => setFilters(!filters)}>Filters</Button>
+            {filters && (
+                <Filters
+                    allProducts={allProducts}
+                    handleOrdered={handleOrdered}
+                    handleFilter={handleFilter}
+                    products={products}
+                />
+            )}
+        </Btns>
+        <Paged productsPerPage={productsPerPage} />
+        <Products>
+            {loader ? (
+                <Loader />
+            ) : (
+                (products.length > 0 &&
+                    currentProducts?.map((product, index) => (
+                        <CardProduct
+                            key={index}
+                            id={product.id}
+                            price={product.price}
+                            model={product.model}
+                            image={product.image}
+                            description={product.description}
+                        />
+                    ))) || (
+                    <NoResult>
+                        <h2>No results found</h2>
+                    </NoResult>
+                )
+            )}
+        </Products>
+    </ContainerHome>
+);
 }

@@ -15,23 +15,6 @@ export const Button = styled.button`
   transform: translate3d(0, 0, 0);
   transition: all 0.3s;
   color: #fffffe;
-  ${(props) => {
-        if (props.primary) {
-            return css`
-        background-color: var(--primary);
-      `;
-        }
-        if (props.secondary) {
-            return css`
-        background-color: var(--secondary);
-      `;
-        }
-        if (props.terciary) {
-            return css`
-        background-color: var(--terciary);
-      `;
-        }
-    }}
   svg {
     margin: 0;
     font-size: 1.1rem;

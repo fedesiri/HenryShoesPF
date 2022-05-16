@@ -55,60 +55,61 @@ const LandingPage = () => {
         <Slider />
       </>
       <hr />
-      <div>
-        <img
-          src="https://muyfit.com/wp-content/uploads/2020/06/mejores-zapatillas-para-correr-para-hombre.jpg"
-          width="30%"
-          height="30%"
-          alt="img not found"
-        ></img>
-        <h2> Men </h2>
-        <button
-          onClick={() => {
-            dispatch(filter({ brand: "All", gender: "men" }));
-            navigate("/catalogPage");
-          }}
-        >
-          All View
-        </button>
-      </div>
+      <div className="FilterContainer">
+        <div className="Men">
+          <img
+            src="https://muyfit.com/wp-content/uploads/2020/06/mejores-zapatillas-para-correr-para-hombre.jpg"
+            width="70%"
+            height="70%"
+            alt="img not found"
+          ></img>
+          <h2> Men </h2>
+          <button
+            onClick={() => {
+              dispatch(filter({ brand: "All", gender: "men" }));
+              navigate("/catalogPage");
+            }}
+          >
+            All View
+          </button>
+        </div>
 
-      <div>
-        <img
-          src="https://i0.wp.com/solotendencias.net/wp-content/uploads/2021/10/Nike-Air-Jordan-1.jpg?ssl=1"
-          width="30%"
-          height="30%"
-          alt="img not found"
-        ></img>
-        <h2> Women </h2>
-        <button
-          onClick={() => {
-            dispatch(filter({ brand: "All", gender: "women" }));
-            navigate("/catalogPage");
-          }}
-        >
-          All View
-        </button>
-      </div>
+        <div>
+          <img
+            src="https://i0.wp.com/solotendencias.net/wp-content/uploads/2021/10/Nike-Air-Jordan-1.jpg?ssl=1"
+            width="70%"
+            height="70%"
+            alt="img not found"
+          ></img>
+          <h2> Women </h2>
+          <button
+            onClick={() => {
+              dispatch(filter({ brand: "All", gender: "women" }));
+              navigate("/catalogPage");
+            }}
+          >
+            All View
+          </button>
+        </div>
 
-      <div>
-        <img
-          src="https://thumbs.dreamstime.com/b/ni%C3%B1os-y-ni%C3%B1as-con-coloridos-trajes-deportivos-zapatillas-est%C3%A1n-tomados-de-la-mano-corriendo-aislados-en-un-fondo-blanco-estudio-183091704.jpg"
-          width="30%"
-          height="30%"
-          alt="img not found"
-        ></img>
-        <h2> Child </h2>
-        <button
-          onClick={() => {
-            dispatch(filter({ brand: "All", gender: "child" }));
-            navigate("/catalogPage");
-          }}
-        >
-          All View
-        </button>
+        <div>
+          <img
+            src="https://thumbs.dreamstime.com/b/ni%C3%B1os-y-ni%C3%B1as-con-coloridos-trajes-deportivos-zapatillas-est%C3%A1n-tomados-de-la-mano-corriendo-aislados-en-un-fondo-blanco-estudio-183091704.jpg"
+            width="70%"
+            height="70%"
+            alt="img not found"
+          ></img>
+          <h2> Child </h2>
+          <button
+            onClick={() => {
+              dispatch(filter({ brand: "All", gender: "child" }));
+              navigate("/catalogPage");
+            }}
+          >
+            All View
+          </button>
+        </div>
       </div>
-
       <hr />
       <h2>On Sale</h2>
       <Promotion />

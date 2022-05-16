@@ -1,0 +1,13 @@
+.FilterContainer {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content:center;
+    justify-content: space-evenly;
+    align-items: stretch;
+    display: flex;
+    margin:auto;
+    bottom:auto;
+    left: auto;    
+    justify-content: center;
+    width: 100vh;
+}

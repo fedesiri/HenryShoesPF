@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getProductById } from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BackBtn, DetailContainer, Content1, Content2, ContentDiv, BtnDiv } from "../styles/Details";
+import NavBar from "./NavBar";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -37,32 +39,30 @@ const Details = () => {
   };
 
   return (
-    <>
-      <Link to="/catalogPage"> Back </Link>
-      <>
-        <img src={detail.image} alt={detail.model} />
-        <h4>{detail.model} </h4>
-        <h2>${detail.price}</h2>
-      </>
-      <>
-        <h2>{detail.gender}</h2>
-        <p> {detail.description}</p>
-      </>
-      <button onClick={(e) => CargarCarrito(e)}>
-        {" "}
-        <h4>Add to chart</h4>
-      </button>
-      {userInfo && userInfo.user.roleId === 1 && (
-        <div>
-          <Link to={`/edit/${addres}`}>
-            <button>Edit product</button>
-          </Link>
-
-          <button onClick={(e) => HandleDelete()}> Delete product</button>
-        </div>
-      )}
-    </>
-  );
-};
-
-export default Details;
+    <DetailContainer>
+        <NavBar />
+        <Link to="/CatalogPage">
+            <BackBtn></BackBtn>
+        </Link>
+        <ContentDiv>
+        <Content2>
+            <h2>Model:{detail.model}</h2>
+            <h2>Price: ${detail.price}</h2>
+            <h3>Gender: {detail.gender}</h3>
+            <p>Description: {detail.description}</p>
+        </Content2>
+        <Content1>
+            <img src={detail.image} alt="img zapa" />
+        </Content1>
+        </ContentDiv>
+        <BtnDiv>            
+        <Link to={`/edit/${addres}`}>
+            <button>Editar Producto</button>
+        </Link>
+        <button onClick={(e) => HandleDelete()}> Eliminar producto</button>
+        <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
+        </BtnDiv>
+    </DetailContainer>
+);
+}
+export default Details
