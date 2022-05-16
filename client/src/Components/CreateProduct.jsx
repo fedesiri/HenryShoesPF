@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands, getAllProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import {FormContainer, BackBtn, DetailContainer} from "../styles/CreateProduct"
+import NavBar from "./NavBar";
+
 
 
 const CreateProduct = () => {
@@ -110,11 +113,14 @@ const CreateProduct = () => {
   };
 
   return (
-    <div>
-      <div>
-        <Link to="/">Back</Link>
-      </div>
 
+    <DetailContainer>
+
+        <Link to="/">
+        <BackBtn/>
+        </Link>
+    <FormContainer>
+      
       <form name="CreateForm" id="CreateForm">
         <label>Brand: </label>
         <div>
@@ -196,7 +202,7 @@ const CreateProduct = () => {
         </div>
         {!error.incomplete && !error.price && (
           <div>
-            <button onClick={(e) => HandleOnSubmit(e)}>Create</button>
+            <BackBtn onClick={(e) => HandleOnSubmit(e)}>Create</BackBtn>
           </div>
         )}
       </form>
@@ -209,7 +215,9 @@ const CreateProduct = () => {
         rtl={false}
         draggable
       />
-    </div>
+    </FormContainer>
+
+    </DetailContainer>
   );
 };
 

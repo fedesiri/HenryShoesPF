@@ -6,6 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { getAllProducts, getProductById } from "../redux/actions/index";
 
+
 const EditProduct = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -106,7 +107,7 @@ const EditProduct = () => {
           <label>Brand: </label>
           <div>
             <select
-            defaultValue="All"
+            defaultValue={detail.brandName}
               name="brandName"
               onChange={HandleOnChange}
               placeholder={detail.brandName}
@@ -125,7 +126,7 @@ const EditProduct = () => {
             <label>Category gender: </label>
             <div>
               <select
-              defaultValue="All"
+              defaultValue={detail.gender}
                 name="gender"
                 onChange={HandleOnChange}
                 placeholder={detail.gender}
