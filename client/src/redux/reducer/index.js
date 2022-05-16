@@ -71,7 +71,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
           return products;
         } else {
           return products.filter((product) =>
-            product.brandName.includes(brand)
+            product.brandName && product.brandName.includes(brand)
           );
         }
       }
