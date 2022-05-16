@@ -27,17 +27,11 @@ products.put("/details/:id", modifProduct)
 products.delete("/details/:id", deleteProduct)
 
 
-products.put("/ofert", ofertSelect)
+// products.put("/ofert", ofertSelect)
 products.put("/deletePromotion", deletePromotion)
 products.put("/deleteDestacado", deleteDestacado)
 
-products.post("/create", createProduct)
-
-
-
-
-
-
+// products.post("/create", createProduct)
 
 
 
@@ -45,7 +39,7 @@ products.post("/create", createProduct)
 // products.post("/create", createProduct )
 
 //! Descomentar despues para usar las rutas protegidas con tokens
-products.post("/ofert", verifyToken, isAdmin, ofertSelect);
+products.post("/sale", verifyToken, isAdmin, ofertSelect);
 products.post("/create", verifyToken, isAdmin, createProduct);
 
 module.exports = products;

@@ -28,7 +28,7 @@ export default function Paged({ productsPerPage }) {
               BACK
             </button>
             <span>
-              Pagina {page} de {pageProducts.length}
+              Page {page} of {pageProducts.length}
             </span>
             <button
               onClick={() => changePage(page + 1)}

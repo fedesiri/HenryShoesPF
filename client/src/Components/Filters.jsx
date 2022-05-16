@@ -33,11 +33,11 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
   return (
     <div>
       <select onChange={handleOrdered}>
-        <option value="">Seleccione orden</option>
-        <option value="Mayor precio">Mayor Precio</option>
-        <option value="Menor precio">Menor precio</option>
-        <option value="Mas recientes">Mas recientes</option>
-        <option value="Menos recientes">Menos recientes</option>
+        <option value="">Sort</option>
+        <option value="Mayor precio">Price (High - Low)</option>
+        <option value="Menor precio">Price (Low - High)</option>
+        <option value="Mas recientes">Newest</option>
+        <option value="Menos recientes">Oldest</option>
       </select>
 
       <select value={brand} name="selectBrand" onChange={handleSelectChange}>

@@ -34,17 +34,17 @@ const LandingPage = () => {
           <span>{userInfo.user.username}</span>
         ) : (
           <button>
-            <Link to="/login"> Inicio sesión </Link>
+            <Link to="/login"> Login </Link>
           </button>
         )}
 
         <button>
-          <Link to="/shopping_cart"> Carrito </Link>{" "}
+          <Link to="/shopping_cart"> Chart </Link>{" "}
         </button>
 
         {userInfo && userInfo.user.roleId === 1 && (
           <button>
-            <Link to="/CreateProduct"> Crear Producto </Link>{" "}
+            <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>
         )}
 
@@ -110,11 +110,11 @@ const LandingPage = () => {
       </div>
 
       <hr />
-      <h2>Promociones</h2>
+      <h2>On Sale</h2>
       <Promotion />
       <hr />
 
-      <h2>Destacados</h2>
+      <h2>BestSellers</h2>
       <BestSellers />
     </>
   );

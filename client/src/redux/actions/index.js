@@ -33,7 +33,7 @@ export const getAllProducts = (name) => {
         });
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 };
@@ -146,6 +146,7 @@ export const getAllBrands = () => {
 };
 
 export const selectOfert = (payload) => {
+  // console.log("soy el payload", payload);
   return {
     type: SELECT_OFERT,
     payload,
@@ -153,10 +154,10 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
-
+  console.log("soy el payload", payload);
     return async function (dispatch) {
         // cambiar la ruta
-        const result = await axios.put("http://localhost:3001/products/ofert", payload);
+        const result = await axios.put("http://localhost:3001/products/sale", payload);
         return dispatch({
             type: SEND_OFERT_BACK,
             payload: result,

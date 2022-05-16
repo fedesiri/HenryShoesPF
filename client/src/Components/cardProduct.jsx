@@ -8,10 +8,10 @@ export default function CardProduct({ id, model, description, price, image }) {
         <div>
           <h2>{model}</h2>
           <p>
-            <span>price</span>:$ {price} <br />
+            <span>Price</span>:$ {price} <br />
           </p>
           <p>
-            <span>Descripcion</span>: {description} <br />
+            <span>Description</span>: {description} <br />
           </p>
         </div>
       </Link>

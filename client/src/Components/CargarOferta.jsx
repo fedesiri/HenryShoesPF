@@ -119,7 +119,7 @@ const CargarOferta = () => {
 
   return (
     <div>
-      Cargar Producto para Promocionar
+    <h2>Set product on sale</h2>  
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="container1">
           <div>
@@ -131,11 +131,12 @@ const CargarOferta = () => {
               placeholder=" Search"
             />
             <button onClick={(e) => filterProducts(e)}>Search</button>
-            <button onClick={(e) => clearProducts(e)}>Limpiar Productos</button>
+            <button onClick={(e) => clearProducts(e)}>Clear products</button>
           </div>
           <div>
             {validarProducts.id_oferta.length !== 0 && (
               <select
+              defaultValue="default"
                 className="selectOfert"
                 onChange={(e) => handlePorcentaje(e)}
               >

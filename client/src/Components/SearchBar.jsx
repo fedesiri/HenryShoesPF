@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts, setCurrentPage } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function SearchBar() {
   const [search, setSearch] = useState("");
@@ -22,7 +24,7 @@ export default function SearchBar() {
 
     try {
       if (!search) {
-        alert("Insert shoes name");
+        toast.error("Insert shoes name");
       } else {
         dispatch(getAllProducts(search));
         dispatch(setCurrentPage(1));
@@ -32,7 +34,7 @@ export default function SearchBar() {
         setSearch("");
       }
     } catch (error) {
-      alert(error);
+      toast.error(error);
     }
   };
 
@@ -47,8 +49,17 @@ export default function SearchBar() {
           autoComplete="off"
         />
 
-        <button onClick={handleOnClick}>BUSCAR</button>
+        <button type="submit">Search</button>
       </form>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+      />
     </div>
   );
 }

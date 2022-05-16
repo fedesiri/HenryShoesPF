@@ -107,7 +107,7 @@ const BestSellers = () => {
 
   return (
     <Container>
-      <BackBtn onClick={handlePrevbtn}>atras</BackBtn>
+      <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
       {currentProducto.map((e) => (
         <div key={e.price}>
           <img src={e.images} alt={e.model} />
@@ -115,7 +115,7 @@ const BestSellers = () => {
           <h3>{e.price}</h3>
         </div>
       ))}
-      <BackBtn onClick={handleNextbtn}>adelante</BackBtn>
+      <BackBtn onClick={handleNextbtn}>Next</BackBtn>
     </Container>
   );
 };

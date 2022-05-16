@@ -120,7 +120,7 @@ const Promotion = () => {
 
   return (
     <Container>
-      <BackBtn onClick={handlePrevbtn}>atras</BackBtn>
+      <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
       {currentProducto.map((e) => (
         <div key={e.id}>
           <img src={e.images} alt={e.model} />
@@ -129,7 +129,7 @@ const Promotion = () => {
           <Link to={`/details/${e.id}`}> More </Link>
         </div>
       ))}
-      <BackBtn onClick={handleNextbtn}>adelante</BackBtn>
+      <BackBtn onClick={handleNextbtn}>Next</BackBtn>
     </Container>
   );
 };

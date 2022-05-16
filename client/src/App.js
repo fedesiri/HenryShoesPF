@@ -21,7 +21,7 @@ function App() {
       <Route path="/cargarOferta" element={<CargarOferta />} />
 
       <Route path="/catalogPage" element={<Catalog />} />
-      <Route path="/formInicio" />
+      <Route path="/login" />
       <Route path="/createProduct" element={<CreateProduct />} />
     </Routes>
   );

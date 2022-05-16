@@ -121,10 +121,10 @@ const FormularioInicio = () => {
         </label>
         {error.password && <p>{error.password} </p>}
 
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Login</button>
         <Link to="/create_cuenta">
           {" "}
-          <div> Crear cuenta</div>{" "}
+          <div> Create account</div>{" "}
         </Link>
       </form>
       <ToastContainer

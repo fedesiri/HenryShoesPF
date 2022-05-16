@@ -13,6 +13,7 @@ const Details = () => {
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   console.log(detail);
+  const userInfo = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     dispatch(getProductById(addres));
@@ -26,7 +27,7 @@ const Details = () => {
       try {
         axios({
           method: "delete",
-          url: `http://localhost:3001/details/${detail.id}`,
+          url: `http://localhost:3001/products/details/${detail.id}`,
         });
         navigate("/");
       } catch (err) {
@@ -37,9 +38,9 @@ const Details = () => {
 
   return (
     <>
-      <Link to="/"> Atras </Link>
+      <Link to="/"> Back </Link>
       <>
-        <img src={detail.image} alt="imagen zapa " />
+        <img src={detail.image} alt={detail.model} />
         <h4>{detail.model} </h4>
         <h2>${detail.price}</h2>
       </>
@@ -49,15 +50,17 @@ const Details = () => {
       </>
       <button onClick={(e) => CargarCarrito(e)}>
         {" "}
-        <h4>Agregar al carrito</h4>
+        <h4>Add to chart</h4>
       </button>
-      <div>
-        <Link to={`/edit/${addres}`}>
-          <button>Editar Producto</button>
-        </Link>
+      {userInfo && userInfo.user.roleId === 1 && (
+        <div>
+          <Link to={`/edit/${addres}`}>
+            <button>Edit product</button>
+          </Link>
 
-        <button onClick={(e) => HandleDelete()}> Eliminar producto</button>
-      </div>
+          <button onClick={(e) => HandleDelete()}> Delete product</button>
+        </div>
+      )}
     </>
   );
 };

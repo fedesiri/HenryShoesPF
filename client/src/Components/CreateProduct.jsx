@@ -5,7 +5,6 @@ import { getAllBrands, getAllProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-//!Verificar, no esta tomando respuesta del back.
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -48,7 +47,7 @@ const CreateProduct = () => {
     let error = {};
 
     if (!/^\d+$/.test(input.price) || input.price < 0 || input.year < 0) {
-      error.price = "solo pueden ingresarse numeros positivos";
+      error.price = "Positive numbers only";
     } else if (
       !input.product ||
       !input.price ||
@@ -57,7 +56,7 @@ const CreateProduct = () => {
       !input.description ||
       !input.image
     ) {
-      error.incomplete = "Hay campos incompletos";
+      error.incomplete = "Missing Fields";
     }
     return error;
   }
@@ -82,7 +81,7 @@ const CreateProduct = () => {
       try {
         const response = await axios({
           method: "post",
-          url: "http://localhost:3001/create",
+          url: "http://localhost:3001/products/create",
           data: {
             model: input.product,
             brandName: input.brand,
@@ -93,7 +92,7 @@ const CreateProduct = () => {
             year: input.year,
           },
         });
-        // console.log(response.data.message);
+        // console.log(response.data);
         toast(response.data.message);
         form.reset();
         setInput({
@@ -113,13 +112,14 @@ const CreateProduct = () => {
   return (
     <div>
       <div>
-        <Link to="/">Volver</Link>
+        <Link to="/">Back</Link>
       </div>
 
       <form name="CreateForm" id="CreateForm">
-        <label>Marca: </label>
+        <label>Brand: </label>
         <div>
-          <select name="brand" onChange={HandleOnChange}>
+          <select defaultValue="All" name="brand" onChange={HandleOnChange}>
+            <option value="All" disabled="disabled">Brand</option>
             {brands?.map((brand) => (
               <option key={brand} value={brand}>
                 {brand}
@@ -130,9 +130,10 @@ const CreateProduct = () => {
         </div>
 
         <div>
-          <label>Categoria: </label>
+          <label>Category gender: </label>
           <div>
-            <select name="gender" onChange={HandleOnChange}>
+            <select defaultValue="All" name="gender" onChange={HandleOnChange}>
+            <option value="All" disabled="disabled">Gender</option>
               {genders?.map((gender) => (
                 <option key={genders.indexOf(gender)} value={gender}>
                   {gender}
