@@ -121,8 +121,8 @@ const Promotion = () => {
   return (
     <Container>
       <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
-      {currentProducto.map((e) => (
-        <div key={e.id}>
+      {currentProducto.map((e, index) => (
+        <div key={index}>
           <img src={e.images} alt={e.model} />
           <h3>{e.model}</h3>
           <h3>{e.price}$ 20%</h3>
