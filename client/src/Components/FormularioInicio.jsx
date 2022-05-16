@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
-
+import { LoginForm, DivLogin, CreateAccount, ErrorDiv, LowerDiv, DivCreate, SubmitBtn } from "../styles/FormularioInicio";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -73,32 +73,30 @@ const FormularioInicio = () => {
     let regexNumero = /\d/;
 
     if (!input.email) {
-      errors.email = "El email es requerido.";
+      errors.email = "Insert E-mail.";
     } else if (!regexEmail.test(input.email.trim())) {
-      errors.email = "El email es incorrecto.";
+      errors.email = "The E-mail is incorrect.";
     }
 
     if (!input.password) {
-      errors.password = "La contraseña es requerida.";
+      errors.password = "Password is required.";
     } else if (input.password.trim().length < 8) {
-      errors.password = "La contraseña debe tener al menos 8 caracteres.";
+      errors.password = "Password must have at least 8 characters.";
     } else if (!regexLetra.test(input.password.trim())) {
-      errors.password = "Es necessario al menos una letra.";
+      errors.password = "at least one letter is required.";
     } else if (!regexMayuscula.test(input.password.trim())) {
-      errors.password = "Es necesario al menos una letra en mayuscula.";
+      errors.password = "at least one uppercase letter is required.";
     } else if (!regexNumero.test(input.password.trim())) {
-      errors.password = "Es necesario al menos un número.";
+      errors.password = "at least one number is required.";
     }
     return errors;
   }
 
   return (
-    <div>
-      <h3>Login</h3>
-
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <DivLogin>
+      <LoginForm onSubmit={(e) => handleSubmit(e)}>
         <label>
-          Email:
+          Email:{" "}
           <input
             type="email"
             name="email"
@@ -107,10 +105,10 @@ const FormularioInicio = () => {
             onChange={(e) => handleChange(e)}
           />
         </label>
-        {error.email && <p>{error.email} </p>}
+        
 
         <label>
-          Password:
+        {"  "}Password:{"  "}  
           <input
             type="password"
             name="password"
@@ -119,14 +117,21 @@ const FormularioInicio = () => {
             onChange={(e) => handleChange(e)}
           />
         </label>
-        {error.password && <p>{error.password} </p>}
-
-        <button type="submit">Login</button>
-        <Link to="/create_cuenta">
-          {" "}
-          <div> Create account</div>{" "}
-        </Link>
-      </form>
+        <SubmitBtn type="submit">Log In</SubmitBtn>    
+      </LoginForm>
+      <LowerDiv>
+        <DivCreate>
+          <CreateAccount to="/create_cuenta">
+                  <span>Create account</span>
+          </CreateAccount>
+        </DivCreate>
+        <ErrorDiv>
+          {error.email && <p>{error.email} </p>}
+          {error.password && <p>{error.password} </p>}
+        </ErrorDiv>
+      
+      </LowerDiv>
+              
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -136,7 +141,7 @@ const FormularioInicio = () => {
         rtl={false}
         draggable
       />
-    </div>
+    </DivLogin>
   );
 };
 

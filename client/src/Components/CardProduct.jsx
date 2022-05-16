@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
+import { CardContainer, CardDetail, CardImage, CardInfo } from "../styles/CardProduct";
 
-export default function CardProduct({ id, model, description, price, image }) {
-  return (
-    <div>
-      <Link to={`/details/${id}`}>
-        <img src={image} alt="" height="200px" />
-        <div>
-          <h2>{model}</h2>
-          <p>
-            <span>Price</span>:$ {price} <br />
-          </p>
-          <p>
-            <span>Description</span>: {description} <br />
-          </p>
-        </div>
-      </Link>
-    </div>
-  );
+export default function CardProduct ({ id, model, price, image }){
+    return (
+        <CardContainer>
+            <CardDetail to={`/details/${id}`}>
+                <CardImage>
+                    <img src={image} alt="" />
+                </CardImage>
+                <CardInfo>
+                    <div>
+                    <p>
+                        {model} 
+                    </p>
+                    </div>
+                    <div>
+                    <p>
+                        <span>Price</span>:${price} 
+                    </p>
+                    </div>
+                </CardInfo>
+            </CardDetail>
+        </CardContainer>
+    );
 }

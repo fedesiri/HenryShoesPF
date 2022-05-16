@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { FilterDiv } from "../styles/Filters";
 
 export default function Filter({ allProducts, handleOrdered, handleFilter }) {
   const brand = useSelector((state) => state.filter.brand);
@@ -31,32 +32,30 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
   allGenders(allProducts);
 
   return (
-    <div>
-      <select onChange={handleOrdered}>
-        <option value="">Sort</option>
-        <option value="Mayor precio">Price (High - Low)</option>
-        <option value="Menor precio">Price (Low - High)</option>
-        <option value="Mas recientes">Newest</option>
-        <option value="Menos recientes">Oldest</option>
-      </select>
-
-      <select value={brand} name="selectBrand" onChange={handleSelectChange}>
-        <option value="All">All brands</option>
-        {brands?.map((product, index) => (
-          <option key={index} value={product}>
-            {product}
-          </option>
-        ))}
-      </select>
-
-      <select value={gender} name="selectGender" onChange={handleSelectChange}>
-        <option value="filterByGender">All genders</option>
-        {genders?.map((product, index) => (
-          <option key={index} value={product}>
-            {product}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
+    <FilterDiv>
+        <select onChange={handleOrdered}>
+            <option value="">Order Select</option>
+            <option value="Mayor precio">Higher Price</option>
+            <option value="Menor precio">Lower Price</option>
+            <option value="Mas recientes">More recent</option>
+            <option value="Menos recientes">Least recent</option>
+        </select>
+        <select value={brand} name="selectBrand" onChange={handleSelectChange}>
+            <option value="All">All brands</option>
+            {brands?.map((product, index) => (
+                <option key={index} value={product}>
+                    {product}
+                </option>
+            ))}
+        </select>
+        <select value={gender} name="selectGender" onChange={handleSelectChange}>
+            <option value="filterByGender">All genders</option>
+            {genders?.map((product, index) => (
+                <option key={index} value={product}>
+                    {product}
+                </option>
+            ))}
+        </select>
+    </FilterDiv>
+);
 }
