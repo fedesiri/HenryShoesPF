@@ -9,12 +9,14 @@ import CreateProduct from "./Components/CreateProduct";
 import FormularioInicio from "./Components/FormularioInicio";
 import Details from "./Components/Details";
 import EditProduct from "./Components/EditProduct";
+import FormularioCrearCuenta from "./Components/FormularioCrearCuenta"
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<FormularioInicio />} />
+      <Route path="/register" element={<FormularioCrearCuenta />} />
       <Route path="/details/:id" element={<Details />} />
       <Route path="/edit/:id" element={<EditProduct />} />
       

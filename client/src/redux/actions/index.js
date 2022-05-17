@@ -20,6 +20,7 @@ import {
     DELETE_PROMOTION_PRODUCTS,
    POST_LOG_OUT,
    CLEAR_DETAIL,
+   POST_REGISTER,
 
 } from "./types";
 
@@ -224,5 +225,21 @@ export const deletePromotion = payload => {
 export const clearDetail = () => {
   return{
     type: CLEAR_DETAIL,
-  }
+  };
+};
+
+export const postRegister = ({name, lastname, username, password, email, address }) => {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post("http://localhost:3001/auth/register", {
+        name, lastname, username, password, email, address
+      });
+      return dispatch({
+        type: POST_REGISTER,
+        payload: data,
+      });
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 }
