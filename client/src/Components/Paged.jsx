@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentPage } from "../redux/actions/index.js";
-import { PrevNext, ContPag, ContainerPage, LstPageBtn, FstPageBtn, BckBtn, NextBtn } from "../styles/Paged.js";
+import { PrevNext, ContPag, LstPageBtn, FstPageBtn, BckBtn, NextBtn } from "../styles/Paged.js";
 
 export default function Paged({ productsPerPage }) {
   const dispatch = useDispatch();

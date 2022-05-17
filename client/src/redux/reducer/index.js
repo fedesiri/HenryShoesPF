@@ -14,6 +14,7 @@ import {
   DELETE_DESTACADO_PRODUCTS,
   DELETE_PROMOTION_PRODUCTS,
   POST_LOG_OUT,
+  CLEAR_DETAIL,
 } from "../actions/types";
 
 const intialState = {
@@ -154,7 +155,6 @@ export default function rootReducer(state = intialState, { type, payload }) {
       const filterOfertDestacado = filterOfert.concat(filterDestacado);
       const dataArr = new Set(filterOfertDestacado);
       let result = [...dataArr];
-      console.log(result);
 
       return {
         ...state,
@@ -179,7 +179,16 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         postMsj: payload,
       };
+
+      case CLEAR_DETAIL: 
+      return {
+        ...state,
+        details: {}
+
+      }
     default:
       return { ...state };
   }
+
+  
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBrands, getAllProducts } from "../redux/actions";
+import { getAllProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -10,21 +10,21 @@ const CreateProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
-  }, []);
+  }, [dispatch]);
 
   const reduxProducts = useSelector((state) => state.products);
   const genders = [];
   const brands = [];
 
   function GenderGetter(reduxProducts) {
-    reduxProducts?.map((product) => {
+    reduxProducts?.forEach((product) => {
       if (!genders.includes(product?.gender)) genders.push(product?.gender);
     });
   }
   GenderGetter(reduxProducts);
 
   function BrandGetter(reduxProducts) {
-    reduxProducts?.map((product) => {
+    reduxProducts?.forEach((product) => {
       if (!brands.includes(product.brand?.name))
         brands.push(product.brand?.name);
     });

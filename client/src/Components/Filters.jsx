@@ -17,7 +17,7 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
 
   let brands = [];
   function allUniqueProducts(allProducts) {
-    allProducts?.map((product) => {
+    allProducts?.forEach((product) => { 
       if (!brands.includes(product?.brandName)) brands.push(product?.brandName);
     });
   }
@@ -25,7 +25,7 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
 
   const genders = [];
   function allGenders(allProducts) {
-    allProducts?.map((product) => {
+    allProducts?.forEach((product) => {
       if (!genders.includes(product.gender)) genders.push(product.gender);
     });
   }

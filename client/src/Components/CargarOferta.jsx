@@ -34,7 +34,7 @@ const CargarOferta = () => {
     setTimeout(() => {
       dispatch(filterOfertDestacado());
     }, 1000);
-  }, []);
+  }, [dispatch]);
 
   function inputSearch(e) {
     e.preventDefault();
@@ -154,7 +154,7 @@ const CargarOferta = () => {
           <div className="father">
             {onOfert.map((e) => (
               <div key={e.id} className="container">
-                <img src={e.image} />
+                <img src={e.image} alt='img not found'/>
                 <h2> {e.model} </h2>
                 <h3> Producto Num: {e.id}</h3>
                 <div className="checkContainer">

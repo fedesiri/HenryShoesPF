@@ -14,8 +14,7 @@ const Details = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
-  console.log(detail);
-  const userInfo = useSelector((state) => state.userInfo);
+  // const userInfo = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     dispatch(getProductById(addres));
@@ -25,7 +24,7 @@ const Details = () => {
 
   const HandleDelete = () => {
     let reply = window.confirm("¿Seguro que desea eliminar el producto?");
-    if (reply == true) {
+    if (reply === true) {
       try {
         axios({
           method: "delete",

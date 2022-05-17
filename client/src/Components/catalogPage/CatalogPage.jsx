@@ -6,6 +6,7 @@ import {
   getAllProducts,
   orderProducts,
   setCurrentPage,
+  clearDetail,
 } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Filters from "../Filters";
@@ -33,13 +34,14 @@ export default function Catalog() {
     }, time);
 
   useEffect(() => {
+    dispatch(clearDetail())
     setLoader(true);
     if (allProducts.length === 0) {
       dispatch(getAllProducts());
     }
     timer(500);
     return () => clearTimeout(timer);
-  }, [dispatch]);
+  }, [dispatch, allProducts.length] );
 
   const handleOrdered = (e) => {
     e.preventDefault();

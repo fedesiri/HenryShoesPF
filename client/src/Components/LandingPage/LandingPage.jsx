@@ -5,12 +5,11 @@ import Promotion from "./Promotion";
 import BestSellers from "./BestSellers";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar";
-import Filter from "../Filters";
 import { filter } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts, postLogOut } from "../../redux/actions";
+import { getAllProducts, postLogOut, clearDetail } from "../../redux/actions";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -23,6 +22,7 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    dispatch(clearDetail())
     dispatch(getAllProducts());
   }, [dispatch]);
   return (

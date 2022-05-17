@@ -23,14 +23,14 @@ const EditProduct = () => {
   const brands = [];
 
   function GenderGetter(reduxProducts) {
-    reduxProducts?.map((product) => {
+    reduxProducts?.forEach((product) => {
       if (!genders.includes(product?.gender)) genders.push(product?.gender);
     });
   }
   GenderGetter(reduxProducts);
 
   function BrandGetter(reduxProducts) {
-    reduxProducts?.map((product) => {
+    reduxProducts?.forEach((product) => {
       if (!brands.includes(product.brand?.name))
         brands.push(product.brand?.name);
     });
@@ -73,7 +73,7 @@ const EditProduct = () => {
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
-    const form = document.getElementById("CreateForm");
+    // const form = document.getElementById("CreateForm");
     try {
       const response = await axios({
         method: "put",
