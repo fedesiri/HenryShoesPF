@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+
 
 import { Container, BackBtn } from "../../styles/PromotionEstilo";
 
@@ -84,7 +84,7 @@ const BestSellers = () => {
   // const product_Promotion = useSelector((state) => state.promotion)
 
   const [pagina, setPagina] = useState(1);
-  const [sizeArray, setSize] = useState(4);
+  const [sizeArray] = useState(4);
   const indexLastProduct = pagina * sizeArray;
   const indexFirstProduct = indexLastProduct - sizeArray;
   const currentProducto = product_Destacado.slice(

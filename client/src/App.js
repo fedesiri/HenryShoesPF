@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import LandingPage from "./Components/LandingPage/LandingPage";
-import Catalog from "./Components/catalogPage/CatalogPage";
+import Catalog from "./Components/CatalogPage/CatalogPage";
 
-import CargarOferta from "./Components/CargarOferta";
+// import CargarOferta from "./Components/CargarOferta";
 import CreateProduct from "./Components/CreateProduct";
 import FormularioInicio from "./Components/FormularioInicio";
 import Details from "./Components/Details";

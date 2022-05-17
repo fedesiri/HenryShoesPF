@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { CardContainer, CardDetail, CardImage, CardInfo } from "../styles/CardProduct";
 
 export default function CardProduct ({ id, model, price, image }){

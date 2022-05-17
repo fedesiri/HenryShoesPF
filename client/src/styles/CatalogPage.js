@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
 import reload from "../static/reload.svg";
 
 export const ContainerHome = styled.div`

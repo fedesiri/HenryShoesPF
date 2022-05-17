@@ -19,6 +19,7 @@ import {
     DELETE_DESTACADO_PRODUCTS,
     DELETE_PROMOTION_PRODUCTS,
    POST_LOG_OUT,
+   CLEAR_DETAIL,
 
 } from "./types";
 
@@ -218,3 +219,10 @@ export const deletePromotion = payload => {
         });
     };
 };
+
+
+export const clearDetail = () => {
+  return{
+    type: CLEAR_DETAIL,
+  }
+}

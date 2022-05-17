@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   filterOfertDestacado,
   getAllProducts,
-  clearOfertDestacado,
+  // clearOfertDestacado,
   deletePromotion,
   deleteDestacado,
 } from "../redux/actions/index";
