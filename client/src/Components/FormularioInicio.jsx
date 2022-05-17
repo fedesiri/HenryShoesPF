@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
 import { LoginForm, DivLogin, ErrorDiv, LowerDiv, SubmitBtn } from "../styles/FormularioInicio";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +13,7 @@ const FormularioInicio = ({closeLogin}) => {
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  const userInfoState = useSelector((state) => state.userInfo);
+  // const userInfoState = useSelector((state) => state.userInfo);
   // console.log("soy userInfoState", userInfoState);
 
   const [input, setInput] = useState({
