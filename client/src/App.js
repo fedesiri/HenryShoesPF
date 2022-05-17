@@ -6,10 +6,8 @@ import Catalog from "./Components/CatalogPage/CatalogPage";
 
 import CargarOferta from "./Components/CargarOferta";
 import CreateProduct from "./Components/CreateProduct";
-import FormularioInicio from "./Components/FormularioInicio";
 import Details from "./Components/Details";
 import EditProduct from "./Components/EditProduct";
-import FormularioCrearCuenta from "./Components/FormularioCrearCuenta"
 
 function App() {
   return (
