@@ -6,10 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Input from "./Input";
 
-const FormularioCrearCuenta = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { search } = useLocation();
+
+const FormularioCrearCuenta = ({closeCreateAccount}) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { search } = useLocation();
+
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
@@ -61,6 +63,7 @@ const FormularioCrearCuenta = () => {
             "userInfo",
             JSON.stringify(response.payload)
           );
+          closeCreateAccount()
           navigate(redirect || "/");
         } else {
           return;
