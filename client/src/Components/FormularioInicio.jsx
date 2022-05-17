@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
-import { LoginForm, DivLogin, CreateAccount, ErrorDiv, LowerDiv, DivCreate, SubmitBtn } from "../styles/FormularioInicio";
+import { LoginForm, DivLogin, ErrorDiv, LowerDiv, SubmitBtn } from "../styles/FormularioInicio";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const FormularioInicio = () => {
+const FormularioInicio = ({closeLogin}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -49,6 +49,7 @@ const FormularioInicio = () => {
             "userInfo",
             JSON.stringify(response.payload)
           );
+          closeLogin();
           navigate(redirect || "/");
         } else {
           return;
@@ -120,11 +121,6 @@ const FormularioInicio = () => {
         <SubmitBtn type="submit">Log In</SubmitBtn>    
       </LoginForm>
       <LowerDiv>
-        <DivCreate>
-          <CreateAccount to="/create_cuenta">
-                  <span>Create account</span>
-          </CreateAccount>
-        </DivCreate>
         <ErrorDiv>
           {error.email && <p>{error.email} </p>}
           {error.password && <p>{error.password} </p>}

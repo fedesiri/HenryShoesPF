@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const FormularioCrearCuenta = () => {
+const FormularioCrearCuenta = ({closeCreateAccount}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { search } = useLocation();
@@ -63,6 +63,7 @@ const FormularioCrearCuenta = () => {
             "userInfo",
             JSON.stringify(response.payload)
           );
+          closeCreateAccount()
           navigate(redirect || "/");
         } else {
           return;
