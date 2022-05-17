@@ -15,6 +15,7 @@ import {
   DELETE_PROMOTION_PRODUCTS,
   POST_LOG_OUT,
   CLEAR_DETAIL,
+  POST_REGISTER,
 } from "../actions/types";
 
 const intialState = {
@@ -184,8 +185,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         details: {}
-
       }
+
+      case POST_REGISTER:
+      return {
+        ...state,
+        userInfo: payload,
+      };
+
     default:
       return { ...state };
   }

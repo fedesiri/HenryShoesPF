@@ -31,7 +31,7 @@ const LandingPage = () => {
 
       <div>
         {userInfo ? (
-          <span>{userInfo.user.username}</span>
+          <span>{userInfo.username}</span>
         ) : (
           <button>
             <Link to="/login"> Login </Link>
@@ -42,7 +42,7 @@ const LandingPage = () => {
           <Link to="/shopping_cart"> Chart </Link>{" "}
         </button>
 
-        {userInfo && userInfo.user.roleId === 1 && (
+        {userInfo && userInfo.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>
