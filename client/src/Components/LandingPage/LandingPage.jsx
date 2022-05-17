@@ -34,7 +34,7 @@ const LandingPage = () => {
           <Link to="/shopping_cart"> Chart </Link>{" "}
         </button>
 
-        {userInfo && userInfo.user.roleId === 1 && (
+        {userInfo && userInfo.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>
