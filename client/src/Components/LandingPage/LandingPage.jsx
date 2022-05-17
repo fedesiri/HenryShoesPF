@@ -30,14 +30,6 @@ const LandingPage = () => {
       <NavBar />
 
       <div>
-        {userInfo ? (
-          <span>{userInfo.username}</span>
-        ) : (
-          <button>
-            <Link to="/login"> Login </Link>
-          </button>
-        )}
-
         <button>
           <Link to="/shopping_cart"> Chart </Link>{" "}
         </button>

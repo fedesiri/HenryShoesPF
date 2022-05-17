@@ -14,11 +14,13 @@ const Details = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
-  // const userInfo = useSelector((state) => state.userInfo);
+  const userInfo = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     dispatch(getProductById(addres));
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
+
+
 
   function CargarCarrito() {}
 
@@ -55,10 +57,14 @@ const Details = () => {
         </Content1>
         </ContentDiv>
         <BtnDiv>            
+        {userInfo && userInfo.user.roleId === 1 && (
         <Link to={`/edit/${addres}`}>
-            <button>Editar Producto</button>
-        </Link>
-        <button onClick={(e) => HandleDelete()}> Eliminar producto</button>
+            <button>Edit Product</button>
+        </Link>  
+  )}
+  {userInfo && userInfo.user.roleId === 1 && (
+    <button onClick={(e) => HandleDelete()}> Delete product </button>        
+  )}
         <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
         </BtnDiv>
     </DetailContainer>

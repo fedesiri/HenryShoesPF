@@ -33,12 +33,15 @@ const userRegister = expressAsyncHandler(async (req, res) => {
     }
     // console.log(newUser);
     res.send({
-      id: newUser.id,
-      name: newUser.name,
-      lastname: newUser.lastname,
-      username: newUser.username,
-      email: newUser.email,
-      address: newUser.address,
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        lastname: newUser.lastname,
+        username: newUser.username,
+        email: newUser.email,
+        address: newUser.address,
+      },
+      
       token: generateToken(newUser),
     });
   } catch (error) {
