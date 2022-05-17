@@ -11,7 +11,7 @@ const { ofertSelect, deleteDestacado, deletePromotion } = require("../controller
 
 
 const { createProduct, modifProduct, deleteProduct } = require("../controllers/CreateProduct");
-const {verifyToken, isAdmin} = require('../middlewares/authJwt.js')
+const { verifyToken, isAdmin } = require('../middlewares/authJwt.js')
 
 
 var products = express.Router();
@@ -27,7 +27,7 @@ products.put("/details/:id", modifProduct)
 products.delete("/details/:id", deleteProduct)
 
 
-// products.put("/ofert", ofertSelect)
+products.put("/sale", ofertSelect)
 products.put("/deletePromotion", deletePromotion)
 products.put("/deleteDestacado", deleteDestacado)
 

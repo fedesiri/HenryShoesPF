@@ -1,8 +1,17 @@
+.tenesqpsaraStyleCOmponet{
+max-width: 100%;
+padding: 2rem;
+
+}
+
 .container{
   width: 100%;
+  padding: 2rem;
   height: 3rem;
     margin: 0.5rem;
 display: flex;  
+/* padding-right: 1rem; */
+/* padding-left: 2rem; */
 flex-direction: row;  
 justify-content:space-between;
 align-items: center;
