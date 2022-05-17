@@ -59,11 +59,11 @@ const FormularioInicio = () => {
     }
   }
 
-  useEffect(() => {
-    if (userInfoState) {
-      navigate(redirect);
-    }
-  }, [userInfoState, navigate, redirect]);
+  // useEffect(() => {
+  //   if (userInfoState) {
+  //     navigate(redirect);
+  //   }
+  // }, [userInfoState, navigate, redirect]);
 
   function validate(input) {
     let errors = {};

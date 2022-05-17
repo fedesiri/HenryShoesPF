@@ -14,6 +14,14 @@ const { createProduct, modifProduct, deleteProduct } = require("../controllers/C
 const {verifyToken, isAdmin} = require('../middlewares/authJwt.js')
 
 
+const { getCategory,
+  getCategoryId,
+  createCategory,
+  modifCategory,
+  deleteCategory } = require ("../controllers/Category.controller")
+
+ 
+
 var products = express.Router();
 
 products.get("/", getAllProducts);
@@ -32,6 +40,13 @@ products.put("/deletePromotion", deletePromotion)
 products.put("/deleteDestacado", deleteDestacado)
 
 // products.post("/create", createProduct)
+
+//categorias 
+products.get("/categories", getCategory)
+products.get("/categories/:id", getCategoryId)
+products.post("/categories", createCategory)
+products.put ("/categories/:id", modifCategory)
+products.delete("/categories/:id", deleteCategory)
 
 
 
