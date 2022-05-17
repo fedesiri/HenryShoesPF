@@ -118,7 +118,7 @@ const CargarOferta = () => {
   }
 
   return (
-    <div>
+    <div className="tenesqpsaraStyleCOmponet">
     <h2>Set product on sale</h2>  
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="container1">
@@ -140,7 +140,7 @@ const CargarOferta = () => {
                 className="selectOfert"
                 onChange={(e) => handlePorcentaje(e)}
               >
-                <option value="default"> Porcentaje %: </option>
+                <option value="default"> Percent %: </option>
                 <option value="10"> 10% </option>
                 <option value="20"> 20% </option>
                 <option value="30"> 30% </option>
@@ -159,7 +159,7 @@ const CargarOferta = () => {
                 <h3> Producto Num: {e.id}</h3>
                 <div className="checkContainer">
                   <label>
-                    Promoción
+                    On Sale
                     <input
                       id={e.id}
                       type="checkbox"
@@ -173,7 +173,7 @@ const CargarOferta = () => {
                     />
                   </label>
                   <label>
-                    Destacado
+                    Best Sellers
                     <input
                       id={e.id}
                       type="checkbox"
@@ -193,7 +193,7 @@ const CargarOferta = () => {
         </div>
         <button type="submit">
           {" "}
-          Enviar Productos en Promoción y Destacados
+          Send Products 
         </button>
       </form>
       <div></div>
