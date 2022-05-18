@@ -160,8 +160,9 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           errorText="Password doesn't match."
           match={password.field !== confirmPassword.field ? "false" : "true"}
         />
-
+        <br />
         <SubmitBtn type="submit">Register</SubmitBtn>
+        <br />
       </form>
       <div>
         <div></div>
