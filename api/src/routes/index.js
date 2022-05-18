@@ -6,7 +6,8 @@ const {
   modifProduct,
   deleteProduct,
 } = require("../controllers/CreateProduct");
-const {createCategory, getCategory} = require ("../controllers/Category.controller")
+const {createCategory, getCategory} = require ("../controllers/Category.controller");
+const {AddProduct, getWishlist} = require("../controllers/wishlist.controller") 
 
 const authRoutes = require("./auth.js");
 
@@ -22,5 +23,7 @@ router.use("/auth", authRoutes);
 // router.delete("/details/:id", deleteProduct);
 router.post("/categories", createCategory)
 router.get("/categories", getCategory)
+router.post("/wishlist", AddProduct);
+router.get("/wishlist", getWishlist)
 
 module.exports = router;
