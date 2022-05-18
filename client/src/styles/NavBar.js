@@ -53,6 +53,26 @@ export const LoginBtn = styled.button`
     }
 `;
 
+export const SignOutBtn = styled.button`
+    width: 6rem;
+    height: 2.4rem;
+    margin-rigth: 1rem;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-family: "Helvetica";
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    }
+    :hover {
+    color: black;
+    background: white;
+    }
+`;
+
 export const ChartBtn = styled.button`
     margin-right: 1rem;
     background-image: URL(${Chart});
