@@ -4,7 +4,7 @@ import { getAllProducts, setCurrentPage } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { SearchDiv, SearchForm, SearchBtn } from "../styles/SearchBar";
+import { Ddiv, SearchDiv, SearchForm, SearchBtn } from "../styles/SearchBar";
 
 export default function SearchBar() {
   const [search, setSearch] = useState("");
