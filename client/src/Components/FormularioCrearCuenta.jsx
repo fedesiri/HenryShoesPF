@@ -5,6 +5,7 @@ import { postRegister } from "../redux/actions/index";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Input from "./Input";
+import { SubmitBtn } from "../styles/FormularioInicio";
 
 
 const FormularioCrearCuenta = ({closeCreateAccount}) => {
@@ -160,7 +161,7 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           match={password.field !== confirmPassword.field ? "false" : "true"}
         />
 
-        <button type="submit">Register</button>
+        <SubmitBtn type="submit">Register</SubmitBtn>
       </form>
       <div>
         <div></div>
