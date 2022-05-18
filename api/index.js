@@ -22,6 +22,7 @@ const { conn } = require("./src/db.js");
 const {
   seeder,
   seedBrand,
+  seedSize,
   createRoles,
 } = require("../api/src/seeder/index.js");
 
@@ -30,6 +31,7 @@ conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     console.log("Listening at 3001"); // eslint-disable-line no-
     await seedBrand();
+    await seedSize();
     await createRoles();
     await seeder();
     console.log("brands, roles and products loaded");

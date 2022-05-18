@@ -1,6 +1,6 @@
 require("dotenv").config();
 const fs = require("fs");
-const { Products, Brands, User, Role } = require("../db");
+const { Products, Brands, User, Role, Sizes } = require("../db");
 
 const jsonRead = JSON.parse(
   fs.readFileSync(`${__dirname}/AdidasChild0.json`, "utf-8")
@@ -28,7 +28,36 @@ async function seeder() {
         },
       });
       brandProduct.addProduct(product);
-    });
+  
+    if(shoe.gender == "infant"){
+      for(let i = 18; i < 26; i++){
+      const newSize = await Sizes.findOne({
+            where:{
+              size: i
+            }
+          });
+      product.addSizes(newSize)
+          };
+        }else if(shoe.gender == "child"){
+          for(let i = 27; i < 34; i++){
+            const newSize = await Sizes.findOne({
+                  where:{
+                    size: i
+                  }
+                });
+            product.addSizes(newSize)
+                };
+        }else{
+          for(let i = 35; i < 45; i++){
+            const newSize = await Sizes.findOne({
+                  where:{
+                    size: i
+                  }
+                });
+            product.addSizes(newSize)
+                };
+         };
+        });
   } catch (error) {
     console.error(error);
   }
@@ -55,6 +84,24 @@ async function seedBrand() {
   }
 }
 
+async function seedSize(){
+  let array=[18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]; 
+  try{
+    const sizeFull = await Sizes.findAll();
+    if(sizeFull.length > 0){
+      console.log("Sizes ya tiene datos")
+    }else{
+      array.map((size) => {Sizes.findOrCreate({
+        where:{
+          size: size 
+        }
+      });
+    });
+    return "Sizes are loaded";
+    }
+  }catch(err){console.error(err)}
+};
+
 const roles = ["admin", "user"];
 const createRoles = async () => {
   try {
@@ -73,4 +120,4 @@ const createRoles = async () => {
   }
 };
 
-module.exports = { seeder, seedBrand, createRoles };
+module.exports = { seeder, seedBrand, seedSize, createRoles };

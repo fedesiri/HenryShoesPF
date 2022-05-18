@@ -111,9 +111,9 @@ const EditProduct = () => {
               onChange={HandleOnChange}
               placeholder={detail.brandName}
             >
-              <option value="All" disabled="disabled">Brand</option>
-              {brands?.map((brand) => (
-                <option key={brand} value={brand}>
+              {/* <option value="All" disabled="disabled">Brand</option> */}
+              {brands?.map((brand, index) => (
+                <option key={index} value={brand}>
                   {brand}
                 </option>
               ))}
