@@ -9,6 +9,7 @@ import CargarOferta from "./Components/CargarOferta";
 import CreateProduct from "./Components/CreateProduct";
 import Details from "./Components/Details";
 import EditProduct from "./Components/EditProduct";
+import CreateCategory from "./Components/CreateCategory";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/createOfert" element={<CargarOferta />} />
       <Route path="/catalogPage" element={<Catalog />} />
       <Route path="/createProduct" element={<CreateProduct />} />
+      <Route path="/CreateCategory" element={<CreateCategory />} />
     </Routes>
   );
 }
