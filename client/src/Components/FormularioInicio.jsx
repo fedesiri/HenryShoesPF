@@ -6,7 +6,7 @@ import { LoginForm, DivLogin, ErrorDiv, LowerDiv, SubmitBtn } from "../styles/Fo
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const FormularioInicio = ({closeLogin}) => {
+const FormularioInicio = ({closeLogin, openCreateAccount}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -124,10 +124,12 @@ const FormularioInicio = ({closeLogin}) => {
         <ErrorDiv>
           {error.email && <p>{error.email} </p>}
           {error.password && <p>{error.password} </p>}
-        </ErrorDiv>
-      
+        </ErrorDiv>      
       </LowerDiv>
-              
+        If you still haven't an account, <span onClick={() => {
+          closeLogin()
+          openCreateAccount()
+        }}> sign up. </span>
       <ToastContainer
         position="top-center"
         autoClose={2000}
