@@ -4,7 +4,7 @@ import back from "../static/back.svg";
 
 
 export const DetailContainer = styled.div`
-    padding: 0.5rem 1.5rem;
+    
     color: var(--text-color);
     min-height: 100vh;
 `;

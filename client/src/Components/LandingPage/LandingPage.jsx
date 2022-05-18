@@ -30,10 +30,6 @@ const LandingPage = () => {
       <NavBar />
 
       <div>
-        <button>
-          <Link to="/shopping_cart"> Chart </Link>{" "}
-        </button>
-
         {userInfo && userInfo.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}

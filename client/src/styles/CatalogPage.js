@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import reload from "../static/reload.svg";
 
-export const ContainerHome = styled.div`
-    padding: 2rem;
-    min-height: 100vh; 
+export const ContainerHome = styled.div` 
 `;
 
 export const Btns = styled.div`
