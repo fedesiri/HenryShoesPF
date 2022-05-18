@@ -7,12 +7,19 @@ import { NavContainer, Banner, LoginDiv, SearchNav } from "../styles/NavBar";
 import banner from "../static/banner.png"
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
-import { useSelector } from "react-redux";
-import { LoginBtn, ChartBtn } from "../styles/NavBar";
-
+import { useDispatch, useSelector } from "react-redux";
+import { LoginBtn, ChartBtn, SignOutBtn } from "../styles/NavBar";
+import { postLogOut } from "../redux/actions/index.js"
 
 export default function NavBar(){
+    const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userInfo);
+  // console.log(userInfo);
+    const signOutHandler = () => {
+    dispatch(postLogOut());
+    window.localStorage.removeItem("userInfo");
+    };
+
     const [isOpenLogin, openLogin, closeLogin] = useModal(false)
     const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] = useModal(false)
     return (
@@ -24,7 +31,6 @@ export default function NavBar(){
                         <img src={banner} alt="" width="100%" height="150px"/>
                     </Link>   
                 </Banner>                
-               
             <SearchNav>
                 <div>
                     <SearchBar/>
@@ -33,7 +39,8 @@ export default function NavBar(){
                     {!userInfo && (<LoginDiv>
                         <LoginBtn onClick={openLogin}>Login</LoginBtn>    
                         {/* <button onClick={openCreateAccount}>Sign up</button>                 */}
-                        </LoginDiv>)}                    
+                        </LoginDiv>)} 
+                    {userInfo ? <LoginDiv><SignOutBtn onClick={signOutHandler}>Sign Out</SignOutBtn></LoginDiv> : null}                   
                 </div>
                 <div>
                     <ChartBtn>
