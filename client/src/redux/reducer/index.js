@@ -31,6 +31,8 @@ const intialState = {
   ofertSelect: [],
   filter: { brand: "All", gender: "filterByGender" },
   inOfertDestacado: [],
+  inOfertAux: [],
+  inBestSellerAux: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -160,7 +162,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         inOfertDestacado: result,
-        inOfertDestacadoAux: result,
+        inOfertAux: filterOfert,
+        inBestSellerAux: filterDestacado,
       };
 
     case CLEAR_OFERT_DESTACADO:
@@ -181,13 +184,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
         postMsj: payload,
       };
 
-      case CLEAR_DETAIL: 
+    case CLEAR_DETAIL:
       return {
         ...state,
         details: {}
       }
 
-      case POST_REGISTER:
+    case POST_REGISTER:
       return {
         ...state,
         userInfo: payload,
@@ -197,5 +200,5 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return { ...state };
   }
 
-  
+
 }
