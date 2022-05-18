@@ -3,9 +3,7 @@ const { Products } = require("../db.js");
 const ofertSelect = (req, res) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
   console.log(req.body)
-
   var array = id_oferta;
-  console.log(array)
   try {
     if (array.length !== 0) {
       var Promises = [];
@@ -21,7 +19,7 @@ const ofertSelect = (req, res) => {
       });
     }
     var value_porcentaje = porcentaje;
-    if (value_porcentaje.length !== 0) {
+    if (value_porcentaje) {
       var Promises = [];
       var newPromise = Products.update(
         { porcentaje: value_porcentaje },
@@ -59,17 +57,17 @@ const ofertSelect = (req, res) => {
 };
 
 const deleteDestacado = async (req, res) => {
-    let { id } = req.body
-    console.log(req.body)
-    console.log(id)
-    const ResultUpDate = await Products.update({
-        inDestacados: false,
+  let { id } = req.body
+  console.log(req.body)
+  console.log(id)
+  const ResultUpDate = await Products.update({
+    inDestacados: false,
 
-    },
-        { where: { "id": id } }
+  },
+    { where: { "id": id } }
 
-    )
-    res.status(200).send("Actualizacion")
+  )
+  res.status(200).send("Actualizacion")
 }
 
 // const deleteDestacado = async (req, res) => {
@@ -88,18 +86,18 @@ const deleteDestacado = async (req, res) => {
 
 
 const deletePromotion = async (req, res) => {
-    let { id } = req.body
-    console.log(req.body)
-    console.log(id)
-    const ResultUpDate = await Products.update({
-        inOferta: false,
-        porcentaje: null
+  let { id } = req.body
+  console.log(req.body)
+  console.log(id)
+  const ResultUpDate = await Products.update({
+    inOferta: false,
+    porcentaje: null
 
-    },
-        { where: { "id": id } }
+  },
+    { where: { "id": id } }
 
-    )
-    res.status(200).send("Actualizacion")
+  )
+  res.status(200).send("Actualizacion")
 }
 
 // const deletePromotion = async (req, res) => {
@@ -118,9 +116,9 @@ const deletePromotion = async (req, res) => {
 // }
 
 module.exports = {
-    ofertSelect,
-    deleteDestacado,
-    deletePromotion,
+  ofertSelect,
+  deleteDestacado,
+  deletePromotion,
 };
 
 

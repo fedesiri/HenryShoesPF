@@ -6,6 +6,7 @@ import { filterOfertDestacado } from "../../redux/actions/index";
 import ImagesBestSellers from "./ImagesBestSellers"
 import { Container, BackBtn } from "../../styles/PromotionEstilo";
 
+
 const BestSellers = () => {
   const product_Destacado = useSelector((state) => state.inBestSellerAux);
   const dispatch = useDispatch();
@@ -63,16 +64,30 @@ const BestSellers = () => {
   const handleNextbtn = () => {
     setPagina(pagina + 1);
   };
-  
+  function string_lentgMax(str){
+    let aplicar = str.slice(0,20)
+    return aplicar
+  }
+  function calculoDescuento(price,descuento){
+    let  aplicar = Math.ceil((price * descuento)/100)
+   return price - aplicar
+   }
+
+
   return currentProducto.length === 0 ? (<ImagesBestSellers/>):(
     <Container>
       <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
       {currentProducto.map((e) => (
-        <div key={e.price}>
+        <div className="father1"  key={e.price}>
           <img src={e.image} alt={e.model} />
-          <h3>{e.model}</h3>
-          <h3>{e.price}</h3>
-          <h3>{e.porcentaje}</h3>
+          <h1>{ string_lentgMax(  e.model)}</h1>
+          <h1> {e.price}$</h1>
+          {e.porcentaje&& <p>{e.porcentaje}%</p> }
+            { e.porcentaje&&  <h2>
+              Now :  {calculoDescuento(e.price,e.porcentaje) }$
+            </h2>}
+          <Link to={`/details/${e.id}`}> More </Link>
+
         </div>
       ))}
       <BackBtn onClick={handleNextbtn}>Next</BackBtn>

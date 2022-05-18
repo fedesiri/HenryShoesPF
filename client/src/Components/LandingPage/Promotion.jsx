@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { filterOfertDestacado } from "../../redux/actions/index";
 import ImagesPromotion from "./ImagesPromotion";
 import { Container, BackBtn } from "../../styles/PromotionEstilo";
+import './Promotion.css'
 
 const Promotion = () => {
   const product_Promotion = useSelector((state) => state.inOfertAux);
@@ -53,6 +54,15 @@ const Promotion = () => {
   const handleNextbtn = () => {
     setPagina(pagina + 1);
   };
+function calculoDescuento(price,descuento){
+ let  aplicar = Math.ceil((price * descuento)/100)
+return price - aplicar
+}
+function string_lentgMax(str){
+  let aplicar = str.slice(0,20)
+  return aplicar
+}
+
 
   return currentProducto.length === 0 ? (<ImagesPromotion/>   ):  (
     <Container>
@@ -61,12 +71,16 @@ const Promotion = () => {
         <h1>holis</h1>
       ) : (
         currentProducto.map((e, index) => (
-          <div key={index}>
+          <div className="father1" key={index}>
             <img src={e.image} alt={e.model} />
-            <h3>{e.model}</h3>
+            <h1>  {string_lentgMax(e.model)}</h1>
             <h3>
-              {e.price}$ {e.porcentaje}%
+            Before:   {e.price}$ 
             </h3>
+            <h2>
+              Now :  {calculoDescuento(e.price,e.porcentaje) }$
+            </h2>
+            <p> {e.porcentaje}%   </p>
             <Link to={`/details/${e.id}`}> More </Link>
           </div>
         ))
