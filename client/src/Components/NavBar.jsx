@@ -24,7 +24,7 @@ export default function NavBar(){
                 </Banner>
                 {!userInfo && ( <LoginDiv>
                     <button onClick={openLogin}>Login</button>    
-                    <button onClick={openCreateAccount}>Sign up</button>                
+                    {/* <button onClick={openCreateAccount}>Sign up</button>                 */}
                 </LoginDiv>)}               
             </NavigBar>   
             <SearchNav>
@@ -33,11 +33,11 @@ export default function NavBar(){
         </NavContainer>
         {/* los modals no estan afectando al css!! dejarlos ahi a lo ultimo */}
         <Modal isOpen={isOpenLogin} closeModal={closeLogin}> 
-            <FormularioInicio closeLogin={closeLogin}/>
+            <FormularioInicio closeLogin={closeLogin} openCreateAccount={openCreateAccount}/>
         </Modal>
 
         <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
-            <FormularioCrearCuenta closeCreateAccount={closeCreateAccount}/>
+            <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
         </Modal>
         </>
     )
