@@ -113,7 +113,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center"}}
     >
       {/* // <DivLogin> */}
       {/* // <LoginForm onSubmit={(e) => handleSubmit(e)}> */}
@@ -138,6 +138,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           errorText="Password is required."
           expresionRegular={expression.regexPassword}
         />
+        <br />
         <SubmitBtn type="submit">Log In</SubmitBtn>
       </form>
       {/* <LowerDiv>
@@ -146,6 +147,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           {error.password && <p>{error.password} </p>}
         </ErrorDiv>
       </LowerDiv> */}
+      <br />
       <div>
         <span>If you still haven't an account,</span>
         <span

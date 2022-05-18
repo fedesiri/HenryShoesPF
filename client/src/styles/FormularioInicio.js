@@ -89,3 +89,22 @@ export const SubmitBtn = styled.button`
     background: white;
     }
 `;
+
+export const CloseBtn = styled.button`
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.1rem;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    }
+    :hover {
+    color: black;
+    background: white;
+    }
+`;

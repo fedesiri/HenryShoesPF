@@ -7,6 +7,7 @@ const colors = {
 };
 
 const Formulario = styled.form`
+background-color: rgba(252, 253, 248, 1);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
@@ -32,7 +33,7 @@ const Label = styled.label`
 const Inputs = styled.input`
   width: 300px;
   background: #EEEEEE;
-  border-radius: 3px;
+  border-radius: 10px;
   height: 35px;
   line-height: 45px;
   padding: 0 40px 0 10px;

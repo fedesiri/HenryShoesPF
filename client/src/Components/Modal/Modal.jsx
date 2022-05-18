@@ -1,3 +1,4 @@
+import { CloseBtn } from "../../styles/FormularioInicio";
 import "./Modal.css";
 
 const Modal = ({children, isOpen, closeModal}) => {
@@ -5,7 +6,7 @@ const Modal = ({children, isOpen, closeModal}) => {
     return (
         <article className={`modal ${isOpen && "is-open"}`} onClick={closeModal}>
             <div className="modal-container" onClick={handleModalConteinerClick}>
-                <button className="modal-close" onClick={closeModal}>X</button>
+                <CloseBtn className="modal-close" onClick={closeModal}>X</CloseBtn>
                 {children}
             </div>
         </article>
