@@ -18,7 +18,7 @@ const VerOferta = () => {
   // const [inhabilitar, setInhabilitar] = useState(true);
 
   const productsDestacadOfert = useSelector(
-    (state) => state.inOfertDestacadoAux
+    (state) => state.inOfertDestacado
   );
   console.log(productsDestacadOfert);
 

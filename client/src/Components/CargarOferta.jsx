@@ -34,7 +34,7 @@ const CargarOferta = () => {
     setTimeout(() => {
       dispatch(filterOfertDestacado());
     }, 1000);
-  }, [dispatch]);
+  }, []);
 
   function inputSearch(e) {
     e.preventDefault();
@@ -97,7 +97,7 @@ const CargarOferta = () => {
     ) {
       dispatch(sendOfertToBack(validarProducts));
       setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
-      dispatch(clearOfertDestacado());
+      // dispatch(clearOfertDestacado());
 
       dispatch(clearOfertSelect());
     } else {
