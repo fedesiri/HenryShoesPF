@@ -14,7 +14,7 @@ import {
   BtnDiv,
 } from "../styles/Details";
 import NavBar from "./NavBar";
-import CarritoDetalle from "./CarritoDetails";
+import CarritoDetalle from "./ShoppingCart/CarritoDetails";
 
 const Details = () => {
   const navigate = useNavigate();

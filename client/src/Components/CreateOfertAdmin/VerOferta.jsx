@@ -6,7 +6,7 @@ import {
   // clearOfertDestacado,
   deletePromotion,
   deleteDestacado,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 
 const divStyle = {
   display: "none",
