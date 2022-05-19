@@ -8,6 +8,7 @@ const {
 } = require("../controllers/CreateProduct");
 const {createCategory, getCategory} = require ("../controllers/Category.controller");
 const {AddProduct, getWishlist} = require("../controllers/wishlist.controller") 
+const {createOrder, getOrder } = require("../controllers/Orders.controllers");
 
 const authRoutes = require("./auth.js");
 
@@ -25,5 +26,7 @@ router.post("/categories", createCategory)
 router.get("/categories", getCategory)
 router.post("/wishlist", AddProduct);
 router.get("/wishlist", getWishlist)
+router.get("/Orders", getOrder)
+router.post("/Orders", createOrder)
 
 module.exports = router;
