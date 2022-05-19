@@ -17,8 +17,8 @@ const ImagesPromotion = () => {
     q podemos <br /> 
     las bandas<br />
     River Plate<br />
-    q vamos<br />
-    a donde vamos?
+    Perdio con tigre<br />
+    a donde vamos? a ningun lado
     </div>
 </b>
 </div>

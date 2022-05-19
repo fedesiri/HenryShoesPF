@@ -16,10 +16,7 @@ const LandingPage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   // console.log(userInfo);
-  const signOutHandler = () => {
-    dispatch(postLogOut());
-    window.localStorage.removeItem("userInfo");
-  };
+  
 
   useEffect(() => {
     dispatch(clearDetail())
@@ -30,17 +27,11 @@ const LandingPage = () => {
       <NavBar />
 
       <div>
-        <button>
-          <Link to="/shopping_cart"> Chart </Link>{" "}
-        </button>
-
         {userInfo && userInfo.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>
         )}
-
-        {userInfo ? <button onClick={signOutHandler}>Sign Out</button> : null}
       </div>
 
       <>

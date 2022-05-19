@@ -93,7 +93,8 @@ async function seedSize(){
     }else{
       array.map((size) => {Sizes.findOrCreate({
         where:{
-          size: size 
+          size: size,
+          id: size 
         }
       });
     });
