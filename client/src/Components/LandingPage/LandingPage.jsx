@@ -17,11 +17,12 @@ const LandingPage = () => {
   const userInfo = useSelector((state) => state.userInfo);
   // console.log(userInfo);
   
-
   useEffect(() => {
     dispatch(clearDetail())
     dispatch(getAllProducts());
+  
   }, [dispatch]);
+
   return (
     <>
       <NavBar />
