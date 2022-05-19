@@ -7,7 +7,7 @@ import {
   clearOfertSelect,
   filterOfertDestacado,
   clearOfertDestacado,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 import "./CargarOfert.css";
 import VerOferta from "./VerOferta";
 

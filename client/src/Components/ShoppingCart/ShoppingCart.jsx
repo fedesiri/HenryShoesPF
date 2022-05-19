@@ -3,7 +3,7 @@ import {
   removeProductCart,
   removeOneProductCart,
   addOneProductCart,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 import './ShoppingCart.css'
 
 const ShoppingCart = () => {
