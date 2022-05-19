@@ -1,4 +1,4 @@
-const { User, Role } = require("../db.js");
+const { User, Role, ShoppingCart } = require("../db.js");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const expressAsyncHandler = require("express-async-handler");
@@ -31,6 +31,11 @@ const userRegister = expressAsyncHandler(async (req, res) => {
       });
       await roleUser.addUser(newUser);
     }
+    ;
+
+    const NewCart = await ShoppingCart.create({});
+    await newUser.setShoppingCart(NewCart);
+
     // console.log(newUser);
     res.send({
       user: {
@@ -43,6 +48,7 @@ const userRegister = expressAsyncHandler(async (req, res) => {
       },
       
       token: generateToken(newUser),
+      ShoppingCart: NewCart
     });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -66,7 +72,12 @@ const userLogin = expressAsyncHandler(async (req, res) => {
       return res.status(401).send({ message: "La contraseña ingresada es incorrecta." });
     const token = generateToken(user);
     // console.log(user)
-    res.send({ token: token, user: user });
+    const Cart = await ShoppingCart.findOne({
+      where:{
+        username: req.body.username
+      }
+    })
+    res.send({ token: token, user: user, ShoppingCart: Cart });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
