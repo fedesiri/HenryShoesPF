@@ -1,9 +1,9 @@
-const { Products, Brands } = require("../db.js");
+const { Products, Brands, Category } = require("../db.js");
 const { Op } = require("sequelize");
 
 async function createProduct(req, res) {
   try {
-    let { model, description, price, image, gender, brandName, year } =
+    let { model, description, price, image, gender, brandName, year, CategName } =
       req.body;
 
     let productCreate = await Products.create({
@@ -15,9 +15,20 @@ async function createProduct(req, res) {
       year: year,
     });
     let brandsDB = await Brands.findOne({
-      where: { name: brandName },
+      where: { name: brandName }
     });
+    let categDB = await Category.findOne({
+      where: { name: CategName },
+    });
+    console.log(categDB);
+    const [categ, created ] = await Category.findOrCreate({
+      where: { name: CategName },
+      });
+      console.log(categ.name);
+      console.log(created);
+
     productCreate.setBrand(brandsDB);
+    productCreate.setCategory(categDB,categ);
     res.status(200).json({ message: "Producto creado exitosamente" });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -25,16 +36,23 @@ async function createProduct(req, res) {
 }
 
 const modifProduct = (req, res) => {
-  let { model, description, price, image, gender, brandName, year } = req.body;
+  let { model, description, price, image, gender, brandName, year, CategName } = req.body;
   let id = req.params.id;
   let product = Products.findByPk(id);
   let brands = Brands.findOne({
     where: { name: brandName },
   });
-  Promise.all([product, brands])
+  
+  let categ = Category.findOrCreate({
+    where: { name: CategName },
+    });
+
+  Promise.all([product, brands, categ])
     .then(function (values) {
       let prod = values[0];
       let bra = values[1];
+      let cat = values[2].values[0];
+  
       Products.update(
         {
           model: model,
@@ -43,6 +61,7 @@ const modifProduct = (req, res) => {
           image: image,
           gender: gender,
           year: year,
+          CategName: CategName
         },
         {
           where: {
@@ -51,30 +70,16 @@ const modifProduct = (req, res) => {
         }
       );
       prod.setBrand(bra).then(function (brands) {
-        res.status(200).json({ message: "Producto modificado exitosamente" });
+        res.status(200)
       });
+      prod.setCategory(cat).then(function (categ){
+        res.status(200).json({ message: "Producto modificado exitosamente" });
+      })
     })
     .catch((error) => {
       res.status(500).send({ message: error.message });
     });
 };
-
-// const deleteProduct = function(req, res, next){
-//   const { id } = req.body
-//   let product = Products.findByPk(req.params.id);
-//   let brands = Brands.findByPk(id);
-//   Promise.all([product, brands])
-//   .then(function(values){
-//       let prod = values[0];
-//       let bra = values[1];
-//       prod.removeBrands(bra)
-//   .then(function(removeBrands){
-//       res.status(200).json(removeBrands)
-//   }).catch(function(reason){
-//       res.status(400).json({message:"CATEGORY COULDN'T BE REMOVED", data: reason})
-//   });
-//   });
-// }
 
 const deleteProduct = (req, res) => {
   const id = req.params.id;
