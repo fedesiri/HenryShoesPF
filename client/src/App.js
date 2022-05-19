@@ -9,6 +9,8 @@ import Details from "./Components/Details";
 import EditProduct from "./Components/EditProduct";
 import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
+import ShoppingCart from "./Components/ShoppingCart";
+
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
         <Route path="/catalogPage" element={<Catalog />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/CreateCategory" element={<CreateCategory />} />
+           <Route path="/cart" element={<ShoppingCart />} />
       </Routes>
     </ContentWrapper>
+
   );
 }
 
