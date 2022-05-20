@@ -83,8 +83,8 @@ Products.belongsToMany(User, {through: "wishlist"})
 ShoppingCart.belongsToMany(Orders, {through: "ShoppingOrder"})
 Orders.belongsToMany(ShoppingCart, {through: "ShoppingOrder"})
 
-User.hasOne(ShoppingCart ,{foreignKey:"username", sourceKey:"username"})
-ShoppingCart.belongsTo(User,{foreignKey:"username", targetKey:"username"})
+User.hasOne(ShoppingCart ,{foreignKey:"email", sourceKey:"email"})
+ShoppingCart.belongsTo(User,{foreignKey:"email", targetKey:"email"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -29,7 +29,6 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
@@ -44,7 +43,6 @@ module.exports = (sequelize) => {
       },
       address: {
         type: DataTypes.TEXT,
-        allowNull: false,
       },
     },
     {
@@ -52,7 +50,9 @@ module.exports = (sequelize) => {
 
       hooks: {
         beforeCreate: (user) => {
-          user.password = bcrypt.hashSync(user.password, 10);
+          if(user.password) {
+            user.password = bcrypt.hashSync(user.password, 10);
+          }
         },
         beforeUpdate: (user) => {
           user.password = bcrypt.hashSync(user.password, 10);

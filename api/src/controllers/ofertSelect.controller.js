@@ -49,9 +49,9 @@ const ofertSelect = (req, res) => {
     }
 
 
-    res.status(200).send({ message: "La información ha sido actualizada." });
+    res.status(200).send({ message: "Product updated successfully." });
   } catch (err) {
-    console.log(err, "error en la actualizacion");
+    console.log(err, "Error on update.");
     res.send({ message: err.message });
   }
 };
@@ -67,7 +67,7 @@ const deleteDestacado = async (req, res) => {
     { where: { "id": id } }
 
   )
-  res.status(200).send("Actualizacion")
+  res.status(200).send("Remove from Destacados successfully.")
 }
 
 // const deleteDestacado = async (req, res) => {
@@ -97,7 +97,7 @@ const deletePromotion = async (req, res) => {
     { where: { "id": id } }
 
   )
-  res.status(200).send("Actualizacion")
+  res.status(200).send("Remove from Promotion successfully.")
 }
 
 // const deletePromotion = async (req, res) => {

@@ -9,7 +9,9 @@ const {
 const {createCategory, getCategory} = require ("../controllers/Category.controller");
 const {AddProduct, getWishlist} = require("../controllers/wishlist.controller") 
 const {createOrder, getOrder } = require("../controllers/Orders.controllers");
-const { userLogin, userRegister } = require("../controllers/auth.controller");
+// const { userLogin, userRegister } = require("../controllers/auth.controller");
+
+const passport = require("passport");
 
 const authRoutes = require("./auth.js");
 
@@ -29,7 +31,7 @@ router.post("/wishlist", AddProduct);
 router.get("/wishlist", getWishlist)
 router.get("/Orders", getOrder)
 router.post("/Orders", createOrder)
-router.post("/login", userLogin);
-router.post("/register", userRegister);
+// router.post("/login", userLogin);
+// router.post("/register", userRegister);
 
 module.exports = router;

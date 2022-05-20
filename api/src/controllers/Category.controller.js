@@ -17,7 +17,7 @@ const getCategoryId = (req,res,next) => {
 
 const createCategory = (req,res,next) => {
     const { name } = req.body
-    if(!name) return res.status(404).send("NO HAY SUFICIENTES REQUISITOS PARA CREAR ESTA CATEGORÍA");
+    if(!name) return res.status(404).send("Not enough data to create a category.");
     Category.create({
         name: name,        
     })
@@ -28,13 +28,13 @@ const createCategory = (req,res,next) => {
 
 const modifCategory = (req, res,next ) => {
     const { name } = req.body
-    if(!name ) return res.status(404).send("NO HAY SUFICIENTES REQUISITOS PARA MODIFICAR ESTA CATEGORÍA");
+    if(!name ) return res.status(404).send("Not enough data to modify a category.");
     Category.update({...req.body}, {
         where: {
             id: req.params.id
         }
     }).then(function(updatedCategory){
-        res.status(201).send("CATEGORÍA ACTUALIZADA CON ÉXITO")
+        res.status(201).send("Category modified successfully.")
     }).catch(next);
 };
 
@@ -44,7 +44,7 @@ const deleteCategory = (req, res, next) => {
             id: req.params.id
         }
     }).then(function(deletedCategory){
-        res.status(200).send("CATEGORIA ELIMINADA CON ÉXITO")
+        res.status(200).send("Category deleted successfully.")
     }).catch(next);
 
 };
