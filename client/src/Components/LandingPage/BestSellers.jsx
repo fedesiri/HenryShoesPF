@@ -78,7 +78,7 @@ const BestSellers = () => {
     <Container>
       <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
       {currentProducto.map((e) => (
-        <div className="father1"  key={e.price}>
+        <div className="father1"  key={e.id}>
           <img src={e.image} alt={e.model} />
           <h1>{ string_lentgMax(  e.model)}</h1>
           <h1> {e.price}$</h1>
