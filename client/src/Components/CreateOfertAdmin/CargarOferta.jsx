@@ -24,7 +24,7 @@ const CargarOferta = () => {
   const [validarProducts, setValidarProducts] = useState({
     id_oferta: [],
     id_destacado: [],
-    porcentaje: [],
+    porcentaje: "",
   });
 
   useEffect(() => {
