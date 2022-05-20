@@ -26,6 +26,7 @@ const Details = () => {
   const cartDetail = useSelector((state) => state.shoppingCart);
   // console.log("esto hay en el carrito", cartDetail);
   // console.log(detail);
+  console.log(userInfo)
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
     allitems: [],
@@ -38,6 +39,8 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(getProductById(addres));
+    
+
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // dispatch(getProductById(addres));
@@ -56,9 +59,14 @@ const Details = () => {
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
-  function CargarCarrito(e) {
-    e.preventDefault();
-    dispatch(addShoppingCart(itemsCarts));
+  
+
+  function CargarCarrito() {
+    if (itemsCarts.sizes === undefined || itemsCarts.allitems === undefined) {
+      alert("Complete size and quantity");
+    } else {
+        dispatch(addShoppingCart(itemsCarts));
+    }
   }
 
   function handleCantidad(e) {

@@ -10,20 +10,25 @@ import EditProduct from "./Components/EditProduct";
 import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
+import { useSelector } from "react-redux";
 
 
 function App() {
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo)
   return (
     <ContentWrapper>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/edit/:id" element={<EditProduct />} />
-        <Route path="/createOfert" element={<CargarOferta />} />
         <Route path="/catalogPage" element={<Catalog />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/cart" element={<ShoppingCart />} />
+        {userInfo && userInfo.user.id.length !== 0 ? (
+          <Route path="/createOfert" element={<CargarOferta />} />
+        ) : null}
       </Routes>
     </ContentWrapper>
 

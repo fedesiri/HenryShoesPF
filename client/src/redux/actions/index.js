@@ -160,7 +160,7 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
-  console.log("soy el payload", payload);
+  // console.log("soy el payload", payload);
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put("http://localhost:3001/products/sale", payload);
@@ -197,7 +197,7 @@ export const filterOfertDestacado = (payload) => {
 
 export function deleteDestacado(payload) {
   const value = { id: payload }
-  console.log("verDestacado a Eliminar", value)
+  // console.log("verDestacado a Eliminar", value)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put("http://localhost:3001/products/deleteDestacado", value);
@@ -214,7 +214,7 @@ export function deleteDestacado(payload) {
 
 export const deletePromotion = payload => {
   const value = { id: payload }
-  console.log("verDestacado a Eliminar", value)
+  // console.log("verDestacado a Eliminar", value)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put("http://localhost:3001/products/deletePromotion", value);
