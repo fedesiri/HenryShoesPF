@@ -4,6 +4,7 @@ import {
   removeOneProductCart,
   addOneProductCart,
 } from "../../redux/actions/index";
+import NavBar from "../NavBar";
 import './ShoppingCart.css'
 
 const ShoppingCart = () => {
@@ -37,6 +38,7 @@ const ShoppingCart = () => {
   let contador = 1;
   return (
     <div className="Cart">
+      <NavBar />
          ShoppingCart
       <div className="cart1" >
        

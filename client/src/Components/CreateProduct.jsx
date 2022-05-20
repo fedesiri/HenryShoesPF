@@ -5,7 +5,6 @@ import { getAllProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const CreateProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,21 +15,25 @@ const CreateProduct = () => {
   const genders = [];
   const brands = [];
 
+  
   function GenderGetter(reduxProducts) {
     reduxProducts?.forEach((product) => {
       if (!genders.includes(product?.gender)) genders.push(product?.gender);
     });
   }
   GenderGetter(reduxProducts);
-
+  
   function BrandGetter(reduxProducts) {
     reduxProducts?.forEach((product) => {
-      if (!brands.includes(product.brand?.name))
-        brands.push(product.brand?.name);
+      if (!brands.includes(product?.brandName))
+      brands.push(product?.brandName);
     });
   }
   BrandGetter(reduxProducts);
 
+  console.log(reduxProducts)
+  console.log(brands)
+  
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     product: "",
@@ -40,6 +43,7 @@ const CreateProduct = () => {
     image: "",
     gender: "",
     year: "",
+    category: "",
   });
   console.log(input);
 
@@ -54,7 +58,8 @@ const CreateProduct = () => {
       !input.brand ||
       !input.gender ||
       !input.description ||
-      !input.image
+      !input.image ||
+      !input.category
     ) {
       error.incomplete = "Missing Fields";
     }
@@ -90,6 +95,7 @@ const CreateProduct = () => {
             image: input.image,
             gender: input.gender,
             year: input.year,
+            CategName: input.category,
           },
         });
         // console.log(response.data);
@@ -103,6 +109,7 @@ const CreateProduct = () => {
           image: "",
           gender: "",
           year: "",
+          category: "",
         });
       } catch (err) {
         console.log(err);
@@ -119,33 +126,35 @@ const CreateProduct = () => {
         <label>Brand: </label>
         <div>
           <select defaultValue="All" name="brand" onChange={HandleOnChange}>
-            <option value="All" disabled="disabled">Brand</option>
+            <option value="All" disabled="disabled">
+              Brand
+            </option>
             {brands?.map((brand) => (
               <option key={brand} value={brand}>
                 {brand}
               </option>
             ))}
-            ;
           </select>
         </div>
 
         <div>
-          <label>Category gender: </label>
+          <label>Gender: </label>
           <div>
             <select defaultValue="All" name="gender" onChange={HandleOnChange}>
-            <option value="All" disabled="disabled">Gender</option>
+              <option value="All" disabled="disabled">
+                Gender
+              </option>
               {genders?.map((gender) => (
                 <option key={genders.indexOf(gender)} value={gender}>
                   {gender}
                 </option>
               ))}
-              ;
             </select>
           </div>
         </div>
 
         <div>
-          <label>Producto: </label>
+          <label>Product: </label>
           <div>
             <input type="text" name="product" onChange={HandleOnChange} />
           </div>
@@ -153,7 +162,7 @@ const CreateProduct = () => {
 
         <div>
           <div>
-            <label>Precio: </label>
+            <label>Price: </label>
           </div>
           <div>
             <input
@@ -167,7 +176,7 @@ const CreateProduct = () => {
 
         <div>
           <div>
-            <label>Año de Lanzamiento: </label>
+            <label>Release Year: </label>
           </div>
           <div>
             <input
@@ -179,13 +188,20 @@ const CreateProduct = () => {
           </div>
         </div>
 
-        <label>Descripción: </label>
+        <label>Description: </label>
         <div>
           <input name="description" type="text" onChange={HandleOnChange} />
         </div>
 
         <div>
-          <label>Imágen: </label>
+          <label>Category name: </label>
+        </div>
+        <div>
+          <input name="category" type="text" onChange={HandleOnChange} />
+        </div>
+
+        <div>
+          <label>Image: </label>
         </div>
         <div>
           <input name="image" type="text" onChange={HandleOnChange} />

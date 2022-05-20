@@ -15,6 +15,7 @@ import {
 } from "../styles/Details";
 import NavBar from "./NavBar";
 import CarritoDetalle from "./ShoppingCart/CarritoDetails";
+import { toast } from "react-toastify";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Details = () => {
   const cartDetail = useSelector((state) => state.shoppingCart);
   // console.log("esto hay en el carrito", cartDetail);
   // console.log(detail);
-  console.log(userInfo)
+  console.log(userInfo);
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
     allitems: [],
@@ -39,8 +40,6 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(getProductById(addres));
-    
-
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // dispatch(getProductById(addres));
@@ -59,13 +58,22 @@ const Details = () => {
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
-  
-
   function CargarCarrito() {
     if (itemsCarts.sizes === undefined || itemsCarts.allitems === undefined) {
-      alert("Complete size and quantity");
+      toast.warn("Complete size and quantity", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     } else {
-        dispatch(addShoppingCart(itemsCarts));
+      dispatch(addShoppingCart(itemsCarts));
+      toast.success("Product added successfully to cart!", {
+        position: toast.POSITION.TOP_CENTER
+      });
     }
   }
 
@@ -89,7 +97,7 @@ const Details = () => {
   // console.log (detailTrue)
 
   const HandleDelete = () => {
-    let reply = window.confirm("¿Seguro que desea eliminar el producto?");
+    let reply = window.confirm("Are you sure do you want to delete this item?");
     if (reply === true) {
       try {
         axios({
@@ -127,7 +135,7 @@ const Details = () => {
           </div>
 
           <select defaultValue="default" onChange={(e) => handleCantidad(e)}>
-            <option value="default"> Cantidad: </option>
+            <option value="default"> Quantity: </option>
             <option value="1"> 1 </option>
             <option value="2"> 2 </option>
             <option value="3"> 3 </option>
@@ -142,14 +150,17 @@ const Details = () => {
         </Content1>
       </ContentDiv>
       <BtnDiv>
-        {userInfo && userInfo.user.roleId === 1 && (
+        {userInfo?.user.roleId === 1 ? (
           <Link to={`/edit/${addres}`}>
             <button>Edit Product</button>
           </Link>
-        )}
-        {userInfo && userInfo.user.roleId === 1 && (
+        ) : null}
+
+        {userInfo?.user.roleId === 1 ? (
           <button onClick={(e) => HandleDelete()}> Delete Product </button>
-        )}
+        ) : userInfo?.roleId === 1 ? (
+          <button onClick={(e) => HandleDelete()}> Delete Product </button>
+        ) : null}
         <button onClick={(e) => CargarCarrito(e)}>
           <h4>Add to Shopping Cart</h4>
         </button>

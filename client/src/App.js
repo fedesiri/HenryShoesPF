@@ -26,7 +26,7 @@ function App() {
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/cart" element={<ShoppingCart />} />
-        {userInfo && userInfo.user.id.length !== 0 ? (
+        {userInfo && userInfo.user.roleId === 1 ? (
           <Route path="/createOfert" element={<CargarOferta />} />
         ) : null}
       </Routes>
