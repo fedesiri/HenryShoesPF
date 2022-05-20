@@ -45,6 +45,9 @@ module.exports = (sequelize) => {
       },
       porcentaje: {
         type: DataTypes.INTEGER,
+        defaultValue: null,
+
+
       },
     },
     { timestamps: false }
