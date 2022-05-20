@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   removeProductCart,
   removeOneProductCart,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 
 const CarritoDetalle = () => {

@@ -15,7 +15,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo);
+  // console.log("informacion  :", userInfo);
   
   useEffect(() => {
     dispatch(clearDetail())

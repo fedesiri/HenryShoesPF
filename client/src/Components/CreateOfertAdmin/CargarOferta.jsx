@@ -7,24 +7,25 @@ import {
   clearOfertSelect,
   filterOfertDestacado,
   clearOfertDestacado,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 import "./CargarOfert.css";
 import VerOferta from "./VerOferta";
 
 const CargarOferta = () => {
+
+  
   const dispatch = useDispatch();
   const onOfert = useSelector((state) => state.ofertSelect);
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  // const todos = useSelector((state) => state.allProducts);
-  // console.log(todos);
-  console.log(productsDestacadOfert);
+  
+  // console.log(productsDestacadOfert);
 
   const [input, setInput] = useState("");
   const [cambio, setCambio] = useState(1);
   const [validarProducts, setValidarProducts] = useState({
     id_oferta: [],
     id_destacado: [],
-    porcentaje: [],
+    porcentaje: "",
   });
 
   useEffect(() => {

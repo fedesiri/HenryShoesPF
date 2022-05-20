@@ -1,126 +1,108 @@
 const { Products } = require("../db.js");
 
-const ofertSelect = (req, res) => {
+const ofertSelect = (req, res, next) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
   console.log(req.body)
+
   var array = id_oferta;
   try {
-    if (array.length !== 0) {
-      var Promises = [];
-      array.forEach((e) => {
-        var newPromise = Products.update(
-          { inOferta: true },
-          { where: { id: e } }
-        );
-        Promises.push(newPromise);
-      });
-      Promise.all(Promises).then((result) => {
-        result.forEach((r) => console.log(r));
-      });
-    }
-    var value_porcentaje = porcentaje;
-    if (value_porcentaje) {
-      var Promises = [];
-      var newPromise = Products.update(
-        { porcentaje: value_porcentaje },
-        { where: { id: array } }
-      );
-      Promises.push(newPromise);
+    try {
+      if (array.length !== 0) {
+        var Promises = [];
+        array.forEach((e) => {
+          var newPromise = Products.update(
+            {
+              inOferta: true,
+              porcentaje: porcentaje
+            },
+            { where: { id: Number(e) } }
+          );
+          Promises.push(newPromise);
+        });
+        Promise.all(Promises).then((result) => {
+          result.forEach((r) => console.log(r));
+        });
+      }
+    } catch (err) {
+      console.log("error en oferta", err)
 
-      Promise.all(Promises).then((result) => {
-        result.forEach((r) => console.log(r));
-      });
     }
 
-    var arrayDestacado = id_destacado;
-    //me llega un array de numeros en string
-    if (arrayDestacado.length !== 0) {
-      var Promises = [];
-      arrayDestacado.forEach((e) => {
-        var newPromise = Products.update(
-          { inDestacados: true },
-          { where: { id: e } }
-        );
-        Promises.push(newPromise);
-      });
-      Promise.all(Promises).then((result) => {
-        result.forEach((r) => console.log(r));
-      });
+    try {
+
+      var arrayDestacado = id_destacado;
+      console.log("esto te llega", id_destacado)
+      if (arrayDestacado.length !== 0) {
+        var Promises = [];
+        arrayDestacado.forEach((e) => {
+          var newPromise = Products.update(
+            { inDestacados: true },
+            { where: { id: Number(e) } }
+          );
+          Promises.push(newPromise);
+        });
+        Promise.all(Promises).then((result) => {
+          result.forEach((r) => console.log(r));
+        });
+      }
+    } catch (err) {
+      console.log("error en Destacado", err)
     }
+    res.status(200).send({ message: "La información ha sido actualizada." });
 
-
-    res.status(200).send({ message: "Product updated successfully." });
   } catch (err) {
-    console.log(err, "Error on update.");
-    res.send({ message: err.message });
+    console.log(err, "error en la actualizacion");
+    res.status(500).send({ message: error.message });
   }
 };
 
 const deleteDestacado = async (req, res) => {
   let { id } = req.body
-  console.log(req.body)
-  console.log(id)
-  const ResultUpDate = await Products.update({
-    inDestacados: false,
+  try {
+    const ResultUpDate = await Products.update({
+      inDestacados: false,
 
-  },
-    { where: { "id": id } }
+    },
+      { where: { "id": id } }
 
-  )
-  res.status(200).send("Remove from Destacados successfully.")
+    )
+
+
+    res.status(200).send("Actualizacion")
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({ message: error.message });
+  }
 }
 
-// const deleteDestacado = async (req, res) => {
-//     let { id } = req.body
-//     console.log(req.body)
-//     console.log(id)
-//     const ResultUpDate = await Products.update({
-//         inDestacados: false,
 
-//     },
-//         { where: { "id": id } }
-
-//     )
-//     res.status(200).send("Actualizacion")
-// }
 
 
 const deletePromotion = async (req, res) => {
   let { id } = req.body
-  console.log(req.body)
-  console.log(id)
-  const ResultUpDate = await Products.update({
-    inOferta: false,
-    porcentaje: null
+  try {
+    const ResultUpDate = await Products.update({
+      inOferta: false,
+      porcentaje: null
 
-  },
-    { where: { "id": id } }
+    },
+      { where: { "id": id } }
 
-  )
-  res.status(200).send("Remove from Promotion successfully.")
+    )
+    res.status(200).send("Actualizacion")
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({ message: error.message });
+  }
 }
 
-// const deletePromotion = async (req, res) => {
-//     let { id } = req.body
-//     console.log(req.body)
-//     console.log(id)
-//     const ResultUpDate = await Products.update({
-//         inOferta: false,
-//         porcentaje: null
 
-//     },
-//         { where: { "id": id } }
-
-//     )
-//     res.status(200).send("Actualizacion")
-// }
 
 module.exports = {
   ofertSelect,
   deleteDestacado,
   deletePromotion,
 };
-
 
 
 

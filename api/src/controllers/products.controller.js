@@ -1,4 +1,4 @@
-const { Products, Brands } = require("../db.js");
+const { Products, Brands, Sizes } = require("../db.js");
 const { Op } = require("sequelize");
 
 const getAllProducts = async (req, res) => {
@@ -7,6 +7,8 @@ const getAllProducts = async (req, res) => {
       include: {
         model: Brands,
         attributes: ["name"],
+        model: Sizes,
+        attributes: ["size"]
       },
     });
 
