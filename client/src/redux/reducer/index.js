@@ -20,6 +20,7 @@ import {
   REMOVE_SHOPPING_CART,
   REMOVE_ONE_PRODUCT_CART,
   ADD_ONE_PRODUCT_CART,
+  POST_LOG_IN_GOOGLE,
 } from "../actions/types";
 
 const intialState = {
@@ -210,61 +211,60 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
       return itemInCart
         ? {
-          ...state,
-          shoppingCart: auxCartState.map((item) =>
-            item.model === newItem.model && item.sizes === newItem.sizes
-              ? {
-                ...item,
-                allitems: Number(item.allitems) + Number(newItem.allitems),
-              }
-              : item
-          ),
-        }
+            ...state,
+            shoppingCart: auxCartState.map((item) =>
+              item.model === newItem.model && item.sizes === newItem.sizes
+                ? {
+                    ...item,
+                    allitems: Number(item.allitems) + Number(newItem.allitems),
+                  }
+                : item
+            ),
+          }
         : {
-          ...state,
-          shoppingCart: [...state.shoppingCart].concat(newItem),
-        };
+            ...state,
+            shoppingCart: [...state.shoppingCart].concat(newItem),
+          };
 
     case REMOVE_SHOPPING_CART:
       let firstFilter = state.shoppingCart.filter(
         (item) => item.id !== payload.id
       );
       let secondFilter = state.shoppingCart.filter(
-        (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        (item) => item.id === payload.id && item.sizes !== payload.sizes
       );
 
       return {
         ...state,
-        shoppingCart: firstFilter.concat(secondFilter)
+        shoppingCart: firstFilter.concat(secondFilter),
       };
 
     case REMOVE_ONE_PRODUCT_CART: {
       // console.log("elemento a remover", payload);
-      let itemToDelete = state.shoppingCart.find((item) => item.id === payload.id
-        && item.sizes === payload.sizes
+      let itemToDelete = state.shoppingCart.find(
+        (item) => item.id === payload.id && item.sizes === payload.sizes
       );
 
       let firstFilter1 = state.shoppingCart.filter(
         (item) => item.id !== payload.id
       );
       let secondFilter1 = state.shoppingCart.filter(
-        (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        (item) => item.id === payload.id && item.sizes !== payload.sizes
       );
-
 
       return itemToDelete.allitems > 1
         ? {
-          ...state,
-          shoppingCart: state.shoppingCart.map((item) =>
-            item.id === payload.id && item.sizes === payload.sizes
-              ? { ...item, allitems: item.allitems - 1 }
-              : item
-          ),
-        }
+            ...state,
+            shoppingCart: state.shoppingCart.map((item) =>
+              item.id === payload.id && item.sizes === payload.sizes
+                ? { ...item, allitems: item.allitems - 1 }
+                : item
+            ),
+          }
         : {
-          ...state,
-          shoppingCart: firstFilter1.concat(secondFilter1),
-        };
+            ...state,
+            shoppingCart: firstFilter1.concat(secondFilter1),
+          };
     }
 
     case ADD_ONE_PRODUCT_CART: {
@@ -275,22 +275,26 @@ export default function rootReducer(state = intialState, { type, payload }) {
         (item) => item.id === newItem2.id && item.sizes === newItem2.sizes
       );
 
-      return itemInCart2
-        && {
-        ...state,
-        shoppingCart: auxCartState2.map((item) =>
-          item.id === newItem2.id && item.sizes === newItem2.sizes
-            ? {
-              ...item,
-              allitems: Number(item.allitems) + 1,
-            }
-            : item
-        ),
-      }
-
+      return (
+        itemInCart2 && {
+          ...state,
+          shoppingCart: auxCartState2.map((item) =>
+            item.id === newItem2.id && item.sizes === newItem2.sizes
+              ? {
+                  ...item,
+                  allitems: Number(item.allitems) + 1,
+                }
+              : item
+          ),
+        }
+      );
     }
 
-
+    case POST_LOG_IN_GOOGLE:
+      return {
+        ...state,
+        userInfo: JSON.parse(localStorage.getItem("userInfo")),
+      };
 
     default:
       return { ...state };

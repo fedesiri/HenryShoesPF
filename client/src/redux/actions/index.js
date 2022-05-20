@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
-
   GET_ALL_PRODUCTS,
   GET_ALL_PRODUCTS_BY_BRANDS,
   GET_PRODUCT_BY_ID,
@@ -25,7 +24,7 @@ import {
   REMOVE_SHOPPING_CART,
   REMOVE_ONE_PRODUCT_CART,
   ADD_ONE_PRODUCT_CART,
-
+  POST_LOG_IN_GOOGLE,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -115,6 +114,12 @@ export function postLogIn({ email, password }) {
   };
 }
 
+export const loginGoogle = () => {
+  return {
+    type: POST_LOG_IN_GOOGLE,
+  };
+};
+
 export const postLogOut = () => {
   return {
     type: POST_LOG_OUT,
@@ -163,13 +168,15 @@ export function sendOfertToBack(payload) {
   // console.log("soy el payload", payload);
   return async function (dispatch) {
     // cambiar la ruta
-    const result = await axios.put("http://localhost:3001/products/sale", payload);
+    const result = await axios.put(
+      "http://localhost:3001/products/sale",
+      payload
+    );
     return dispatch({
       type: SEND_OFERT_BACK,
       payload: result,
     });
   };
-
 }
 
 export const clearOfertSelect = (payload) => {
@@ -193,14 +200,15 @@ export const filterOfertDestacado = (payload) => {
   };
 };
 
-
-
 export function deleteDestacado(payload) {
-  const value = { id: payload }
+  const value = { id: payload };
   // console.log("verDestacado a Eliminar", value)
   return async function (dispatch) {
     // cambiar la ruta
-    const result = await axios.put("http://localhost:3001/products/deleteDestacado", value);
+    const result = await axios.put(
+      "http://localhost:3001/products/deleteDestacado",
+      value
+    );
     return dispatch({
       type: DELETE_DESTACADO_PRODUCTS,
       payload: result,
@@ -208,16 +216,15 @@ export function deleteDestacado(payload) {
   };
 }
 
-
-
-
-
-export const deletePromotion = payload => {
-  const value = { id: payload }
+export const deletePromotion = (payload) => {
+  const value = { id: payload };
   // console.log("verDestacado a Eliminar", value)
   return async function (dispatch) {
     // cambiar la ruta
-    const result = await axios.put("http://localhost:3001/products/deletePromotion", value);
+    const result = await axios.put(
+      "http://localhost:3001/products/deletePromotion",
+      value
+    );
     return dispatch({
       type: DELETE_PROMOTION_PRODUCTS,
       payload: result,
@@ -225,18 +232,29 @@ export const deletePromotion = payload => {
   };
 };
 
-
 export const clearDetail = () => {
   return {
     type: CLEAR_DETAIL,
   };
 };
 
-export const postRegister = ({ name, lastname, username, password, email, address }) => {
+export const postRegister = ({
+  name,
+  lastname,
+  username,
+  password,
+  email,
+  address,
+}) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.post("http://localhost:3001/auth/register", {
-        name, lastname, username, password, email, address
+        name,
+        lastname,
+        username,
+        password,
+        email,
+        address,
       });
       return dispatch({
         type: POST_REGISTER,
@@ -246,9 +264,7 @@ export const postRegister = ({ name, lastname, username, password, email, addres
       toast.error(error.response.data.message);
     }
   };
-}
-
-
+};
 
 export const addShoppingCart = (payload) => {
   return {
@@ -261,19 +277,19 @@ export const removeProductCart = (payload) => {
   return {
     type: REMOVE_SHOPPING_CART,
     payload,
-  }
-}
+  };
+};
 
 export const removeOneProductCart = (payload) => {
   return {
     type: REMOVE_ONE_PRODUCT_CART,
     payload,
-  }
-}
+  };
+};
 
 export const addOneProductCart = (payload) => {
   return {
     type: ADD_ONE_PRODUCT_CART,
     payload,
-  }
-}
+  };
+};

@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
-import {
-  // LoginForm,
-  // DivLogin,
-  // ErrorDiv,
-  // LowerDiv,
-  SubmitBtn,
-} from "../styles/FormularioInicio";
+import { SubmitBtn } from "../styles/FormularioInicio";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Input from "./Input";
+import GoogleLoginComponent from "./GoogleLoginComponent";
+
 
 const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
   const dispatch = useDispatch();
@@ -20,21 +16,8 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  // const userInfoState = useSelector((state) => state.userInfo);
-  // console.log("soy userInfoState", userInfoState);
-
   const [email, setEmail] = useState({ field: "", validated: null });
   const [password, setPassword] = useState({ field: "", validated: null });
-
-  // function handleChange(e) {
-  //   e.preventDefault();
-  //   setInput({
-  //     ...input,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   let objError = validate({ ...input, [e.target.name]: e.target.value });
-  //   setError(objError);
-  // }
 
   const expression = {
     regexName: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
@@ -61,11 +44,11 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
         );
         console.log("response", response);
         setEmail({
-          email: "",
+          field: "",
           validated: null,
         });
         setPassword({
-          password: "",
+          field: "",
           validated: null,
         });
         if (response) {
@@ -84,41 +67,14 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
     }
   }
 
-  // function validate(input) {
-  //   let errors = {};
-  //   let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
-  //   let regexLetra = /[A-z]/;
-  //   let regexMayuscula = /[A-Z]/;
-  //   let regexNumero = /\d/;
-
-  //   if (!input.email) {
-  //     errors.email = "Insert E-mail.";
-  //   } else if (!regexEmail.test(input.email.trim())) {
-  //     errors.email = "The E-mail is incorrect.";
-  //   }
-
-  //   if (!input.password) {
-  //     errors.password = "Password is required.";
-  //   } else if (input.password.trim().length < 8) {
-  //     errors.password = "Password must have at least 8 characters.";
-  //   } else if (!regexLetra.test(input.password.trim())) {
-  //     errors.password = "at least one letter is required.";
-  //   } else if (!regexMayuscula.test(input.password.trim())) {
-  //     errors.password = "at least one uppercase letter is required.";
-  //   } else if (!regexNumero.test(input.password.trim())) {
-  //     errors.password = "at least one number is required.";
-  //   }
-  //   return errors;
-  // }
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center"}}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      {/* // <DivLogin> */}
-      {/* // <LoginForm onSubmit={(e) => handleSubmit(e)}> */}
       <form onSubmit={(e) => handleSubmit(e)}>
         <Input
+        id="email-login"
           state={email}
           setState={setEmail}
           type="email"
@@ -129,6 +85,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           expresionRegular={expression.regexEmail}
         />
         <Input
+         id="password-login"
           state={password}
           setState={setPassword}
           type="password"
@@ -141,12 +98,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
         <br />
         <SubmitBtn type="submit">Log In</SubmitBtn>
       </form>
-      {/* <LowerDiv>
-        <ErrorDiv>
-          {error.email && <p>{error.email} </p>}
-          {error.password && <p>{error.password} </p>}
-        </ErrorDiv>
-      </LowerDiv> */}
+     
       <br />
       <div>
         <span>If you still haven't an account,</span>
@@ -161,6 +113,8 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           sign up.{" "}
         </span>
       </div>
+      <br />
+      <GoogleLoginComponent />
       <ToastContainer
         position="top-center"
         autoClose={2000}
