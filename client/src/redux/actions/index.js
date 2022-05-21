@@ -24,6 +24,8 @@ import {
   REMOVE_SHOPPING_CART,
   REMOVE_ONE_PRODUCT_CART,
   ADD_ONE_PRODUCT_CART,
+  COMBINE_STATE_CART,
+
   POST_LOG_IN_GOOGLE,
 } from "./types";
 
@@ -289,5 +291,14 @@ export const addOneProductCart = (payload) => {
   return {
     type: ADD_ONE_PRODUCT_CART,
     payload,
-  };
-};
+  }
+}
+
+
+export const combineStateCart = (payload) => {
+  return {
+    type: COMBINE_STATE_CART,
+    payload,
+  }
+}
+

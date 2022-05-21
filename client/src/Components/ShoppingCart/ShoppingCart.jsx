@@ -7,10 +7,25 @@ import {
 import NavBar from "../NavBar";
 import './ShoppingCart.css'
 
+
 const ShoppingCart = () => {
   const dispatch = useDispatch();
-  const cartDetail = useSelector((state) => state.shoppingCart);
+  const cartDetail1 = useSelector((state) => state.shoppingCart);
+  const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
+  const userInfo = useSelector((state) => state.userInfo);
+
+
+
+  let cartDetail=[]
+
+  if(userInfo){
+    cartDetail= cartDetailRegisterUser
+  } else{
+   cartDetail = cartDetail1}
   
+   console.log(cartDetail)
+
+
 
   let sumItems = Number("");
   cartDetail.forEach((e) => {
