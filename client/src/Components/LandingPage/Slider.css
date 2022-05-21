@@ -3,9 +3,11 @@ img{
 }
 
 .container-all{
+    display: flex;
     position: relative;
     max-width: 100%;
     width: 100%;
+    margin-bottom: 20px;
     border-radius: 6px;
     overflow: hidden;
 }
@@ -15,7 +17,7 @@ img{
     transform: translate3d(0, 0, 0);
     transition: all 600ms;
     animation-name: autoplay;
-    animation-duration: 6.5s;
+    animation-duration: 10s;
     animation-direction: alternate;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
@@ -33,10 +35,11 @@ img{
 }
 .item-slide > img{
 width: auto;
-height: 130%;
+height: 120%;
 }
+
 .pagination{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 0;
     display: flex;

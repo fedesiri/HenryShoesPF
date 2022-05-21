@@ -47,9 +47,9 @@ const Details = () => {
         </Link>
         <ContentDiv>
         <Content2>
-            <h2>Model:{detail.model}</h2>
-            <h2>Price: ${detail.price}</h2>
-            <h3>Gender: {detail.gender}</h3>
+            <h1>Model:{detail.model}</h1>
+            <h1>Price: ${detail.price}</h1>
+            <h1>Gender: {detail.gender}</h1>
             <p>Description: {detail.description}</p>
         </Content2>
         <Content1>
@@ -61,10 +61,10 @@ const Details = () => {
         <Link to={`/edit/${addres}`}>
             <button>Edit Product</button>
         </Link>  
-  )}
-  {userInfo && userInfo.user.roleId === 1 && (
-    <button onClick={(e) => HandleDelete()}> Delete product </button>        
-  )}
+        )}
+        {userInfo && userInfo.user.roleId === 1 && (
+            <button onClick={(e) => HandleDelete()}> Delete product </button>        
+        )}
         <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
         </BtnDiv>
     </DetailContainer>

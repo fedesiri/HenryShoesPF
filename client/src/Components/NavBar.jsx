@@ -14,7 +14,6 @@ import { postLogOut } from "../redux/actions/index.js"
 export default function NavBar(){
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo);
     const signOutHandler = () => {
     dispatch(postLogOut());
     window.localStorage.removeItem("userInfo");
@@ -28,7 +27,7 @@ export default function NavBar(){
             
                 <Banner>
                     <Link to="/">
-                        <img src={banner} alt="" width="100%" height="150px"/>
+                        <img src={banner} alt="" width="100%" height="160px"/>
                     </Link>   
                 </Banner>                
             <SearchNav>

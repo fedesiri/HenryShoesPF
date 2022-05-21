@@ -31,6 +31,6 @@ export default App;
 
 const ContentWrapper = styled.div`
   min-height: 100vh;
-  padding: 2rem;
-  margin: auto;
+  padding: 3rem;
+  
 `; 

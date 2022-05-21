@@ -1,5 +1,4 @@
 import React from "react";
-import "./LandinPage.css";
 import Slider from "./Slider";
 import Promotion from "./Promotion";
 import BestSellers from "./BestSellers";
@@ -9,7 +8,8 @@ import { filter } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts, postLogOut, clearDetail } from "../../redux/actions";
+import { getAllProducts, clearDetail } from "../../redux/actions";
+import { LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -22,85 +22,66 @@ const LandingPage = () => {
     dispatch(clearDetail())
     dispatch(getAllProducts());
   }, [dispatch]);
-  return (
-    <>
-      <NavBar />
 
-      <div>
+  return (
+    <LandingDiv>
+      <NavBar />
+      <AdminDiv>
         {userInfo && userInfo.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>
         )}
-      </div>
-
-      <>
-        <Slider />
-      </>
-      <hr />
-      <div className="FilterContainer">
-        <div className="Men">
-          <img
-            src="https://muyfit.com/wp-content/uploads/2020/06/mejores-zapatillas-para-correr-para-hombre.jpg"
-            width="70%"
-            height="70%"
-            alt="img not found"
-          ></img>
-          <h2> Men </h2>
-          <button
+      </AdminDiv>
+        <SliderDiv>
+          <Slider />
+        </SliderDiv>
+      <FilterContainer>
+          <MenBtn
             onClick={() => {
               dispatch(filter({ brand: "All", gender: "men" }));
               navigate("/catalogPage");
             }}
-          >
-            All View
-          </button>
-        </div>
-
-        <div>
-          <img
-            src="https://i0.wp.com/solotendencias.net/wp-content/uploads/2021/10/Nike-Air-Jordan-1.jpg?ssl=1"
-            width="70%"
-            height="70%"
-            alt="img not found"
-          ></img>
-          <h2> Women </h2>
-          <button
+          >                 
+            <h1> MEN </h1>
+          </MenBtn> 
+          <UnisexBtn
+            onClick={() => {
+              dispatch(filter({ brand: "All", gender: "unisex" }));
+              navigate("/catalogPage");
+            }}
+          > 
+            <h1> UNISEX </h1>
+          </UnisexBtn>
+          <WomenBtn
             onClick={() => {
               dispatch(filter({ brand: "All", gender: "women" }));
               navigate("/catalogPage");
             }}
           >
-            All View
-          </button>
-        </div>
-
-        <div>
-          <img
-            src="https://thumbs.dreamstime.com/b/ni%C3%B1os-y-ni%C3%B1as-con-coloridos-trajes-deportivos-zapatillas-est%C3%A1n-tomados-de-la-mano-corriendo-aislados-en-un-fondo-blanco-estudio-183091704.jpg"
-            width="70%"
-            height="70%"
-            alt="img not found"
-          ></img>
-          <h2> Child </h2>
-          <button
+            <h1> WOMEN </h1>
+          </WomenBtn>
+          <ChildBtn
             onClick={() => {
               dispatch(filter({ brand: "All", gender: "child" }));
               navigate("/catalogPage");
             }}
           >
-            All View
-          </button>
-        </div>
-      </div>
-      <hr />
-      <h2>On Sale</h2>
-      <Promotion />
-      <hr />
+            <h1> CHILD </h1>            
+          </ChildBtn>
+      </FilterContainer>
+      
+      <PromotionDiv>
+        <h1>On Sale</h1>
+        <Promotion />
+      </PromotionDiv>
+      
+      <BestSellersDiv>
+        <h1>BestSellers</h1>
+        <BestSellers />
+      </BestSellersDiv> 
 
-      <h2>BestSellers</h2>
-      <BestSellers />
-    </>
+    </LandingDiv>
   );
 };
 
