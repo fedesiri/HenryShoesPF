@@ -13,7 +13,9 @@ const ImagesPromotion = () => {
 <p>Come on!</p>
   <div className="innerIam">
    Let's Go!
-
+   </div>
+</b>
+    </div>
     </div>
   )
 }
