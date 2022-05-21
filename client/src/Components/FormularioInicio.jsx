@@ -42,7 +42,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
             password: password.field,
           })
         );
-        console.log("response", response);
+        
         setEmail({
           field: "",
           validated: null,

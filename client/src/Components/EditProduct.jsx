@@ -11,7 +11,7 @@ const EditProduct = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
-  console.log(detail);
+ 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -47,7 +47,7 @@ const EditProduct = () => {
     year: "",
     category: "",
   });
-  console.log(input);
+  
 
   function validate(value) {
     let error = {};

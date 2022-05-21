@@ -31,8 +31,6 @@ const CreateProduct = () => {
   }
   BrandGetter(reduxProducts);
 
-  console.log(reduxProducts)
-  console.log(brands)
   
   const [error, setError] = useState({});
   const [input, setInput] = useState({
@@ -45,7 +43,7 @@ const CreateProduct = () => {
     year: "",
     category: "",
   });
-  console.log(input);
+
 
   function validate(value) {
     let error = {};
@@ -65,7 +63,7 @@ const CreateProduct = () => {
     }
     return error;
   }
-  console.log(input.brand);
+
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
       ...PreValue,
@@ -98,7 +96,7 @@ const CreateProduct = () => {
             CategName: input.category,
           },
         });
-        // console.log(response.data);
+    
         toast(response.data.message);
         form.reset();
         setInput({

@@ -51,7 +51,6 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
             address: address.field,
           })
         );
-        console.log("response", response);
         setName({ field: "", validated: null });
         setLastname({ field: "", validated: null });
         setUsername({ field: "", validated: null });

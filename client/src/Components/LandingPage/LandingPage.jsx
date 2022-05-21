@@ -27,7 +27,7 @@ const LandingPage = () => {
       const cookieSeparada = cookies.split(".");
       const token = cookieSeparada[1];
       const user = JSON.parse(atob(token));
-      console.log(user);
+   
       window.localStorage.setItem(
         "userInfo",
         JSON.stringify({
@@ -41,7 +41,7 @@ const LandingPage = () => {
         })
       );
       dispatch(loginGoogle());
-      console.log("hola");
+     
     } else {
       const user = JSON.parse(window.localStorage.getItem("userInfo"));
       user ? console.log("logueado") : console.log("no logueado");

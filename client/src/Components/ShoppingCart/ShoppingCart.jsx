@@ -10,7 +10,7 @@ import './ShoppingCart.css'
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const cartDetail = useSelector((state) => state.shoppingCart);
-  console.log(cartDetail);
+  
 
   let sumItems = Number("");
   cartDetail.forEach((e) => {

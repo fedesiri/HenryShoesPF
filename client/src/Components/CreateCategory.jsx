@@ -37,7 +37,7 @@ const CreateCategory = () => {
     e.preventDefault();
     SetAddedProducts((PreValue) => [...PreValue, id]);
   };
-  console.log(addedProducs);
+
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +50,6 @@ const CreateCategory = () => {
           name: category,
         },
       });
-      console.log(response.data)
       toast(response.data.message);
       form.reset();
     } catch (err) {

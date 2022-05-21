@@ -18,7 +18,7 @@ const CargarOferta = () => {
   const onOfert = useSelector((state) => state.ofertSelect);
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
   
-  // console.log(productsDestacadOfert);
+  
 
   const [input, setInput] = useState("");
   const [cambio, setCambio] = useState(1);
@@ -157,7 +157,7 @@ const CargarOferta = () => {
               <div key={e.id} className="container">
                 <img src={e.image} alt='img not found'/>
                 <h2> {e.model} </h2>
-                <h3> Producto Num: {e.id}</h3>
+                <h3> Product Num: {e.id}</h3>
                 <div className="checkContainer">
                   <label>
                     On Sale

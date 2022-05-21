@@ -20,8 +20,7 @@ const generateToken = (user) => {
 };
 
 const isAdmin = async (req, res, next) => {
-  // console.log(req.user.id)
-  console.log(req)
+
     try {
       const user = await User.findByPk(req.userId);
       const roles = await Role.findOne({
@@ -30,7 +29,6 @@ const isAdmin = async (req, res, next) => {
         },
       });
       if (roles.id === 1) {
-        console.log(user, roles)
         next();
       } else {
         return res.status(403).send({ message: "Require Administrator Role" });

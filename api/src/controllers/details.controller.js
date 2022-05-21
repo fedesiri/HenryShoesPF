@@ -10,7 +10,6 @@ const getDetails = async (req, res) => {
       res.status(404).send({ message: "Product not found." });
     }
   } catch (err) {
-    console.log(err, "Id not found");
     res.status(500).send({ message: err.message });
   }
 };

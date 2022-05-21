@@ -240,7 +240,6 @@ export default function rootReducer(state = intialState, { type, payload }) {
       };
 
     case REMOVE_ONE_PRODUCT_CART: {
-      // console.log("elemento a remover", payload);
       let itemToDelete = state.shoppingCart.find(
         (item) => item.id === payload.id && item.sizes === payload.sizes
       );
@@ -270,7 +269,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
     case ADD_ONE_PRODUCT_CART: {
       let auxCartState2 = state.shoppingCart;
       let newItem2 = payload;
-      // console.log(newItem2)
+    
       let itemInCart2 = state.shoppingCart.find(
         (item) => item.id === newItem2.id && item.sizes === newItem2.sizes
       );

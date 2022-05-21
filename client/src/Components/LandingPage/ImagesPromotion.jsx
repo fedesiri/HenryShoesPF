@@ -17,7 +17,7 @@ const ImagesPromotion = () => {
         alt="image3"
       />
 
-      <h1> Descuentos en todas las marcas </h1>
+      <h1> Off sale in all brands </h1>
     </div>
   );
 };
