@@ -24,12 +24,12 @@ export const BackBtn = styled.button`
 `;
 
 export const Content1 = styled.div`
+    display:flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-content: normal;
     justify-content: flex-end;
     align-items: center;
-    display: flex;
     align-self: flex-start;
     justify-content: right;
     img {    

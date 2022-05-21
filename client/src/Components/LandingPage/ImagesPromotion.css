@@ -5,12 +5,11 @@
     height: auto;
     display: flex;
     flex-direction: row;
-    /* flex-wrap: nowrap; */
-    /* align-items:stretch; */
+    
 }
 .containerImages img{
     width: 33.33%;
-    height: 17rem;
+    height: 15rem;
 }
 
 .containerImages h1{
@@ -32,7 +31,7 @@ font-weight: 700;
 }
 .containerImages1 img{
     width: 50%;
-    height: 27rem;
+    height: 17rem;
 }
 
 
@@ -49,7 +48,7 @@ font-weight: 700;
 
   }
   .Iam p {
-      font-weight: 700;
+    font-weight: 700;
     height: 50px;
     float: left;
     margin-right: 0.3em;
@@ -65,7 +64,7 @@ font-weight: 700;
 
   }
   .Iam .innerIam {
-    display: inline-block;
+    display:flex;
     color: #e74c3c;
     position: relative;
     white-space: nowrap;

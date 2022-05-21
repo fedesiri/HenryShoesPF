@@ -117,9 +117,10 @@ const Details = () => {
       </Link>
       <ContentDiv>
         <Content2>
-          <h2>Model:{detail.model}</h2>
-          <h2>Price: ${detail.price}</h2>
-          <h3>Gender: {detail.gender}</h3>
+
+            <h1>Model:{detail.model}</h1>
+            <h1>Price: ${detail.price}</h1>
+            <h1>Gender: {detail.gender}</h1>
 
           <div>
             {talles.map((elemento) => (
@@ -140,6 +141,7 @@ const Details = () => {
           </select>
 
           <p>Description: {detail.description}</p>
+
         </Content2>
         <Content1>
           <img src={detail.image} alt="img zapa" />
@@ -148,7 +150,7 @@ const Details = () => {
       <BtnDiv>
         {userInfo?.user.roleId === 1 ? (
           <Link to={`/edit/${addres}`}>
-            <button>Edit Product</button>
+            <button>Edit Product</button>     
           </Link>
         ) : null}
 
@@ -162,6 +164,7 @@ const Details = () => {
         </button>
       </BtnDiv>
       <CartDetails />
+
     </DetailContainer>
   );
 };

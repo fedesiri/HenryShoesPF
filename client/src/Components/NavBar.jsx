@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoginBtn, ChartBtn, SignOutBtn } from "../styles/NavBar";
 import { postLogOut } from "../redux/actions/index.js";
 
+
 export default function NavBar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -24,8 +25,7 @@ export default function NavBar() {
   };
 
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
-  const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
-    useModal(false);
+  const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] = useModal(false);
   return (
     <>
       <NavContainer>
