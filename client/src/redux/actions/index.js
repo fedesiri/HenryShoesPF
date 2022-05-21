@@ -157,7 +157,6 @@ export const getAllBrands = () => {
 };
 
 export const selectOfert = (payload) => {
-  // console.log("soy el payload", payload);
   return {
     type: SELECT_OFERT,
     payload,
@@ -165,7 +164,7 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
-  // console.log("soy el payload", payload);
+ 
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
@@ -202,7 +201,7 @@ export const filterOfertDestacado = (payload) => {
 
 export function deleteDestacado(payload) {
   const value = { id: payload };
-  // console.log("verDestacado a Eliminar", value)
+ 
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
@@ -218,7 +217,6 @@ export function deleteDestacado(payload) {
 
 export const deletePromotion = (payload) => {
   const value = { id: payload };
-  // console.log("verDestacado a Eliminar", value)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(

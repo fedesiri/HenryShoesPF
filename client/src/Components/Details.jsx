@@ -25,9 +25,7 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail = useSelector((state) => state.shoppingCart);
-  // console.log("esto hay en el carrito", cartDetail);
-  // console.log(detail);
-  console.log(userInfo);
+  
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
     allitems: [],
@@ -94,7 +92,7 @@ const Details = () => {
   // if (detail !== undefined) {
   //   detailTrue = detail;
   // }
-  // console.log (detailTrue)
+
 
   const HandleDelete = () => {
     let reply = window.confirm("Are you sure do you want to delete this item?");

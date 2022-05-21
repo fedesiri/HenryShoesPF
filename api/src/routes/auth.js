@@ -38,7 +38,6 @@ auth.get("/login/success", (req, res, next) => {
       cookies: req.cookies,
     });
   }
-  console.log(req.user, "USSEEERRR");
 });
 auth.get("/google/failure", (req, res, next) => {
   res.status(401).send({
@@ -57,13 +56,7 @@ auth.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// auth.get(
-//   "/google/callback",
-//   passport.authenticate("google", {
-//     successRedirect: "http://localhost:3000/",
-//     failureRedirect: "/google/failure",
-//   })
-// );
+
 
 auth.get("/google/callback", (req, res, next) => {
   passport.authenticate("google", (err, user) => {
@@ -73,14 +66,11 @@ auth.get("/google/callback", (req, res, next) => {
       // return res.status(400).send({ message: "User not found" });
     } else {
       const token = jwt.sign(user, "jwt-secret");
-      console.log("USEEEER", user);
       res.cookie("token", token);
       res.redirect(`http://localhost:3000/?login=true`);
     }
   })(req, res, next);
 });
 
-// auth.post("/login", userLogin);
-// auth.post("/register", userRegister);
 
 module.exports = auth;

@@ -2,7 +2,7 @@ const { Products } = require("../db.js");
 
 const ofertSelect = (req, res, next) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
-  console.log(req.body)
+
 
   var array = id_oferta;
   try {
@@ -24,14 +24,14 @@ const ofertSelect = (req, res, next) => {
         });
       }
     } catch (err) {
-      console.log("error en oferta", err)
+      console.log("Error adding ofert", err)
 
     }
 
     try {
 
       var arrayDestacado = id_destacado;
-      console.log("esto te llega", id_destacado)
+      
       if (arrayDestacado.length !== 0) {
         var Promises = [];
         arrayDestacado.forEach((e) => {
@@ -46,12 +46,11 @@ const ofertSelect = (req, res, next) => {
         });
       }
     } catch (err) {
-      console.log("error en Destacado", err)
+      console.log("Error adding 'Best sellers'.", err)
     }
-    res.status(200).send({ message: "La información ha sido actualizada." });
+    res.status(200).send({ message: "Information has been updated." });
 
   } catch (err) {
-    console.log(err, "error en la actualizacion");
     res.status(500).send({ message: error.message });
   }
 };
@@ -68,9 +67,8 @@ const deleteDestacado = async (req, res) => {
     )
 
 
-    res.status(200).send("Actualizacion")
+    res.status(200).send("Product removed from 'Best Sellers'")
   } catch (err) {
-    console.log(err)
     res.status(500).send({ message: error.message });
   }
 }
@@ -89,7 +87,7 @@ const deletePromotion = async (req, res) => {
       { where: { "id": id } }
 
     )
-    res.status(200).send("Actualizacion")
+    res.status(200).send("Product removed from 'Promotions'")
   } catch (err) {
     console.log(err)
     res.status(500).send({ message: error.message });

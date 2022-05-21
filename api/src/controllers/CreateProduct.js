@@ -2,7 +2,7 @@ const { Products, Brands, Category } = require("../db.js");
 const { Op } = require("sequelize");
 
 async function createProduct(req, res) {
-  // console.log(req.body);
+  
   try {
     let { model, description, price, image, gender, brandName, year, CategName } =
       req.body;
@@ -21,12 +21,11 @@ async function createProduct(req, res) {
     // let categDB = await Category.findOne({
     //   where: { name: CategName },
     // });
-    // console.log("HOLAAA", categDB);
+
     const [categ, created ] = await Category.findOrCreate({
       where: { name: CategName },
       });
-      console.log("SOYYYY",categ.name);
-      console.log(created);
+     
 
     productCreate.setBrand(brandsDB);
     // productCreate.setCategory(categDB,categ);
@@ -39,7 +38,7 @@ async function createProduct(req, res) {
 
 const modifProduct = (req, res) => {
   let { model, description, price, image, gender, brandName, year, CategName } = req.body;
-  // console.log(req.body)
+ 
   let id = req.params.id;
   let product = Products.findByPk(id);
   // let brands = Brands.findOne({

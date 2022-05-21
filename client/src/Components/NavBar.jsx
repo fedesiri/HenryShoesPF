@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import FormularioInicio from "./FormularioInicio";
 import FormularioCrearCuenta from "./FormularioCrearCuenta";
@@ -14,10 +14,13 @@ import { postLogOut } from "../redux/actions/index.js";
 export default function NavBar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo);
+  const navigate = useNavigate()
+
   const signOutHandler = () => {
     dispatch(postLogOut());
     window.localStorage.removeItem("userInfo");
+    navigate("/")
+
   };
 
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);

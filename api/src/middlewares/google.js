@@ -25,7 +25,6 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       const googleUser = profile._json;
-      // console.log(googleUser);
       try {
         const user = await User.findOne({ where: { email: googleUser.email } });
         if (!user) {

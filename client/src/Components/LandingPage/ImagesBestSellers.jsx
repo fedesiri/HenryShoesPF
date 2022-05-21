@@ -10,15 +10,10 @@ const ImagesPromotion = () => {
         
     
 <div className="Iam">
-
-<p>Vamos :</p>
 <b>
+<p>Come on!</p>
   <div className="innerIam">
-    q podemos <br /> 
-    las bandas<br />
-    River Plate<br />
-    Perdio con tigre<br />
-    a donde vamos? a ningun lado
+   Let's Go!
     </div>
 </b>
 </div>
