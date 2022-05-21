@@ -13,28 +13,39 @@ const ShoppingCart = () => {
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const userInfo = useSelector((state) => state.userInfo);
-
+  const arrayAll = useSelector((state)=>state.allProducts)
 
 
   let cartDetail=[]
 
-  if(userInfo){
-    cartDetail= cartDetailRegisterUser
-  } else{
-   cartDetail = cartDetail1}
+  if(userInfo){ cartDetail= cartDetailRegisterUser
+} else{ cartDetail = cartDetail1}
   
-   console.log(cartDetail)
+
+   let arraySeleccion=[]
+   arrayAll.forEach(e => {
+      arraySeleccion.push( {id: String(e.id) , price:e.price , image:e.image , inOferta:e.inOferta, 
+    model: e.model, porcentaje:e.porcentaje , price:e.price }  )    
+   })
+ 
+  let newArray = [] 
+   let aux=   cartDetail.map(e=>  arraySeleccion.forEach(el=> {String(el.id) === String(e.id) && newArray.push(Object.assign(e,el))})    )
+ 
+ 
+
+
+
 
 
 
   let sumItems = Number("");
-  cartDetail.forEach((e) => {
-    sumItems += Number(e.allitems);
+  newArray.forEach((e) => {
+    sumItems += Number(e.quantity);
   });
 
   let sumPrice = Number("");
-  cartDetail.forEach((e) => {
-    let result = e.allitems * e.price;
+  newArray.forEach((e) => {
+    let result = e.quantity * e.price;
 
     sumPrice += Number(result);
   });
@@ -57,12 +68,12 @@ const ShoppingCart = () => {
          ShoppingCart
       <div className="cart1" >
        
-        {cartDetail.map((e) => (
+        {newArray.map((e) => (
           <div key={contador++}>
             <img width="200px" src={e.image} alt="imagenes" />
             <h2> {e.model} </h2>
-            <h2> Precio: {e.price * e.allitems} $</h2>
-            <h2> Cantidad: {e.allitems} unidad</h2>
+            <h2> Precio: {e.price * e.quantity} $</h2>
+            <h2> Cantidad: {e.quantity} unidad</h2>
             <h2> Talle: {e.sizes} </h2>
             <button
               onClick={() =>

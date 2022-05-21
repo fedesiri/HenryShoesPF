@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
- 
+
   return (
     <ContentWrapper>
       <Routes>

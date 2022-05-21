@@ -14,7 +14,7 @@ import {
   BtnDiv,
 } from "../styles/Details";
 import NavBar from "./NavBar";
-import CarritoDetalle from "./ShoppingCart/CarritoDetails";
+import CartDetails from "./ShoppingCart/CarritoDetails";
 import { toast } from "react-toastify";
 
 const Details = () => {
@@ -24,18 +24,14 @@ const Details = () => {
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
-  // const cartDetail = useSelector((state) => state.shoppingCart);
-  // console.log("esto hay en el carrito", cartDetail);
-  // console.log(detail);
-  console.log(userInfo)
+  
 
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
-    allitems: [],
+    quantity: [],
     sizes: "",
    
   });
-  console.log("esto envias al carrito", itemsCarts);
 
   useEffect(() => {
     dispatch(getProductById(addres));
@@ -48,6 +44,7 @@ const Details = () => {
   if (detail !== undefined) {
     product = detail;
   }
+
   useEffect(() => {
     setItemsCarts({
       id: addres,
@@ -57,8 +54,9 @@ const Details = () => {
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
+
   function CargarCarrito() {
-    if (itemsCarts.sizes === undefined || itemsCarts.allitems === undefined) {
+    if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
       toast.warn("Complete size and quantity", {
         position: "top-center",
         autoClose: 1000,
@@ -69,8 +67,9 @@ const Details = () => {
         progress: undefined,
         });
     } else {
-
       dispatch(addShoppingCart(itemsCarts));
+      console.log( "esto envias al carrito ",itemsCarts)
+
       toast.success("Product added successfully to cart!", {
         position: toast.POSITION.TOP_CENTER
       });
@@ -80,7 +79,7 @@ const Details = () => {
   function handleCantidad(e) {
     setItemsCarts({
       ...itemsCarts,
-      allitems: e.target.value,
+      quantity: e.target.value,
     });
   }
   function handleTalle(e) {
@@ -90,10 +89,7 @@ const Details = () => {
     });
   }
 
-  // let detailTrue = {};
-  // if (detail !== undefined) {
-  //   detailTrue = detail;
-  // }
+  
 
 
   const HandleDelete = () => {
@@ -165,7 +161,7 @@ const Details = () => {
           <h4>Add to Shopping Cart</h4>
         </button>
       </BtnDiv>
-      <CarritoDetalle />
+      <CartDetails />
     </DetailContainer>
   );
 };

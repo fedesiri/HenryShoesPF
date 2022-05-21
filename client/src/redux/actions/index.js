@@ -166,7 +166,7 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
- 
+
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
@@ -203,7 +203,7 @@ export const filterOfertDestacado = (payload) => {
 
 export function deleteDestacado(payload) {
   const value = { id: payload };
- 
+
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
