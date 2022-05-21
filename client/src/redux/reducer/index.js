@@ -209,20 +209,20 @@ export default function rootReducer(state = intialState, { type, payload }) {
       // userInfo &&  
       if (!state.userInfo) {
         let auxCartState = state.shoppingCart;
-        console.log(auxCartState, "carritoInvidatado")
+        // console.log(auxCartState, "carritoInvidatado")
         let newItem = payload;
         let itemInCart = state.shoppingCart.find(
-          (item) => item.model === newItem.model && item.sizes === newItem.sizes
+          (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
 
         return itemInCart
           ? {
             ...state,
             shoppingCart: auxCartState.map((item) =>
-              item.model === newItem.model && item.sizes === newItem.sizes
+              item.id === newItem.id && item.sizes === newItem.sizes
                 ? {
                   ...item,
-                  allitems: Number(item.allitems) + Number(newItem.allitems),
+                  quantity: Number(item.quantity) + Number(newItem.quantity),
                 }
                 : item
             ),
@@ -236,7 +236,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         let auxCartState = state.shoppingCartUserRegister;
         let newItem = payload;
         let itemInCart = state.shoppingCartUserRegister.find(
-          (item) => item.model === newItem.model && item.sizes === newItem.sizes
+          (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
         console.log(state.shoppingCartUserRegister)
 
@@ -244,10 +244,10 @@ export default function rootReducer(state = intialState, { type, payload }) {
           ? {
             ...state,
             shoppingCartUserRegister: auxCartState.map((item) =>
-              item.model === newItem.model && item.sizes === newItem.sizes
+              item.id === newItem.id && item.sizes === newItem.sizes
                 ? {
                   ...item,
-                  allitems: Number(item.allitems) + Number(newItem.allitems),
+                  quantity: Number(item.quantity) + Number(newItem.quantity),
                 }
                 : item
             ),
@@ -303,12 +303,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         );
 
 
-        return itemToDelete.allitems > 1
+        return itemToDelete.quantity > 1
           ? {
             ...state,
             shoppingCart: state.shoppingCart.map((item) =>
               item.id === payload.id && item.sizes === payload.sizes
-                ? { ...item, allitems: item.allitems - 1 }
+                ? { ...item, quantity: item.quantity - 1 }
                 : item
             ),
           }
@@ -329,12 +329,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         );
 
 
-        return itemToDelete.allitems > 1
+        return itemToDelete.quantity > 1
           ? {
             ...state,
             shoppingCartUserRegister: state.shoppingCartUserRegister.map((item) =>
               item.id === payload.id && item.sizes === payload.sizes
-                ? { ...item, allitems: item.allitems - 1 }
+                ? { ...item, quantity: item.quantity - 1 }
                 : item
             ),
           }
@@ -362,7 +362,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
             item.id === newItem2.id && item.sizes === newItem2.sizes
               ? {
                 ...item,
-                allitems: Number(item.allitems) + 1,
+                quantity: Number(item.quantity) + 1,
               }
               : item
           ),
@@ -383,7 +383,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
             item.id === newItem2.id && item.sizes === newItem2.sizes
               ? {
                 ...item,
-                allitems: Number(item.allitems) + 1,
+                quantity: Number(item.quantity) + 1,
               }
               : item
           ),
