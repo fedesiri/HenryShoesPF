@@ -1,12 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProductById } from "../redux/actions/index";
+import { getProductById, addShoppingCart } from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BackBtn, DetailContainer, Content1, Content2, ContentDiv, BtnDiv } from "../styles/Details";
+import {
+  BackBtn,
+  DetailContainer,
+  Content1,
+  Content2,
+  ContentDiv,
+  BtnDiv,
+} from "../styles/Details";
 import NavBar from "./NavBar";
+import CartDetails from "./ShoppingCart/CarritoDetails";
+import { toast } from "react-toastify";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -15,17 +24,76 @@ const Details = () => {
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
+  
+
+  const [itemsCarts, setItemsCarts] = useState({
+    id: "",
+    quantity: [],
+    sizes: "",
+   
+  });
 
   useEffect(() => {
     dispatch(getProductById(addres));
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    // dispatch(getProductById(addres));
+  }, [itemsCarts]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+  let product = {};
+  if (detail !== undefined) {
+    product = detail;
+  }
+
+  useEffect(() => {
+    setItemsCarts({
+      id: addres,
+      // image: product.image,
+      // price: product.price,
+      // model: product.model,
+    });
+  }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
 
+  function CargarCarrito() {
+    if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
+      toast.warn("Complete size and quantity", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    } else {
+      dispatch(addShoppingCart(itemsCarts));
+      console.log( "esto envias al carrito ",itemsCarts)
 
-  function CargarCarrito() {}
+      toast.success("Product added successfully to cart!", {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+  }
+
+  function handleCantidad(e) {
+    setItemsCarts({
+      ...itemsCarts,
+      quantity: e.target.value,
+    });
+  }
+  function handleTalle(e) {
+    setItemsCarts({
+      ...itemsCarts,
+      sizes: e.target.value,
+    });
+  }
+
+  
+
 
   const HandleDelete = () => {
-    let reply = window.confirm("¿Seguro que desea eliminar el producto?");
+    let reply = window.confirm("Are you sure do you want to delete this item?");
     if (reply === true) {
       try {
         axios({
@@ -39,35 +107,65 @@ const Details = () => {
     }
   };
 
+  let talles = [35, 36, 37, 38, 39, 40];
+
   return (
     <DetailContainer>
-        <NavBar />
-        <Link to="/CatalogPage">
-            <BackBtn></BackBtn>
-        </Link>
-        <ContentDiv>
+      <NavBar />
+      <Link to="/CatalogPage">
+        <BackBtn></BackBtn>
+      </Link>
+      <ContentDiv>
         <Content2>
+
             <h1>Model:{detail.model}</h1>
             <h1>Price: ${detail.price}</h1>
             <h1>Gender: {detail.gender}</h1>
-            <p>Description: {detail.description}</p>
+
+          <div>
+            {talles.map((elemento) => (
+              <button key={elemento} value={elemento} onClick={handleTalle}>
+                {" "}
+                {elemento}{" "}
+              </button>
+            ))}
+          </div>
+
+          <select defaultValue="default" onChange={(e) => handleCantidad(e)}>
+            <option value="default"> Quantity: </option>
+            <option value="1"> 1 </option>
+            <option value="2"> 2 </option>
+            <option value="3"> 3 </option>
+            <option value="4"> 4 </option>
+            <option value="5"> 5 </option>
+          </select>
+
+          <p>Description: {detail.description}</p>
+
         </Content2>
         <Content1>
-            <img src={detail.image} alt="img zapa" />
+          <img src={detail.image} alt="img zapa" />
         </Content1>
-        </ContentDiv>
-        <BtnDiv>            
-        {userInfo && userInfo.user.roleId === 1 && (
-        <Link to={`/edit/${addres}`}>
-            <button>Edit Product</button>
-        </Link>  
-        )}
-        {userInfo && userInfo.user.roleId === 1 && (
-            <button onClick={(e) => HandleDelete()}> Delete product </button>        
-        )}
-        <button onClick={(e) => CargarCarrito(e)} > <h4>Agregar al carrito</h4></button>
-        </BtnDiv>
+      </ContentDiv>
+      <BtnDiv>
+        {userInfo?.user.roleId === 1 ? (
+          <Link to={`/edit/${addres}`}>
+            <button>Edit Product</button>     
+          </Link>
+        ) : null}
+
+        {userInfo?.user.roleId === 1 ? (
+          <button onClick={(e) => HandleDelete()}> Delete Product </button>
+        ) : userInfo?.roleId === 1 ? (
+          <button onClick={(e) => HandleDelete()}> Delete Product </button>
+        ) : null}
+        <button onClick={(e) => CargarCarrito(e)}>
+          <h4>Add to Shopping Cart</h4>
+        </button>
+      </BtnDiv>
+      <CartDetails />
+
     </DetailContainer>
-);
-}
-export default Details
+  );
+};
+export default Details;

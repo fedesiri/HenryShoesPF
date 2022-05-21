@@ -11,7 +11,7 @@ const EditProduct = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
-  console.log(detail);
+ 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -40,14 +40,14 @@ const EditProduct = () => {
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     product: "",
-    brandName: "",
     description: "",
     price: "",
     image: "",
     gender: "",
     year: "",
+    category: "",
   });
-  console.log(input);
+  
 
   function validate(value) {
     let error = {};
@@ -87,6 +87,7 @@ const EditProduct = () => {
           image: input.image !== "" ? input.image : detail.image,
           gender: input.gender !== "" ? input.gender : detail.gender,
           year: input.year !== "" ? input.year : detail.year,
+          CategName: input.category !== "" ? input.category : detail.CategName,
         },
       });
       toast(response.data.message);
@@ -103,40 +104,24 @@ const EditProduct = () => {
 
       <div>
         <form name="CreateForm" id="CreateForm">
-          <label>Brand: </label>
           <div>
-            <select
-            defaultValue="All"
-              name="brandName"
-              onChange={HandleOnChange}
-              placeholder={detail.brandName}
-            >
-              {/* <option value="All" disabled="disabled">Brand</option> */}
-              {brands?.map((brand, index) => (
-                <option key={index} value={brand}>
-                  {brand}
-                </option>
-              ))}
-              ;
-            </select>
-          </div>
-
-          <div>
-            <label>Category gender: </label>
+            <label>Gender: </label>
             <div>
               <select
-              defaultValue="All"
+                defaultValue="All"
                 name="gender"
                 onChange={HandleOnChange}
                 placeholder={detail.gender}
               >
-                <option value="All" disabled="disabled">Gender</option>
+                <option value="All" disabled="disabled">
+                  Gender
+                </option>
                 {genders?.map((gender) => (
                   <option key={genders.indexOf(gender)} value={gender}>
                     {gender}
                   </option>
                 ))}
-                ;
+
               </select>
             </div>
           </div>
@@ -179,6 +164,19 @@ const EditProduct = () => {
                 type="number"
                 onChange={HandleOnChange}
                 placeholder={detail.year}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label>Category: </label>
+            </div>
+            <div>
+              <input
+                name="category"
+                type="text"
+                onChange={HandleOnChange}
+                placeholder={detail.CategName}
               />
             </div>
           </div>

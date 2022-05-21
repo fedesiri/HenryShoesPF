@@ -755,7 +755,7 @@
             "id": "27c002f4-3ea2-41df-b92b-7abbd9b089e6",
             "sku": "1044A018-403",
             "brand": "Asics",
-            "name": "ASICS Gel-Resolution 8 French Blue Amber (GS)",
+            "name": "Asics Gel-Resolution 8 French Blue Amber (GS)",
             "colorway": "French Blue/White",
             "gender": "child",
             "silhouette": "Gel Resolution",
@@ -775,7 +775,7 @@
             "id": "4f7f55ad-42a0-4184-af49-940eef38fe5c",
             "sku": "1044A018-702",
             "brand": "Asics",
-            "name": "ASICS Gel-Resolution 8 Pink Cameo (GS)",
+            "name": "Asics Gel-Resolution 8 Pink Cameo (GS)",
             "colorway": "Pink Cameo/White",
             "gender": "child",
             "silhouette": "Gel Resolution",
@@ -794,8 +794,8 @@
         {
             "id": "cd422416-65cd-4dc9-adee-4808121d2069",
             "sku": "C54CK-9047",
-            "brand": "ASICS",
-            "name": "ASICS Gel-Lyte III Wale x Villa Bottle Rocket (GS)",
+            "brand": "Asics",
+            "name": "Asics Gel-Lyte III Wale x Villa Bottle Rocket (GS)",
             "colorway": "Black/Blue-Red",
             "gender": "child",
             "silhouette": "Gel Lyte 3",
@@ -815,7 +815,7 @@
             "id": "35542803-e185-4d61-aa75-c4841ea1bed3",
             "sku": "1024A026-020",
             "brand": "Asics",
-            "name": "ASICS Gel-Quantum Lyte Piedmont Grey (GS)",
+            "name": "Asics Gel-Quantum Lyte Piedmont Grey (GS)",
             "colorway": "Piedmont Grey/White",
             "gender": "child",
             "silhouette": "Gel Quantum",
@@ -835,7 +835,7 @@
             "id": "c2b993fc-e261-4647-b364-8b091b38f937",
             "sku": "1014A086-702",
             "brand": "Asics",
-            "name": "ASICS Gel-Contend 6 Pink Glo (GS)",
+            "name": "Asics Gel-Contend 6 Pink Glo (GS)",
             "colorway": "Pink Glo/Piedmont Grey",
             "gender": "child",
             "silhouette": "Gel Contend",
@@ -4592,7 +4592,7 @@
         {
             "id": "2ffdc67a-ef76-4e2b-8981-46695c2a7170",
             "sku": "1014A193-007",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Black Digital Aqua'",
             "colorway": "Black/Digital Aqua",
             "gender": "infant",
@@ -4612,7 +4612,7 @@
         {
             "id": "314a11ed-616d-4dcc-a6d4-669e861d0e9c",
             "sku": "1014A202-404",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Shark'",
             "colorway": "Grey Floss/White",
             "gender": "infant",
@@ -4632,7 +4632,7 @@
         {
             "id": "8caa47a3-0732-4ac9-aa20-e161803c937c",
             "sku": "1014A193-008",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Black Electric Red'",
             "colorway": "Black Electric Red",
             "gender": "infant",
@@ -4652,7 +4652,7 @@
         {
             "id": "a6658bcf-262e-4891-a402-cdcfea0a2637",
             "sku": "1014A202-403",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Bunny'",
             "colorway": "Soft Sky/White",
             "gender": "infant",
@@ -4672,7 +4672,7 @@
         {
             "id": "abad52e1-80fa-4f6b-9364-8fe5c65c69a5",
             "sku": "1014A202-405",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Unicorn'",
             "colorway": "Lilac Opal/White",
             "gender": "infant",
@@ -4692,7 +4692,7 @@
         {
             "id": "4f5b4eb2-5c01-424b-8663-2b7c08799927",
             "sku": "1014A193-406",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Mist Blazing Coral'",
             "colorway": "Mist/Blazing Coral",
             "gender": "infant",
@@ -4712,7 +4712,7 @@
         {
             "id": "82f91296-b99f-4e4a-89fd-684fed23756f",
             "sku": "1014A165-005",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "GT 1000 9 TS 'Black Green Gecko'",
             "colorway": "Black/Green Gecko",
             "gender": "infant",
@@ -4732,7 +4732,7 @@
         {
             "id": "bf4846bb-e636-43f9-b44e-0862d2d00b48",
             "sku": "1014A193-404",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'French Blue'",
             "colorway": "French Blue/Digital Aqua",
             "gender": "infant",
@@ -4752,7 +4752,7 @@
         {
             "id": "91614c0a-71c9-43e2-9350-1ddb1ab164da",
             "sku": "1014A165-405",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "GT 1000 9 TS 'Grand Shark Peacoat'",
             "colorway": "Grand Shark/Peacoat",
             "gender": "infant",
@@ -4772,7 +4772,7 @@
         {
             "id": "b5ea79b6-3be2-45dc-aaed-02a94b0973d3",
             "sku": "1014A240-418",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TD 'Lake Drive Vibrant Yellow'",
             "colorway": "Lake Drive/Vibrant Yellow",
             "gender": "infant",
@@ -4792,7 +4792,7 @@
         {
             "id": "c9e3d6c6-e62a-45f2-8ed8-99b6bd555439",
             "sku": "1014A240-709",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TD 'Breeze White'",
             "colorway": "Breeze/White",
             "gender": "infant",
@@ -4812,7 +4812,7 @@
         {
             "id": "8cc387e3-162f-49fd-ab5c-d48eb9a4a1c3",
             "sku": "1014A240-207",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TD 'Coffee",
             "colorway": "Coffee/Coffee",
             "gender": "infant",
@@ -4832,7 +4832,7 @@
         {
             "id": "418c4d79-ff4f-43f1-95a8-16712b059e7b",
             "sku": "1014A240-409",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TD 'Clear Blue White'",
             "colorway": "Clear Blue/White",
             "gender": "infant",
@@ -4852,7 +4852,7 @@
         {
             "id": "13555d06-20e2-4615-bdf9-72d1e434b2fa",
             "sku": "1014A214-400",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Dinosaur'",
             "colorway": "Aquarium/Orange Pop",
             "gender": "infant",
@@ -4872,7 +4872,7 @@
         {
             "id": "b8e18118-75be-42a6-a1c9-d02f9d98ad2e",
             "sku": "1014A214-700",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Cotton Candy'",
             "colorway": "Cotton Candy/White",
             "gender": "infant",
@@ -4892,7 +4892,7 @@
         {
             "id": "f5711103-2f5b-4ba9-a75d-97b567700a5b",
             "sku": "1014A214-600",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Basketball'",
             "colorway": "Habenero/Black",
             "gender": "infant",
@@ -4912,7 +4912,7 @@
         {
             "id": "f78f20b2-4b16-40fa-b751-70ae46f59096",
             "sku": "1014A214-200",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Contend 7 TS 'Leopard'",
             "colorway": "Putty/Black",
             "gender": "infant",
@@ -4932,7 +4932,7 @@
         {
             "id": "00ef793a-ae74-435f-8dc5-e63f93adca4a",
             "sku": "TUF123-0195",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Fabre First SL 3 'White Champagne Glod'",
             "colorway": "White/Champagne Glod",
             "gender": "infant",
@@ -4952,7 +4952,7 @@
         {
             "id": "01f5afdd-4ccd-40c7-9ddb-9e0ab601bc38",
             "sku": "1014A085-404",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Contend 6 TS 'Directoire Blue Lime'",
             "colorway": "Directoire Blue/Lime Zest",
             "gender": "infant",
@@ -4972,7 +4972,7 @@
         {
             "id": "0aed77be-39d5-45c1-b54c-06cfe57474fb",
             "sku": "1144A151-101",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Corsair Baby SL 2 TS 'White Directoire Blue'",
             "colorway": "White/Directoire Blue",
             "gender": "infant",
@@ -4992,7 +4992,7 @@
         {
             "id": "12d79158-229b-4d0f-82f7-6d6cf30849a3",
             "sku": "1144A015-700",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Fabre First CT3 TD 'Beige Pink Floral'",
             "colorway": "Pink",
             "gender": "infant",
@@ -5012,7 +5012,7 @@
         {
             "id": "186cdd26-b5e4-43ed-8ebc-e754f678bd3a",
             "sku": "1144A193-750",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Pokemon x Idaho Baby 'Pikachu'",
             "colorway": "Yellow/Red",
             "gender": "infant",
@@ -5032,7 +5032,7 @@
         {
             "id": "206ec615-cee0-4b7e-95e2-dd4a704afe66",
             "sku": "1144A202-401",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Metid Mini Narrow CT 'Navy Floral'",
             "colorway": "Navy/White",
             "gender": "infant",
@@ -9017,7 +9017,7 @@
         {
             "id": "f1123642-2f40-46f2-9ff5-c7553e5834b4",
             "sku": "1011B338-001",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Excite 9 'Black Carrier Grey'",
             "colorway": "Black/Carrier Grey",
             "gender": "men",
@@ -9038,7 +9038,7 @@
             "id": "435e3933-4049-4851-861e-c8bbe4419b8a",
             "sku": "1201A528-200",
             "brand": "Asics",
-            "name": "ASICS Gel-Lyte III Atmos NYC Subway",
+            "name": "Asics Gel-Lyte III Atmos NYC Subway",
             "colorway": "Birch/Pure Silver/Multi",
             "gender": "men",
             "silhouette": "Gel Lyte 3",
@@ -9057,7 +9057,7 @@
         {
             "id": "52fc0df9-3140-48dc-93fa-3eb0fa24764d",
             "sku": "1203A198-303",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel 1130 'Lagoon Camo'",
             "colorway": "Lagoon/Black",
             "gender": "men",
@@ -9078,7 +9078,7 @@
             "id": "80cace40-ef2e-4a6e-8101-8ce061b64a3b",
             "sku": "1201A528-100",
             "brand": "Asics",
-            "name": "ASICS Gel-Lyte III atmos Tokyo Subway",
+            "name": "Asics Gel-Lyte III atmos Tokyo Subway",
             "colorway": "White/Peacoat",
             "gender": "men",
             "silhouette": "Gel Lyte 3",
@@ -9098,7 +9098,7 @@
             "id": "ced7e491-19d8-43d1-8b60-e64464198c27",
             "sku": "1201A506-020",
             "brand": "Asics",
-            "name": "ASICS Gel-MC Plus Bodega",
+            "name": "Asics Gel-MC Plus Bodega",
             "colorway": "Grey/Yellow/Blue",
             "gender": "men",
             "silhouette": "Gel MC Plus",
@@ -9117,7 +9117,7 @@
         {
             "id": "9a8ce725-5af9-4dfe-90b4-3455bb8a7d65",
             "sku": "1203A202-251",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Japan S 'Cream'",
             "colorway": "Cream/Cream",
             "gender": "men",
@@ -9137,7 +9137,7 @@
         {
             "id": "ce2f9dd0-2c2d-47e5-91d9-7d56736c0608",
             "sku": "1011B203-100",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Kinsei Blast 'White'",
             "colorway": "White/White",
             "gender": "men",
@@ -9157,7 +9157,7 @@
         {
             "id": "f57bc294-59c6-417a-8b3f-3c5cb461e667",
             "sku": "1011B203-001",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Kinsei Blast 'Black Ice Mint'",
             "colorway": "Black/Ice Mint",
             "gender": "men",
@@ -9177,7 +9177,7 @@
         {
             "id": "cf31a6cb-db3b-41ef-958a-1f0e5c9aa245",
             "sku": "1011B203-002",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Kinsei Blast 'Black'",
             "colorway": "Black/Black",
             "gender": "men",
@@ -9217,8 +9217,8 @@
         {
             "id": "713acad8-6d13-481a-a2d5-2cc1ce298bd7",
             "sku": "1201A259-021",
-            "brand": "ASICS",
-            "name": "ASICS Gel-Quantum 180 Oyster Grey Orange",
+            "brand": "Asics",
+            "name": "Asics Gel-Quantum 180 Oyster Grey Orange",
             "colorway": "Oyster Grey/Black",
             "gender": "men",
             "silhouette": "Gel Quantum 180",
@@ -9257,7 +9257,7 @@
         {
             "id": "e7932fef-18c3-4766-8082-dbc81493e49d",
             "sku": "1021A444-020",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Kayano 5 KZN 'Graphite Grey'",
             "colorway": "Graphite Grey/Graphite Grey",
             "gender": "men",
@@ -9277,7 +9277,7 @@
         {
             "id": "362a6283-8714-43e6-9546-65b0c8671a53",
             "sku": "1081A037-001",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Matcontrol 2 LE Lite-Show 'Black Pure Gold'",
             "colorway": "Black/Pure Gold",
             "gender": "men",
@@ -9297,8 +9297,8 @@
         {
             "id": "4e2910ce-7461-4d1e-9eab-bed276207ddc",
             "sku": "1201A482-800",
-            "brand": "ASICS",
-            "name": "ASICS Gel-Lyte III OG Sunflower Carrier Grey",
+            "brand": "Asics",
+            "name": "Asics Gel-Lyte III OG Sunflower Carrier Grey",
             "colorway": "Sunflower/Carrier Grey",
             "gender": "men",
             "silhouette": "Gel Lyte 3",
@@ -9317,7 +9317,7 @@
         {
             "id": "60da7570-a7cb-4d3a-a446-b41e07ee330e",
             "sku": "1071A081-404",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Rocket 10 2E Wide 'Peacoat Pure Silver'",
             "colorway": "Peacoat/Pure Silver",
             "gender": "men",
@@ -9337,8 +9337,8 @@
         {
             "id": "99ffa923-11b3-4878-9be9-a1029a13f5be",
             "sku": "1201A482-700",
-            "brand": "ASICS",
-            "name": "ASICS Gel-Lyte III OG Ginger Peach Birch Blue",
+            "brand": "Asics",
+            "name": "Asics Gel-Lyte III OG Ginger Peach Birch Blue",
             "colorway": "Ginger Peach/Birch",
             "gender": "men",
             "silhouette": "Gel Lyte 3",
@@ -9357,7 +9357,7 @@
         {
             "id": "bbbce8df-8e93-420e-94b1-1a3e3a5c3be5",
             "sku": "1071A081-011",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Rocket 10 2E Wide 'Black Shocking Orange'",
             "colorway": "Black Shocking Orange",
             "gender": "men",
@@ -9377,7 +9377,7 @@
         {
             "id": "cecf6ca5-d86d-4e69-bd75-ad521d89e0fb",
             "sku": "1041A192-103",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Game 8 'White Indigo Fog'",
             "colorway": "White/Indigo Fog",
             "gender": "men",
@@ -9398,7 +9398,7 @@
             "id": "6f1312de-f4b1-41cf-aaf7-22aded27da01",
             "sku": "1201A487-020",
             "brand": "Asics",
-            "name": "ASICS Gel-1130 HAL Studios Smoke Grey",
+            "name": "Asics Gel-1130 HAL Studios Smoke Grey",
             "colorway": "Smoke Grey/Mink",
             "gender": "men",
             "silhouette": "Gel 1130",
@@ -9417,8 +9417,8 @@
         {
             "id": "f89723eb-6e55-441b-aa6c-095874694b63",
             "sku": "1201A442-600",
-            "brand": "ASICS",
-            "name": "ASICS UB3-S Gel-Nimbus 9 Kiko Kostadinov Rum Rasin",
+            "brand": "Asics",
+            "name": "Asics UB3-S Gel-Nimbus 9 Kiko Kostadinov Rum Rasin",
             "colorway": "Rum Rasin/Green Sheen",
             "gender": "men",
             "silhouette": "Gel Nimbus",
@@ -9437,7 +9437,7 @@
         {
             "id": "555e8521-c61f-485d-b4ec-7f005e93c9a2",
             "sku": "1111A209-020",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Gel Kayano Ace 'Metropolis'",
             "colorway": "Metropolis/Gunmetal",
             "gender": "men",
@@ -13815,8 +13815,8 @@
         {
             "id": "66503db1-e36e-4afb-b0e5-f7ddf72879bd",
             "sku": "1203A076-102",
-            "brand": "ASICS",
-            "name": "ASICS Gel-PTG atmos Python White",
+            "brand": "Asics",
+            "name": "Asics Gel-PTG atmos Python White",
             "colorway": "White/Cream",
             "gender": "unisex",
             "silhouette": "Gel PTG",
@@ -13835,8 +13835,8 @@
         {
             "id": "88671d35-bcd5-496e-81e0-dea367fdebfb",
             "sku": "1203A117-100",
-            "brand": "ASICS",
-            "name": "ASICS Gel-PTG MT atmos Python White",
+            "brand": "Asics",
+            "name": "Asics Gel-PTG MT atmos Python White",
             "colorway": "White/Cream",
             "gender": "unisex",
             "silhouette": "Gel PTG",
@@ -16465,8 +16465,8 @@
         {
             "id": "2ad745af-27a9-47a4-a018-21aad7cc2d69",
             "sku": "1202A277-400",
-            "brand": "ASICS",
-            "name": "ASICS UB3-S Gel-Nimbus 9 Kiko Kostadinov Stonewash (W)",
+            "brand": "Asics",
+            "name": "Asics UB3-S Gel-Nimbus 9 Kiko Kostadinov Stonewash (W)",
             "colorway": "Stonewash/Lint",
             "gender": "women",
             "silhouette": "Gel Nimbus",
@@ -16485,8 +16485,8 @@
         {
             "id": "53173b7c-5a8d-4e86-b9c7-7b4e853a3e0f",
             "sku": "1202A277-020",
-            "brand": "ASICS",
-            "name": "ASICS UB3-S Gel-Nimbus 9 Kiko Kostadinov Abbey Stone (W)",
+            "brand": "Asics",
+            "name": "Asics UB3-S Gel-Nimbus 9 Kiko Kostadinov Abbey Stone (W)",
             "colorway": "Abbey Stone/Champagne",
             "gender": "women",
             "silhouette": "Gel Nimbus",
@@ -16505,7 +16505,7 @@
         {
             "id": "84d92a6c-ca9b-4193-b8df-dfa62f54d1ec",
             "sku": "1012B068-100",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Kinsei Blast 'White'",
             "colorway": "White/White",
             "gender": "women",
@@ -16525,7 +16525,7 @@
         {
             "id": "1286a4ff-e855-4a66-a727-5dac609bb254",
             "sku": "1202A268-001",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Quantum 180 'Black'",
             "colorway": "Black/Black",
             "gender": "women",
@@ -16545,7 +16545,7 @@
         {
             "id": "3426bb4c-fb88-4325-9198-3a600fc685e2",
             "sku": "1012B182-002",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Black White'",
             "colorway": "Black/White",
             "gender": "women",
@@ -16565,7 +16565,7 @@
         {
             "id": "34ee7433-d497-4526-82b0-0c818f14b195",
             "sku": "1012B182-700",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Barely Rose'",
             "colorway": "Barely Rose/White",
             "gender": "women",
@@ -16585,7 +16585,7 @@
         {
             "id": "5dcdf8c1-ef40-43a6-b098-0caac364b380",
             "sku": "1012B182-021",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Sheet Rock Oasis Green'",
             "colorway": "Sheet Rock/Oasis Green",
             "gender": "women",
@@ -16605,7 +16605,7 @@
         {
             "id": "71afa793-78d2-426f-ac72-531e39b7dd67",
             "sku": "1012B203-400",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Nimbus Lite Show 'Mint'",
             "colorway": "Lite Show/Mint",
             "gender": "women",
@@ -16625,7 +16625,7 @@
         {
             "id": "907ff50b-8509-41dc-86ad-f9f8e0166583",
             "sku": "1012B182-600",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Fuchsia Red'",
             "colorway": "Fuchsia Red/Pure Silver",
             "gender": "women",
@@ -16645,7 +16645,7 @@
         {
             "id": "bce425a0-a06d-4107-b376-3730a3dc447a",
             "sku": "1202A268-100",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Quantum 180 'White'",
             "colorway": "White/White",
             "gender": "women",
@@ -16665,7 +16665,7 @@
         {
             "id": "e2fc7af2-614b-48b5-8efa-e84400d7dc5e",
             "sku": "1012B182-400",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Mako Blue'",
             "colorway": "Mako Blue/White",
             "gender": "women",
@@ -16685,7 +16685,7 @@
         {
             "id": "15c736d9-76db-4575-9686-ecf3e22c1653",
             "sku": "1012A899-800",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Hyper Speed 'Orange Pop'",
             "colorway": "Orange Pop/White",
             "gender": "women",
@@ -16705,7 +16705,7 @@
         {
             "id": "6b0bb9f9-2057-4499-8b57-46a345bda15f",
             "sku": "1012A899-401",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Hyper Speed 'Mako Blue'",
             "colorway": "Mako Blue/Clear Blue",
             "gender": "women",
@@ -16725,7 +16725,7 @@
         {
             "id": "99f8d63f-8e10-4cde-9586-a23892b25f69",
             "sku": "1012B182-100",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'White Orange Pop'",
             "colorway": "White/Orange Pop",
             "gender": "women",
@@ -16745,7 +16745,7 @@
         {
             "id": "cd6d8d18-55ef-4d83-9ca0-fe12ca020f1d",
             "sku": "1012B182-300",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Excite 9 'Oasis Green'",
             "colorway": "Oasis Green/White",
             "gender": "women",
@@ -16765,7 +16765,7 @@
         {
             "id": "8664f132-82c0-4016-b648-9067b2058506",
             "sku": "1112A017-500",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel Course Glide 'Orchid White'",
             "colorway": "Orchid/White",
             "gender": "women",
@@ -16785,7 +16785,7 @@
         {
             "id": "305ff850-1bc9-484b-bdb1-5a79addb867f",
             "sku": "1072A055-105",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Upcourt 4 'White Periwinkle Blue'",
             "colorway": "White/Periwinkle Blue",
             "gender": "women",
@@ -16805,7 +16805,7 @@
         {
             "id": "63c6a98c-e338-4408-a3eb-fb2160321335",
             "sku": "1012A908-708",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Jolt 'Pink Glow'",
             "colorway": "Pink Glow/White",
             "gender": "women",
@@ -16825,7 +16825,7 @@
         {
             "id": "a0d84ea9-8ddc-40d1-a085-822170890d10",
             "sku": "1202A164-108",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Gel 1130 'White Butter'",
             "colorway": "White/Butter",
             "gender": "women",
@@ -16845,7 +16845,7 @@
         {
             "id": "f61c6158-d332-4702-afa3-0b81dd6ab740",
             "sku": "1052A033-100",
-            "brand": "ASICS",
+            "brand": "Asics",
             "name": "Wmns Netburner Ballistic FF 2 'White Black'",
             "colorway": "White/Black",
             "gender": "women",

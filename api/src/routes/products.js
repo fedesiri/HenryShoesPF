@@ -5,15 +5,8 @@ const {
   GetShoesByGender,
 } = require("../controllers/products.controller");
 const { getDetails } = require("../controllers/details.controller");
-
-
 const { ofertSelect, deleteDestacado, deletePromotion } = require("../controllers/ofertSelect.controller");
-
-
 const { createProduct, modifProduct, deleteProduct } = require("../controllers/CreateProduct");
-const { verifyToken, isAdmin } = require('../middlewares/authJwt.js')
-
-
 const { getCategory,
   getCategoryId,
   createCategory,
@@ -39,7 +32,6 @@ products.put("/sale", ofertSelect)
 products.put("/deletePromotion", deletePromotion)
 products.put("/deleteDestacado", deleteDestacado)
 
-// products.post("/create", createProduct)
 
 //categorias 
 products.get("/categories", getCategory)
@@ -50,11 +42,11 @@ products.delete("/categories/:id", deleteCategory)
 
 
 
-// products.post("/ofert", ofertSelect)
-// products.post("/create", createProduct )
+products.post("/ofert", ofertSelect)
+products.post("/create", createProduct )
 
 //! Descomentar despues para usar las rutas protegidas con tokens
-products.post("/sale", verifyToken, isAdmin, ofertSelect);
-products.post("/create", verifyToken, isAdmin, createProduct);
+// products.post("/sale", verifyToken, isAdmin, ofertSelect);
+// products.post("/create", verifyToken, isAdmin, createProduct);
 
 module.exports = products;

@@ -6,7 +6,7 @@ import {
   // clearOfertDestacado,
   deletePromotion,
   deleteDestacado,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 
 const divStyle = {
   display: "none",
@@ -20,7 +20,7 @@ const VerOferta = () => {
   const productsDestacadOfert = useSelector(
     (state) => state.inOfertDestacado
   );
-  console.log(productsDestacadOfert);
+
 
   useEffect(() => {
     // dispatch(getAllProducts())
@@ -39,7 +39,7 @@ const VerOferta = () => {
     setOcultar(!ocultar);
   }
   function retornarIdPromotion(e) {
-    console.log(e.target.value);
+  
     dispatch(deletePromotion(e.target.value));
     setTimeout(() => {
       dispatch(getAllProducts());
@@ -50,7 +50,7 @@ const VerOferta = () => {
   }
 
   function retornarIdDestacado(e) {
-    console.log(e.target.value);
+   
     dispatch(deleteDestacado(e.target.value));
     setTimeout(() => {
       dispatch(getAllProducts());
@@ -61,11 +61,11 @@ const VerOferta = () => {
   }
 
   const productOfert = productsDestacadOfert?.filter((e) => e.inOferta === true);
-  console.log(productOfert);
+ 
   const productDestacado = productsDestacadOfert?.filter(
     (e) => e.inDestacados === true
   );
-  console.log(productDestacado);
+
 
   return (
     <div>

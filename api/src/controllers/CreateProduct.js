@@ -1,9 +1,10 @@
-const { Products, Brands } = require("../db.js");
+const { Products, Brands, Category } = require("../db.js");
 const { Op } = require("sequelize");
 
 async function createProduct(req, res) {
+  
   try {
-    let { model, description, price, image, gender, brandName, year } =
+    let { model, description, price, image, gender, brandName, year, CategName } =
       req.body;
 
     let productCreate = await Products.create({
@@ -15,26 +16,46 @@ async function createProduct(req, res) {
       year: year,
     });
     let brandsDB = await Brands.findOne({
-      where: { name: brandName },
+      where: { name: brandName }
     });
+    // let categDB = await Category.findOne({
+    //   where: { name: CategName },
+    // });
+
+    const [categ, created ] = await Category.findOrCreate({
+      where: { name: CategName },
+      });
+     
+
     productCreate.setBrand(brandsDB);
-    res.status(200).json({ message: "Producto creado exitosamente" });
+    // productCreate.setCategory(categDB,categ);
+    productCreate.setCategory(categ.name);
+    res.status(200).json({ message: "Product created successfully." });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 }
 
 const modifProduct = (req, res) => {
-  let { model, description, price, image, gender, brandName, year } = req.body;
+  let { model, description, price, image, gender, brandName, year, CategName } = req.body;
+ 
   let id = req.params.id;
   let product = Products.findByPk(id);
-  let brands = Brands.findOne({
-    where: { name: brandName },
-  });
-  Promise.all([product, brands])
+  // let brands = Brands.findOne({
+  //   where: { name: brandName },
+  // });
+  
+  let categ = Category.findOrCreate({
+    where: { name: CategName },
+    });
+
+  Promise.all([product, categ])
     .then(function (values) {
       let prod = values[0];
-      let bra = values[1];
+      // let bra = values[1];
+      let cat = values[1].values[0];
+      
+  
       Products.update(
         {
           model: model,
@@ -43,6 +64,7 @@ const modifProduct = (req, res) => {
           image: image,
           gender: gender,
           year: year,
+          CategName: CategName
         },
         {
           where: {
@@ -50,31 +72,18 @@ const modifProduct = (req, res) => {
           },
         }
       );
-      prod.setBrand(bra).then(function (brands) {
-        res.status(200).json({ message: "Producto modificado exitosamente" });
-      });
+      // prod.setBrand(bra).then(function (brands) {
+      //   res.status(200)
+      // });
+      prod.setCategory(cat).then(function (categ){
+        res.status(200).json({ message: "Product updated successfully." });
+      })
+    // res.json({ message: "Producto modificado exitosamente" });
     })
     .catch((error) => {
       res.status(500).send({ message: error.message });
     });
 };
-
-// const deleteProduct = function(req, res, next){
-//   const { id } = req.body
-//   let product = Products.findByPk(req.params.id);
-//   let brands = Brands.findByPk(id);
-//   Promise.all([product, brands])
-//   .then(function(values){
-//       let prod = values[0];
-//       let bra = values[1];
-//       prod.removeBrands(bra)
-//   .then(function(removeBrands){
-//       res.status(200).json(removeBrands)
-//   }).catch(function(reason){
-//       res.status(400).json({message:"CATEGORY COULDN'T BE REMOVED", data: reason})
-//   });
-//   });
-// }
 
 const deleteProduct = (req, res) => {
   const id = req.params.id;
@@ -86,9 +95,9 @@ const deleteProduct = (req, res) => {
     .then((confirmation) => {
       if (confirmation === 0) {
         // checking if the id passed its correct
-        return res.send({ message: "Producto no encontrado!" }).status(400); // Show proper error in DevTool to the FrontEnd guys.
+        return res.send({ message: "Product not found." }).status(400); // Show proper error in DevTool to the FrontEnd guys.
       }
-      return res.send("Product Deleted");
+      return res.send("Product deleted successfully");
     })
     .catch((err) => {
       return res.send({ message: err }).status(400); // Show proper error in DevTool to the FrontEnd guys.

@@ -16,6 +16,12 @@ import {
   POST_LOG_OUT,
   CLEAR_DETAIL,
   POST_REGISTER,
+  ADD_SHOPPING_CART,
+  REMOVE_SHOPPING_CART,
+  REMOVE_ONE_PRODUCT_CART,
+  ADD_ONE_PRODUCT_CART,
+  COMBINE_STATE_CART,
+  POST_LOG_IN_GOOGLE,
 } from "../actions/types";
 
 const intialState = {
@@ -33,6 +39,8 @@ const intialState = {
   inOfertDestacado: [],
   inOfertAux: [],
   inBestSellerAux: [],
+  shoppingCart: [],
+  shoppingCartUserRegister: [],
 };
 
 export default function rootReducer(state = intialState, { type, payload }) {
@@ -74,8 +82,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
         if (brand === "All") {
           return products;
         } else {
-          return products.filter((product) =>
-            product.brandName && product.brandName.includes(brand)
+          return products.filter(
+            (product) => product.brandName && product.brandName.includes(brand)
           );
         }
       }
@@ -187,8 +195,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
     case CLEAR_DETAIL:
       return {
         ...state,
-        details: {}
-      }
+        details: {},
+      };
 
     case POST_REGISTER:
       return {
@@ -196,9 +204,211 @@ export default function rootReducer(state = intialState, { type, payload }) {
         userInfo: payload,
       };
 
+    case ADD_SHOPPING_CART:
+      // userInfo -  shoppingCartUserRegister
+      // userInfo &&  
+      if (!state.userInfo) {
+        let auxCartState = state.shoppingCart;
+        // console.log(auxCartState, "carritoInvidatado")
+        let newItem = payload;
+        let itemInCart = state.shoppingCart.find(
+          (item) => item.id === newItem.id && item.sizes === newItem.sizes
+        );
+
+        return itemInCart
+          ? {
+            ...state,
+            shoppingCart: auxCartState.map((item) =>
+              item.id === newItem.id && item.sizes === newItem.sizes
+                ? {
+                  ...item,
+                  quantity: Number(item.quantity) + Number(newItem.quantity),
+                }
+                : item
+            ),
+          }
+          : {
+            ...state,
+            shoppingCart: [...state.shoppingCart].concat(newItem),
+          };
+      } else {
+        // let auxCartState5 = state.shoppingCart;
+        let auxCartState = state.shoppingCartUserRegister;
+        let newItem = payload;
+        let itemInCart = state.shoppingCartUserRegister.find(
+          (item) => item.id === newItem.id && item.sizes === newItem.sizes
+        );
+        console.log(state.shoppingCartUserRegister)
+
+        return itemInCart
+          ? {
+            ...state,
+            shoppingCartUserRegister: auxCartState.map((item) =>
+              item.id === newItem.id && item.sizes === newItem.sizes
+                ? {
+                  ...item,
+                  quantity: Number(item.quantity) + Number(newItem.quantity),
+                }
+                : item
+            ),
+          }
+          : {
+            ...state,
+            shoppingCartUserRegister: ([...state.shoppingCartUserRegister].concat(newItem)),
+          };
+
+      }
+
+    case REMOVE_SHOPPING_CART:
+
+      if (!state.userInfo) {
+        let firstFilter = state.shoppingCart.filter(
+          (item) => item.id !== payload.id
+        );
+        let secondFilter = state.shoppingCart.filter(
+          (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        );
+
+        return {
+          ...state,
+          shoppingCart: firstFilter.concat(secondFilter)
+        };
+      } else {
+        let firstFilter = state.shoppingCartUserRegister.filter(
+          (item) => item.id !== payload.id
+        );
+        let secondFilter = state.shoppingCartUserRegister.filter(
+          (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        );
+
+        return {
+          ...state,
+          shoppingCartUserRegister: firstFilter.concat(secondFilter)
+        };
+      }
+
+
+    case REMOVE_ONE_PRODUCT_CART: {
+      // console.log("elemento a remover", payload);
+      if (!state.userInfo) {
+        let itemToDelete = state.shoppingCart.find((item) => item.id === payload.id
+          && item.sizes === payload.sizes
+        );
+
+        let firstFilter1 = state.shoppingCart.filter(
+          (item) => item.id !== payload.id
+        );
+        let secondFilter1 = state.shoppingCart.filter(
+          (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        );
+
+
+        return itemToDelete.quantity > 1
+          ? {
+            ...state,
+            shoppingCart: state.shoppingCart.map((item) =>
+              item.id === payload.id && item.sizes === payload.sizes
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+          : {
+            ...state,
+            shoppingCart: firstFilter1.concat(secondFilter1),
+          };
+      } else {
+        let itemToDelete = state.shoppingCartUserRegister.find((item) => item.id === payload.id
+          && item.sizes === payload.sizes
+        );
+
+        let firstFilter1 = state.shoppingCartUserRegister.filter(
+          (item) => item.id !== payload.id
+        );
+        let secondFilter1 = state.shoppingCartUserRegister.filter(
+          (item) => (item.id === payload.id && item.sizes !== payload.sizes)
+        );
+
+
+        return itemToDelete.quantity > 1
+          ? {
+            ...state,
+            shoppingCartUserRegister: state.shoppingCartUserRegister.map((item) =>
+              item.id === payload.id && item.sizes === payload.sizes
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+          : {
+            ...state,
+            shoppingCartUserRegister: firstFilter1.concat(secondFilter1),
+          };
+      }
+    }
+
+
+    case ADD_ONE_PRODUCT_CART: {
+      if (!state.userInfo) {
+        let auxCartState2 = state.shoppingCart;
+        let newItem2 = payload;
+        // console.log(newItem2)
+        let itemInCart2 = state.shoppingCart.find(
+          (item) => item.id === newItem2.id && item.sizes === newItem2.sizes
+        );
+
+        return itemInCart2
+          && {
+          ...state,
+          shoppingCart: auxCartState2.map((item) =>
+            item.id === newItem2.id && item.sizes === newItem2.sizes
+              ? {
+                ...item,
+                quantity: Number(item.quantity) + 1,
+              }
+              : item
+          ),
+        }
+      } else {
+
+        let auxCartState2 = state.shoppingCartUserRegister;
+        let newItem2 = payload;
+        // console.log(newItem2)
+        let itemInCart2 = state.shoppingCartUserRegister.find(
+          (item) => item.id === newItem2.id && item.sizes === newItem2.sizes
+        );
+
+        return itemInCart2
+          && {
+          ...state,
+          shoppingCartUserRegister: auxCartState2.map((item) =>
+            item.id === newItem2.id && item.sizes === newItem2.sizes
+              ? {
+                ...item,
+                quantity: Number(item.quantity) + 1,
+              }
+              : item
+          ),
+        }
+      }
+    }
+
+    case COMBINE_STATE_CART:
+      if (state.userInfo) {
+        return {
+          ...state,
+          shoppingCartUserRegister: state.shoppingCartUserRegister.concat(state.shoppingCart),
+          shoppingCart: []
+        }
+      }
+
+
+    case POST_LOG_IN_GOOGLE:
+      return {
+        ...state,
+        userInfo: JSON.parse(localStorage.getItem("userInfo")),
+      };
+
+
     default:
       return { ...state };
   }
-
-
 }

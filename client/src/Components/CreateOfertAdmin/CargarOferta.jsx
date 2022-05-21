@@ -7,24 +7,25 @@ import {
   clearOfertSelect,
   filterOfertDestacado,
   clearOfertDestacado,
-} from "../redux/actions/index";
+} from "../../redux/actions/index";
 import "./CargarOfert.css";
 import VerOferta from "./VerOferta";
 
 const CargarOferta = () => {
+
+  
   const dispatch = useDispatch();
   const onOfert = useSelector((state) => state.ofertSelect);
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  // const todos = useSelector((state) => state.allProducts);
-  // console.log(todos);
-  console.log(productsDestacadOfert);
+  
+  
 
   const [input, setInput] = useState("");
   const [cambio, setCambio] = useState(1);
   const [validarProducts, setValidarProducts] = useState({
     id_oferta: [],
     id_destacado: [],
-    porcentaje: [],
+    porcentaje: "",
   });
 
   useEffect(() => {
@@ -156,7 +157,7 @@ const CargarOferta = () => {
               <div key={e.id} className="container">
                 <img src={e.image} alt='img not found'/>
                 <h2> {e.model} </h2>
-                <h3> Producto Num: {e.id}</h3>
+                <h3> Product Num: {e.id}</h3>
                 <div className="checkContainer">
                   <label>
                     On Sale
