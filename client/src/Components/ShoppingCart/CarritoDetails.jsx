@@ -58,9 +58,9 @@ function handleChangeStateCart (){
         <div key={e.id}>
           <img width="200px" src={e.image} alt="imagenes" />
           <h2> {e.model} </h2>
-          <h2> Precio: {e.price * e.allitems} $</h2>
-          <h2> Cantidad: {e.allitems} unidad</h2>
-          <h2> Talle: {e.sizes} </h2>
+          <h2> Price: {e.price * e.allitems} $</h2>
+          <h2> Quantity: {e.allitems} unidad</h2>
+          <h2> Size: {e.sizes} </h2>
           <button
             onClick={() =>
               handleDeleteProductoCart({
@@ -87,9 +87,9 @@ function handleChangeStateCart (){
       ))}
 
       <Link to="/cart">
-        <button> Ir al Carrito</button>
+        <button> Go to Shopping Cart</button>
       </Link>
-      <button>Proceder a la Compra</button>
+      <button>Checkout</button>
     </div>
   );
 };

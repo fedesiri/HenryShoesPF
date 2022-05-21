@@ -4,7 +4,7 @@ import { getAllProducts, setCurrentPage } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { Ddiv, SearchDiv, SearchForm, SearchBtn } from "../styles/SearchBar";
+import { SearchDiv, SearchForm, SearchBtn } from "../styles/SearchBar";
 
 export default function SearchBar() {
   const [search, setSearch] = useState("");
@@ -25,7 +25,7 @@ export default function SearchBar() {
 
     try {
       if (!search) {
-        toast.error("Insert shoes name");
+        toast.warn("Insert shoes name");
       } else {
         dispatch(getAllProducts(search));
         dispatch(setCurrentPage(1));
@@ -35,7 +35,7 @@ export default function SearchBar() {
         setSearch("");
       }
     } catch (error) {
-      toast.error(error);
+      console.error(error);
     }
   };
 

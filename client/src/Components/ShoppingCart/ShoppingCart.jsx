@@ -4,6 +4,7 @@ import {
   removeOneProductCart,
   addOneProductCart,
 } from "../../redux/actions/index";
+import NavBar from "../NavBar";
 import './ShoppingCart.css'
 
 
@@ -23,6 +24,7 @@ const ShoppingCart = () => {
    cartDetail = cartDetail1}
   
    console.log(cartDetail)
+
 
 
   let sumItems = Number("");
@@ -51,6 +53,7 @@ const ShoppingCart = () => {
   let contador = 1;
   return (
     <div className="Cart">
+      <NavBar />
          ShoppingCart
       <div className="cart1" >
        

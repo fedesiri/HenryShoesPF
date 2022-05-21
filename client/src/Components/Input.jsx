@@ -11,6 +11,7 @@ const Input = ({
   errorText,
   expresionRegular,
   match,
+  id,
 }) => {
   const onChange = (e) => {
     setState({ ...state, field: e.target.value });
@@ -42,7 +43,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        id={name}
+        id={id}
         value={state.field}
         onChange={onChange}
         onKeyUp={validate}

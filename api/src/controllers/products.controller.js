@@ -1,4 +1,4 @@
-const { Products, Brands } = require("../db.js");
+const { Products, Brands, Sizes } = require("../db.js");
 const { Op } = require("sequelize");
 
 const getAllProducts = async (req, res) => {
@@ -7,6 +7,8 @@ const getAllProducts = async (req, res) => {
       include: {
         model: Brands,
         attributes: ["name"],
+        model: Sizes,
+        attributes: ["size"]
       },
     });
 
@@ -21,7 +23,7 @@ const getAllProducts = async (req, res) => {
 
     if (name) {
       if (productsName.length === 0) {
-        res.status(404).send({ message: "No se encontraron productos." });
+        res.status(404).send({ message: "There are no products." });
       } else {
         res.send(productsName);
       }
@@ -37,7 +39,7 @@ const getAllBrands = async (req, res) => {
   try {
     const allBrands = await Brands.findAll();
     if (allBrands.length === 0) {
-      res.status(404).send({ message: "No se encontraron marcas." });
+      res.status(404).send({ message: "There are no brands." });
     } else {
       res.status(200).send(allBrands);
     }
