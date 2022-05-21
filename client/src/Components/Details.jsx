@@ -23,7 +23,7 @@ const Details = () => {
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
-  const cartDetail = useSelector((state) => state.shoppingCart);
+  // const cartDetail = useSelector((state) => state.shoppingCart);
   // console.log("esto hay en el carrito", cartDetail);
   // console.log(detail);
   console.log(userInfo)
@@ -31,9 +31,7 @@ const Details = () => {
     id: "",
     allitems: [],
     sizes: "",
-    image: "",
-    price: "",
-    model: "",
+   
   });
   console.log("esto envias al carrito", itemsCarts);
 
@@ -53,9 +51,9 @@ const Details = () => {
   useEffect(() => {
     setItemsCarts({
       id: addres,
-      image: product.image,
-      price: product.price,
-      model: product.model,
+      // image: product.image,
+      // price: product.price,
+      // model: product.model,
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
@@ -65,6 +63,7 @@ const Details = () => {
     if (itemsCarts.sizes === undefined || itemsCarts.allitems === undefined) {
       alert("Complete size and quantity");
     } else {
+      console.log("esto envias al carrito",itemsCarts)
         dispatch(addShoppingCart(itemsCarts));
     }
   }
