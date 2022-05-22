@@ -54,7 +54,7 @@ export const LoginBtn = styled.button`
 `;
 
 export const SignOutBtn = styled.button`
-    width: 6rem;
+    width: 5rem;
     height: 2.4rem;
     margin-rigth: 1rem;
     background: black;
@@ -74,7 +74,7 @@ export const SignOutBtn = styled.button`
 `;
 
 export const ChartBtn = styled.button`
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     background-image: URL(${Chart});
     background-size: 50%;
     background-repeat:no-repeat;

@@ -12,10 +12,15 @@ import {
   Content2,
   ContentDiv,
   BtnDiv,
+  SizeDiv,
+  StockDiv,
+  AddBtn,
+  StockSelect
 } from "../styles/Details";
 import NavBar from "./NavBar";
 import CartDetails from "./ShoppingCart/CarritoDetails";
 import { toast } from "react-toastify";
+import { LoginBtn } from "../styles/NavBar";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -107,7 +112,7 @@ const Details = () => {
     }
   };
 
-  let talles = [35, 36, 37, 38, 39, 40];
+  let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
   return (
     <DetailContainer>
@@ -117,30 +122,34 @@ const Details = () => {
       </Link>
       <ContentDiv>
         <Content2>
-
-            <h1>Model:{detail.model}</h1>
-            <h1>Price: ${detail.price}</h1>
-            <h1>Gender: {detail.gender}</h1>
-
-          <div>
+            <h3>Model:</h3>
+            <p>{detail.model}</p>
+            <h3>Price:</h3><p> ${detail.price}</p>
+            <h3>Gender:</h3><p> {detail.gender}</p>
+          <SizeDiv>
+            <h3>Size available:{" "}</h3>
             {talles.map((elemento) => (
               <button key={elemento} value={elemento} onClick={handleTalle}>
-                {" "}
-                {elemento}{" "}
+                <span>
+                  {elemento}
+                </span> 
               </button>
             ))}
-          </div>
-
-          <select defaultValue="default" onChange={(e) => handleCantidad(e)}>
-            <option value="default"> Quantity: </option>
-            <option value="1"> 1 </option>
-            <option value="2"> 2 </option>
-            <option value="3"> 3 </option>
-            <option value="4"> 4 </option>
-            <option value="5"> 5 </option>
-          </select>
-
-          <p>Description: {detail.description}</p>
+          </SizeDiv>
+          <StockDiv>
+            <h3>Quantity: </h3>
+            <StockSelect defaultValue="default" onChange={(e) => handleCantidad(e)}>
+              <option value="default"> Quantity: </option>
+              <option value="1"> 1 </option>
+              <option value="2"> 2 </option>
+              <option value="3"> 3 </option>
+              <option value="4"> 4 </option>
+              <option value="5"> 5 </option>
+            </StockSelect>
+          </StockDiv>
+          
+              <h4>Description:</h4>
+          <p>{detail.description}</p>
 
         </Content2>
         <Content1>
@@ -159,9 +168,9 @@ const Details = () => {
         ) : userInfo?.roleId === 1 ? (
           <button onClick={(e) => HandleDelete()}> Delete Product </button>
         ) : null}
-        <button onClick={(e) => CargarCarrito(e)}>
-          <h4>Add to Shopping Cart</h4>
-        </button>
+        <AddBtn onClick={(e) => CargarCarrito(e)}>
+          <h3>Add to Shopping Cart</h3>
+        </AddBtn>
       </BtnDiv>
       <CartDetails />
 

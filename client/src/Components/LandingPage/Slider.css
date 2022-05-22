@@ -34,8 +34,8 @@ img{
     height: 25rem;
 }
 .item-slide > img{
-width: auto;
-height: 120%;
+width: 100%;
+height: 120rem;
 }
 
 .pagination{

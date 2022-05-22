@@ -53,8 +53,6 @@ const LandingPage = () => {
   return (
     <LandingDiv>
       <NavBar />
-
-
       <AdminDiv>
         {userInfo && userInfo?.user.roleId === 1 && (
           <button>
