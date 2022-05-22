@@ -1,12 +1,12 @@
 const { ShoppingCart, Orders } = require("../db.js");
 
 const getShoppingCart = async (req, res) => {
-const username = req.body.username
+const email = req.body.email
 
 try{
     const selectedCart = await ShoppingCart.findAll({
         where:{
-            username: username
+            email: email
         },
         include:{
             model: Orders,
