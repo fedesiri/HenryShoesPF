@@ -7,6 +7,7 @@ import UnisexFilter from "../static/UnisexFilter.png";
 export const LandingDiv = styled.div`
     display: flex;
     flex-direction: column;  
+    
 `;
 
 export const FilterContainer = styled.div`
@@ -28,18 +29,19 @@ export const SliderDiv = styled.div`
     display:flex;
     width: 100%;
     margin-top:1.5rem;
-    @media (min-width:375px;){
+    @media (min-width:500px;){
         margin-top:0.5rem;
         height:200px;
     }
 `;
 
 export const PromotionDiv = styled.div`
+    width:100%;
 
 `;
 
 export const BestSellersDiv = styled.div`
-
+    width: 100%;
 `;
 
 export const MenBtn = styled.button`
@@ -52,9 +54,13 @@ export const MenBtn = styled.button`
         background-color: transparent;
         color: white;
     }
-    @media (max-width:420px){
+    @media (max-width:700px){
         width:140px;
         height:160px;
+    }
+    @media (max-width:480px){
+        width:120px;
+        height:145px;
     }
 `;
 export const WomenBtn = styled.button`
@@ -67,11 +73,14 @@ export const WomenBtn = styled.button`
         background-color: transparent;
         color: white;
     }
-    @media (max-width:420px){
+    @media (max-width:700px){
         width:140px;
         height:160px;
     }
-    
+    @media (max-width:500px){
+        width:120px;
+        height:145px;
+    }
 `;
 export const UnisexBtn = styled.button`
     background-image: url(${UnisexFilter});
@@ -83,11 +92,14 @@ export const UnisexBtn = styled.button`
         background-color: transparent;
         color: white;
     }
-    @media (max-width:420px){
+    @media (max-width:700px){
         width:140px;
         height:160px;
     }
-    
+    @media (max-width:500px){
+        width:120px;
+        height:145px;
+    }
 `;
 export const ChildBtn = styled.button`
     background-image: url(${ChildFilter});
@@ -99,9 +111,12 @@ export const ChildBtn = styled.button`
         background-color: transparent;
         color: white;
     }
-    @media (max-width:420px){
+    @media (max-width:700px){
         width:140px;
         height:160px;
     }
-    
+    @media (max-width:500px){
+        width:125px;
+        height:145px;
+    }
 `;
