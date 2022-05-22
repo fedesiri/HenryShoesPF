@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeProductCart,
@@ -6,7 +5,8 @@ import {
   combineStateCart,
 } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import './CarritoDetails.css'
 
 const CartDetails = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,15 @@ console.log(userInfo)
 
 const arrayAll = useSelector((state)=>state.allProducts)
 // console.log(arrayAll)
+
+
+useEffect(() => {
+  if(userInfo){ 
+   dispatch(combineStateCart())}
+ }, [])
+ 
+
+
 
 let cartDetail=[]
 if(userInfo){
@@ -43,15 +52,15 @@ if(userInfo){
   function handleDeleteOneProductoCart(parametro) {
     dispatch(removeOneProductCart(parametro));
   }
-function handleChangeStateCart (){
-  dispatch(combineStateCart())
-}
+// function handleChangeStateCart (){
+//   dispatch(combineStateCart())
+// }
 
 
   return (
-    <div>
+      <div  >    
       ACA ME DEBERIA MOSTRAR TODOS LOS PRODUCTOS CARGADOS
-      <button onClick={handleChangeStateCart}>HAGO DE LOGINNNNNNNNNNNNNNNNN</button>
+      {/* <button onClick={handleChangeStateCart}>HAGO DE LOGINNNNNNNNNNNNNNNNN</button> */}
        {newArray.map((e) => (
         <div >
           <img width="200px" src={e.image} alt="imagenes" />
@@ -88,7 +97,7 @@ function handleChangeStateCart (){
         <button> Go to Shopping Cart</button>
       </Link>
       <button>Checkout</button>
-    </div>
+      </div>
   );
 };
 export default CartDetails;

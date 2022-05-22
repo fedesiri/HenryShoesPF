@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProductById, addShoppingCart } from "../redux/actions/index";
+import { getProductById, addShoppingCart, combineStateCart,} from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -28,8 +28,9 @@ const Details = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
+  console.log (detail)
   const userInfo = useSelector((state) => state.userInfo);
-  
+ 
 
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
@@ -58,6 +59,13 @@ const Details = () => {
       // model: product.model,
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+useEffect(() => {
+ if(userInfo){ 
+  dispatch(combineStateCart())}
+}, [])
+
+
 
 
   function CargarCarrito() {
@@ -94,9 +102,6 @@ const Details = () => {
     });
   }
 
-  
-
-
   const HandleDelete = () => {
     let reply = window.confirm("Are you sure do you want to delete this item?");
     if (reply === true) {
@@ -112,7 +117,14 @@ const Details = () => {
     }
   };
 
-  let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+
+  //let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+
+  const user = JSON.parse(window.localStorage.getItem("userInfo"));
+  user ? console.log("logueado") : console.log("no logueado");
+
+  let talles = detail.sizes
+
 
   return (
     <DetailContainer>
@@ -147,10 +159,8 @@ const Details = () => {
               <option value="5"> 5 </option>
             </StockSelect>
           </StockDiv>
-          
-              <h4>Description:</h4>
+          <h4>Description:</h4>
           <p>{detail.description}</p>
-
         </Content2>
         <Content1>
           <img src={detail.image} alt="img zapa" />
@@ -173,7 +183,6 @@ const Details = () => {
         </AddBtn>
       </BtnDiv>
       <CartDetails />
-
     </DetailContainer>
   );
 };

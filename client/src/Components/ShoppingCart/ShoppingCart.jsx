@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import {
   removeProductCart,
   removeOneProductCart,
   addOneProductCart,
+  combineStateCart
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import './ShoppingCart.css'
@@ -14,6 +16,14 @@ const ShoppingCart = () => {
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state)=>state.allProducts)
+
+  useEffect(() => {
+    if(userInfo){ 
+     dispatch(combineStateCart())}
+   }, [])
+   
+
+
 
 
   let cartDetail=[]
@@ -63,18 +73,30 @@ const ShoppingCart = () => {
 
   let contador = 1;
   return (
-    <div className="Cart">
+    <div >
       <NavBar />
-         ShoppingCart
+      <div className="Cart">
+
+      <h1>   ShoppingCart </h1>
+
       <div className="cart1" >
-       
+       <div className="cartBrother">  
+       <div className="list"> 
+         <h4> Product</h4>
+         <h4 className="quantity">Quantity</h4>
+         <h4 className="price">Price </h4>
+         
+       </div>
         {newArray.map((e) => (
-          <div key={contador++}>
-            <img width="200px" src={e.image} alt="imagenes" />
-            <h2> {e.model} </h2>
-            <h2> Precio: {e.price * e.quantity} $</h2>
-            <h2> Cantidad: {e.quantity} unidad</h2>
-            <h2> Talle: {e.sizes} </h2>
+          <div  className="childrenBro" key={contador++}>
+            <img src={e.image} alt="imagenes" />
+            <div className="repar2">  
+            <h3> {e.model} </h3>
+            <h3> Size: {e.sizes} </h3>
+            </div>
+            <h2>  {e.quantity} u</h2>
+            <h2>  {e.price * e.quantity} $</h2>
+            <div>  
             <button
               onClick={() =>
                 handleDeleteProductoCart({
@@ -109,14 +131,23 @@ const ShoppingCart = () => {
             >
               Add One +
             </button>
+            </div>;
           </div>
         ))}
         </div>
-        <div>  
+
+      <div  className="Brother2">  
+      <div className="carritopegajoso" >  
         <button>Proceder a la Compra</button>
         <h1> Productos en el carrito {sumItems} units</h1>
         <h1> Total  ${sumPrice} </h1>
         </div>
+        </div>
+
+        </div>
+
+
+      </div>
     </div>
   );
 };

@@ -1,9 +1,21 @@
-const { Products } = require("../db.js");
+const { Products, Sizes } = require("../db.js");
 
 const getDetails = async (req, res) => {
   let id = req.params.id;
   try {
-    const Models_Id = await Products.findByPk(id);
+    const Models_Id = await Products.findByPk(id, {
+
+      include: {
+        model: Sizes,
+        attributes: ["size"]
+      },
+
+
+    });
+
+
+
+
     if (Models_Id !== null) {
       res.status(200).json(Models_Id);
     } else {
