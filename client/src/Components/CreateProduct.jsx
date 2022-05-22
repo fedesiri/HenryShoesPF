@@ -84,7 +84,7 @@ const CreateProduct = () => {
       try {
         const response = await axios({
           method: "post",
-          url: "http://localhost:3001/products/create",
+          url: `${process.env.REACT_APP_API_URL}/products/create`,
           data: {
             model: input.product,
             brandName: input.brand,

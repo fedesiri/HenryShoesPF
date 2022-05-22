@@ -121,7 +121,7 @@ useEffect(() => {
       try {
         axios({
           method: "delete",
-          url: `http://localhost:3001/products/details/${detail.id}`,
+          url: `${process.env.REACT_APP_API_URL}/products/details/${detail.id}`,
         });
         navigate("/");
       } catch (err) {

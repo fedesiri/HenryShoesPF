@@ -77,7 +77,7 @@ const EditProduct = () => {
     try {
       const response = await axios({
         method: "put",
-        url: `http://localhost:3001/products/details/${detail.id}`,
+        url: `${process.env.REACT_APP_API_URL}/products/details/${detail.id}`,
         data: {
           model: input.product !== "" ? input.product : detail.model,
           brandName: input.brandName !== "" ? input.brandName : detail.model,

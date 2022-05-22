@@ -32,7 +32,7 @@ import {
 export const getAllProducts = (name) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:3001/products/?name=${name ? name : ""}`)
+      .get(`${process.env.REACT_APP_API_URL}/products/?name=${name ? name : ""}`)
       .then((response) => {
         return dispatch({
           type: GET_ALL_PRODUCTS,
@@ -48,7 +48,7 @@ export const getAllProducts = (name) => {
 export const getAllProductsByBrands = (brand) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:3001/products/?brand=${brand ? brand : ""}`)
+      .get(`${process.env.REACT_APP_API_URL}/products/?brand=${brand ? brand : ""}`)
       .then((response) => {
         return dispatch({
           type: GET_ALL_PRODUCTS_BY_BRANDS,
@@ -65,7 +65,7 @@ export function getProductById(payload) {
   return function (dispatch) {
     try {
       // direccion a cambiar
-      return fetch(`http://localhost:3001/products/details/${payload}`)
+      return fetch(`${process.env.REACT_APP_API_URL}/products/details/${payload}`)
         .then((response) => response.json())
         .then((details) => {
           dispatch({
@@ -102,7 +102,7 @@ export const filter = (filter) => {
 export function postLogIn({ email, password }) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post("http://localhost:3001/auth/login", {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
         email,
         password,
       });
@@ -145,7 +145,7 @@ export const setCurrentPage = (payload) => {
 export const getAllBrands = () => {
   return (dispatch) => {
     axios
-      .get("http://localhost:3001/brands")
+      .get(`${process.env.REACT_APP_API_URL}/brands`)
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
@@ -170,7 +170,7 @@ export function sendOfertToBack(payload) {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      "http://localhost:3001/products/sale",
+      `${process.env.REACT_APP_API_URL}/products/sale`,
       payload
     );
     return dispatch({
@@ -207,7 +207,7 @@ export function deleteDestacado(payload) {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      "http://localhost:3001/products/deleteDestacado",
+      `${process.env.REACT_APP_API_URL}/products/deleteDestacado`,
       value
     );
     return dispatch({
@@ -222,7 +222,7 @@ export const deletePromotion = (payload) => {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      "http://localhost:3001/products/deletePromotion",
+      `${process.env.REACT_APP_API_URL}/products/deletePromotion`,
       value
     );
     return dispatch({
@@ -248,7 +248,7 @@ export const postRegister = ({
 }) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post("http://localhost:3001/auth/register", {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
         name,
         lastname,
         username,
