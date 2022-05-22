@@ -41,6 +41,12 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(getProductById(addres));
+    setTimeout(() => {
+      dispatch(getProductById(addres));
+    }, 1000);
+
+
+
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // dispatch(getProductById(addres));
@@ -90,12 +96,19 @@ useEffect(() => {
   }
 
   function handleCantidad(e) {
+    e.preventDefault()
+
+    console.log(e.target.value)
     setItemsCarts({
       ...itemsCarts,
       quantity: e.target.value,
     });
   }
   function handleTalle(e) {
+    // e.preventDefault()
+    console.log(e.target.value)
+    console.log(e.target.name)
+
     setItemsCarts({
       ...itemsCarts,
       sizes: e.target.value,
@@ -118,12 +131,20 @@ useEffect(() => {
   };
 
 
-  //let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+  // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
   user ? console.log("logueado") : console.log("no logueado");
 
-  let talles = detail.sizes
+ let talles = []
+if ( detail.model){
+  talles = detail.sizes
+}
+console.log(talles)
+// let talles = [];
+// if (detail !== undefined) {
+//   talles = detail.sizes;
+// }
 
 
   return (
@@ -140,13 +161,12 @@ useEffect(() => {
             <h3>Gender:</h3><p> {detail.gender}</p>
           <SizeDiv>
             <h3>Size available:{" "}</h3>
-            {talles.map((elemento) => (
-              <button key={elemento} value={elemento} onClick={handleTalle}>
-                <span>
-                  {elemento}
-                </span> 
+            {talles.map((e) => 
+              <button   value={e.size}    onClick={(evento)=>handleTalle(evento)}>  
+              {e.size} 
+                  {/* el elemento spant no me deja propagar el evento  */}
               </button>
-            ))}
+            )}
           </SizeDiv>
           <StockDiv>
             <h3>Quantity: </h3>
@@ -182,8 +202,10 @@ useEffect(() => {
           <h3>Add to Shopping Cart</h3>
         </AddBtn>
       </BtnDiv>
+
       <CartDetails />
     </DetailContainer>
+
   );
 };
 export default Details;
