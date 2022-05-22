@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProductById, addShoppingCart } from "../redux/actions/index";
+import { getProductById, addShoppingCart, combineStateCart,} from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -23,8 +23,9 @@ const Details = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
+  console.log (detail)
   const userInfo = useSelector((state) => state.userInfo);
-  
+ 
 
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
@@ -53,6 +54,13 @@ const Details = () => {
       // model: product.model,
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+useEffect(() => {
+ if(userInfo){ 
+  dispatch(combineStateCart())}
+}, [])
+
+
 
 
   function CargarCarrito() {
@@ -107,7 +115,11 @@ const Details = () => {
     }
   };
 
-  let talles = [35, 36, 37, 38, 39, 40];
+  const user = JSON.parse(window.localStorage.getItem("userInfo"));
+  user ? console.log("logueado") : console.log("no logueado");
+
+
+  let talles = detail.sizes
 
   return (
     <DetailContainer>
@@ -123,10 +135,10 @@ const Details = () => {
             <h1>Gender: {detail.gender}</h1>
 
           <div>
-            {talles.map((elemento) => (
-              <button key={elemento} value={elemento} onClick={handleTalle}>
+            {talles&&talles.map((elemento) => (
+              <button key={elemento.sizeId} value={elemento.size} onClick={handleTalle}>
                 {" "}
-                {elemento}{" "}
+                {elemento.size}{" "}
               </button>
             ))}
           </div>
