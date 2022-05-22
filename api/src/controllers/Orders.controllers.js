@@ -16,8 +16,12 @@ const getStock = async (req, res) => {
           sizeId: sizeId,
           productId: productId,
         },
+        include: {
+          model: ShoppingCart,
+          attribute: ["email"],
+        },
       });
-      stock ? res.send(stock) : res.send("el stock por default es 5");
+      stock ? res.send(stock) : res.send("The default stock if 5");
     } else {
       const stock = await Orders.findAll({
         where: {
@@ -26,7 +30,7 @@ const getStock = async (req, res) => {
       });
       stock.length > 0
         ? res.send(stock)
-        : res.send("el stock por default es 5");
+        : res.send("The default stock if 5");
     }
   } catch (err) {
     res.send(err.message);
@@ -34,14 +38,14 @@ const getStock = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
-  const { data, username } = req.body;
+  const { data, email } = req.body;
   const ordenes = data;
-  const CreatedOrders = [];
+  
 
   try {
     const selectedCart = await ShoppingCart.findOne({
       where: {
-        username: username,
+        email: email,
       },
       include: {
         model: Orders,
@@ -62,10 +66,12 @@ const createOrder = async (req, res) => {
             sizeId: ordenes[i].sizeId,
           },
         });
+        let thisStock = thisOrder[0].dataValues.stock
         if (ordenes[i].quantity <= thisOrder[0].dataValues.stock) {
           const newOrder = await Orders.update(
             {
               quantity: ordenes[i].quantity,
+              stock: thisStock-(ordenes[i].quantity)
             },
             {
               where: {
@@ -75,9 +81,19 @@ const createOrder = async (req, res) => {
             }
           );
 
-          await selectedCart.addOrders(newOrder);
+          const selectedOrder = await Orders.findOne({
+            where:{
+             productId: ordenes[i].productId,
+              sizeId: ordenes[i].sizeId
+                 }
+              });
+          
+            
+          await selectedCart.addOrders(selectedOrder);
+
+
         } else {
-          res.send({message: "Stock is not enough."});
+          res.send({thisOrder, message: "Stock is not enough."});
         }
       } else res.send({message: "Product doesn't match with size."});
     }
@@ -100,7 +116,7 @@ const getOrder = async (req, res) => {
       },
       include: {
         model: ShoppingCart,
-        attribute: ["username"],
+        attribute: ["email"],
       },
     });
     res.status(200).send(selctedProduct);
