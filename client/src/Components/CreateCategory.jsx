@@ -45,7 +45,7 @@ const CreateCategory = () => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3001/categories",
+        url: `${process.env.REACT_APP_API_URL}/categories`,
         data: {
           name: category,
         },
