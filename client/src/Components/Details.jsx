@@ -162,6 +162,7 @@ console.log(detail.sizes)
             <p>{detail.model}</p>
             <h3>Price:</h3><p> ${detail.price}</p>
             <h3>Gender:</h3><p> {detail.gender}</p>
+            {detail.CategName?.length > 0? <h3>Category:</h3>:null}{detail.CategName?.length > 0?<p>{detail.CategName}</p>:null}
           <SizeDiv>
             <h3>Size available:{" "}</h3>
             {detail.sizes?.map((e) => 
