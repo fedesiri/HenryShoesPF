@@ -69,7 +69,7 @@ const Details = () => {
 useEffect(() => {
  if(userInfo){ 
   dispatch(combineStateCart())}
-}, [])
+}, [dispatch])
 
 
 
@@ -133,18 +133,16 @@ useEffect(() => {
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
+
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
   user ? console.log("logueado") : console.log("no logueado");
+
 
  let talles = []
 if ( detail.model){
   talles = detail.sizes
 }
 console.log(talles)
-// let talles = [];
-// if (detail !== undefined) {
-//   talles = detail.sizes;
-// }
 
 
   return (
@@ -165,6 +163,7 @@ console.log(talles)
               <button   value={e.size}    onClick={(evento)=>handleTalle(evento)}>  
               {e.size} 
                   {/* el elemento spant no me deja propagar el evento  */}
+
               </button>
             )}
           </SizeDiv>

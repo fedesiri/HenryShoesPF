@@ -45,11 +45,11 @@ export const CardInfo = styled.div`
         
     }
     p{
-        font-family: "Roboto";
+        font-family: 'Poppins',sans-serif;
         text-align: center;
         margin-bottom: 0.5px;
         padding: 0.5px;
         font-size: 1rem;
-        font-weight: normal;
+        font-weight: bold;
     }
 `;

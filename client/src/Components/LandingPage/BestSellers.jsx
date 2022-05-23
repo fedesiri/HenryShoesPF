@@ -67,14 +67,15 @@ const BestSellers = () => {
       <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
       {currentProducto.map((e) => (
         <div className="father1"  key={e.id}>
-          <img src={e.image} alt={e.model} />
+          <Link to={`/details/${e.id}`}>
           <h1>{ string_lentgMax(  e.model)}</h1>
-          <h1> {e.price}$</h1>
+          <h2> {e.price}$</h2>
           {e.porcentaje&& <p>{e.porcentaje}%</p> }
             { e.porcentaje&&  <h2>
               Now :  {calculoDescuento(e.price,e.porcentaje) }$
             </h2>}
-          <Link to={`/details/${e.id}`}> More </Link>
+            <img src={e.image} alt={e.model} />
+          </Link>
         </div>
       ))}
       <BackBtn onClick={handleNextbtn}>Next</BackBtn>

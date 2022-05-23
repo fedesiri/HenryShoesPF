@@ -71,12 +71,13 @@ const Promotion = () => {
       ) : (
         currentProducto.map((e, index) => (
           <div className="father1" key={index}>
-            <img src={e.image} alt={e.model} />
+            <Link to={`/details/${e.id}`}>
             <h1> {string_lentgMax(e.model)}</h1>
             <h3>Before: {e.price}$</h3>
             <h2>Now : {calculoDescuento(e.price, e.porcentaje)}$</h2>
             <p> {e.porcentaje}% </p>
-            <Link to={`/details/${e.id}`}> More </Link>
+            <img src={e.image} alt={e.model} />
+            </Link>
           </div>
         ))
       )}

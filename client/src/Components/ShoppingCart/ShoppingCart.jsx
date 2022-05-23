@@ -8,7 +8,9 @@ import {
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import './ShoppingCart.css'
-
+import { DelButton, AddButton } from "../../styles/Button";
+import { BackBtn } from "../../styles/Details";
+import { Link } from "react-router-dom";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -19,12 +21,8 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if(userInfo){ 
-     dispatch(combineStateCart())}
-   }, [])
-   
-
-
-
+      dispatch(combineStateCart())}
+  }, [dispatch, userInfo])
 
   let cartDetail=[]
 
@@ -32,17 +30,17 @@ const ShoppingCart = () => {
 } else{ cartDetail = cartDetail1}
   
 
-   let arraySeleccion=[]
-   arrayAll.forEach(e => {
+  let arraySeleccion=[]
+  arrayAll.forEach(e => {
       arraySeleccion.push( {id: String(e.id) , price:e.price , image:e.image , inOferta:e.inOferta, 
     model: e.model, porcentaje:e.porcentaje , price:e.price }  )    
-   })
- 
-  let newArray = [] 
-   let aux=   cartDetail.map(e=>  arraySeleccion.forEach(el=> {String(el.id) === String(e.id) && newArray.push(Object.assign(e,el))})    )
- 
- 
+  })
 
+  let newArray = [] 
+  function mapeoDeCarro(cartDetail){
+    cartDetail.map(e=>  arraySeleccion.forEach(el=> {String(el.id) === String(e.id) && newArray.push(Object.assign(e,el))})    )
+  };
+  mapeoDeCarro(cartDetail);
 
 
 
@@ -75,29 +73,28 @@ const ShoppingCart = () => {
   return (
     <div >
       <NavBar />
+      <Link to="/catalogPage">
+        <BackBtn></BackBtn>
+      </Link>
       <div className="Cart">
 
       <h1>   ShoppingCart </h1>
 
       <div className="cart1" >
        <div className="cartBrother">  
-       <div className="list"> 
-         <h4> Product</h4>
-         <h4 className="quantity">Quantity</h4>
-         <h4 className="price">Price </h4>
-         
-       </div>
+       
         {newArray.map((e) => (
           <div  className="childrenBro" key={contador++}>
+            <h2>{contador}-</h2>
             <img src={e.image} alt="imagenes" />
             <div className="repar2">  
-            <h3> {e.model} </h3>
-            <h3> Size: {e.sizes} </h3>
+              <h3> {e.model} </h3>
             </div>
+            <h2> Size: {e.sizes} </h2>
             <h2>  {e.quantity} u</h2>
             <h2>  {e.price * e.quantity} $</h2>
-            <div>  
-            <button
+            <div className="buttons">  
+            <DelButton
               onClick={() =>
                 handleDeleteProductoCart({
                   id: e.id,
@@ -107,9 +104,9 @@ const ShoppingCart = () => {
             >
               {" "}
               Delete All{" "}
-            </button>
+            </DelButton>
 
-            <button
+            <DelButton
               onClick={() =>
                 handleDeleteOneProductoCart({
                   id: e.id,
@@ -117,11 +114,10 @@ const ShoppingCart = () => {
                 })
               }
             >
-              {" "}
-              Delete One -{" "}
-            </button>
+            Delete One
+            </DelButton>
 
-            <button
+            <AddButton
               onClick={() =>
                 handleAddOneProductoCart({
                   id: e.id,
@@ -129,8 +125,8 @@ const ShoppingCart = () => {
                 })
               }
             >
-              Add One +
-            </button>
+              Add One
+            </AddButton>
             </div>;
           </div>
         ))}
@@ -138,10 +134,10 @@ const ShoppingCart = () => {
 
       <div  className="Brother2">  
       <div className="carritopegajoso" >  
-        <button>Proceder a la Compra</button>
-        <h1> Productos en el carrito {sumItems} units</h1>
+        <h1> Order items {sumItems} units</h1>{" "}
         <h1> Total  ${sumPrice} </h1>
-        </div>
+        <button>Confirm and Pay</button>  
+      </div>
         </div>
 
         </div>
