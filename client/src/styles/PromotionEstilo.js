@@ -24,7 +24,7 @@ export const Container = styled.div`
   
   display:flex;
   flex-direction: row;
-
+  justify-content: center;
   div {
     width:20%;
     margin:1rem;

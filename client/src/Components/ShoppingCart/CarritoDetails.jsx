@@ -7,6 +7,8 @@ import {
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './CarritoDetails.css'
+import { DelButton } from "../../styles/Button";
+import { AddBtn } from "../../styles/Details";
 
 const CartDetails = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const arrayAll = useSelector((state)=>state.allProducts)
 useEffect(() => {
   if(userInfo){ 
    dispatch(combineStateCart())}
- }, [])
+ }, [dispatch])
  
 
 
@@ -59,8 +61,8 @@ if(userInfo){
 
   return (
       <div  >    
-      ACA ME DEBERIA MOSTRAR TODOS LOS PRODUCTOS CARGADOS
-      {/* <button onClick={handleChangeStateCart}>HAGO DE LOGINNNNNNNNNNNNNNNNN</button> */}
+      
+      
        {newArray.map((e) => (
         <div >
           <img width="200px" src={e.image} alt="imagenes" />
@@ -68,7 +70,7 @@ if(userInfo){
           <h2> Price: {e.price * e.quantity} $</h2>
           <h2> Quantity: {e.quantity} unidad</h2>
           <h2> Size: {e.sizes} </h2>
-          <button
+          <DelButton
             onClick={() =>
               handleDeleteProductoCart({
                 id: e.id,
@@ -78,8 +80,8 @@ if(userInfo){
           >
             {" "}
             Delete All{" "}
-          </button>
-          <button
+          </DelButton>
+          <DelButton
             onClick={() =>
               handleDeleteOneProductoCart({
                 id: e.id,
@@ -89,14 +91,14 @@ if(userInfo){
           >
             {" "}
             Delete One{" "}
-          </button>
+          </DelButton>
         </div>
       ))} 
 
       <Link to="/cart">
-        <button> Go to Shopping Cart</button>
+        <AddBtn> Go to Shopping Cart</AddBtn>
       </Link>
-      <button>Checkout</button>
+      <AddBtn>Checkout</AddBtn>
       </div>
   );
 };

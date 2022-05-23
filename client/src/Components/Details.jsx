@@ -63,7 +63,7 @@ const Details = () => {
 useEffect(() => {
  if(userInfo){ 
   dispatch(combineStateCart())}
-}, [])
+}, [dispatch])
 
 
 
@@ -118,12 +118,12 @@ useEffect(() => {
   };
 
 
-  //let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+  let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
   user ? console.log("logueado") : console.log("no logueado");
 
-  let talles = detail.sizes
+  //let talles = detail.sizes
 
 
   return (
@@ -142,9 +142,9 @@ useEffect(() => {
             <h3>Size available:{" "}</h3>
             {talles.map((elemento) => (
               <button key={elemento} value={elemento} onClick={handleTalle}>
-                <span>
+                
                   {elemento}
-                </span> 
+               
               </button>
             ))}
           </SizeDiv>
