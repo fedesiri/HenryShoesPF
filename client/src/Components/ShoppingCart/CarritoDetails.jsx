@@ -3,27 +3,33 @@ import {
   removeProductCart,
   removeOneProductCart,
   combineStateCart,
+  getAllProducts
 } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './CarritoDetails.css'
+import { Navigate } from "react-router-dom";
 
 const CartDetails = () => {
   const dispatch = useDispatch();
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  // console.log(cartDetail1)
+  console.log(cartDetail1)
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const userInfo = useSelector((state) => state.userInfo);
 // console.log(userInfo)
 //si no esta registrado es null
 
 const arrayAll = useSelector((state)=>state.allProducts)
-// console.log(arrayAll)
+console.log(arrayAll)
 
 
 useEffect(() => {
   if(userInfo){ 
    dispatch(combineStateCart())}
+ }, [])
+ 
+ useEffect(() => {
+  dispatch(getAllProducts())
  }, [])
  
 
@@ -34,7 +40,7 @@ if(userInfo){
   cartDetail= cartDetailRegisterUser
 } else{
  cartDetail = cartDetail1}
-
+console.log(cartDetail)
 
  let arraySeleccion=[]
   arrayAll.forEach(e => {
@@ -45,7 +51,7 @@ if(userInfo){
  let newArray = [] 
   let aux=   cartDetail.map(e=>  arraySeleccion.forEach(el=> {String(el.id) === String(e.id) && newArray.push(Object.assign(e,el))})    )
 
-// console.log (newArray)
+console.log (newArray)
   function handleDeleteProductoCart(parametro) {
     dispatch(removeProductCart(parametro));
   }
@@ -53,11 +59,34 @@ if(userInfo){
     dispatch(removeOneProductCart(parametro));
   }
 
+//   async checkStateUser (event){
+//   if (!userInfo){
+
+//   }
+// }
+
+ let checkStateUser= async () => {
+  
+  try {
+    let user = await userInfo;
+    console.log(user);
+    
+
+    {!user && (
+      <Navigate to="/dashboard" replace={true} />
+    )}
+  } catch (error) {
+    this.setState({ error });
+  }
+}
+
+
+
 
   return (
       <div  >    
       ACA ME DEBERIA MOSTRAR TODOS LOS PRODUCTOS CARGADOS
-        {newArray.map((e) => (
+        {newArray?.map((e) => (
         <div >
           <img width="200px" src={e.image} alt="imagenes" />
           <h2> {e.model} </h2>
@@ -92,7 +121,7 @@ if(userInfo){
       <Link to="/cart">
         <button> Go to Shopping Cart</button>
       </Link>
-      <button>Checkout</button>
+      <button  onClick={ checkStateUser} >Proceed to Purchase</button>
       </div>
   );
 };

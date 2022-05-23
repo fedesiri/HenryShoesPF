@@ -25,7 +25,7 @@ const CargarOferta = () => {
   const [validarProducts, setValidarProducts] = useState({
     id_oferta: [],
     id_destacado: [],
-    porcentaje: "",
+    porcentaje: [],
   });
 
   useEffect(() => {
@@ -92,10 +92,15 @@ const CargarOferta = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
+
+
+if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length === 0 &&
+  validarProducts.id_destacado.length !== 0
+  ){ alert("complete una categoria")}else { 
     if (
       validarProducts.id_destacado.length !== 0 ||
-      validarProducts.id_oferta.length !== 0
-    ) {
+      (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length !== 0))
+       {
       dispatch(sendOfertToBack(validarProducts));
       setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
       // dispatch(clearOfertDestacado());
@@ -112,6 +117,13 @@ const CargarOferta = () => {
       dispatch(filterOfertDestacado());
     }, 2000);
   }
+}
+
+
+
+
+
+
   function clearProducts(e) {
     e.preventDefault();
 
@@ -141,7 +153,7 @@ const CargarOferta = () => {
                 className="selectOfert"
                 onChange={(e) => handlePorcentaje(e)}
               >
-                <option value="default"> Percent %: </option>
+                <option > Percent %: </option>
                 <option value="10"> 10% </option>
                 <option value="20"> 20% </option>
                 <option value="30"> 30% </option>

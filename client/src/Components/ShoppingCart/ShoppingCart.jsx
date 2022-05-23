@@ -138,8 +138,8 @@ const ShoppingCart = () => {
 
       <div  className="Brother2">  
       <div className="carritopegajoso" >  
-        <button>Proceder a la Compra</button>
-        <h1> Productos en el carrito {sumItems} units</h1>
+        <button>Proceed to Purchase</button>
+        <h1> Products in the cart, {sumItems} units</h1>
         <h1> Total  ${sumPrice} </h1>
         </div>
         </div>
