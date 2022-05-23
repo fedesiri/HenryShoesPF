@@ -13,10 +13,10 @@ import { AddBtn } from "../../styles/Details";
 const CartDetails = () => {
   const dispatch = useDispatch();
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  console.log(cartDetail1)
+  // console.log(cartDetail1)
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const userInfo = useSelector((state) => state.userInfo);
-console.log(userInfo)
+// console.log(userInfo)
 //si no esta registrado es null
 
 const arrayAll = useSelector((state)=>state.allProducts)
@@ -47,22 +47,17 @@ if(userInfo){
  let newArray = [] 
   let aux=   cartDetail.map(e=>  arraySeleccion.forEach(el=> {String(el.id) === String(e.id) && newArray.push(Object.assign(e,el))})    )
 
-
+// console.log (newArray)
   function handleDeleteProductoCart(parametro) {
     dispatch(removeProductCart(parametro));
   }
   function handleDeleteOneProductoCart(parametro) {
     dispatch(removeOneProductCart(parametro));
   }
-// function handleChangeStateCart (){
-//   dispatch(combineStateCart())
-// }
 
 
   return (
-      <div  >    
-      
-      
+      <div  >      
        {newArray.map((e) => (
         <div >
           <img width="200px" src={e.image} alt="imagenes" />

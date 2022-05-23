@@ -23,7 +23,7 @@ const LandingPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (window.location.href === "http://localhost:3000/?login=true") {
+    if (window.location.href.includes(`${process.env.REACT_APP_CLIENT_URL}/?login=true`)) {
       const cookies = document.cookie;
       const cookieSeparada = cookies.split(".");
       const token = cookieSeparada[1];
