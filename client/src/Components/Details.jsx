@@ -70,7 +70,7 @@ const Details = () => {
 useEffect(() => {
  if(userInfo){ 
   dispatch(combineStateCart())}
-}, [])
+}, [dispatch])
 
 // useEffect(() => {
   
@@ -143,19 +143,11 @@ console.log(detail.sizes)
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
+
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
   user ? console.log("logueado") : console.log("no logueado");
 
 
-// console.log(talles)
-
-
-
-
-// let talles = [];
-// if (detail !== undefined) {
-//   talles = detail.sizes;
-// }
 
 
   return (
@@ -175,6 +167,8 @@ console.log(detail.sizes)
             {detail.sizes?.map((e) => 
               <button   value={e.size}    onClick={(evento)=>handleTalle(evento)}>  
               {e.size} 
+
+
               </button>
             )}
           </SizeDiv>
