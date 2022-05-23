@@ -48,6 +48,7 @@ const CreateCategory = () => {
         url: `${process.env.REACT_APP_API_URL}/categories`,
         data: {
           name: category,
+          data: addedProducs
         },
       });
       toast(response.data.message);

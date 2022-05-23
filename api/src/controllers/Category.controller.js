@@ -1,7 +1,14 @@
-const { Category } = require("../db.js");
+const { Category, Products } = require("../db.js");
 
 const getCategory = (req,res,next) => {
-    Category.findAll()
+    Category.findAll({
+        
+            include: {
+                model: Products,
+                attribute: ["name", "id"],
+              },
+        
+    })
     .then(function(categories) {
         if(!categories) return res.sendStatus(404);
         res.json(categories);
@@ -15,15 +22,34 @@ const getCategoryId = (req,res,next) => {
     }).catch(next);
 };
 
-const createCategory = (req,res,next) => {
-    const { name } = req.body
+const createCategory = async (req,res,next) => {
+    const { name, data } = req.body;
+    try{    
     if(!name) return res.status(404).send("Not enough data to create a category.");
-    Category.create({
+    await Category.create({
         name: name,        
     })
-    .then(function(createdCategory){
-        res.json(createdCategory)
-    }).catch(next);
+    if(data.length > 0){
+        
+        const selectedCategory = await Category.findOne({
+            where: {name: name}
+        });
+        
+        for(let i= 0; i < data.length; i++) {
+        let selectedshoe = await Products.findOne({
+            where: {
+                id: data[i]
+            }
+        })
+
+      await selectedCategory.addProducts(selectedshoe);
+    }};
+    res.send("The category has been created")
+    }catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
 }; 
 
 const modifCategory = (req, res,next ) => {
