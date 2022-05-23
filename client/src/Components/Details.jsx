@@ -30,7 +30,8 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   console.log (detail)
   const userInfo = useSelector((state) => state.userInfo);
- 
+  const cartDetail1 = useSelector((state) => state.shoppingCart);
+  const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
 
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
@@ -71,7 +72,16 @@ useEffect(() => {
   dispatch(combineStateCart())}
 }, [dispatch])
 
+// useEffect(() => {
+  
+//   let talles = []
+//   if ( detail.sizes !== undefined){
+//     talles =  detail.sizes
+//   }
+  
+// }, [])
 
+console.log(detail.sizes)
 
 
   function CargarCarrito() {
@@ -138,11 +148,6 @@ useEffect(() => {
   user ? console.log("logueado") : console.log("no logueado");
 
 
- let talles = []
-if ( detail.model){
-  talles = detail.sizes
-}
-console.log(talles)
 
 
   return (
@@ -159,10 +164,10 @@ console.log(talles)
             <h3>Gender:</h3><p> {detail.gender}</p>
           <SizeDiv>
             <h3>Size available:{" "}</h3>
-            {talles.map((e) => 
+            {detail.sizes?.map((e) => 
               <button   value={e.size}    onClick={(evento)=>handleTalle(evento)}>  
               {e.size} 
-                  {/* el elemento spant no me deja propagar el evento  */}
+
 
               </button>
             )}

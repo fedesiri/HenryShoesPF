@@ -2,12 +2,22 @@ const { Products } = require("../db.js");
 
 const ofertSelect = (req, res, next) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
-
+  console.log(req.body)
 
   var array = id_oferta;
   try {
     try {
-      if (array.length !== 0) {
+      if (array.length !== 0 && porcentaje.length === 0) {
+        res.status(500).send("falta porcentaje")
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
+
+
+    try {
+      if (array.length !== 0 && porcentaje.length !== 0) {
         var Promises = [];
         array.forEach((e) => {
           var newPromise = Products.update(
@@ -31,7 +41,7 @@ const ofertSelect = (req, res, next) => {
     try {
 
       var arrayDestacado = id_destacado;
-      
+
       if (arrayDestacado.length !== 0) {
         var Promises = [];
         arrayDestacado.forEach((e) => {
