@@ -57,7 +57,7 @@ useEffect(() => {
   };
   mapeoDeCarro(cartDetail);
 
-
+console.log(newArray)
 
 
 
@@ -68,8 +68,7 @@ useEffect(() => {
 
   let sumPrice = Number("");
   newArray.forEach((e) => {
-    let result = e.quantity * e.price;
-
+    let result =  e.quantity*(e.price-Math.ceil(e.price*e.porcentaje/100))
     sumPrice += Number(result);
   });
 
@@ -107,7 +106,8 @@ useEffect(() => {
             </div>
             <h2> Size: {e.sizes} </h2>
             <h2>  {e.quantity} u</h2>
-            <h2>  {e.price * e.quantity} $</h2>
+            {!e.porcentaje?<h2> Price: ${e.price * e.quantity} </h2>:
+        <h2>  Price:${  e.quantity*(e.price-Math.ceil(e.price*e.porcentaje/100))} </h2>}
             <div className="buttons">  
             <DelButton
               onClick={() =>

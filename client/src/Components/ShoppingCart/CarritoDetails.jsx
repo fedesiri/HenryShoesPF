@@ -70,22 +70,24 @@ console.log (newArray)
 //   }
 // }
 
- let checkStateUser= async () => {
+//  let checkStateUser= async () => {
   
-  try {
-    let user = await userInfo;
-    console.log(user);
+//   try {
+//     let user = await userInfo;
+//     console.log(user);
     
 
-    {!user && (
-      <Navigate to="/dashboard" replace={true} />
-    )}
-  } catch (error) {
-    this.setState({ error });
-  }
-}
+//     {!user && (
+//       <Navigate to="/dashboard" replace={true} />
+//     )}
+//   } catch (error) {
+//     this.setState({ error });
+//   }
+// }
 
-
+{/* <h3>Price:</h3><p> ${detail.price}</p>  
+{ detail.porcentaje&&<p> %{detail.porcentaje}</p>}
+<p> Now: ${(detail.price-Math.ceil(detail.price*detail.porcentaje/100))} </p> */}
 
 
   return (
@@ -95,7 +97,10 @@ console.log (newArray)
         <div >
           <img width="200px" src={e.image} alt="imagenes" />
           <h2> {e.model} </h2>
-          <h2> Price: {e.price * e.quantity} $</h2>
+          {!e.porcentaje?<h2> Price: {e.price * e.quantity} $</h2>:
+        <h2>  Price:${  e.quantity*(e.price-Math.ceil(e.price*e.porcentaje/100))} </h2> 
+          
+          }
           <h2> Quantity: {e.quantity} unidad</h2>
           <h2> Size: {e.sizes} </h2>
           <DelButton
