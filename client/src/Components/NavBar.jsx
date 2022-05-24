@@ -71,7 +71,8 @@ export default function NavBar() {
             <SearchBar />
           </div>
 
-          {stateCart && <DivStateCart>            
+
+          {stateCart !== 0 && <DivStateCart>          
             {stateCart}
           </DivStateCart>}        
 
