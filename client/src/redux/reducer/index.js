@@ -11,6 +11,7 @@ import {
   CLEAR_OFERT,
   FILTER_OFERT_DESTACADO,
   CLEAR_OFERT_DESTACADO,
+  SEND_OFERT_BACK,
   DELETE_DESTACADO_PRODUCTS,
   DELETE_PROMOTION_PRODUCTS,
   POST_LOG_OUT,
@@ -42,23 +43,24 @@ const intialState = {
   inBestSellerAux: [],
   shoppingCart: [],
   shoppingCartUserRegister: [],
+  res_back_productOferts: []
 };
 
 
-function orderFilters (array, payload){
-  if (payload === "Mayor precio"){
+function orderFilters(array, payload) {
+  if (payload === "Mayor precio") {
     array.sort((a, b) => { return b.price - a.price })
   }
-  if (payload === "Menor precio"){
+  if (payload === "Menor precio") {
     array.sort((a, b) => { return a.price - b.price })
-  }  
-  if (payload === "Mas recientes"){
+  }
+  if (payload === "Mas recientes") {
     array.sort((a, b) => { return b.year - a.year })
   }
-  if (payload === "Menos recientes"){
+  if (payload === "Menos recientes") {
     array.sort((a, b) => { return a.year - b.year })
   }
-     return array;
+  return array;
 }
 
 
@@ -123,9 +125,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
         productsFilterByBrands,
         payload.gender
       );
-      
+
       let order = orderFilters(productsFilterByGender, state.filter.order)
-      
+
       return {
         ...state,
         products: order,
@@ -133,8 +135,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
       };
 
     case ORDER_PRODUCTS:
-      let ordered = orderFilters(state.products, payload)      
-      return { ...state, products: ordered, filter: {...state.filter, order: payload} };
+      let ordered = orderFilters(state.products, payload)
+      return { ...state, products: ordered, filter: { ...state.filter, order: payload } };
 
     case GET_ALL_BRANDS:
       return {
@@ -164,6 +166,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         ofertSelect: infoChequear ? infoChequear : infoModels,
       };
+    case SEND_OFERT_BACK:
+      return {
+        ...state,
+        res_back_productOferts: payload
+      }
+
 
     case FILTER_OFERT_DESTACADO:
       const auxState1 = state.allProducts;

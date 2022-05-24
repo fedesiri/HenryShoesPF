@@ -22,6 +22,12 @@ export const CardImage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    :hover  {
+        transform: scale(1.3);
+    transition: all 500ms;
+    
+    }
 `;
 
 

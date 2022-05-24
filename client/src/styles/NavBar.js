@@ -109,7 +109,7 @@ padding: 0.5rem;
 border-radius: 1rem;
 width: 2rem;
 position: relative;
-left: 6.5%;
+left: 7.5%;
 bottom: 1.9rem;
 text-align: center;
 font-size: large;

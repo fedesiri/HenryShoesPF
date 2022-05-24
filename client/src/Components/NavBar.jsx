@@ -32,11 +32,11 @@ export default function NavBar() {
     cartDetailRegisterUser.map(e=> sum+=  Number(e.quantity))
     setStateCart(sum)
   }
-      },[cartDetail1,cartDetailRegisterUser])
+      },[cartDetail1,cartDetailRegisterUser,userInfo])
 
       useEffect(() => {
   dispatch(getShoppingCart())
-        }, [])
+        }, [cartDetail1,cartDetailRegisterUser])
 
 
 

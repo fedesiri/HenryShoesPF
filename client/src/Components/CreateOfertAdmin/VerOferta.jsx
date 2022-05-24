@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   filterOfertDestacado,
   getAllProducts,
-  // clearOfertDestacado,
   deletePromotion,
   deleteDestacado,
 } from "../../redux/actions/index";
@@ -12,26 +11,26 @@ const divStyle = {
   display: "none",
 };
 
-const VerOferta = () => {
+const VerOferta = ({chequeo}) => {
   const dispatch = useDispatch();
   const [ocultar, setOcultar] = useState(false);
-  // const [inhabilitar, setInhabilitar] = useState(true);
+  const [chequeo1, setChequeo1] = useState(false)
 
-  const productsDestacadOfert = useSelector(
-    (state) => state.inOfertDestacado
-  );
+  const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
+  
 
+useEffect(() => {
+  
+  setChequeo1(!chequeo1)
+    dispatch(filterOfertDestacado());
+}, [chequeo]);
 
-  useEffect(() => {
-    // dispatch(getAllProducts())
-    // dispatch(filterOfertDestacado())
-  }, []);
+useEffect(() => {
+  setTimeout(() => {
+    dispatch(filterOfertDestacado());  
+  }, 1000);
+}, [chequeo1])
 
-  // setTimeout(() => {
-  //   if(productOfert.length !== 0 || productDestacado.length !== 0){
-  //     setInhabilitar(false)
-  //   }
-  // }, 500);
 
   function verProduct() {
     dispatch(getAllProducts());
@@ -43,20 +42,19 @@ const VerOferta = () => {
     dispatch(deletePromotion(e.target.value));
     setTimeout(() => {
       dispatch(getAllProducts());
-    }, 500);
+    }, 100);
     setTimeout(() => {
-      dispatch(filterOfertDestacado());
-    }, 1000);
+      setChequeo1(!chequeo1)
+    }, 500);
   }
 
   function retornarIdDestacado(e) {
    
     dispatch(deleteDestacado(e.target.value));
+    
     setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 500);
-    setTimeout(() => {
-      dispatch(filterOfertDestacado());
+      dispatch(getAllProducts())
+      setChequeo1(!chequeo1)
     }, 1000);
   }
 
