@@ -22,6 +22,7 @@ import {
   ADD_ONE_PRODUCT_CART,
   COMBINE_STATE_CART,
   POST_LOG_IN_GOOGLE,
+  GET_SHOPPING_CART,
 } from "../actions/types";
 
 const intialState = {
@@ -406,6 +407,16 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         userInfo: JSON.parse(localStorage.getItem("userInfo")),
       };
+
+    case GET_SHOPPING_CART:
+      return {
+        ...state,
+        shoppingCart: state.shoppingCart,
+        shoppingCartUserRegister: state.shoppingCartUserRegister,
+      };
+
+
+
 
 
     default:

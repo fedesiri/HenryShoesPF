@@ -25,8 +25,8 @@ import {
   REMOVE_ONE_PRODUCT_CART,
   ADD_ONE_PRODUCT_CART,
   COMBINE_STATE_CART,
-
   POST_LOG_IN_GOOGLE,
+  GET_SHOPPING_CART
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -302,3 +302,8 @@ export const combineStateCart = (payload) => {
   }
 }
 
+export const getShoppingCart = () => {
+  return {
+    type: GET_SHOPPING_CART,
+  }
+}

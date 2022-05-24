@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import FormularioInicio from "./FormularioInicio";
@@ -8,14 +8,40 @@ import banner from "../static/banner.png";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginBtn, ChartBtn, SignOutBtn } from "../styles/NavBar";
-import { postLogOut } from "../redux/actions/index.js";
+import { LoginBtn, ChartBtn, SignOutBtn , DivStateCart } from "../styles/NavBar";
+import { postLogOut, getShoppingCart } from "../redux/actions/index.js";
+import './ShoppingCart/ShoppingCart.css'
 
 
 export default function NavBar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo)
   const navigate = useNavigate()
+  const cartDetail1 = useSelector((state) => state.shoppingCart);
+  const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
+  const [stateCart, setStateCart] = useState()
+      let sum = 0
+    useEffect(()=>{
+  if (cartDetail1){
+    cartDetail1.map(e=>   sum+=  Number(e.quantity) )
+    setStateCart(sum)
+
+   }
+  if (cartDetailRegisterUser && userInfo){
+    cartDetailRegisterUser.map(e=> sum+=  Number(e.quantity))
+    setStateCart(sum)
+  }
+      },[cartDetail1,cartDetailRegisterUser])
+
+      useEffect(() => {
+  dispatch(getShoppingCart())
+        }, [])
+
+
+
+
+
 
   const signOutHandler = () => {
     dispatch(postLogOut());
@@ -42,6 +68,12 @@ export default function NavBar() {
           <div>
             <SearchBar />
           </div>
+
+          <DivStateCart>
+            {stateCart}
+          </DivStateCart>
+
+
 
           <div>
             {userInfo ? null : (
