@@ -10,14 +10,17 @@ import NavBar from "../NavBar";
 import './ShoppingCart.css'
 import { DelButton, AddButton } from "../../styles/Button";
 import { BackBtn } from "../../styles/Details";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state)=>state.allProducts)
+  
 
   useEffect(() => {
     if(userInfo){ 
@@ -73,9 +76,9 @@ const ShoppingCart = () => {
   return (
     <div >
       <NavBar />
-      <Link to="/catalogPage">
-        <BackBtn></BackBtn>
-      </Link>
+      
+        <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
+      
       <div className="Cart">
 
       <h1>   ShoppingCart </h1>

@@ -35,13 +35,32 @@ const intialState = {
   page: 1,
   brands: [],
   ofertSelect: [],
-  filter: { brand: "All", gender: "filterByGender" },
+  filter: { brand: "All", gender: "filterByGender", order: "" },
   inOfertDestacado: [],
   inOfertAux: [],
   inBestSellerAux: [],
   shoppingCart: [],
   shoppingCartUserRegister: [],
 };
+
+
+function orderFilters (array, payload){
+  if (payload === "Mayor precio"){
+    array.sort((a, b) => { return b.price - a.price })
+  }
+  if (payload === "Menor precio"){
+    array.sort((a, b) => { return a.price - b.price })
+  }  
+  if (payload === "Mas recientes"){
+    array.sort((a, b) => { return b.year - a.year })
+  }
+  if (payload === "Menos recientes"){
+    array.sort((a, b) => { return a.year - b.year })
+  }
+     return array;
+}
+
+
 
 export default function rootReducer(state = intialState, { type, payload }) {
   switch (type) {
@@ -50,7 +69,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         products: payload,
         allProducts: payload,
-        filter: { brand: "All", gender: "filterByGender" },
+        filter: { brand: "All", gender: "filterByGender", order: "" },
       };
 
     case GET_ALL_PRODUCTS_BY_BRANDS:
@@ -103,31 +122,18 @@ export default function rootReducer(state = intialState, { type, payload }) {
         productsFilterByBrands,
         payload.gender
       );
+      
+      let order = orderFilters(productsFilterByGender, state.filter.order)
+      
       return {
         ...state,
-        products: productsFilterByGender,
-        filter: { brand: payload.brand, gender: payload.gender },
+        products: order,
+        filter: { brand: payload.brand, gender: payload.gender, ...state.filter },
       };
 
     case ORDER_PRODUCTS:
-      let ordered = state.products;
-      payload === "Mayor precio" &&
-        ordered.sort((a, b) => {
-          return b.price - a.price;
-        });
-      payload === "Menor precio" &&
-        ordered.sort((a, b) => {
-          return a.price - b.price;
-        });
-      payload === "Mas recientes" &&
-        ordered.sort((a, b) => {
-          return b.year - a.year;
-        });
-      payload === "Menos recientes" &&
-        ordered.sort((a, b) => {
-          return a.year - b.year;
-        });
-      return { ...state, products: ordered };
+      let ordered = orderFilters(state.products, payload)      
+      return { ...state, products: ordered, filter: {...state.filter, order: payload} };
 
     case GET_ALL_BRANDS:
       return {

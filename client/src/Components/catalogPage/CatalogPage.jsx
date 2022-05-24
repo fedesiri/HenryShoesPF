@@ -20,7 +20,7 @@ export default function Catalog() {
   const { allProducts, products, page } = useSelector((state) => state);
   const [loader, setLoader] = useState(true);
   const [filters, setFilters] = useState(false);
-  const [, setOrder] = useState();
+  
 
   const productsPerPage = 30;
   const indexLastProduct = page * productsPerPage;
@@ -46,7 +46,6 @@ export default function Catalog() {
   const handleOrdered = (e) => {
     e.preventDefault();
     dispatch(orderProducts(e.target.value));
-    setOrder(e.target.value);
   };
 
   const handleFilter = (filters) => {

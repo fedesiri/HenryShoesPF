@@ -21,6 +21,8 @@ import NavBar from "./NavBar";
 import CartDetails from "./ShoppingCart/CarritoDetails";
 import { toast } from "react-toastify";
 import { LoginBtn } from "../styles/NavBar";
+import Modal from "./Modal/Modal";
+import { useModal } from "./Modal/hooks/useModal";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const Details = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
+  const [isOpenCart, openCart, closeCart] = useModal(false);
 
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
@@ -102,6 +105,7 @@ console.log(detail.sizes)
       toast.success("Product added successfully to cart!", {
         position: toast.POSITION.TOP_CENTER
       });
+      openCart()
     }
   }
 
@@ -153,9 +157,9 @@ console.log(detail.sizes)
   return (
     <DetailContainer>
       <NavBar />
-      <Link to="/CatalogPage">
-        <BackBtn></BackBtn>
-      </Link>
+      
+        <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
+      
       <ContentDiv>
         <Content2>
             <h3>Model:</h3>
@@ -208,7 +212,10 @@ console.log(detail.sizes)
         </AddBtn>
       </BtnDiv>
 
-      <CartDetails />
+      
+      <Modal isOpen={isOpenCart} closeModal={closeCart}>
+        <CartDetails closeCart={closeCart} />
+      </Modal>
     </DetailContainer>
 
   );
