@@ -6,7 +6,7 @@ import {
   addOneProductCart,
   combineStateCart,
   getAllProducts,
-  getShoppingCart
+  getShoppingCart,
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import './ShoppingCart.css'
@@ -31,7 +31,10 @@ const ShoppingCart = () => {
 
 useEffect(() => {
   dispatch(getAllProducts())
-  dispatch(getShoppingCart())
+  setTimeout(() => {
+    dispatch(getShoppingCart())
+
+  },2000);
 }, [])
 
 

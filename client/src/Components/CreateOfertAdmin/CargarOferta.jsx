@@ -6,22 +6,20 @@ import {
   sendOfertToBack,
   clearOfertSelect,
   filterOfertDestacado,
-  clearOfertDestacado,
+  
 } from "../../redux/actions/index";
 import "./CargarOfert.css";
 import VerOferta from "./VerOferta";
 
 const CargarOferta = () => {
-
-  
   const dispatch = useDispatch();
   const onOfert = useSelector((state) => state.ofertSelect);
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  
-  
+  const resBack =useSelector((state)=> state.res_back_productOferts)
+
 
   const [input, setInput] = useState("");
-  const [cambio, setCambio] = useState(1);
+  const [chequeo,setChequeo] = useState(false)
   const [validarProducts, setValidarProducts] = useState({
     id_oferta: [],
     id_destacado: [],
@@ -33,9 +31,15 @@ const CargarOferta = () => {
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     setTimeout(() => {
-      dispatch(filterOfertDestacado());
+      dispatch(getAllProducts());
     }, 1000);
-  }, []);
+    
+    setTimeout(() => {
+      dispatch(filterOfertDestacado())
+      setChequeo(!chequeo)
+    }, 3000);
+
+  }, [resBack]);
 
   function inputSearch(e) {
     e.preventDefault();
@@ -48,9 +52,9 @@ const CargarOferta = () => {
     setInput("");
     setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
   }
+
   function handleValidarProductsPromotion(e) {
     // e.preventDefault()
-
     var str = String(e.target.value);
     if (validarProducts.id_oferta.includes(str)) {
       setValidarProducts({
@@ -92,37 +96,28 @@ const CargarOferta = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-
-
-if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length === 0 &&
-  validarProducts.id_destacado.length !== 0
-  ){ alert("complete una categoria")}else { 
     if (
-      validarProducts.id_destacado.length !== 0 ||
-      (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length !== 0))
-       {
-      dispatch(sendOfertToBack(validarProducts));
-      setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
-      // dispatch(clearOfertDestacado());
-
-      dispatch(clearOfertSelect());
-    } else {
+      validarProducts.id_oferta.length !== 0 &&
+      validarProducts.porcentaje.length === 0 &&
+      validarProducts.id_destacado.length !== 0
+    ) {
       alert("complete una categoria");
+    } else {
+      if (
+        validarProducts.id_destacado.length !== 0 ||
+        (validarProducts.id_oferta.length !== 0 &&
+          validarProducts.porcentaje.length !== 0)
+      ) {
+        dispatch(sendOfertToBack(validarProducts));
+        setValidarProducts({ id_oferta: [], id_destacado: [], porcentaje: [] });
+
+        dispatch(clearOfertSelect());
+      } else {
+        alert("complet to category");
+      }
+     
     }
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 1000);
-    setTimeout(() => {
-      setCambio(cambio + 1);
-      dispatch(filterOfertDestacado());
-    }, 2000);
   }
-}
-
-
-
-
-
 
   function clearProducts(e) {
     e.preventDefault();
@@ -132,7 +127,7 @@ if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length 
 
   return (
     <div className="tenesqpsaraStyleCOmponet">
-    <h2>Set product on sale</h2>  
+      <h2>Set product on sale</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="container1">
           <div>
@@ -149,11 +144,11 @@ if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length 
           <div>
             {validarProducts.id_oferta.length !== 0 && (
               <select
-              defaultValue="default"
+                defaultValue="default"
                 className="selectOfert"
                 onChange={(e) => handlePorcentaje(e)}
               >
-                <option > Percent %: </option>
+                <option> Percent %: </option>
                 <option value="10"> 10% </option>
                 <option value="20"> 20% </option>
                 <option value="30"> 30% </option>
@@ -167,7 +162,7 @@ if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length 
           <div className="father">
             {onOfert.map((e) => (
               <div key={e.id} className="container">
-                <img src={e.image} alt='img not found'/>
+                <img src={e.image} alt="img not found" />
                 <h2> {e.model} </h2>
                 <h3> Product Num: {e.id}</h3>
                 <div className="checkContainer">
@@ -204,13 +199,10 @@ if (validarProducts.id_oferta.length !== 0 && validarProducts.porcentaje.length 
             ))}
           </div>
         </div>
-        <button type="submit">
-          {" "}
-          Send Products 
-        </button>
+        <button type="submit"> Send Products</button>
       </form>
       <div></div>
-      <VerOferta cambio={cambio} />
+      <VerOferta  chequeo={chequeo}/>
     </div>
   );
 };
