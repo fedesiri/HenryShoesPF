@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import { LoginBtn } from "../styles/NavBar";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
+import { Button } from "../styles/Form";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -34,12 +35,11 @@ const Details = () => {
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
   const [isOpenCart, openCart, closeCart] = useModal(false);
-
+  
   const [itemsCarts, setItemsCarts] = useState({
     id: "",
     quantity: [],
     sizes: "",
-   
   });
 
   useEffect(() => {
@@ -154,11 +154,13 @@ console.log(detail.sizes)
 
   return (
     <DetailContainer>
+        
       <NavBar />
       
         <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
       
       <ContentDiv>
+        
         <Content2>
             <h3>Model:</h3>
             <p>{detail.model}</p>
@@ -166,14 +168,16 @@ console.log(detail.sizes)
             <h3>Gender:</h3><p> {detail.gender}</p>
             {detail.CategName?.length > 0? <h3>Category:</h3>:null}{detail.CategName?.length > 0?<p>{detail.CategName}</p>:null}
           <SizeDiv>
-            <h3>Size available:{" "}</h3>
+            <h3>Sizes:{" "}</h3>
             {detail.sizes?.map((e) => 
               <button   value={e.size}    onClick={(evento)=>handleTalle(evento)}>  
-              {e.size} 
-
-
-              </button>
+                {e.size} 
+              </button>           
             )}
+            
+          </SizeDiv>
+          <SizeDiv>
+            <h3>selected sizes: </h3><h3b>{itemsCarts.sizes}</h3b>
           </SizeDiv>
           <StockDiv>
             <h3>Quantity: </h3>
@@ -219,3 +223,4 @@ console.log(detail.sizes)
   );
 };
 export default Details;
+
