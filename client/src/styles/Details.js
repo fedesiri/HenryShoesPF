@@ -113,7 +113,14 @@ export const SizeDiv = styled.div`
             margin-right: 10px;
             align-items: center;
         }
-        span{
+        h3b{
+            text-decoration: bold;
+            display:flex;
+            justify-content: left;
+            margin-right: 10px;
+            align-items: center;
+        }
+        button{
             backdrop-filter: saturate(50%);
             background-color: var(--background-color);
             font-weight: bold;
@@ -131,10 +138,13 @@ export const SizeDiv = styled.div`
             text-decoration: none;
             cursor: pointer;
             }
-            span:hover {
+            button:hover {
             background-color: #ff8906;
             color: #fff;
             }
+            
+        }
+        
         }
 `;
 
@@ -173,3 +183,4 @@ export const StockSelect = styled.select`
     width: 5rem;
     text-align: center;
 `;
+

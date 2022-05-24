@@ -28,12 +28,11 @@ export const ContainerPage = styled.div`
         text-decoration: none;
         cursor: pointer;
         }
-        span:hover {
-        background-color: #ff8906;
-        color: #fff;
+        
+        span:visited {
+            background-color: #ff8906;
         
         }
-        
     }
 `;
 
