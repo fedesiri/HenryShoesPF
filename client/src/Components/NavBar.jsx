@@ -23,20 +23,22 @@ export default function NavBar() {
   const [stateCart, setStateCart] = useState()
       let sum = 0
     useEffect(()=>{
-  if (cartDetail1){
-    cartDetail1.map(e=>   sum+=  Number(e.quantity) )
-    setStateCart(sum)
+        if (cartDetail1){
+          cartDetail1.map(e=>   sum+=  Number(e.quantity) )
+          setStateCart(sum)
+      
+         }
+        if (cartDetailRegisterUser && userInfo){
+          cartDetailRegisterUser.map(e=> sum+=  Number(e.quantity))
+          setStateCart(sum)
+        }
+            },[cartDetail1,cartDetailRegisterUser,userInfo])
+      
+            useEffect(() => {
+        dispatch(getShoppingCart())
+              }, [cartDetail1,cartDetailRegisterUser])
 
-   }
-  if (cartDetailRegisterUser && userInfo){
-    cartDetailRegisterUser.map(e=> sum+=  Number(e.quantity))
-    setStateCart(sum)
-  }
-      },[cartDetail1,cartDetailRegisterUser,userInfo])
-
-      useEffect(() => {
-  dispatch(getShoppingCart())
-        }, [cartDetail1,cartDetailRegisterUser])
+      
 
 
 
@@ -69,11 +71,9 @@ export default function NavBar() {
             <SearchBar />
           </div>
 
-          <DivStateCart>
+          {stateCart && <DivStateCart>            
             {stateCart}
-          </DivStateCart>
-
-
+          </DivStateCart>}        
 
           <div>
             {userInfo ? null : (

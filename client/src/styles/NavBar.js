@@ -100,20 +100,18 @@ export const ChartBtn = styled.button`
 `;
 
 
-export const DivStateCart = styled.div`
-color:white;
-background-color: dimgray;
-align-items: center;
-justify-content: flex-end;
-padding: 0.5rem;
-border-radius: 1rem;
-width: 2rem;
-position: relative;
-left: 7.5%;
-bottom: 1.9rem;
-text-align: center;
-font-size: large;
-font-family: "Helvetica";
-font-weight: 600;
+export const DivStateCart = styled.span`
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    margin-right: 10px;
+    margin-bottom: 18px;
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
 
 `;
