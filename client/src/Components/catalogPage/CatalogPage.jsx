@@ -90,6 +90,7 @@ export default function Catalog() {
                             model={product.model}
                             image={product.image}
                             description={product.description}
+                            porcentaje={product.porcentaje}
                         />
                     ))) || (
                     <NoResult>

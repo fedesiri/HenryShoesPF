@@ -162,7 +162,12 @@ console.log(detail.sizes)
         <Content2>
             <h3>Model:</h3>
             <p>{detail.model}</p>
-            <h3>Price:</h3><p> ${detail.price}</p>
+            <h3>Price:</h3><p> ${detail.price}</p>  
+          { detail.porcentaje&&<>  
+          <p> %{detail.porcentaje}</p>
+          <p> Now: ${(detail.price-Math.ceil(detail.price*detail.porcentaje/100))} </p>
+          </>
+          }
             <h3>Gender:</h3><p> {detail.gender}</p>
             {detail.CategName?.length > 0? <h3>Category:</h3>:null}{detail.CategName?.length > 0?<p>{detail.CategName}</p>:null}
           <SizeDiv>
