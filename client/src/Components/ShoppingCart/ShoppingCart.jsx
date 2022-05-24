@@ -4,7 +4,9 @@ import {
   removeProductCart,
   removeOneProductCart,
   addOneProductCart,
-  combineStateCart
+  combineStateCart,
+  getAllProducts,
+  getShoppingCart
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import './ShoppingCart.css'
@@ -26,6 +28,13 @@ const ShoppingCart = () => {
     if(userInfo){ 
       dispatch(combineStateCart())}
   }, [dispatch, userInfo])
+
+useEffect(() => {
+  dispatch(getAllProducts())
+  dispatch(getShoppingCart())
+}, [])
+
+
 
   let cartDetail=[]
 

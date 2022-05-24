@@ -98,3 +98,22 @@ export const ChartBtn = styled.button`
     background-color: black;
     }
 `;
+
+
+export const DivStateCart = styled.div`
+color:white;
+background-color: dimgray;
+align-items: center;
+justify-content: flex-end;
+padding: 0.5rem;
+border-radius: 1rem;
+width: 2rem;
+position: relative;
+left: 6.5%;
+bottom: 1.9rem;
+text-align: center;
+font-size: large;
+font-family: "Helvetica";
+font-weight: 600;
+
+`;

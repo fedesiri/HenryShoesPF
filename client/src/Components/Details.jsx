@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProductById, addShoppingCart, combineStateCart,} from "../redux/actions/index";
+import { getProductById, addShoppingCart, combineStateCart,getShoppingCart} from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -30,7 +30,6 @@ const Details = () => {
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
-  console.log (detail)
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)
@@ -48,8 +47,7 @@ const Details = () => {
     setTimeout(() => {
       dispatch(getProductById(addres));
     }, 1000);
-
-
+dispatch(getShoppingCart())
 
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
