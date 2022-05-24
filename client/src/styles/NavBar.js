@@ -101,6 +101,7 @@ export const ChartBtn = styled.button`
 
 
 export const DivStateCart = styled.span`
+
     width: 18px;
     height: 18px;
     position: absolute;
@@ -113,5 +114,4 @@ export const DivStateCart = styled.span`
     align-items: center;
     justify-content: center;
     font-size: 12px;
-
 `;
