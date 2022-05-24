@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import { FilterDiv } from "../styles/Filters";
 
 export default function Filter({ allProducts, handleOrdered, handleFilter }) {
-  const brand = useSelector((state) => state.filter.brand);
-  const gender = useSelector((state) => state.filter.gender);
+  const {brand, gender, order} = useSelector((state) => state.filter);
+  
+  
 
   function handleSelectChange(e) {
     e.preventDefault();
@@ -33,7 +34,7 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
 
   return (
     <FilterDiv>
-        <select onChange={handleOrdered}>
+        <select value={order} onChange={handleOrdered}>
             <option value="">Order Select</option>
             <option value="Mayor precio">Higher Price</option>
             <option value="Menor precio">Lower Price</option>
