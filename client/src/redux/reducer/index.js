@@ -136,11 +136,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         products: order,
+
         filter: {
           ...state.filter,
           brand: payload.brand,
           gender: payload.gender,
         },
+
       };
 
     case ORDER_PRODUCTS:
