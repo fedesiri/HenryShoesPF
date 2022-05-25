@@ -58,7 +58,7 @@ export default function NavBar() {
     <>
       <NavContainer>
         {userInfo ? (
-          <span>Welcome, {userInfo.username || userInfo.user.username}</span>
+          <span>Welcome, {userInfo.name || userInfo.name}</span>
         ) : null}
         <Banner>
           <Link to="/">

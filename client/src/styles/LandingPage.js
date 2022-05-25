@@ -29,7 +29,7 @@ export const SliderDiv = styled.div`
     display:flex;
     width: 100%;
     margin-top:1.5rem;
-    @media (min-width:500px;){
+    @media (min-width:500px){
         margin-top:0.5rem;
         height:200px;
     }

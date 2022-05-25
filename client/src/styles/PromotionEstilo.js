@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 export const BackBtn = styled.button`
-  background-color: var(--background-color)
+  background-color: var(--background-color);
   border-radius: 10%;
   display: block;
   width: 45px;
@@ -18,7 +18,7 @@ export const BackBtn = styled.button`
     transition-duration: 0.35s;
     box-shadow: 0px 0px 10px -2px rgba(222, 222, 222, 0.75);
   }
-`;
+`
 
 export const Container = styled.div`
   

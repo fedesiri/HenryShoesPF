@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
 import { SubmitBtn } from "../styles/FormularioInicio";
@@ -22,7 +22,6 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
   const expression = {
     regexName: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
     regexEmail: /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/,
-    regexUsername: /^[A-Za-z0-9\s]+$/g,
     regexLetra: /[A-z]/,
     regexMayuscula: /[A-Z]/,
     regexNumero: /\d/,
@@ -42,6 +41,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
             password: password.field,
           })
         );
+        console.log(response, "SOY DATA")
         
         setEmail({
           field: "",
@@ -51,9 +51,10 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           field: "",
           validated: null,
         });
-        if (response) {
+        if (response?.payload) {
           window.localStorage.setItem(
             "userInfo",
+            //! extraer solo la info necesaria del response.payload
             JSON.stringify(response.payload)
           );
           closeLogin();
@@ -66,7 +67,14 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
       console.error(error);
     }
   }
-
+  const showPassword = () => {
+    var tipo = document.getElementById("password-login");
+    if (tipo.type === "password") {
+      tipo.type = "text";
+    } else {
+      tipo.type = "password";
+    }
+  };
 
   return (
     <div
@@ -95,9 +103,31 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
           errorText="Password is required."
           expresionRegular={expression.regexPassword}
         />
+        <div
+          style={{
+            backgroundColor: "#303030",
+            width: "100px",
+            height: "25px",
+            alignItems: "center",
+            borderRadius: "10px",
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <span
+            style={{ cursor: "pointer", fontSize: "12px", color: "white" }}
+            onClick={showPassword}
+          >
+            Show password
+          </span>
+        </div>
         <br />
         <SubmitBtn type="submit">Log In</SubmitBtn>
       </form>
+      <Link style={{textDecoration:"none"}} to="/forgot-password">
+      <p style={{ cursor: "pointer", color: "#00bcd4", }} >Forgot your password?</p>
+      </Link>
      
       <br />
       <div>
@@ -114,7 +144,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
         </span>
       </div>
       <br />
-      <GoogleLoginComponent />
+      <GoogleLoginComponent closeLogin={closeLogin} />
       <ToastContainer
         position="top-center"
         autoClose={2000}

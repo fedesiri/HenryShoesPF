@@ -1,45 +1,48 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const routes = require("./routes/index.js");
-const cors = require("cors");
-const passport = require("passport");
-// const session = require("express-session");
-const cookieSession = require('cookie-session')
+import express from "express";
+import routes from "./routes/index.routes.js";
+import cors from "cors";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import corsOptions from "./config/cors.config.js";
+import passport from "passport";
+import passportMiddleware, { signInGoogle } from "./middlewares/passport.js";
+import session from "express-session";
+import dotenv from "dotenv";
 
-require("./db.js");
+dotenv.config();
+const app = express();
 
-//Passport
-require("./middlewares/passport.js");
-
-const server = express();
-
-server.use(
-  cors({
-    origin: "http://localhost:3000",
+app.use(morgan("dev"));
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
+var routesArray = ["/signin", "/", "/signup"];
+app.use(
+  routesArray,
+  session({
+    name: "session",
+    key: "express.sessionID",
+    secret: process.env.COOKIE_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: false,
+      domain: "localhost",
+      httpOnly: true,
+      path: "/",
+    },
   })
 );
 
-server.name = "API";
-const origin = ["http://localhost:3000"];
-const methods = ["GET", "POST", "OPTIONS", "PUT", "DELETE"];
-
-server.use(
-  cors({
-    origin: origin,
-    methods: methods,
-  })
-);
-server.use(express.urlencoded({ extended: true, limit: "50mb" }));
-server.use(express.json({ limit: "50mb" }));
-server.use(cookieParser());
-server.use(morgan("dev"));
-server.use(cookieSession({
-  name: 'session',
-  keys: ['henry'],
-  maxAge: 24 * 60 * 60 * 1000
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
 }))
-server.use((req, res, next) => {
+
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
@@ -49,21 +52,11 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(passportMiddleware);
+passport.use(signInGoogle);
 
+app.use("/", routes);
 
-server.use(passport.initialize());
-server.use(passport.session());
-server.use("/", routes);
-
-
-
-// Error catching endware.
-server.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
-  res.status(status).send(message);
-});
-
-module.exports = server;
+export default app;

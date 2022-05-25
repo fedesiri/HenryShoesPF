@@ -4,7 +4,7 @@ import Promotion from "./Promotion";
 import BestSellers from "./BestSellers";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar";
-import { filter, loginGoogle } from "../../redux/actions";
+import { filter } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -22,39 +22,13 @@ const LandingPage = () => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (window.location.href.includes(`${process.env.REACT_APP_CLIENT_URL}/?login=true`)) {
-      const cookies = document.cookie;
-      const cookieSeparada = cookies.split(".");
-      const token = cookieSeparada[1];
-      const user = JSON.parse(atob(token));
-   
-      window.localStorage.setItem(
-        "userInfo",
-        JSON.stringify({
-          user: {
-            username: user.profile.displayName,
-            email: user.profile.emails[0].value,
-            name: user.profile.name.givenName,
-            lastname: user.profile.name.familyName,
-            roleId: user.roleId,
-          },
-        })
-      );
-      dispatch(loginGoogle());
-     
-    } else {
-      const user = JSON.parse(window.localStorage.getItem("userInfo"));
-      user ? console.log("logueado") : console.log("no logueado");
-    }
-  }, [dispatch]);
 
 
   return (
     <LandingDiv>
       <NavBar />
       <AdminDiv>
-        {userInfo && userInfo?.user.roleId === 1 && (
+        {userInfo && userInfo?.roleId === 1 && (
           <button>
             <Link to="/CreateProduct"> Create Product </Link>{" "}
           </button>

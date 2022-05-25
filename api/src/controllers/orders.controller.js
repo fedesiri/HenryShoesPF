@@ -1,12 +1,8 @@
-const {
-  Products,
-  Sizes,
-  products_sizes,
-  Orders,
-  ShoppingCart,
-} = require("../db.js");
+import products_sizes from "../models/products_sizes.js";
+import Orders from "../models/Orders.js";
+import ShoppingCart from "../models/ShoppingCart.js";
 
-const getStock = async (req, res) => {
+export const getStock = async (req, res) => {
   const productId = req.body.productId;
   const sizeId = req.body.sizeId;
   try {
@@ -28,19 +24,16 @@ const getStock = async (req, res) => {
           productId: productId,
         },
       });
-      stock.length > 0
-        ? res.send(stock)
-        : res.send("The default stock if 5");
+      stock.length > 0 ? res.send(stock) : res.send("The default stock if 5");
     }
   } catch (err) {
     res.send(err.message);
   }
 };
 
-const createOrder = async (req, res) => {
+export const createOrder = async (req, res) => {
   const { data, email } = req.body;
   const ordenes = data;
-  
 
   try {
     const selectedCart = await ShoppingCart.findOne({
@@ -66,12 +59,12 @@ const createOrder = async (req, res) => {
             sizeId: ordenes[i].sizeId,
           },
         });
-        let thisStock = thisOrder[0].dataValues.stock
+        let thisStock = thisOrder[0].dataValues.stock;
         if (ordenes[i].quantity <= thisOrder[0].dataValues.stock) {
           const newOrder = await Orders.update(
             {
               quantity: ordenes[i].quantity,
-              stock: thisStock-(ordenes[i].quantity)
+              stock: thisStock - ordenes[i].quantity,
             },
             {
               where: {
@@ -82,20 +75,17 @@ const createOrder = async (req, res) => {
           );
 
           const selectedOrder = await Orders.findOne({
-            where:{
-             productId: ordenes[i].productId,
-              sizeId: ordenes[i].sizeId
-                 }
-              });
-          
-            
+            where: {
+              productId: ordenes[i].productId,
+              sizeId: ordenes[i].sizeId,
+            },
+          });
+
           await selectedCart.addOrders(selectedOrder);
-
-
         } else {
-          res.send({thisOrder, message: "Stock is not enough."});
+          res.send({ thisOrder, message: "Stock is not enough." });
         }
-      } else res.send({message: "Product doesn't match with size."});
+      } else res.send({ message: "Product doesn't match with size." });
     }
 
     res
@@ -106,7 +96,7 @@ const createOrder = async (req, res) => {
   }
 };
 
-const getOrder = async (req, res) => {
+export const getOrder = async (req, res) => {
   const { productId, sizeId } = req.body;
   try {
     const selctedProduct = await Orders.findOne({
@@ -123,10 +113,4 @@ const getOrder = async (req, res) => {
   } catch (err) {
     res.send(err);
   }
-};
-
-module.exports = {
-  createOrder,
-  getOrder,
-  getStock,
 };

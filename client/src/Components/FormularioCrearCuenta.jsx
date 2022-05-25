@@ -7,18 +7,16 @@ import { ToastContainer, toast } from "react-toastify";
 import Input from "./Input";
 import { SubmitBtn } from "../styles/FormularioInicio";
 
-
-const FormularioCrearCuenta = ({closeCreateAccount}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { search } = useLocation();
+const FormularioCrearCuenta = ({ closeCreateAccount }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { search } = useLocation();
 
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
   const [name, setName] = useState({ field: "", validated: null });
   const [lastname, setLastname] = useState({ field: "", validated: null });
-  const [username, setUsername] = useState({ field: "", validated: null });
   const [password, setPassword] = useState({ field: "", validated: null });
   const [confirmPassword, setConfirmPassword] = useState({
     field: "",
@@ -33,7 +31,6 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
       if (
         name.field === "" ||
         lastname.field === "" ||
-        username.field === "" ||
         password.field === "" ||
         confirmPassword.field === "" ||
         email.field === "" ||
@@ -45,7 +42,6 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           postRegister({
             name: name.field,
             lastname: lastname.field,
-            username: username.field,
             password: password.field,
             email: email.field,
             address: address.field,
@@ -53,7 +49,6 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
         );
         setName({ field: "", validated: null });
         setLastname({ field: "", validated: null });
-        setUsername({ field: "", validated: null });
         setEmail({ field: "", validated: null });
         setPassword({ field: "", validated: null });
         setConfirmPassword({ field: "", validated: null, error: null });
@@ -63,7 +58,7 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
             "userInfo",
             JSON.stringify(response.payload)
           );
-          closeCreateAccount()
+          closeCreateAccount();
           navigate(redirect || "/");
         } else {
           return;
@@ -74,10 +69,26 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
     }
   }
 
+  const showPassword = () => {
+    var tipo = document.getElementById("register-password");
+    if (tipo.type === "password") {
+      tipo.type = "text";
+    } else {
+      tipo.type = "password";
+    }
+  };
+  const showConfirmPassword = () => {
+    var tipo = document.getElementById("register-confirm-password");
+    if (tipo.type === "password") {
+      tipo.type = "text";
+    } else {
+      tipo.type = "password";
+    }
+  };
+
   const expression = {
     regexName: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
     regexEmail: /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/,
-    regexUsername: /^[A-Za-z0-9\s]+$/g,
     regexLetra: /[A-z]/,
     regexMayuscula: /[A-Z]/,
     regexNumero: /\d/,
@@ -86,9 +97,10 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
   };
 
   return (
-    <div style={{display: "flex", justifyContent: "Center"}}>
+    <div style={{ display: "flex", justifyContent: "Center" }}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <Input
+          id="register-name"
           state={name}
           setState={setName}
           type="text"
@@ -100,6 +112,7 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
         />
 
         <Input
+          id="register-lastname"
           state={lastname}
           setState={setLastname}
           type="text"
@@ -109,17 +122,9 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           errorText="Lastname is required. Only letters."
           expresionRegular={expression.regexName}
         />
-        <Input
-          state={username}
-          setState={setUsername}
-          type="text"
-          label="Username"
-          placeholder="Username"
-          name="username"
-          errorText="Username is required. Only letters and numbers."
-          expresionRegular={expression.regexUsername}
-        />
-        <Input
+
+        {/* //! colocar en profile component */}
+        {/* <Input
           state={address}
           setState={setAddress}
           type="text"
@@ -128,8 +133,9 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           name="address"
           errorText="Address is required."
           expresionRegular={expression.regexUsername}
-        />
+        /> */}
         <Input
+          id="register-email"
           state={email}
           setState={setEmail}
           type="email"
@@ -139,7 +145,9 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           errorText="Email is required."
           expresionRegular={expression.regexEmail}
         />
+
         <Input
+          id="register-password"
           state={password}
           setState={setPassword}
           type="password"
@@ -149,7 +157,28 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           errorText="Password is required. Minimum eight characters, at least one letter and one number."
           expresionRegular={expression.regexPassword}
         />
+        <div
+          style={{
+            backgroundColor: "#303030",
+            width: "100px",
+            height: "25px",
+            alignItems: "center",
+            borderRadius: "10px",
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <span
+            style={{ cursor: "pointer", fontSize: "12px", color: "white" }}
+            onClick={showPassword}
+          >
+            Show password
+          </span>
+        </div>
+
         <Input
+          id="register-confirm-password"
           state={confirmPassword}
           setState={setConfirmPassword}
           type="password"
@@ -159,6 +188,25 @@ const FormularioCrearCuenta = ({closeCreateAccount}) => {
           errorText="Password doesn't match."
           match={password.field !== confirmPassword.field ? "false" : "true"}
         />
+        <div
+          style={{
+            backgroundColor: "#303030",
+            width: "100px",
+            height: "25px",
+            alignItems: "center",
+            borderRadius: "10px",
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <span
+            style={{ cursor: "pointer", fontSize: "12px", color: "white" }}
+            onClick={showConfirmPassword}
+          >
+            Show password
+          </span>
+        </div>
         <br />
         <SubmitBtn type="submit">Register</SubmitBtn>
         <br />
