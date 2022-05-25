@@ -38,3 +38,27 @@ export const getWishlist = async (req, res) => {
     res.status(404).send({ message: "Wishlist is empty." });
   }
 };
+
+export const removeFromWishlist = async(req, res) => {
+  const {productId, email} = req.body;
+  
+  try{
+  const selectedUser = await User.findOne({
+    where:{
+      email: email
+    }
+  });
+  
+  const selectedProd = await Products.findOne({
+    where:{
+      id: productId
+    }
+  });
+  
+  const removedProd = await selectedUser.removeProducts(selectedProd);
+  
+  res.send("The product has been removed from the wishlist")}catch(err){
+    console.log(err)
+    res.send(err)
+  }
+};

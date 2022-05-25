@@ -31,6 +31,36 @@ export const getStock = async (req, res) => {
   }
 };
 
+export const HandleStock = async (req,res) => {
+  const {productId, sizeId, stock} = req.body;
+  try{
+    const selctedOrder = await Orders.findOne({
+      where: {
+        sizeId: sizeId,
+        productId: productId,
+      },
+      include: {
+        model: ShoppingCart,
+        attribute: ["email"],
+      },
+    });
+    
+    const updatedStock = await Orders.update(
+      {
+        stock: stock
+      },
+      {
+        where: {
+          productId: productId,
+          sizeId: sizeId,
+        },
+      }
+    );
+  res.send("The stock is up to date")
+  }catch(err){res.send(err)}
+  
+  };
+
 export const createOrder = async (req, res) => {
   const { data, email } = req.body;
   const ordenes = data;
