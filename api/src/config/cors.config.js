@@ -1,7 +1,10 @@
 const whitelist = [
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://localhost:8000',
 ];
+// const methods = ["GET", "POST", "OPTIONS", "PUT", "DELETE"];
+
 
 const corsOptions = {
     origin: (origin, callback) => {
@@ -12,7 +15,8 @@ const corsOptions = {
         }
     },
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    // methods: methods
 }
 
 export default corsOptions;

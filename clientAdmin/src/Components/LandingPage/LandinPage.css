@@ -1,0 +1,13 @@
+
+.FilterContainer {
+    display: flex;
+    justify-content:space-between;
+    flex-direction:row; 
+    flex-wrap:nowrap;
+    margin-bottom: 40px;
+    height: 300px;
+    align-content:space-around;
+    align-items:stretch;
+    width: 100%;
+};
+
