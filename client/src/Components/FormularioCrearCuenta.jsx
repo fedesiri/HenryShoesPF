@@ -23,7 +23,6 @@ const FormularioCrearCuenta = ({ closeCreateAccount }) => {
     validated: null,
   });
   const [email, setEmail] = useState({ field: "", validated: null });
-  const [address, setAddress] = useState({ field: "", validated: null });
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,8 +32,7 @@ const FormularioCrearCuenta = ({ closeCreateAccount }) => {
         lastname.field === "" ||
         password.field === "" ||
         confirmPassword.field === "" ||
-        email.field === "" ||
-        address.field === ""
+        email.field === ""
       ) {
         return toast.error("Complete all fields");
       } else {
@@ -44,7 +42,6 @@ const FormularioCrearCuenta = ({ closeCreateAccount }) => {
             lastname: lastname.field,
             password: password.field,
             email: email.field,
-            address: address.field,
           })
         );
         setName({ field: "", validated: null });
@@ -52,7 +49,6 @@ const FormularioCrearCuenta = ({ closeCreateAccount }) => {
         setEmail({ field: "", validated: null });
         setPassword({ field: "", validated: null });
         setConfirmPassword({ field: "", validated: null, error: null });
-        setAddress({ field: "", validated: null });
         if (response) {
           window.localStorage.setItem(
             "userInfo",
