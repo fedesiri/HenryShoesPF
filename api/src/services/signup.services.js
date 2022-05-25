@@ -72,12 +72,10 @@ export const signUpService = async (req, res) => {
       });
 
       return {
-        user: {
-          name: req.body.name,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          role: req.body.role,
-        },
+        name: req.body.name,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        role: req.body.role,
         ShoppingCart: newCart,
       };
     }
