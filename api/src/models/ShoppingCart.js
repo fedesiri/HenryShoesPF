@@ -1,20 +1,30 @@
-const { DataTypes } = require("sequelize");
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
+import Orders from "./Orders.js";
+import User from "./User.js";
 
-module.exports = (sequelize) => {
-  sequelize.define(
-    "ShoppingCart",
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-            unique: true,
-            },
-        statusOpen: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
-      }
-    }
-  );
-};
+const ShoppingCart = sequelize.define(
+  "ShoppingCart",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    statusOpen: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+  },
+  { timestamps: true }
+);
+
+ShoppingCart.belongsToMany(Orders, {through: "ShoppingOrder"})
+Orders.belongsToMany(ShoppingCart, {through: "ShoppingOrder"})
+
+User.hasOne(ShoppingCart ,{foreignKey:"email", sourceKey:"email"})
+ShoppingCart.belongsTo(User,{foreignKey:"email", targetKey:"email"})
+
+export default ShoppingCart;

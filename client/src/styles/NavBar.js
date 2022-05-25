@@ -36,7 +36,7 @@ export const SearchNav = styled.div`
 export const LoginBtn = styled.button`
     width: 6rem;
     height: 2.4rem;
-    margin-rigth: 1rem;
+    margin-right: 1rem;
     background: black;
     color: white;
     border: none;
@@ -56,7 +56,7 @@ export const LoginBtn = styled.button`
 export const SignOutBtn = styled.button`
     width: 5rem;
     height: 2.4rem;
-    margin-rigth: 1rem;
+    margin-right: 1rem;
     background: black;
     color: white;
     border: none;

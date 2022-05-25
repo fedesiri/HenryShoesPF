@@ -1,126 +1,84 @@
-// const bcrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const BearerStrategy = require("passport-http-bearer").Strategy;
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const JWTStrategy = require("passport-jwt").Strategy;
-const ExtractJWT = require("passport-jwt").ExtractJwt;
-const jwt = require("jsonwebtoken");
-const { User, Role, ShoppingCart } = require("../db.js");
-const { comparePassword } = require("./authJwt.js");
+import { ExtractJwt, Strategy } from "passport-jwt";
+import dotenv from "dotenv";
+import passport from "passport";
+import GoogleStrategy from "passport-google-oauth20";
+import User from "../models/User.js";
+import Role from "../models/Role.js";
+import ShoppingCart from "../models/ShoppingCart.js";
+
+// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+dotenv.config();
+
+const optStrategy = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET,
+};
+
+export default new Strategy(optStrategy, async (payload, done) => {
+  console.log("PAYLOAD", payload);
+  try {
+    const user = await User.findByPk(payload.id);
+    if (user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  } catch (error) {
+    done(null, false);
+  }
+});
+
+
+export const signInGoogle = new GoogleStrategy(
+  {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3001/signin/google/callback",
+    passReqToCallback: true,
+  },
+  async (accessToken, refreshToken, email, profile, done) => {
+    const defaultUser = {
+      name: profile.name.givenName,
+      lastname: profile.name.familyName,
+      email: profile.emails[0].value,
+      isVerified: true,
+    };
+    try {
+      const user = await User.findOrCreate({
+        where: { email: defaultUser.email },
+        defaults: defaultUser,
+      });
+      const roleUser = await Role.findOne({
+        where: {
+          name: "user",
+        },
+      });
+      await roleUser.addUser(user[0]);
+      const newCart = await ShoppingCart.create({});
+      await user[0].setShoppingCart(newCart);
+
+      if (user && user[0]) return done(null, user && user[0]);
+    } catch (error) {
+      console.log(error);
+      done(error, null);
+    }
+  }
+);
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  // console.log("SERIALIZE", user);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findByPk(id).then((user) => {
-    done(null, user);
-  });
+passport.deserializeUser(async (user, done) => {
+  try {
+    // console.log("DESERIALIZE", user);
+    if (user) {
+      done(null, user);
+    }
+  } catch (error) {
+    done(error, null);
+    console.log(error, "ERROR");
+  }
 });
-
-passport.use(
-  "local-register",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true,
-    },
-    async (req, email, password, done) => {
-      try {
-        const findUser = await User.findAll({ where: { email } });
-        if (findUser.length) {
-          done(null, false, { message: "Email already exists" });
-        } else {
-          const newUser = await User.create({
-            name: req.body.name,
-            lastname: req.body.lastname,
-            username: req.body.username,
-            password: password,
-            email: email,
-            address: req.body.address,
-            role: req.body.role,
-          });
-          if (req.body.role === "admin") {
-            const roleUser = await Role.findOne({
-              where: {
-                name: "admin",
-              },
-            });
-            await roleUser.addUser(newUser);
-          } else {
-            const roleUser = await Role.findOne({
-              where: {
-                name: "user",
-              },
-            });
-            await roleUser.addUser(newUser);
-          }
-          const NewCart = await ShoppingCart.create({});
-          await newUser.setShoppingCart(NewCart);
-          done(
-            null,
-            {
-              id: newUser.id,
-              name: newUser.name,
-              lastname: newUser.lastname,
-              username: newUser.username,
-              email: newUser.email,
-              address: newUser.address,
-              // roleId: newUser.roleId,
-            },
-            {
-              ShoppingCart: NewCart,
-            },
-            { message: "User created successfully" }
-          );
-        }
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
-
-passport.use(
-  "local-login",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true,
-    },
-    async (req, email, password, done) => {
-      try {
-        const user = await User.findOne({ where: { email } });
-        if (!user) {
-          return done(null, false, { message: "Email doesn't exist." });
-        }
-        const passwordMatch = comparePassword(password, user.password);
-        if (!passwordMatch) {
-          return done(null, false, { message: "Incorrect password" });
-        }
-        const Cart = await ShoppingCart.findOne({
-          where: {
-            email: req.body.email,
-          },
-        });
-        return done(null, {
-          id: user.id,
-          name: user.name,
-          lastname: user.lastname,
-          username: user.username,
-          email: user.email,
-          address: user.address,
-          roleId: user.roleId,
-          ShoppingCart: Cart,
-        });
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
-
-module.exports = passport;

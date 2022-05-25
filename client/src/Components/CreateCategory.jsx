@@ -45,7 +45,7 @@ const CreateCategory = () => {
     try {
       const response = await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}/categories`,
+        url: `${process.env.REACT_APP_API_URL}/admin/create-categories`,
         data: {
           name: category,
           data: addedProducs

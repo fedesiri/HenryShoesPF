@@ -14,7 +14,7 @@ export const BackBtn = styled.button`
     background-repeat:no-repeat;
     background-attachment: scroll;
     background-color: transparent;
-    border-color:rgba(255, 255, 255, 0)
+    border-color:rgba(255, 255, 255, 0);
     border-style: none;
     border-radius: 50%;
     display: block;
@@ -43,7 +43,7 @@ export const Content1 = styled.div`
         height: auto;
         border-radius: 0.8rem;
     }
-    }
+    
     @media (max-width: 808px) {
         width: 90%;
         flex-direction: column;
@@ -143,9 +143,9 @@ export const SizeDiv = styled.div`
             color: #fff;
             }
             
-        }
         
-        }
+        
+        
 `;
 
 export const StockDiv = styled.div`
@@ -160,7 +160,7 @@ h3 {
 export const AddBtn = styled.button`
     width: 12rem;
     height: 2.4rem;
-    margin-rigth: 1rem;
+    margin-right: 1rem;
     background: black;
     color: white;
     border: none;
@@ -170,7 +170,7 @@ export const AddBtn = styled.button`
     font-weight: bold;
     cursor: pointer;
     overflow: hidden;
-    }
+    
     :hover {
     color: black;
     background: white;
@@ -179,7 +179,7 @@ export const AddBtn = styled.button`
 `;
 
 export const StockSelect = styled.select`
-    heigth: 2.4rem;
+    height: 2.4rem;
     width: 5rem;
     text-align: center;
 `;

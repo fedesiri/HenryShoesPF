@@ -25,14 +25,16 @@ import {
   REMOVE_ONE_PRODUCT_CART,
   ADD_ONE_PRODUCT_CART,
   COMBINE_STATE_CART,
-  POST_LOG_IN_GOOGLE,
-  GET_SHOPPING_CART
+  GET_SHOPPING_CART,
+  FETCH_USER_AUTH,
 } from "./types";
 
 export const getAllProducts = (name) => {
   return (dispatch) => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/products/?name=${name ? name : ""}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/products/?name=${name ? name : ""}`
+      )
       .then((response) => {
         return dispatch({
           type: GET_ALL_PRODUCTS,
@@ -48,7 +50,9 @@ export const getAllProducts = (name) => {
 export const getAllProductsByBrands = (brand) => {
   return (dispatch) => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/products/?brand=${brand ? brand : ""}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/products/?brand=${brand ? brand : ""}`
+      )
       .then((response) => {
         return dispatch({
           type: GET_ALL_PRODUCTS_BY_BRANDS,
@@ -65,7 +69,9 @@ export function getProductById(payload) {
   return function (dispatch) {
     try {
       // direccion a cambiar
-      return fetch(`${process.env.REACT_APP_API_URL}/products/details/${payload}`)
+      return fetch(
+        `${process.env.REACT_APP_API_URL}/products/details/${payload}`
+      )
         .then((response) => response.json())
         .then((details) => {
           dispatch({
@@ -102,13 +108,17 @@ export const filter = (filter) => {
 export function postLogIn({ email, password }) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        email,
-        password,
-      });
+      const response= await axios.post(
+        `${process.env.REACT_APP_API_URL}/signin`,
+        {
+          email,
+          password,
+        }
+      );
+      console.log(response.data, "SOY DATA");
       return dispatch({
         type: POST_LOG_IN,
-        payload: data,
+        payload: response.data,
       });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -116,11 +126,6 @@ export function postLogIn({ email, password }) {
   };
 }
 
-export const loginGoogle = () => {
-  return {
-    type: POST_LOG_IN_GOOGLE,
-  };
-};
 
 export const postLogOut = () => {
   return {
@@ -145,7 +150,7 @@ export const setCurrentPage = (payload) => {
 export const getAllBrands = () => {
   return (dispatch) => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/brands`)
+      .get(`${process.env.REACT_APP_API_URL}/products/brand`)
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
@@ -166,11 +171,10 @@ export const selectOfert = (payload) => {
 };
 
 export function sendOfertToBack(payload) {
-
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      `${process.env.REACT_APP_API_URL}/products/sale`,
+      `${process.env.REACT_APP_API_URL}/admin/sale`,
       payload
     );
     return dispatch({
@@ -207,7 +211,7 @@ export function deleteDestacado(payload) {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      `${process.env.REACT_APP_API_URL}/products/deleteDestacado`,
+      `${process.env.REACT_APP_API_URL}/admin/deleteDestacado`,
       value
     );
     return dispatch({
@@ -222,7 +226,7 @@ export const deletePromotion = (payload) => {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
-      `${process.env.REACT_APP_API_URL}/products/deletePromotion`,
+      `${process.env.REACT_APP_API_URL}/admin/deletePromotion`,
       value
     );
     return dispatch({
@@ -241,21 +245,22 @@ export const clearDetail = () => {
 export const postRegister = ({
   name,
   lastname,
-  username,
   password,
   email,
   address,
 }) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
-        name,
-        lastname,
-        username,
-        password,
-        email,
-        address,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/signup`,
+        {
+          name,
+          lastname,
+          password,
+          email,
+          address,
+        }
+      );
       return dispatch({
         type: POST_REGISTER,
         payload: data,
@@ -291,19 +296,36 @@ export const addOneProductCart = (payload) => {
   return {
     type: ADD_ONE_PRODUCT_CART,
     payload,
-  }
-}
-
+  };
+};
 
 export const combineStateCart = (payload) => {
   return {
     type: COMBINE_STATE_CART,
     payload,
-  }
-}
+  };
+};
 
 export const getShoppingCart = () => {
   return {
     type: GET_SHOPPING_CART,
   }
 }
+
+export const fetchUserAuthenticated = () => {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/auth`, {
+        withCredentials: true,
+      });
+
+      return dispatch({
+        type: FETCH_USER_AUTH,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
