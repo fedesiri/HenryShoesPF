@@ -170,7 +170,7 @@ const Product = () => {
               labelId="brandName"
               name="brandName"
               id="brandName"
-              // defaultValue={detail.brandName}
+              // value={detail.brandName}
               onChange={HandleOnChange}
             >
               {brands.map((brand) => (

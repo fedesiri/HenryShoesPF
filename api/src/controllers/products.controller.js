@@ -38,18 +38,6 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
-export const getAllBrands = async (req, res) => {
-  try {
-    const allBrands = await Brands.findAll();
-    if (allBrands.length === 0) {
-      res.status(404).send({ message: "There are no brands." });
-    } else {
-      res.status(200).send(allBrands);
-    }
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-};
 
 export const GetShoesByGender = async (req, res) => {
   const gender = req.params.gender;
