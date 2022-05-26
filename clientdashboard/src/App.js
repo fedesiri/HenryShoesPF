@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./app.css";
 import ProductList from "./components/pages/productList/ProductList";
 import Product from "./components/pages/product/Product";
+import UserList from "./components/pages/userList/UserList";
+import User from "./components/pages/user/User";
 
 function App() {
   return (
@@ -13,8 +15,12 @@ function App() {
         <Sidebar />
         <Switch>
           {/* HOME */}
-          {/* USERLIST */}
-          {/* USER */}
+          <Route path="/users">
+            <UserList />
+          </Route>
+          <Route path="/user/:userId">
+            <User />
+          </Route>
           {/* NEWUSER verificar si poner o no */}
           {/* PRODUCTLIST */}
           <Route path="/products">
