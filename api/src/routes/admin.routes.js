@@ -13,6 +13,7 @@ import {
   modifCategory,
   deleteCategory,
 } from "../controllers/category.controller.js";
+import { getAllBrands, createBrand, updateBrand } from "../controllers/brands.controller.js";
 
 const router = Router();
 
@@ -29,6 +30,12 @@ router.delete("/delete/:id", deleteProduct);
 router.post("/create-categories", createCategory);
 router.put("/update-category/:id", modifCategory);
 router.delete("/delete-category/:id", deleteCategory);
+
+//Brands
+
+router.get("/brands", getAllBrands)
+router.post("/create-brand", createBrand)
+router.put("/update-brand/:id", updateBrand)
 
 //User
 // router.put('/update/user', passport.authenticate('jwt', {session: false}), roleVerify, userUpdateController);

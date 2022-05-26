@@ -152,7 +152,7 @@ export const setCurrentPage = (payload) => {
 export const getAllBrands = () => {
   return (dispatch) => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/products/brand`)
+      .get(`${process.env.REACT_APP_API_URL}/admin/brands`)
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
