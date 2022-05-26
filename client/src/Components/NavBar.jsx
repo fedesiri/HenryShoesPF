@@ -65,7 +65,10 @@ export default function NavBar() {
             <img src={banner} alt="" width="100%" height="150px" />
           </Link>
         </Banner>
+          <div>
+            
 
+          </div>
         <SearchNav>
           <div>
             <SearchBar />

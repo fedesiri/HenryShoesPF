@@ -9,16 +9,16 @@ const WishList = () => {
 const stateRespWishList = useSelector((state)=>state.WishList)
 
 const stateWish = useSelector((state)=>state.state_WishList)
-console.log( "esto me llega",stateWish.data)
+// console.log( "esto me llega",stateWish.data)
 const userInfo = useSelector((state) => state.userInfo);
-console.log(userInfo)
+// console.log(userInfo)
 
 
 
-useEffect(() => {
-dispatch(getWishList({ email: userInfo.email }))
+// useEffect(() => {
+// dispatch(getWishList({ email: userInfo.email }))
 
-}, [])
+// }, [])
 
 function handleDelete(e){
   e.preventDefault()
