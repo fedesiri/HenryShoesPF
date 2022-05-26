@@ -255,7 +255,7 @@ const Product = () => {
           </div>
           <div
             className="productFormRight"
-            style={{ justifyContent: "center" }}
+            style={{ justifyContent: "center", marginRight: "100px" }}
           >
             <label style={{ display: "flex", justifyContent: "center" }}>
               Actual Image

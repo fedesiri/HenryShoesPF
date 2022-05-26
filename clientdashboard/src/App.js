@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./app.css";
 import ProductList from "./components/pages/productList/ProductList";
 import Product from "./components/pages/product/Product";
+import CreateProduct from "./components/pages/createProduct/CreateProduct";
 import UserList from "./components/pages/userList/UserList";
 import User from "./components/pages/user/User";
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
             <Product />
           </Route>
           {/* NEWPRODUCT */}
+          <CreateProduct />
         </Switch>
       </div>
     </Router>

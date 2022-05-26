@@ -97,6 +97,7 @@ export async function createProduct(req, res) {
       year,
       CategName,
     } = req.body;
+    console.log("SOY BRAND", brandName)
 
     let productCreate = await Products.create({
       model: model,
