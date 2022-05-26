@@ -59,3 +59,22 @@ export const CardInfo = styled.div`
         font-weight: bold;
     }
 `;
+
+export const ButtonHeart = styled.button`
+ 
+            cursor: pointer;
+            z-index: 99;
+            border: none;
+            background:transparent;
+            position: absolute;
+            right: 0.5rem;
+            top:0.5rem;
+            font-size: 1.5rem;
+            color: rgb(128, 128, 128);
+            :hover{
+                color:rgb(94, 103, 196);
+                font-size:2rem
+            }
+
+  
+`;

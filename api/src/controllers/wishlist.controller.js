@@ -3,6 +3,7 @@ import Products from "../models/Products.js";
 
 export const AddProduct = async (req, res) => {
   const { productId, email } = req.body;
+  console.log(req.body)
   try {
     const addedProduct = await Products.findOne({
       where: {
