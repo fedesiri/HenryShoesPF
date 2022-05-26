@@ -164,7 +164,7 @@ const CreateProduct = () => {
         </div>
 
         <div style={{ marginTop: "20px" }} className="addProductItem">
-          <label htmlFor="product">...Or add new Brand</label>
+          <label htmlFor="product">...Or add a new Brand</label>
           <TextField
             onChange={HandleOnChange}
             id="newBrand"
