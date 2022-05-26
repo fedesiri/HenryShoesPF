@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import FormularioInicio from "./FormularioInicio";
 import FormularioCrearCuenta from "./FormularioCrearCuenta";
-import { NavContainer, Banner, LoginDiv, SearchNav } from "../styles/NavBar";
+import { NavContainer, Banner, LoginDiv, SearchNav,  DivWishList} from "../styles/NavBar";
 import banner from "../static/banner.png";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoginBtn, ChartBtn, SignOutBtn , DivStateCart } from "../styles/NavBar";
 import { postLogOut, getShoppingCart } from "../redux/actions/index.js";
 import './ShoppingCart/ShoppingCart.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faHeart } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function NavBar() {
@@ -65,11 +67,13 @@ export default function NavBar() {
             <img src={banner} alt="" width="100%" height="150px" />
           </Link>
         </Banner>
-          <div>
-            
-
-          </div>
+          
         <SearchNav>
+        <Link to="/wish-list">< DivWishList>
+            
+              Wish List <FontAwesomeIcon  icon={faHeart } />
+              
+          </ DivWishList></Link>
           <div>
             <SearchBar />
           </div>

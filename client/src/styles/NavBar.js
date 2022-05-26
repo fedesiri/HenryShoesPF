@@ -115,3 +115,24 @@ export const DivStateCart = styled.span`
     justify-content: center;
     font-size: 12px;
 `;
+
+
+export const DivWishList = styled.div`
+            width: auto;
+            font-size: large;
+            font-weight: 700;
+            margin-right:0.5rem;
+            color:white;
+            background-color: black;
+            padding: 0.5rem;
+            border-radius: 0.7rem;      
+            text-decoration: none;
+
+            :hover {
+                background-color: white;
+                color:black;
+                text-decoration: none;
+                font-decoration: none;  
+
+        }
+`;

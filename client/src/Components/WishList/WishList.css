@@ -46,3 +46,17 @@ td{
     border-bottom: thin solid;
 
 }
+
+.atras{
+    font-size: 2rem;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    position: absolute;
+    left: 5rem;
+    border: thin solid;
+    border-radius: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+}

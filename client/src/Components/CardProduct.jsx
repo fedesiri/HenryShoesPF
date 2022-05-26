@@ -1,7 +1,10 @@
-import { CardContainer, CardDetail, CardImage, CardInfo } from "../styles/CardProduct";
+import { CardContainer, CardDetail, CardImage, CardInfo, ButtonHeart } from "../styles/CardProduct";
 import { useDispatch,useSelector} from "react-redux";
 import {addWishList,getWishList} from "../redux/actions/index"
 import { useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faHeart } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function CardProduct ({ id, model, price, image , porcentaje }){
 
@@ -13,17 +16,10 @@ const stateWish = useSelector((state)=>state.state_WishList)
 console.log(userInfo)
 
 
-// useEffect(() => {
-//     dispatch(getWishList({ email: userInfo.email }))
-    
-//     },[])
-
-
-
     function handleWishList(e){
-        e.preventDefault()
-        if (userInfo.email){ 
-            dispatch(addWishList(  {productId: Number(e.target.value),
+       e.preventDefault()
+        if ( userInfo !== null){ 
+            dispatch(addWishList(  {productId: Number(id),
                 email: userInfo.email     
               }))
             }
@@ -35,9 +31,11 @@ console.log(userInfo)
 
     return (
         <CardContainer>
+
             <CardDetail to={`/details/${id}`}>
+            <ButtonHeart  onClick={(e)=>handleWishList(e)}> <FontAwesomeIcon  icon={faHeart } /> </ButtonHeart>
+
                 <CardImage>
-                    <button   value={id} onClick={(e)=>handleWishList(e)}> X </button>
                     <img src={image} alt="" />
                 </CardImage>
                 <CardInfo>
