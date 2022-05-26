@@ -28,57 +28,80 @@ const CreateProduct = () => {
     year: "",
     category: "",
   });
+  const [error, setError] = useState({});
+
+  function validate(value) {
+    let error = {};
+    if (
+      !input.product ||
+      !input.price ||
+      !input.brand ||
+      !input.gender ||
+      !input.description ||
+      !input.category
+    ) {
+      error.incomplete = "Missing Fields";
+    }
+    return error;
+  }
+
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
       ...PreValue,
       [e.target.name]: e.target.value,
     }));
-    // setError(
-    //   validate({
-    //     ...input,
-    //     [e.target.name]: e.target.value,
-    //   })
-    // );
+    setError(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
+  console.log(error);
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.getElementById("CreateForm");
-    if (input.product.length > 0)
-      try {
-        const response = await axios({
-          method: "post",
-          url: `${process.env.REACT_APP_API_URL}/admin/create-products`,
-          data: {
-            model: input.product,
-            brandName: input.brand,
-            description: input.description,
-            price: input.price,
-            image: input.image,
-            gender: input.gender,
-            year: input.year,
-            CategName: input.category,
-          },
-        });
+    if(input.brand && input.product && input.price && input.description && input.year && input.gender){
+      if (input.product.length > 0)
+        try {
+          const response = await axios({
+            method: "post",
+            url: `${process.env.REACT_APP_API_URL}/admin/create-products`,
+            data: {
+              model: input.product,
+              brandName: input.brand,
+              description: input.description,
+              price: input.price,
+              image: input.image,
+              gender: input.gender,
+              year: input.year,
+              CategName: input.category,
+            },
+          });
 
-        toast(response.data.message);
-        form.reset();
-        document.getElementById("brandName").value = "All"
-        document.getElementById("genderName").value = "All"
-        setInput({
-          product: "",
-          brand: "All",
-          description: "",
-          price: "",
-          image: "",
-          gender: "All",
-          year: "",
-          category: "",
-        });
-      } catch (err) {
-        console.log(err);
-      }
+          toast(response.data.message);
+          form.reset();
+          document.getElementById("brandName").value = "All";
+          document.getElementById("genderName").value = "All";
+          setInput({
+            product: "",
+            brand: "All",
+            description: "",
+            price: "",
+            image: "",
+            gender: "All",
+            year: "",
+            category: "",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+    } else{
+        toast.error("Missing fields")
+    }
   };
+
   console.log("CREATE PRODUCT", input);
   const reduxProducts = useSelector((state) => state.products);
   const genders = [];
@@ -103,8 +126,7 @@ const CreateProduct = () => {
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm" name="CreateForm" id="CreateForm">
         <div className="addProductItem">
-
-            {/*//! PENDIENTE LA IMAGEN */}
+          {/*//! PENDIENTE LA IMAGEN */}
           <label>Image</label>
           <input name="image" type="file" id="file" />
         </div>
@@ -127,9 +149,11 @@ const CreateProduct = () => {
             name="brand"
             id="brandName"
             onChange={HandleOnChange}
-           value={input.brand}
+            value={input.brand}
           >
-              <MenuItem value="All" disabled={true}>Brand</MenuItem>
+            <MenuItem value="All" disabled={true}>
+              Brand
+            </MenuItem>
             {brands.map((brand) => (
               <MenuItem key={brands.indexOf(brand)} value={brand}>
                 {brand}
@@ -149,7 +173,9 @@ const CreateProduct = () => {
             value={input.gender}
             onChange={HandleOnChange}
           >
-              <MenuItem value="All" disabled={true}>Gender</MenuItem>
+            <MenuItem value="All" disabled={true}>
+              Gender
+            </MenuItem>
             {genders.map((gender) => (
               <MenuItem key={genders.indexOf(gender)} value={gender}>
                 {gender}
@@ -157,7 +183,6 @@ const CreateProduct = () => {
             ))}
           </Select>
         </div>
-
 
         <div style={{ marginTop: "30px" }} className="addProductItem">
           <label htmlFor="price">Price</label>
