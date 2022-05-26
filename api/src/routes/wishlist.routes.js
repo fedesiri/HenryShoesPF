@@ -4,8 +4,8 @@ import { AddProduct, getWishlist, removeFromWishlist } from "../controllers/wish
 const router = Router()
 
 //user wishlist
-router.post("/wishlist", AddProduct);
-router.post("/wishlist/remove", removeFromWishlist)
-router.get("/wishlist", getWishlist)
+router.post("/add", AddProduct);
+router.delete("/remove", removeFromWishlist)
+router.post("/", getWishlist)
 
 export default router
