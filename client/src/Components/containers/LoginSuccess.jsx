@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 
 const LoginSuccess = () => {
 
-    useEffect(() => {
-      setTimeout(() =>{
-          window.close();
-      }, 1000)
-    }, [])
+    // useEffect(() => {
+    //   setTimeout(() =>{
+    //       window.close();
+    //   }, 1000)
+    // }, [])
     
   return (
-    <div>Successfully login!</div>
+    <div>Successfully login! Now you can close this window.</div>
   )
 }
 
