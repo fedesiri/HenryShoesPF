@@ -5,19 +5,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, getProductById } from "../../../redux/actions";
 import { useParams } from "react-router-dom";
-import {InputLabel, MenuItem, Select } from "@material-ui/core";
-
+import { MenuItem, Select } from "@material-ui/core";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-
-
 
 const Product = () => {
   const dispatch = useDispatch();
   const params = useParams();
   let { id } = params;
   const detail = useSelector((state) => state.details);
-
 
   const [input, setInput] = useState({
     product: "",
@@ -30,8 +27,8 @@ const Product = () => {
     category: "",
   });
 
-  console.log(input)
- 
+  console.log(input);
+
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getProductById(id));
@@ -50,12 +47,10 @@ const Product = () => {
 
   function BrandGetter(reduxProducts) {
     reduxProducts?.forEach((product) => {
-      if (!brands.includes(product?.brandName))
-        brands.push(product?.brandName);
+      if (!brands.includes(product?.brandName)) brands.push(product?.brandName);
     });
   }
   BrandGetter(reduxProducts);
-
 
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
@@ -79,7 +74,7 @@ const Product = () => {
         url: `${process.env.REACT_APP_API_URL}/admin/update-product/${detail.id}`,
         data: {
           model: input.product !== "" ? input.product : detail.model,
-          brandName: input.brandName !== "" ? input.brandName : detail.model,
+          brandName: input.brandName !== "" ? input.brandName : detail.brandName,
           description:
             input.description !== "" ? input.description : detail.description,
           price: input.price !== "" ? input.price : detail.price,
@@ -89,7 +84,7 @@ const Product = () => {
           CategName: input.category !== "" ? input.category : detail.CategName,
         },
       });
-      console.log(response)
+      console.log(response);
       toast(response.data.message);
     } catch (err) {
       console.log(err);
@@ -100,7 +95,7 @@ const Product = () => {
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Edit product</h1>
-        <Link to="/newproduct">
+        <Link to="/create-products">
           <button className="productAddButton">Create</button>
         </Link>
       </div>
@@ -148,7 +143,7 @@ const Product = () => {
               <span className="productInfoValue">no</span>
             </div>
             {/*//! CAMBIAR EL ANCHO */}
-            <div className="productInfoItem">
+            <div style={{width: "400px"}} className="productInfoItem">
               <span className="productInfoKey">Description:</span>
               <span className="productInfoValue">{detail.description}</span>
             </div>
@@ -168,7 +163,9 @@ const Product = () => {
               placeholder={detail.model}
             />
 
-            <label style={{marginTop: "20px"}} id="brandName">Brand</label>
+            <label style={{ marginTop: "20px" }} id="brandName">
+              Brand
+            </label>
             <Select
               labelId="brandName"
               name="brandName"
@@ -180,12 +177,12 @@ const Product = () => {
                 <MenuItem key={brands.indexOf(brand)} value={brand}>
                   {brand}
                 </MenuItem>
-       
               ))}
-             </Select>
-        
-        
-        <label style={{marginTop: "20px"}} htmlFor="gender" id="gender">Gender</label>
+            </Select>
+
+            <label style={{ marginTop: "20px" }} htmlFor="gender" id="gender">
+              Gender
+            </label>
             <Select
               labelId="gender"
               name="gender"
@@ -198,11 +195,12 @@ const Product = () => {
                 <MenuItem key={genders.indexOf(gender)} value={gender}>
                   {gender}
                 </MenuItem>
-       
               ))}
-            </Select> 
+            </Select>
 
-            <label style={{marginTop: "20px"}} htmlFor="price">Price</label>
+            <label style={{ marginTop: "20px" }} htmlFor="price">
+              Price
+            </label>
             <input
               name="price"
               id="price"
@@ -211,7 +209,9 @@ const Product = () => {
               placeholder={detail.price}
             />
 
-            <label style={{marginTop: "20px"}} htmlFor="year">Release year: </label>
+            <label style={{ marginTop: "20px" }} htmlFor="year">
+              Release year:{" "}
+            </label>
             <input
               name="year"
               type="number"
@@ -220,7 +220,9 @@ const Product = () => {
               placeholder={detail.year}
             />
 
-            <label style={{marginTop: "20px"}} htmlFor="category">Categories</label>
+            <label style={{ marginTop: "20px" }} htmlFor="category">
+              Categories
+            </label>
             <input
               name="category"
               id="category"
@@ -229,7 +231,9 @@ const Product = () => {
               placeholder={detail.CategName}
             />
 
-            <label style={{marginTop: "20px"}} htmlFor="description">Description</label>
+            <label style={{ marginTop: "20px" }} htmlFor="description">
+              Description
+            </label>
             <input
               name="description"
               id="description"
@@ -238,7 +242,7 @@ const Product = () => {
               placeholder={detail.description}
             />
 
-            <label style={{marginTop: "20px"}}>In Stock</label>
+            <label style={{ marginTop: "20px" }}>In Stock</label>
             <select name="inStock" id="idStock">
               <option value="yes">Yes</option>
               <option value="no">No</option>
@@ -271,7 +275,12 @@ const Product = () => {
               </label>
               <input type="file" id="file" style={{ display: "none" }} />
             </div>
-            <button onClick={(e) => HandleOnSubmit(e)} className="productButton">Update</button>
+            <button
+              onClick={(e) => HandleOnSubmit(e)}
+              className="productButton"
+            >
+              Update
+            </button>
           </div>
         </form>
         <ToastContainer
