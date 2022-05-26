@@ -129,27 +129,29 @@ export async function createProduct(req, res) {
 export const modifProduct = (req, res) => {
   let { model, description, price, image, gender, brandName, year, CategName } =
     req.body;
+    console.log(brandName, "SOYYY BRANDNAME")
 
   let id = req.params.id;
   let product = Products.findByPk(id);
-  // let brands = Brands.findOne({
-  //   where: { name: brandName },
-  // });
+  let brands = Brands.findOne({
+    where: { name: brandName },
+  });
 
   let categ = Category.findOrCreate({
     where: { name: CategName },
   });
 
-  Promise.all([product, categ])
+  Promise.all([product, brands, categ])
     .then(function (values) {
       let prod = values[0];
-      // let bra = values[1];
-      let cat = values[1].values[0];
+      let bra = values[1];
+      let cat = values[2].values[0];
 
       Products.update(
         {
           model: model,
           description: description,
+          brandName: brandName,
           price: price,
           image: image,
           gender: gender,
@@ -162,9 +164,9 @@ export const modifProduct = (req, res) => {
           },
         }
       );
-      // prod.setBrand(bra).then(function (brands) {
-      //   res.status(200)
-      // });
+      prod.setBrand(bra).then(function (brands) {
+        res.status(200)
+      });
       prod.setCategory(cat).then(function (categ) {
         res.status(200).json({ message: "Product updated successfully." });
       });
