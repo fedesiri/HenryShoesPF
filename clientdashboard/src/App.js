@@ -33,7 +33,9 @@ function App() {
             <Product />
           </Route>
           {/* NEWPRODUCT */}
+          <Route path="/create-products">
           <CreateProduct />
+          </Route>
         </Switch>
       </div>
     </Router>
