@@ -1,0 +1,48 @@
+
+
+.ContainerTable{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ContainerTable h1{
+    padding: 1rem;
+    padding-bottom: 3rem;
+    font-size: 5rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(122, 122, 122);
+}
+.ContainerTable table{
+    width: 100%;
+    /* border: solid; */
+    border-collapse: collapse;
+
+}
+
+thead{
+    font-size: 2rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: darkgray;
+border-bottom: thin solid;
+}
+
+tbody{
+    font-size: 2rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: darkgray;
+}
+td img {
+    width: 10rem;
+}
+
+th, td{
+    text-align: center;
+    padding: 0;
+
+}
+td{
+    
+    border-bottom: thin solid;
+
+}

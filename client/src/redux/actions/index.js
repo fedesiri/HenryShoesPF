@@ -27,6 +27,8 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
+  ADD_WISH_LIST,
+  GET_WISH_LIST,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -108,7 +110,7 @@ export const filter = (filter) => {
 export function postLogIn({ email, password }) {
   return async function (dispatch) {
     try {
-      const response= await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/signin`,
         {
           email,
@@ -329,3 +331,44 @@ export const fetchUserAuthenticated = () => {
   };
 };
 
+export const addWishList = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/wishlist/add`, payload
+    );
+    return dispatch({
+      type: ADD_WISH_LIST,
+      payload: result,
+    });
+  };
+}
+
+
+export const getWishList = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/wishlist`, payload
+    );
+    return dispatch({
+      type: GET_WISH_LIST,
+      payload: result,
+    });
+  };
+}
+
+
+
+export const deleteWishList = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.delete(
+      `${process.env.REACT_APP_API_URL}/wishlist/remove`, payload
+    );
+
+  };
+}
