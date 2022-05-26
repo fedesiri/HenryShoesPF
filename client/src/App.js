@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import LoginSuccess from "./Components/containers/LoginSuccess";
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
-
+import WishList from "./Components/WishList/WishList"
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -33,7 +33,8 @@ function App() {
         <Route exact path="/signin/success" element={<LoginSuccess />} />
         <Route path="/reset-password/:token" element={<ChangePassword />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
-        
+        <Route path="/wish-list" element={<WishList />} />
+
       </Routes>
     </ContentWrapper>
 
