@@ -18,7 +18,7 @@ import {  faHeart } from '@fortawesome/free-solid-svg-icons'
 export default function NavBar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  console.log(userInfo)
+  // console.log(userInfo)
   const navigate = useNavigate()
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector((state)=> state.shoppingCartUserRegister)

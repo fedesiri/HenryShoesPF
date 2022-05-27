@@ -78,3 +78,16 @@ export const ButtonHeart = styled.button`
 
   
 `;
+export const ButtonHe = styled.button`
+ 
+            cursor: pointer;
+            z-index: 99;
+            border: none;
+            background:transparent;
+            position: absolute;
+            right: 0.5rem;
+            top:0.5rem;
+            font-size: 2rem;
+            color:rgb(94, 103, 196);          
+  
+`;
