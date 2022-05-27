@@ -273,3 +273,23 @@ export const deletePromotion = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const deleteManyProducts = async (req, res) => {
+  console.log(req.body, "ids products");
+  try {
+    const deleteMany = await Products.destroy({
+      where: {
+        id: {
+          [Op.in]: req.body.ids,
+        },
+      },
+    });
+    if (deleteMany) {
+      res.status(200).send({ message: "Products deleted successfully" });
+    } else {
+      res.status(500).send({ message: "Error deleting products" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

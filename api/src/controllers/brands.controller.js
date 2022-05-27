@@ -80,3 +80,24 @@ export const deleteBrand = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const deleteManyBrands = async (req, res) => {
+  const { ids } = req.body;
+  console.log(req.body, "ids");
+  try {
+    const deleteManyBrands = await Brands.destroy({
+      where: {
+        id: {
+          [Op.in]: req.body.ids,
+        },
+      },
+    });
+    if (deleteManyBrands) {
+      res.status(200).send({ message: "Brands deleted successfully." });
+    } else {
+      res.status(404).send({ message: "Brands not deleted." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
