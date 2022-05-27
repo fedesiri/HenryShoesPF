@@ -10,6 +10,7 @@ import userRoutes from './user.routes.js'
 import shoppingCartRoutes from './shoppingCart.routes.js'
 import ordersRoutes from './orders.routes.js'
 import wishlistRoutes from './wishlist.routes.js'
+import paymentRoutes from './payment.routes.js'
 const router = Router();
 
 router.use(morgan("dev"));
@@ -24,8 +25,8 @@ router.use("/user", userRoutes);
 router.use("/shoppingcart", shoppingCartRoutes);
 router.use("/orders", ordersRoutes);
 router.use("/wishlist", wishlistRoutes);
+router.use("/payment", paymentRoutes);
 // router.use("/token");
-// router.use("/payment");
 
 
 
