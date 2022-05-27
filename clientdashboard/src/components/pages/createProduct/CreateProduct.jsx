@@ -267,6 +267,19 @@ const CreateProduct = () => {
         rtl={false}
         draggable
       />
+
+      <div>
+      <CardPrev
+      model={input.product}
+      brandName= {input.brand}
+      description = {input.description}
+      price= {input.price} 
+      image={input.image}
+      gender= {input.gender}
+      year= {input.year}
+      CategName={input.category}>
+      </CardPrev>
+      </div>
     </div>
   );
 };
