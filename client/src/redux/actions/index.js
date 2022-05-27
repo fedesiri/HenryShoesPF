@@ -347,7 +347,6 @@ export const addWishList = (payload) => {
 
 
 export const getWishList = (payload) => {
-  console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
@@ -365,10 +364,15 @@ export const getWishList = (payload) => {
 export const deleteWishList = (payload) => {
   console.log(payload)
   return async function (dispatch) {
-    // cambiar la ruta
-    const result = await axios.delete(
+    let result = await axios.put(
       `${process.env.REACT_APP_API_URL}/wishlist/remove`, payload
+
     );
+    return dispatch({
+      type: ADD_WISH_LIST,
+      payload: result,
+    });
 
   };
 }
+

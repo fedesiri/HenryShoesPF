@@ -17,14 +17,15 @@ const ShoppingCart = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
+
   },
   { timestamps: true }
 );
 
-ShoppingCart.belongsToMany(Orders, {through: "ShoppingOrder"})
-Orders.belongsToMany(ShoppingCart, {through: "ShoppingOrder"})
+ShoppingCart.belongsToMany(Orders, { through: "ShoppingOrder" })
+Orders.belongsToMany(ShoppingCart, { through: "ShoppingOrder" })
 
-User.hasOne(ShoppingCart ,{foreignKey:"email", sourceKey:"email"})
-ShoppingCart.belongsTo(User,{foreignKey:"email", targetKey:"email"})
+User.hasOne(ShoppingCart, { foreignKey: "email", sourceKey: "email" })
+ShoppingCart.belongsTo(User, { foreignKey: "email", targetKey: "email" })
 
 export default ShoppingCart;

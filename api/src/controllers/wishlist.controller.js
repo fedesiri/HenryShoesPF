@@ -3,7 +3,7 @@ import Products from "../models/Products.js";
 
 export const AddProduct = async (req, res) => {
   const { productId, email } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
   try {
     const addedProduct = await Products.findOne({
       where: {
@@ -24,7 +24,7 @@ export const AddProduct = async (req, res) => {
 
 export const getWishlist = async (req, res) => {
   const { email } = req.body;
-  console.log("ver", email)
+  // console.log("ver", email)
 
   try {
     const wishlist = await User.findOne({
@@ -47,6 +47,7 @@ export const getWishlist = async (req, res) => {
 
 export const removeFromWishlist = async (req, res) => {
   const { productId, email } = req.body;
+  console.log("deleteeeeeeee", req.body)
 
   try {
     const selectedUser = await User.findOne({

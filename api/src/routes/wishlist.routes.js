@@ -5,7 +5,7 @@ const router = Router()
 
 //user wishlist
 router.post("/add", AddProduct);
-router.delete("/remove", removeFromWishlist)
+router.put("/remove", removeFromWishlist)
 router.post("/", getWishlist)
 
 export default router
