@@ -7,6 +7,7 @@ import Product from "./components/pages/product/Product";
 import CreateProduct from "./components/pages/createProduct/CreateProduct";
 import UserList from "./components/pages/userList/UserList";
 import User from "./components/pages/user/User";
+import CreateBrand from "./components/pages/createBrand/CreateBrand";
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
           {/* NEWPRODUCT */}
           <Route path="/create-products">
           <CreateProduct />
+          </Route>
+          {/* NEWBRAND */}
+          <Route path="/create-brand">
+          <CreateBrand />
           </Route>
         </Switch>
       </div>
