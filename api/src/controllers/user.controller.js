@@ -20,15 +20,17 @@ export const getUserById = async (req, res) => {
 }
 
 export const editUser = async (req, res) => {
-    const { name, email, password, lastname } = req.body 
-    console.log(req.body, 'soy req.bodyyyyy!!!!')
+    const { name, email, password, lastname, address, isVerified, roleId } = req.body 
     try{
         await User.update(
             {
               name: name,
               email: email,
               password: password,
-              lastname: lastname,            
+              lastname: lastname,  
+              address: address,
+              isVerified: isVerified,
+              roleId: roleId,          
             },
             {
               where: {
@@ -37,7 +39,6 @@ export const editUser = async (req, res) => {
             }
           );
           res.send({message: 'User has been update succesfuly!'})
-          console.log(req.body, 'soy req.bodyyyyy!!!!, editado???')
     } catch (error) {
         res.status(500).send({ message: error.message });
     }

@@ -60,22 +60,22 @@ import { useEffect, useState } from "react";
     e.preventDefault();
     // const form = document.getElementById("CreateForm");
     try {
-      console.log(input)
+      let newData = {
+          name: input.name || user.name,
+          lastname: input.lastname || user.lastname,
+          email: input.email || user.email,
+          roleId: input.roleId || user.roleId,
+          address: input.address || user.address,
+      }
       const response = await axios({
         method: "put",
         url: `${process.env.REACT_APP_API_URL}/user/edit/${userId}`,
-        data: {
-          name: input.name !== "" ? input.name : user.name,
-          lastname: input.lastname !== "" ? input.lastname : user.lastname,
-          email: input.email !== "" ? input.email : user.email,
-          roleId: input.roleId !== "" ? input.roleId : user.roleId,
-          address: input.address !== "" ? input.address : user.address,
-        },
+        data: newData
       });
-      console.log(input, 'despues de que termine')
+      setUser({...user, ...newData})
       toast(response.data.message);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message)
     }
   };
 
@@ -177,6 +177,8 @@ import { useEffect, useState } from "react";
                     name="roleId"
                     id="roleId"
                     type="number"
+                    min="1"
+                    max="2"
                     placeholder={user.roleId}
                     className="userUpdateInput"
                     onChange={HandleOnChange}
