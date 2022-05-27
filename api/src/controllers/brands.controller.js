@@ -58,3 +58,23 @@ export const updateBrand = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const deleteBrand = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteBrand = await Brands.findOne({
+      where: {
+        id: id,
+      },
+    });
+    if (deleteBrand) {
+      await deleteBrand.destroy();
+      res.status(200).send({ message: "Brand deleted successfully." });
+    } else {
+      res.status(404).send({ message: "Brand not deleted." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

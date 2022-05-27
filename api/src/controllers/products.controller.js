@@ -38,7 +38,6 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
-
 export const GetShoesByGender = async (req, res) => {
   const gender = req.params.gender;
   try {
@@ -85,7 +84,6 @@ export async function createProduct(req, res) {
       year,
       CategName,
     } = req.body;
-    console.log("SOY BRAND", brandName)
 
     let productCreate = await Products.create({
       model: model,
@@ -95,19 +93,19 @@ export async function createProduct(req, res) {
       gender: gender,
       year: year,
     });
-    let brandsDB = await Brands.findOne({
-      where: { name: brandName },
+
+    var brandNameToUpper =
+      brandName.charAt(0).toUpperCase() + brandName.slice(1).toLowerCase();
+
+    let [newBrand, id] = await Brands.findOrCreate({
+      where: { name: brandNameToUpper },
     });
-    // let categDB = await Category.findOne({
-    //   where: { name: CategName },
-    // });
 
     const [categ, created] = await Category.findOrCreate({
       where: { name: CategName },
     });
 
-    productCreate.setBrand(brandsDB);
-    // productCreate.setCategory(categDB,categ);
+    productCreate.setBrand(newBrand.name);
     productCreate.setCategory(categ.name);
     res.status(200).json({ message: "Product created successfully." });
   } catch (error) {
@@ -118,7 +116,6 @@ export async function createProduct(req, res) {
 export const modifProduct = (req, res) => {
   let { model, description, price, image, gender, brandName, year, CategName } =
     req.body;
-    console.log(brandName, "SOYYY BRANDNAME")
 
   let id = req.params.id;
   let product = Products.findByPk(id);
@@ -154,7 +151,7 @@ export const modifProduct = (req, res) => {
         }
       );
       prod.setBrand(bra).then(function (brands) {
-        res.status(200)
+        res.status(200);
       });
       prod.setCategory(cat).then(function (categ) {
         res.status(200).json({ message: "Product updated successfully." });
@@ -186,19 +183,17 @@ export const deleteProduct = (req, res) => {
 
 export const ofertSelect = (req, res, next) => {
   let { id_oferta, id_destacado, porcentaje } = req.body;
-  console.log(req.body)
+  console.log(req.body);
 
   var array = id_oferta;
   try {
     try {
       if (array.length !== 0 && porcentaje.length === 0) {
-        res.status(500).send("falta porcentaje")
+        res.status(500).send("falta porcentaje");
       }
-
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-
 
     try {
       if (array.length !== 0 && porcentaje.length !== 0) {
@@ -207,7 +202,7 @@ export const ofertSelect = (req, res, next) => {
           var newPromise = Products.update(
             {
               inOferta: true,
-              porcentaje: porcentaje
+              porcentaje: porcentaje,
             },
             { where: { id: Number(e) } }
           );
@@ -218,12 +213,10 @@ export const ofertSelect = (req, res, next) => {
         });
       }
     } catch (err) {
-      console.log("Error adding ofert", err)
-
+      console.log("Error adding ofert", err);
     }
 
     try {
-
       var arrayDestacado = id_destacado;
 
       if (arrayDestacado.length !== 0) {
@@ -240,10 +233,9 @@ export const ofertSelect = (req, res, next) => {
         });
       }
     } catch (err) {
-      console.log("Error adding 'Best sellers'.", err)
+      console.log("Error adding 'Best sellers'.", err);
     }
     res.status(200).send({ message: "Information has been updated." });
-
   } catch (err) {
     res.status(500).send({ message: error.message });
   }

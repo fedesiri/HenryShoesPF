@@ -1,7 +1,6 @@
 import "./createProduct.css";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getAllProducts } from "../../../redux/actions/index.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -20,11 +19,12 @@ const CreateProduct = () => {
 
   const [input, setInput] = useState({
     product: "",
-    brand: "All",
+    brand: "",
+    newBrand: "",
     description: "",
     price: "",
     image: "",
-    gender: "All",
+    gender: "",
     year: "",
     category: "",
   });
@@ -62,7 +62,7 @@ const CreateProduct = () => {
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.getElementById("CreateForm");
-    if(input.brand && input.product && input.price && input.description && input.year && input.gender){
+    if((input.brand || input.newBrand) && input.product && input.price && input.description && input.year && input.gender){
       if (input.product.length > 0)
         try {
           const response = await axios({
@@ -70,7 +70,7 @@ const CreateProduct = () => {
             url: `${process.env.REACT_APP_API_URL}/admin/create-products`,
             data: {
               model: input.product,
-              brandName: input.brand,
+              brandName: input.brand ? input.brand : input.newBrand,
               description: input.description,
               price: input.price,
               image: input.image,
@@ -82,15 +82,16 @@ const CreateProduct = () => {
 
           toast(response.data.message);
           form.reset();
-          document.getElementById("brandName").value = "All";
-          document.getElementById("genderName").value = "All";
+          document.getElementById("brandName").value = "";
+          document.getElementById("genderName").value = "";
           setInput({
             product: "",
-            brand: "All",
+            brand: "",
+            newBrand: "",
             description: "",
             price: "",
             image: "",
-            gender: "All",
+            gender: "",
             year: "",
             category: "",
           });
@@ -151,7 +152,7 @@ const CreateProduct = () => {
             onChange={HandleOnChange}
             value={input.brand}
           >
-            <MenuItem value="All" disabled={true}>
+            <MenuItem value="">
               Brand
             </MenuItem>
             {brands.map((brand) => (
@@ -160,6 +161,17 @@ const CreateProduct = () => {
               </MenuItem>
             ))}
           </Select>
+        </div>
+
+        <div style={{ marginTop: "20px" }} className="addProductItem">
+          <label htmlFor="product">...Or add a new Brand</label>
+          <TextField
+            onChange={HandleOnChange}
+            id="newBrand"
+            name="newBrand"
+            type="text"
+            placeholder="New brand"
+          />
         </div>
 
         <div style={{ marginTop: "30px" }} className="addProductItem">
@@ -173,7 +185,7 @@ const CreateProduct = () => {
             value={input.gender}
             onChange={HandleOnChange}
           >
-            <MenuItem value="All" disabled={true}>
+            <MenuItem value="" >
               Gender
             </MenuItem>
             {genders.map((gender) => (
@@ -242,10 +254,10 @@ const CreateProduct = () => {
             <option value="no">No</option>
           </select>
         </div>
-        <button onClick={(e) => HandleOnSubmit(e)} className="addProductButton">
+      </form>
+        <button type="submit" onClick={(e) => HandleOnSubmit(e)} className="addProductButton">
           Create
         </button>
-      </form>
       <ToastContainer
         position="top-center"
         autoClose={2000}
