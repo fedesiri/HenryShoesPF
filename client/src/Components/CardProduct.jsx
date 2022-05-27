@@ -1,40 +1,80 @@
-import { CardContainer, CardDetail, CardImage, CardInfo, ButtonHeart } from "../styles/CardProduct";
+import { CardContainer, CardDetail, CardImage, CardInfo, ButtonHeart,ButtonHe  } from "../styles/CardProduct";
 import { useDispatch,useSelector} from "react-redux";
-import {addWishList,getWishList} from "../redux/actions/index"
-import { useEffect } from "react";
+import {addWishList,deleteWishList} from "../redux/actions/index"
+import { useEffect,useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faHeart } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function CardProduct ({ id, model, price, image , porcentaje }){
+export default function CardProduct ({ id, model, price, image , porcentaje, stateWish  }){
 
 const dispatch = useDispatch()
 const userInfo = useSelector((state) => state.userInfo);
-// console.log(userInfo.email)
-const stateWish = useSelector((state)=>state.state_WishList)
-// console.log(stateWish.data)
-console.log(userInfo)
+const stateRespWishList = useSelector((state)=>state.resWishList)
+// console.log(stateRespWishList.status)
+const { allProducts, products, page } = useSelector((state) => state);
+console.log(page)
+const [local, setLocal] = useState(false)
+// console.log(stateWish.data.products)
+useEffect(() => {
+    if (array.length !== 0 && array.includes(id)){
+        setLocal(true)
+    }else { setLocal(false)} 
+}, [])
 
+useEffect(() => {
+    if (array.length !== 0 && array.includes(id)){
+        setLocal(true)
+    }else { setLocal(false)} 
+}, [page])
+
+
+
+let array =[]
+if(userInfo){
+if (stateWish.data.products !==undefined && stateWish.data.products !== null){
+    stateWish.data.products.forEach(e => {
+        array.push(e.id)
+    });
+}}
 
     function handleWishList(e){
+if(!userInfo){
+    e.preventDefault()
+    // e.stopPropagation()
+    alert("Necesita Registrarse")
+}
+
+        if(userInfo){ 
        e.preventDefault()
-        if ( userInfo !== null){ 
-            dispatch(addWishList(  {productId: Number(id),
-                email: userInfo.email     
-              }))
+       if ( array.length !== 0 && array.includes(id)){
+        dispatch(deleteWishList(
+            {productId: Number(id),
+                email: userInfo.email 
             }
-                
-    }
-
-
+        ))
+        setLocal(false)
         
+       }  else {
+        dispatch(addWishList(  {productId: Number(id),
+            email: userInfo.email     
+          }))
+          setLocal(true)
+                 }
+    }
+}
+
 
     return (
         <CardContainer>
 
             <CardDetail to={`/details/${id}`}>
-            <ButtonHeart  onClick={(e)=>handleWishList(e)}> <FontAwesomeIcon  icon={faHeart } /> </ButtonHeart>
-
+            {  local === false ?    
+            <ButtonHeart      onClick={(e)=>handleWishList(e)}> <FontAwesomeIcon  icon={faHeart } /> </ButtonHeart>
+:
+            <ButtonHe     onClick={(e)=>handleWishList(e)}> <FontAwesomeIcon  icon={faHeart } /> </ButtonHe >
+            }
+          
                 <CardImage>
                     <img src={image} alt="" />
                 </CardImage>

@@ -7,6 +7,7 @@ import {
   orderProducts,
   setCurrentPage,
   clearDetail,
+  getWishList
 } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Filters from "../Filters";
@@ -20,8 +21,13 @@ export default function Catalog() {
   const { allProducts, products, page } = useSelector((state) => state);
   const [loader, setLoader] = useState(true);
   const [filters, setFilters] = useState(false);
-  
+  // ---------------------------
+  const userInfo = useSelector((state) => state.userInfo);
 
+  const stateWish = useSelector((state)=>state.state_WishList)
+  const stateRespWishList = useSelector((state)=>state.resWishList)
+
+// --------------------------------
   const productsPerPage = 30;
   const indexLastProduct = page * productsPerPage;
   const indexFirstProduct = indexLastProduct - productsPerPage;
@@ -52,6 +58,17 @@ export default function Catalog() {
     dispatch(filter(filters));
     dispatch(setCurrentPage(1));
   };
+
+  useEffect(() => {
+    if ( userInfo !== null){ 
+      dispatch(getWishList({ email: userInfo.email }))
+      }
+  }, [stateRespWishList])
+
+
+
+
+
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -91,6 +108,8 @@ export default function Catalog() {
                             image={product.image}
                             description={product.description}
                             porcentaje={product.porcentaje}
+
+                            stateWish ={stateWish}
                         />
                     ))) || (
                     <NoResult>

@@ -332,7 +332,7 @@ export const fetchUserAuthenticated = () => {
 };
 
 export const addWishList = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
@@ -362,7 +362,7 @@ export const getWishList = (payload) => {
 
 
 export const deleteWishList = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     let result = await axios.put(
       `${process.env.REACT_APP_API_URL}/wishlist/remove`, payload

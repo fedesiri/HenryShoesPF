@@ -15,10 +15,6 @@ const stateRespWishList = useSelector((state)=>state.resWishList)
 const stateWish = useSelector((state)=>state.state_WishList)
 // console.log( "esto me llega",stateWish.data)
 const userInfo = useSelector((state) => state.userInfo);
-console.log(userInfo)
-console.log( "esto me llega",stateWish.data)
-console.log(stateRespWishList)
-
 
 
 
@@ -60,8 +56,8 @@ function handleDelete(e){
   </tr>
   </thead>
   <tbody>
-     {stateWish.data.products?.map (e =>  
-    <tr> 
+     {stateWish.data.products?.map ((e,index) =>  
+    <tr key={index} > 
 <td> <Link to= {`/details/${e.id}`}   >        
  <img src= {e.image}/> </Link>   </td>
 <td> {e.model}  </td>
