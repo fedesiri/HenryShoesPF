@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { getAllProducts } from "../../../redux/actions/index.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import CardPrev from "../createProduct/CardPrev"
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -267,6 +268,19 @@ const CreateProduct = () => {
         rtl={false}
         draggable
       />
+
+      <div>
+      <CardPrev
+      model={input.product}
+      brandName= {input.brand}
+      description = {input.description}
+      price= {input.price} 
+      image={input.image}
+      gender= {input.gender}
+      year= {input.year}
+      CategName={input.category}>
+      </CardPrev>
+      </div>
     </div>
   );
 };

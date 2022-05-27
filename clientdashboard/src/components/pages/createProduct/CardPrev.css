@@ -1,0 +1,25 @@
+.CardContainer {
+    width: 400px;
+    height: 400px;
+    backdrop-filter: saturate(50%);
+    background-color: var(--background-color);
+    border-radius: 0.8rem;
+    border-style: solid;
+    transition: all 0.2s 0s ease;
+}
+
+.CardImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3
+}
+
+.CardInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 200px;
+}
