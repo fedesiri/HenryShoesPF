@@ -15,6 +15,8 @@
 }
 .ContainerTable table{
     width: 100%;
+    text-align: center;
+
     /* border: solid; */
     border-collapse: collapse;
 
@@ -24,28 +26,24 @@ thead{
     font-size: 2rem;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: darkgray;
-border-bottom: thin solid;
+    border-bottom: thin solid;
 }
 
 tbody{
     font-size: 2rem;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: darkgray;
+
 }
 td img {
     width: 10rem;
 }
 
 th, td{
-    text-align: center;
-    padding: 0;
-
-}
-td{
-    
+    /* text-align: center; */
     border-bottom: thin solid;
+} 
 
-}
 
 .atras{
     font-size: 2rem;
@@ -59,4 +57,26 @@ td{
     width: 2.5rem;
     height: 2.5rem;
 
+}
+
+.tableIcon{
+    font-size: 2rem;
+   border: none;
+   
+
+}
+.buttonTable{
+    background-color: transparent;
+    margin-right: 4rem;
+    cursor: pointer;
+    border: none;
+
+}
+.buttonTable :hover{
+    color: yellow;
+
+}
+.h1Tabla{
+    background-color: rgb(248, 248, 136);
+    border-radius: 1rem;
 }

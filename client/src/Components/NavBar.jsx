@@ -69,11 +69,13 @@ export default function NavBar() {
         </Banner>
           
         <SearchNav>
+          { userInfo?( 
         <Link to="/wish-list">< DivWishList>
             
               Wish List <FontAwesomeIcon  icon={faHeart } />
               
-          </ DivWishList></Link>
+          </ DivWishList></Link>):null
+}
           <div>
             <SearchBar />
           </div>
