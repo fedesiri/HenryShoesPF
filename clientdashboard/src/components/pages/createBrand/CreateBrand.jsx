@@ -1,14 +1,15 @@
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import "./createBrand.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@material-ui/data-grid";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands } from "../../../redux/actions/index.js";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function CreateBrand() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ export default function CreateBrand() {
           setInput({
             name: "",
           });
+          dispatch(getAllBrands());
           toast.success(response.data.message);
         }
       } catch (error) {
@@ -62,13 +64,26 @@ export default function CreateBrand() {
       axios({
         method: "delete",
         url: `${process.env.REACT_APP_API_URL}/admin/delete-brand/${id}`,
-      }).then((res) => {
-        console.log(res)
-        toast.success(res.data.message);
-        dispatch(getAllBrands());
-      }).catch(err => console.log(err))
+      })
+        .then((res) => {
+          console.log(res);
+          toast.success(res.data.message);
+          dispatch(getAllBrands());
+        })
+        .catch((err) => console.log(err));
     }
   };
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    );
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -87,7 +102,7 @@ export default function CreateBrand() {
           <>
             <DeleteOutline
               className="productListDelete"
-                onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row.id)}
               // onClick={() => console.log("soy delete")}
             />
           </>
@@ -95,6 +110,27 @@ export default function CreateBrand() {
       },
     },
   ];
+  const [arrayIds, setArrayIds] = useState([]);
+
+  const handleDeleteAll = async () => {
+    console.log(arrayIds);
+    try {
+        const response = await axios.delete(
+          `${process.env.REACT_APP_API_URL}/admin/delete-all-brands`, {
+            data: {
+              ids: arrayIds,
+            }
+          });
+        if (response.data) {
+          toast.success("Brands deleted successfully");
+          dispatch(getAllBrands());
+        } else {
+          toast.error("Something went wrong");
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="newBrand">
@@ -116,14 +152,27 @@ export default function CreateBrand() {
           </button>
         </form>
         <div className="addBrandRight">
+          <Button
+            variant="contained"
+            color="secondary"
+            // className={classes.button}
+            style={{display: `${arrayIds.length > 1 ? "" : "none"}`}}
+            startIcon={<DeleteIcon />}
+            onClick={handleDeleteAll}
+          >
+            Delete selected
+          </Button>
           <DataGrid
             rows={brands}
             columns={columns}
-            pageSize={15}
+            pageSize={10}
             checkboxSelection
             disableSelectionOnClick
+            onSelectionModelChange={(ids) => setArrayIds(ids)}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
           />
-
         </div>
       </div>
       <ToastContainer

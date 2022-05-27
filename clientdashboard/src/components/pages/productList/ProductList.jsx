@@ -1,11 +1,22 @@
 import "./productList.css";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../../redux/actions";
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import { Button } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -66,18 +77,76 @@ export default function ProductList() {
     },
   ];
 
+  const [arrayIds, setArrayIds] = useState([]);
+
+  const handleDeleteAll = async () => {
+    console.log(arrayIds);
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/admin/delete-many-products`,
+        {
+          data: {
+            ids: arrayIds,
+          },
+        }
+      );
+      if (response.data) {
+        toast.success("Brands deleted successfully");
+        dispatch(getAllProducts());
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    );
+  }
+
   return (
     <>
       <div className="productList">
         <h1>Products</h1>
+        <Button
+          variant="contained"
+          color="secondary"
+          // className={classes.button}
+          style={{ display: `${arrayIds.length > 1 ? "" : "none"}` }}
+          startIcon={<DeleteIcon />}
+          onClick={handleDeleteAll}
+        >
+          Delete selected
+        </Button>
         <DataGrid
           rows={products}
           disableSelectionOnClick
           columns={columns}
           pageSize={20}
           checkboxSelection
+          onSelectionModelChange={(ids) => setArrayIds(ids)}
+          components={{
+            Toolbar: CustomToolbar,
+          }}
         />
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+      />
     </>
   );
 }

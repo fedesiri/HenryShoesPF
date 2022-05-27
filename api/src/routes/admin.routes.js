@@ -7,13 +7,14 @@ import {
   ofertSelect,
   deletePromotion,
   deleteDestacado,
+  deleteManyProducts
 } from "../controllers/products.controller.js";
 import {
   createCategory,
   modifCategory,
   deleteCategory,
 } from "../controllers/category.controller.js";
-import { getAllBrands, createBrand, updateBrand, deleteBrand } from "../controllers/brands.controller.js";
+import { getAllBrands, createBrand, updateBrand, deleteBrand, deleteManyBrands } from "../controllers/brands.controller.js";
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.put("/sale", ofertSelect);
 router.put("/deletePromotion", deletePromotion);
 router.put("/deleteDestacado", deleteDestacado);
 router.delete("/delete/:id", deleteProduct);
+router.delete("/delete-many-products", deleteManyProducts)
 
 //Categories
 router.post("/create-categories", createCategory);
@@ -37,6 +39,7 @@ router.get("/brands", getAllBrands)
 router.post("/create-brand", createBrand)
 router.put("/update-brand/:id", updateBrand)
 router.delete("/delete-brand/:id", deleteBrand)
+router.delete("/delete-all-brands", deleteManyBrands)
 
 //User
 // router.put('/update/user', passport.authenticate('jwt', {session: false}), roleVerify, userUpdateController);
