@@ -6,8 +6,14 @@
     border-radius: 0.8rem;
     border-style: solid;
     transition: all 0.2s 0s ease;
-}
+    display: grid;
+    margin-left: 15%;
+    margin-top: 20%;
+    justify-items: center;
+    align-items: center;
+    box-shadow: 5px 5px 5px 2px gray, 8px 8px 8px 5px white;
 
+}
 .CardImage {
     display: flex;
     justify-content: center;
@@ -18,8 +24,11 @@
 .CardInfo {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: space-between;
     margin-bottom: 10px;
     height: 200px;
+    color: gray;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
