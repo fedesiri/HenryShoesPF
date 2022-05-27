@@ -21,6 +21,7 @@ export const getUserById = async (req, res) => {
 
 export const editUser = async (req, res) => {
     const { name, email, password, lastname } = req.body 
+    console.log(req.body, 'soy req.bodyyyyy!!!!')
     try{
         await User.update(
             {
@@ -36,6 +37,7 @@ export const editUser = async (req, res) => {
             }
           );
           res.send({message: 'User has been update succesfuly!'})
+          console.log(req.body, 'soy req.bodyyyyy!!!!, editado???')
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
@@ -49,7 +51,7 @@ export const editUser = async (req, res) => {
               id: req.params.id,
             },
           })
-          return res.send("User has been deleted successfully");
+          return res.send({message: "User has been deleted successfully"});
 
       } catch (error){
         return res.send({ message: err }).status(400);

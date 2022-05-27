@@ -4,55 +4,133 @@ import {
     MailOutline,
     PermIdentity,
     PhoneAndroid,
-    Publish,
   } from "@material-ui/icons";
+import { useEffect, useState } from "react";
   import { Link } from "react-router-dom";
   import "./user.css";
+  import axios from 'axios'
+  import { useParams } from "react-router-dom";
+  import FingerprintIcon from '@material-ui/icons/Fingerprint';
+  import { ToastContainer, toast } from "react-toastify";
   
   export default function User() {
+    const {userId} = useParams()
+    const [user, setUser] = useState({})    
+
+    async function findUser(){
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${userId}`);
+        return response.data
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    const [input, setInput] = useState({
+      name: "",
+      lastname: "",
+      id: "",
+      email: "",
+      roleId: "",
+      address: "",
+    });
+
+    useEffect(() => {
+      async function fetchData(){
+        const result = await findUser()
+        setUser(result)
+      }
+      fetchData()
+    }, [])
+
+    const HandleOnChange = (e) => {
+      setInput((PreValue) => ({
+        ...PreValue,
+        [e.target.name]: e.target.value,
+      }));
+      // setError(
+      //   validate({
+      //     ...input,
+      //     [e.target.name]: e.target.value,
+      //   })
+      // );
+    };
+
+    const HandleOnSubmit = async (e) => {
+    e.preventDefault();
+    // const form = document.getElementById("CreateForm");
+    try {
+      console.log(input)
+      const response = await axios({
+        method: "put",
+        url: `${process.env.REACT_APP_API_URL}/user/edit/${userId}`,
+        data: {
+          name: input.name !== "" ? input.name : user.name,
+          lastname: input.lastname !== "" ? input.lastname : user.lastname,
+          email: input.email !== "" ? input.email : user.email,
+          roleId: input.roleId !== "" ? input.roleId : user.roleId,
+          address: input.address !== "" ? input.address : user.address,
+        },
+      });
+      console.log(input, 'despues de que termine')
+      toast(response.data.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
     return (
       <div className="user">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable
+        />
         <div className="userTitleContainer">
           <h1 className="userTitle">Edit User</h1>
-          <Link to="/newUser">
+          {/* <Link to="/newUser">
             <button className="userAddButton">Create</button>
-          </Link>
+          </Link> */}
         </div>
         <div className="userContainer">
           <div className="userShow">
             <div className="userShowTop">
-              {/* <img
-                src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                alt=""
-                className="userShowImg"
-              /> */}
               <div className="userShowTopTitle">
-                <span className="userShowUsername">Anna Becker</span>
-                <span className="userShowUserTitle">Software Engineer</span>
+                <span className="userShowUsername">{user.name}</span>
               </div>
             </div>
             <div className="userShowBottom">
               <span className="userShowTitle">Account Details</span>
               <div className="userShowInfo">
                 <PermIdentity className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99</span>
+                <span className="userShowInfoTitle">{user.name +" "+ user.lastname}</span>
               </div>
               <div className="userShowInfo">
-                <CalendarToday className="userShowIcon" />
-                <span className="userShowInfoTitle">10.12.1999</span>
+                <FingerprintIcon className="userShowIcon" />
+                <span className="userShowInfoTitle">{user.id}</span>
               </div>
-              <span className="userShowTitle">Contact Details</span>
-              <div className="userShowInfo">
+              
+              {/* <span className="userShowTitle">Contact Details</span> */}
+              {/* <div className="userShowInfo">
                 <PhoneAndroid className="userShowIcon" />
                 <span className="userShowInfoTitle">+1 123 456 67</span>
-              </div>
+              </div> */}
               <div className="userShowInfo">
                 <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+                <span className="userShowInfoTitle">{user.email}</span>
+              </div>
+              <div className="userShowInfo">
+                <PermIdentity className="userShowIcon" />
+                <span className="userShowInfoTitle">Role: {user.roleId}</span>
               </div>
               <div className="userShowInfo">
                 <LocationSearching className="userShowIcon" />
-                <span className="userShowInfoTitle">New York | USA</span>
+                <span className="userShowInfoTitle">{user.address}</span>
               </div>
             </div>
           </div>
@@ -61,43 +139,58 @@ import {
             <form className="userUpdateForm">
               <div className="userUpdateLeft">
                 <div className="userUpdateItem">
-                  <label>Username</label>
+                  <label>Name</label>
                   <input
+                    name="name"
+                    id="name"
                     type="text"
-                    placeholder="annabeck99"
+                    placeholder={user.name}
                     className="userUpdateInput"
+                    onChange={HandleOnChange}
                   />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Full Name</label>
+                  <label>Last name</label>
                   <input
+                    name="lastname"
+                    id="lastname"
                     type="text"
-                    placeholder="Anna Becker"
+                    placeholder={user.lastname}
                     className="userUpdateInput"
+                    onChange={HandleOnChange}
                   />
                 </div>
                 <div className="userUpdateItem">
                   <label>Email</label>
                   <input
+                    name="email"
+                    id="email"
                     type="text"
-                    placeholder="annabeck99@gmail.com"
+                    placeholder={user.email}
                     className="userUpdateInput"
+                    onChange={HandleOnChange}
                   />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Phone</label>
+                  <label>Role</label>
                   <input
-                    type="text"
-                    placeholder="+1 123 456 67"
+                    name="roleId"
+                    id="roleId"
+                    type="number"
+                    placeholder={user.roleId}
                     className="userUpdateInput"
+                    onChange={HandleOnChange}
                   />
                 </div>
                 <div className="userUpdateItem">
                   <label>Address</label>
                   <input
+                    name="address"
+                    id="address"
                     type="text"
-                    placeholder="New York | USA"
+                    placeholder={user.address}
                     className="userUpdateInput"
+                    onChange={HandleOnChange}
                   />
                 </div>
               </div>
@@ -113,7 +206,7 @@ import {
                   </label>
                   <input type="file" id="file" style={{ display: "none" }} />
                 </div> */}
-                <button className="userUpdateButton">Update</button>
+                <button onClick={(e) => HandleOnSubmit(e)} className="userUpdateButton">Update</button>
               </div>
             </form>
           </div>
