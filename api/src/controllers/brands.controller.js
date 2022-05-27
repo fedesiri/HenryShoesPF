@@ -15,8 +15,10 @@ export const getAllBrands = async (req, res) => {
 };
 
 export const createBrand = async (req, res) => {
-  const { name } = req.body;
-  var brandToUpper = name.charAt(0).toUpperCase() + name.slice(1);
+  console.log(req.body)
+  const { name } = req.body; 
+  console.log(name)
+  var brandToUpper = name?.charAt(0).toUpperCase() + name?.slice(1);
   console.log(brandToUpper);
 
   try {

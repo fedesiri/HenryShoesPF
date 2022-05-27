@@ -1,0 +1,51 @@
+.newBrand {
+    flex: 4;
+   margin-right: 50px;
+  }
+  .addBrandContainerForm{
+  display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: start;
+    height: 100vh;
+    margin-bottom: 50px;
+  }
+  
+  .addBrandForm {
+    margin-top: 10px;
+  }
+  
+  .addBrandItem {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .addBrandItem > label {
+    color: gray;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .addBrandItem > input {
+    padding: 10px;
+  }
+  
+  .addBrandItem > select {
+    padding: 10px;
+  }
+
+  .addBrandRight{
+    width: 100%;
+  }
+  
+  .addBrandButton {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: darkblue;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }

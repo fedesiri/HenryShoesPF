@@ -57,6 +57,12 @@ export default function Sidebar() {
                 Create Category
               </li>
             </Link>
+            <Link style={{textDecoration: "none"}} to="/create-brand" className="link">
+              <li className="sidebarListItem">
+                <CreateIcon className="sidebarIcon" />
+                Create Brand
+              </li>
+            </Link>
             <li className="sidebarListItem">
               <AttachMoney className="sidebarIcon" />
               Transactions
