@@ -7,7 +7,7 @@ export const getStock = async (req, res) => {
   const sizeId = req.body.sizeId;
   try {
     if (sizeId) {
-      const stock = await Orders.findOne({
+      const stock = await Orders.findOrCreate({
         where: {
           sizeId: sizeId,
           productId: productId,
@@ -17,14 +17,14 @@ export const getStock = async (req, res) => {
           attribute: ["email"],
         },
       });
-      stock ? res.send(stock) : res.send("The default stock if 5");
+      stock ? res.send(stock) : res.send(5);
     } else {
       const stock = await Orders.findAll({
         where: {
           productId: productId,
         },
       });
-      stock.length > 0 ? res.send(stock) : res.send("The default stock if 5");
+      stock.length > 0 ? res.send(stock) : res.send(5);
     }
   } catch (err) {
     res.send(err.message);
@@ -69,6 +69,7 @@ export const createOrder = async (req, res) => {
     const selectedCart = await ShoppingCart.findOne({
       where: {
         email: email,
+        statusOpen: true
       },
       include: {
         model: Orders,

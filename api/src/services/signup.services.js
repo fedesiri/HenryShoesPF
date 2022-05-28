@@ -52,7 +52,7 @@ export const signUpService = async (req, res) => {
         await roleUser.addUser(newUser);
       }
       const newCart = await ShoppingCart.create({});
-      await newUser.setShoppingCart(newCart);
+      await newUser.addShoppingCart(newCart);
 
       const mailOptions = {
         from: ` "Verify your email" <${"store.henry.shoes@gmail.com"}>`,
