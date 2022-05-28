@@ -54,6 +54,7 @@ export const signInGoogle = new GoogleStrategy(
           name: "user",
         },
       });
+      console.log(user, "USER PASSPORT")
       await roleUser.addUser(user[0]);
       const newCart = await ShoppingCart.create({});
       await user[0].addShoppingCart(newCart);
