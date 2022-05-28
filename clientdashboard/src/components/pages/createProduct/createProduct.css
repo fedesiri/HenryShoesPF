@@ -1,12 +1,28 @@
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.addProductForm {
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: 60% 60%;
+  padding: 10px;
+}
+
 .newProduct {
-    flex: 4;
-  }
+    flex:4;
+   }
   
-  .addProductForm {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: 33.33% 33.33%;
-  }
+
+.CardInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 200px;
+}
   
   .addProductItem {
     width: 250px;
@@ -30,7 +46,6 @@
   }
   
   .addProductButton {
-    margin-top: 10px;
     padding: 7px 10px;
     border: none;
     border-radius: 10px;
@@ -38,4 +53,13 @@
     color: white;
     font-weight: 600;
     cursor: pointer;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 15px;
+    margin-left: 48%;
   }
+
+
+  

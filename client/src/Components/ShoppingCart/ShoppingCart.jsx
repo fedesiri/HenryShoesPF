@@ -12,8 +12,10 @@ import NavBar from "../NavBar";
 import "./ShoppingCart.css";
 import { DelButton, AddButton } from "../../styles/Button";
 import { BackBtn } from "../../styles/Details";
-import { Link, useHref, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import VerifyPay  from "./VerifyPay"
+
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -95,18 +97,18 @@ const ShoppingCart = () => {
 
   let contador = 1;
 
-  const handleCheckout = async () => {
-    if (userInfo) {
-      const {data: {links}} = await axios.post(`${process.env.REACT_APP_API_URL}/payment/create-order`, { total: sumPrice });
-      var redirectUrl = links[1].href
-      console.log(redirectUrl)
-      window.location.href = redirectUrl
-    } else {
-      console.log("no hay usuario")
+  //const handleCheckout = async () => {
+    //if (userInfo) {
+    //  const {data: {links}} = await axios.post(`${process.env.REACT_APP_API_URL}/payment/create-order`, { total: sumPrice });
+    //  var redirectUrl = links[1].href
+    //  console.log(redirectUrl)
+    //  window.location.href = redirectUrl
+   // } else {
+   //   console.log("no hay usuario")
       // navigate("/");
       //aqui agregar opcion para abrir el modal de login
-    }
-  }
+  //  }
+ // }
 
   return (
     <div>
@@ -189,11 +191,15 @@ const ShoppingCart = () => {
             <div className="carritopegajoso">
               <h1> Order items {sumItems} units</h1>{" "}
               <h1> Total ${sumPrice} </h1>
-              <button onClick={handleCheckout}>Confirm and Pay</button>
+              <button>Confirm and Pay</button>
             </div>
           </div>
         </div>
       </div>
+
+
+<VerifyPay/>
+
     </div>
   );
 };

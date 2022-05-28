@@ -8,8 +8,9 @@ import {
   faTrashAlt,
   faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import NavBar from '../NavBar'
+import './WishList.css'
 
-import "./WishList.css";
 
 const WishList = () => {
   const dispatch = useDispatch();
@@ -34,59 +35,48 @@ const WishList = () => {
     }
   }
 
-  return userInfo === null || stateWish.data === undefined ? null : (
-    <div className="ContainerTable">
-      <Link className="atras" to="/">
-        {" "}
-        <FontAwesomeIcon icon={faArrowLeft} />{" "}
-      </Link>
-      <h1> Wish List</h1>
-      {stateWish.data?.products.length === 0 ? (
-        <h1 className="h1Tabla"> Aun no has guardado nada</h1>
-      ) : (
-        <table>
-          <thead className="thead">
-            <tr>
-              <th></th>
-              <th>Model</th>
-              {/* <th>  </th> */}
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>
-            {stateWish.data.products?.map((e, index) => (
-              <tr key={index}>
-                <td>
-                  {" "}
-                  <Link to={`/details/${e.id}`}>
-                    <img src={e.image} />{" "}
-                  </Link>{" "}
-                </td>
-                <td> {e.model} </td>
 
-                {/* <td>Add..   <button className='buttonTable'  >  <FontAwesomeIcon  className='tableIcon' icon={faCartPlus} /> </button> </td> */}
-                <td>
-                  {" "}
-                  <button
-                    className="buttonTable"
-                    name={e.id}
-                    value={e.id}
-                    onClick={(e) => handleDelete(e)}
-                  >
-                    {" "}
-                    <FontAwesomeIcon
-                      className="tableIcon"
-                      icon={faTrashAlt}
-                    />{" "}
-                  </button>{" "}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
-};
 
-export default WishList;
+  return userInfo === null || stateWish.data === undefined?(null):(
+
+<>  
+<NavBar/>
+
+<div className='ContainerTable'> 
+
+<Link className='atras' to="/"> <FontAwesomeIcon  icon={faArrowLeft} />       </Link> 
+<h1> Wish List</h1>
+{ stateWish.data.products.length === 0? <h1 className='h1Tabla'> You have not saved wish list </h1>: 
+<table>
+<thead className='thead'>
+  <tr>  
+  <th></th>
+  <th>Model</th>
+  {/* <th>  </th> */}
+  <th> </th>
+  </tr>
+  </thead>
+  <tbody>
+     {stateWish.data.products?.map ((e,index) =>  
+    <tr key={index} > 
+<td> <Link to= {`/details/${e.id}`}   >        
+ <img src= {e.image}/> </Link>   </td>
+<td> {e.model}  </td>
+
+{/* <td>Add..   <button className='buttonTable'  >  <FontAwesomeIcon  className='tableIcon' icon={faCartPlus} /> </button> </td> */}
+<td>  <button className='buttonTable'  name={e.id} value={e.id} onClick={e=>handleDelete(e)} > <FontAwesomeIcon  className='tableIcon' icon={faTrashAlt} />  </button> </td>
+</tr>)
+}
+  </tbody>
+</table>
+
+}
+
+</div>
+</>
+  
+  )
+}
+
+export default WishList
+

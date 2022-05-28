@@ -124,15 +124,11 @@ const CreateProduct = () => {
   BrandGetter(reduxProducts);
 
   return (
+    <div className="contenedor">
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm" name="CreateForm" id="CreateForm">
-        <div className="addProductItem">
-          {/*//! PENDIENTE LA IMAGEN */}
-          <label>Image</label>
-          <input name="image" type="file" id="file" />
-        </div>
-
+        
         <div style={{ marginTop: "20px" }} className="addProductItem">
           <label htmlFor="product">Product Name</label>
           <TextField
@@ -142,6 +138,12 @@ const CreateProduct = () => {
             type="text"
             placeholder="Product Name"
           />
+        </div>
+
+        <div className="addProductItem">
+          {/*//! PENDIENTE LA IMAGEN */}
+          <label>Image</label>
+          <input name="image" type="file" id="file" />
         </div>
 
         <div style={{ marginTop: "30px" }} className="addProductItem">
@@ -255,20 +257,11 @@ const CreateProduct = () => {
             <option value="no">No</option>
           </select>
         </div>
+        
       </form>
-        <button type="submit" onClick={(e) => HandleOnSubmit(e)} className="addProductButton">
-          Create
-        </button>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        draggable
-      />
-
+      </div>
+      
+      <div>
       <div>
       <CardPrev
       model={input.product}
@@ -281,6 +274,23 @@ const CreateProduct = () => {
       CategName={input.category}>
       </CardPrev>
       </div>
+
+      <button type="submit" onClick={(e) => HandleOnSubmit(e)} className="addProductButton">
+          Create
+        </button>
+
+        </div>
+
+        <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+      />
+      
     </div>
   );
 };
