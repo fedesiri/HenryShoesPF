@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-
+import bcrypt from "bcryptjs";
 
 export const getAllUsers = async (req, res) => {
     try{
@@ -26,7 +26,7 @@ export const editUser = async (req, res) => {
             {
               name: name,
               email: email,
-              password: password,
+              password: bcrypt.hashSync(password, 10),
               lastname: lastname,  
               address: address,
               isVerified: isVerified,

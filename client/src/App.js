@@ -15,6 +15,8 @@ import LoginSuccess from "./Components/containers/LoginSuccess";
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import WishList from "./Components/WishList/WishList"
+import UserProfile from "./Components/User/UserProfile";
+import UserAccount from "./Components/User/UserAccount";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -34,6 +36,7 @@ function App() {
         <Route path="/reset-password/:token" element={<ChangePassword />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/wish-list" element={<WishList />} />
+        <Route path='/profile' element={<UserProfile />} />
 
       </Routes>
     </ContentWrapper>
