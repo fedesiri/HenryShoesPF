@@ -7,7 +7,30 @@ dotenv.config();
 
 export const createPayment = async (req, res) => {
     // console.log(req.body)
-  try {
+    const {email} = req.body
+    let denegatedOrders = [];
+
+    try {
+    const selectedCart = await ShoppingCart.findOne({
+      where: {
+        email: email,
+        statusOpen: true
+      },
+      include: {
+        model: Orders,
+        attributes: ["sizeId", "productId", "quantity", "stock"],
+      },
+    });
+  
+    console.log(await selectedCart.orders)
+
+    await selectedCart.orders.map( (ord) => {
+      if (ord.quantity > ord.stock){
+        denegatedOrders.push(ord)
+      }
+    })
+
+  if(await denegatedOrders.length == 0){  
     const order = {
       intent: "CAPTURE",
       purchase_units: [
@@ -63,7 +86,13 @@ export const createPayment = async (req, res) => {
     // console.log(response.data);
 
     res.json(response.data);
+
+  }else{
+    res.status(500).send(denegatedOrders)
+  }
+
   } catch (error) {
+    console.log(error)
     return res.status(500).send({ message: "Something went wrong" });
   }
 };
@@ -90,6 +119,36 @@ export const CloseCart = async (req, res) => {
   const {email} = req.body;
 
   try{
+    const selectedCart = await ShoppingCart.findOne({
+      where:{
+        email: email,
+        statusOpen: true
+      },
+      include: {
+        model: Orders,
+        attributes: ["sizeId", "productId", "quantity", "stock", "id"],
+      },
+    });
+
+    console.log(selectedCart.orders,"Esto es selectedd")
+
+    await selectedCart.orders.map((element) => {
+
+      const newStock = element.stock-element.quantity
+      const id = element.id
+
+      element.update({
+        id: id,
+        stock: newStock
+    },
+    {
+      where:{
+        id: id,
+      }
+    }
+    )
+    });
+  
   const closeCart = await ShoppingCart.update(
     {
       statusOpen: false
@@ -118,9 +177,9 @@ export const CloseCart = async (req, res) => {
     },
     include: {
       model: Orders,
-      attributes: ["sizeId", "productId", "quantity"],
+      attributes: ["sizeId", "productId", "quantity", "stock"],
     },
-  })
+  });
 
 
   res.send(closedCart)

@@ -95,7 +95,7 @@ export const createOrder = async (req, res) => {
           const newOrder = await Orders.update(
             {
               quantity: ordenes[i].quantity,
-              stock: thisStock - ordenes[i].quantity,
+              // stock: thisStock - ordenes[i].quantity,
             },
             {
               where: {
