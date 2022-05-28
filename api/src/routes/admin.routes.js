@@ -10,6 +10,7 @@ import {
   deleteManyProducts
 } from "../controllers/products.controller.js";
 import {
+  getCategory,
   createCategory,
   modifCategory,
   deleteCategory,
@@ -29,6 +30,7 @@ router.delete("/delete/:id", deleteProduct);
 router.delete("/delete-many-products", deleteManyProducts)
 
 //Categories
+router.get("/category", getCategory);
 router.post("/create-categories", createCategory);
 router.put("/update-category/:id", modifCategory);
 router.delete("/delete-category/:id", deleteCategory);

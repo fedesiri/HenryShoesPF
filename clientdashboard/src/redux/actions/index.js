@@ -27,6 +27,7 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
+  GET_ALL_CATEGORIES
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -154,6 +155,22 @@ export const getAllBrands = () => {
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+};
+
+export const getAllCategory = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/admin/category`)
+      .then((response) => {
+        return dispatch({
+          type: GET_ALL_CATEGORIES,
           payload: response.data,
         });
       })

@@ -8,6 +8,7 @@ import CreateProduct from "./components/pages/createProduct/CreateProduct";
 import UserList from "./components/pages/userList/UserList";
 import User from "./components/pages/user/User";
 import CreateBrand from "./components/pages/createBrand/CreateBrand";
+import CreateCategory from "./components/pages/createCategory/CreateCategory";
 
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
           {/* NEWPRODUCT */}
           <Route path="/create-products">
           <CreateProduct />
+          </Route>
+          {/* NEWCATEGORY */}
+          <Route path="/create-category">
+          <CreateCategory />
           </Route>
           {/* NEWBRAND */}
           <Route path="/create-brand">

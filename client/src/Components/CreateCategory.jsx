@@ -8,6 +8,7 @@ import Paged from "../Components/Paged";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
+
 const CreateCategory = () => {
   const dispatch = useDispatch();
   useEffect(() => {
