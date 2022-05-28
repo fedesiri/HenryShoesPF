@@ -56,7 +56,7 @@ export const signInGoogle = new GoogleStrategy(
       });
       await roleUser.addUser(user[0]);
       const newCart = await ShoppingCart.create({});
-      await user[0].setShoppingCart(newCart);
+      await user[0].addShoppingCart(newCart);
 
       if (user && user[0]) return done(null, user && user[0]);
     } catch (error) {
