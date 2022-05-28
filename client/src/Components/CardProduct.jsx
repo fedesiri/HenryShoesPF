@@ -62,12 +62,12 @@ export default function CardProduct({
   function handleWishList(e) {
     if (!userInfo) {
       e.preventDefault();
-      e.stopPropagation();
 
       alert("You need to register") }
     
    if(userInfo  ){ 
        if ( array.length !== 0 && array.includes(id)){
+        e.preventDefault();
         dispatch(deleteWishList(
             {productId: Number(id),
                 email: userInfo.email 
@@ -77,6 +77,7 @@ export default function CardProduct({
         
        } 
    else {
+    e.preventDefault();
         dispatch(addWishList(  {productId: Number(id),
             email: userInfo.email     
           }))
