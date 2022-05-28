@@ -46,7 +46,7 @@ export default function CardProduct({
   }, [page]);
 
   let array = [];
-  if (userInfo && stateWish.data !== "") {
+  if (userInfo ) {
     if (
       stateWish.data?.products !== undefined &&
       stateWish.data?.products !== null &&
@@ -57,17 +57,16 @@ export default function CardProduct({
       });
     }
   }
+  console.log(array)
 
   function handleWishList(e) {
     if (!userInfo) {
       e.preventDefault();
-      // e.stopPropagation()
-      alert("You need to register");
-  
-  
-  
-        if(userInfo && stateWish.data !== "" ){ 
-       e.preventDefault()
+      e.stopPropagation();
+
+      alert("You need to register") }
+    
+   if(userInfo  ){ 
        if ( array.length !== 0 && array.includes(id)){
         dispatch(deleteWishList(
             {productId: Number(id),
@@ -76,28 +75,18 @@ export default function CardProduct({
         ))
         setLocal(false)
         
-       }  else {
+       } 
+   else {
         dispatch(addWishList(  {productId: Number(id),
             email: userInfo.email     
           }))
           setLocal(true)
-                 }
-
-    }
-
-    if (userInfo) {
-      e.preventDefault();
-      if (array.length !== 0 && array.includes(id)) {
-        dispatch(
-          deleteWishList({ productId: Number(id), email: userInfo.email })
-        );
-        setLocal(false);
-      } else {
-        dispatch(addWishList({ productId: Number(id), email: userInfo.email }));
-        setLocal(true);
       }
-    }
-  }
+
+
+                 }
+                }
+
 
   return (
     <CardContainer>
@@ -135,4 +124,4 @@ export default function CardProduct({
       </CardDetail>
     </CardContainer>
   );
-}}
+}
