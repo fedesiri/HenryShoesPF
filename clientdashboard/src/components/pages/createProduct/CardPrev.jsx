@@ -22,12 +22,6 @@ export default function CardPrev ({ id, model, price, image, brandName, descript
 
                     <div>
                     <p>
-                        Description: {description} 
-                    </p>
-                    </div>
-
-                    <div>
-                    <p>
                         Gender: {gender} 
                     </p>
                     </div>
@@ -40,13 +34,19 @@ export default function CardPrev ({ id, model, price, image, brandName, descript
 
                     <div>
                     <p>
-                        Category Name: {CategName} 
+                        Description: {description}
                     </p>
                     </div>
 
                     <div>
                     <p>
                         Price:${price} 
+                    </p>
+                    </div>
+
+                    <div>
+                    <p>
+                        Category Name: {CategName} 
                     </p>
                     </div>
                 </div>
