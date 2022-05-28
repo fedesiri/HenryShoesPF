@@ -80,8 +80,13 @@ const CreateProduct = () => {
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.getElementById("CreateForm");
+    const selectedImg = document.getElementById("uploadImage");
+    console.log(selectedImg, "esto es selected")
+    console.log(input.image.files[0].path, "esto es src")
     if (input.product.length > 0)
       try {
+         //const formData = new FormData(selectedImg)
+        //console.log(formData, "esto es con fromdata") 
         const response = await axios({
           method: "post",
           url: `${process.env.REACT_APP_API_URL}/admin/create-products`,
@@ -119,6 +124,15 @@ const CreateProduct = () => {
       <div>
         <Link to="/">Back</Link>
       </div>
+
+      <div>
+          <label>Image: </label>
+        </div>
+        <div>
+          <form name="uploadImage" id="uploadImage" encType="multipart/form-data" onSubmit={HandleOnChange}>
+          <input name="image" type="file" onChange={HandleOnChange} />
+          </form>
+        </div>
 
       <form name="CreateForm" id="CreateForm">
         <label>Brand: </label>
@@ -198,12 +212,12 @@ const CreateProduct = () => {
           <input name="category" type="text" onChange={HandleOnChange} />
         </div>
 
-        <div>
+        {/* <div>
           <label>Image: </label>
         </div>
         <div>
           <input name="image" type="text" onChange={HandleOnChange} />
-        </div>
+        </div> */}
         <div>
           {error.price ? <p>{error.price}</p> : null}
           {error.incomplete ? <p>{error.incomplete}</p> : null}

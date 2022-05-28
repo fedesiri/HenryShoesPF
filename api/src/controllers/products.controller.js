@@ -3,6 +3,16 @@ import Brands from "../models/Brands.js";
 import Category from "../models/Category.js";
 import Products from "../models/Products.js";
 import Sizes from "../models/Sizes.js";
+import cloudinary from "cloudinary";
+import multer from "multer";
+const upload = multer()
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  uploadPreset: "HenryShoes"
+});
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -72,6 +82,8 @@ export const getDetails = async (req, res) => {
   }
 };
 
+let single = upload.single("image")
+
 export async function createProduct(req, res) {
   try {
     let {
@@ -84,6 +96,16 @@ export async function createProduct(req, res) {
       year,
       CategName,
     } = req.body;
+
+    const savedImage = await cloudinary.uploader.upload(image, (error, result)=>{
+      if(result){
+      return result.info.secure_url
+      }else{
+        return error
+      }
+    });
+
+    console.log( "ahasgahgashas", savedImage)
 
     let productCreate = await Products.create({
       model: model,
