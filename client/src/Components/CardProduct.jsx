@@ -1,34 +1,16 @@
-import { CardContainer, CardDetail, CardImage, CardInfo, ButtonHeart,ButtonHe  } from "../styles/CardProduct";
-import { useDispatch,useSelector} from "react-redux";
-import {addWishList,deleteWishList} from "../redux/actions/index"
-import { useEffect,useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faHeart } from '@fortawesome/free-solid-svg-icons'
-
-
-export default function CardProduct ({ id, model, price, image , porcentaje, stateWish  }){
-
-const dispatch = useDispatch()
-const userInfo = useSelector((state) => state.userInfo);
-const stateRespWishList = useSelector((state)=>state.resWishList)
-// console.log(stateRespWishList.status)
-const { allProducts, products, page } = useSelector((state) => state);
-console.log(page)
-const [local, setLocal] = useState(false)
- console.log(stateWish)
-useEffect(() => {
-    if (array.length !== 0 && array.includes(id)){
-        setLocal(true)
-    }else { setLocal(false)} 
-}, [])
-
-useEffect(() => {
-    if (array.length !== 0 && array.includes(id)){
-        setLocal(true)
-    }else { setLocal(false)} 
-}, [page])
-
-
+import {
+  CardContainer,
+  CardDetail,
+  CardImage,
+  CardInfo,
+  ButtonHeart,
+  ButtonHe,
+} from "../styles/CardProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { addWishList, deleteWishList } from "../redux/actions/index";
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export default function CardProduct({
   id,
@@ -45,7 +27,7 @@ export default function CardProduct({
   const { allProducts, products, page } = useSelector((state) => state);
   console.log(page);
   const [local, setLocal] = useState(false);
-  // console.log(stateWish.data.products)
+  console.log(stateWish);
   useEffect(() => {
     if (array.length !== 0 && array.includes(id)) {
       setLocal(true);
@@ -75,17 +57,12 @@ export default function CardProduct({
     }
   }
 
-
-
-
-    function handleWishList(e){
-if(!userInfo){
-    e.preventDefault()
-    // e.stopPropagation()
-    alert("You need to register")
-}
-
-
+  function handleWishList(e) {
+    if (!userInfo) {
+      e.preventDefault();
+      // e.stopPropagation()
+      alert("You need to register");
+    }
 
     if (userInfo) {
       e.preventDefault();
