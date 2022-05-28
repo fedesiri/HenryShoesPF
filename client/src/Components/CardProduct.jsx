@@ -15,7 +15,7 @@ const stateRespWishList = useSelector((state)=>state.resWishList)
 const { allProducts, products, page } = useSelector((state) => state);
 console.log(page)
 const [local, setLocal] = useState(false)
-// console.log(stateWish.data.products)
+console.log(stateWish.data.products)
 useEffect(() => {
     if (array.length !== 0 && array.includes(id)){
         setLocal(true)
@@ -32,7 +32,7 @@ useEffect(() => {
 
 let array =[]
 if(userInfo){
-if (stateWish.data.products !==undefined && stateWish.data.products !== null){
+if (stateWish.data.products !==undefined && stateWish.data.products !== null && stateWish.data.products.length !== 0 ){
     stateWish.data.products.forEach(e => {
         array.push(e.id)
     });

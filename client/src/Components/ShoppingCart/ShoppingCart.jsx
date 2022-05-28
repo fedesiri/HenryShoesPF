@@ -13,6 +13,7 @@ import "./ShoppingCart.css";
 import { DelButton, AddButton } from "../../styles/Button";
 import { BackBtn } from "../../styles/Details";
 import { Link, useNavigate } from "react-router-dom";
+import VerifyPay  from "./VerifyPay"
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -179,6 +180,10 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
+
+
+<VerifyPay/>
+
     </div>
   );
 };
