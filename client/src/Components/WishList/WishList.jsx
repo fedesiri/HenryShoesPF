@@ -4,7 +4,7 @@ import {getWishList, deleteWishList} from "../../redux/actions/index"
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faArrowLeft,faTrashAlt, faCartPlus} from '@fortawesome/free-solid-svg-icons'
-
+import NavBar from '../NavBar'
 import './WishList.css'
 
 const WishList = () => {
@@ -41,11 +41,14 @@ function handleDelete(e){
 
   return userInfo === null || stateWish.data === undefined?(null):(
 
- 
+<>  
+<NavBar/>
+
 <div className='ContainerTable'> 
+
 <Link className='atras' to="/"> <FontAwesomeIcon  icon={faArrowLeft} />       </Link> 
 <h1> Wish List</h1>
-{ stateWish.data.products.length === 0? <h1 className='h1Tabla'> Aun no has guardado nada</h1>: 
+{ stateWish.data.products.length === 0? <h1 className='h1Tabla'> You have not saved wish list </h1>: 
 <table>
 <thead className='thead'>
   <tr>  
@@ -72,7 +75,7 @@ function handleDelete(e){
 }
 
 </div>
-
+</>
   
   )
 }
