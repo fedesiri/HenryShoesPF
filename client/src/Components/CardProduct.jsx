@@ -36,6 +36,7 @@ export default function CardProduct({
     }
   }, []);
 
+
   useEffect(() => {
     if (array.length !== 0 && array.includes(id)) {
       setLocal(true);
@@ -45,7 +46,7 @@ export default function CardProduct({
   }, [page]);
 
   let array = [];
-  if (userInfo) {
+  if (userInfo && stateWish.data !== "") {
     if (
       stateWish.data?.products !== undefined &&
       stateWish.data?.products !== null &&
@@ -62,6 +63,26 @@ export default function CardProduct({
       e.preventDefault();
       // e.stopPropagation()
       alert("You need to register");
+  
+  
+  
+        if(userInfo && stateWish.data !== "" ){ 
+       e.preventDefault()
+       if ( array.length !== 0 && array.includes(id)){
+        dispatch(deleteWishList(
+            {productId: Number(id),
+                email: userInfo.email 
+            }
+        ))
+        setLocal(false)
+        
+       }  else {
+        dispatch(addWishList(  {productId: Number(id),
+            email: userInfo.email     
+          }))
+          setLocal(true)
+                 }
+
     }
 
     if (userInfo) {

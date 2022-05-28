@@ -37,7 +37,7 @@ const WishList = () => {
 
 
 
-  return userInfo === null || stateWish.data === undefined?(null):(
+  return userInfo === null || stateWish.data === undefined ?(null):(
 
 <>  
 <NavBar/>
@@ -46,7 +46,7 @@ const WishList = () => {
 
 <Link className='atras' to="/"> <FontAwesomeIcon  icon={faArrowLeft} />       </Link> 
 <h1> Wish List</h1>
-{ stateWish.data.products.length === 0? <h1 className='h1Tabla'> You have not saved wish list </h1>: 
+{ stateWish.data.products.length === 0 || stateWish.data === ""  ? <h1 className='h1Tabla'> You have not saved wish list </h1>: 
 <table>
 <thead className='thead'>
   <tr>  
