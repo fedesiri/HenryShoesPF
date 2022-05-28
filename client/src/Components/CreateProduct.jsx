@@ -79,9 +79,9 @@ const CreateProduct = () => {
     const files = e.target.files;
     const data = new FormData();
     data.append("image", files[0]);
-    data.append("HenryShoes", "HenryShoes");
+    data.append("upload_preset", "HenryShoes");
     const res = await fetch(
-      `https://api.cloudinary.com/v1_1/henryshoes/HenryShoes/upload`,
+      `https://api.cloudinary.com/v1_1/henryshoes/image/upload`,
       {
         method: "POST",
         body: data
