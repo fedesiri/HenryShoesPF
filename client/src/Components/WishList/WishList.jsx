@@ -27,6 +27,12 @@ const WishList = () => {
     }
   }, [stateRespWishList]);
 
+  useEffect(() => {
+    if (userInfo !== null) {
+      dispatch(getWishList({ email: userInfo.email }));
+    }
+  }, []);
+
   function handleDelete(e) {
     let id = Number(e.currentTarget.value);
     e.preventDefault();
