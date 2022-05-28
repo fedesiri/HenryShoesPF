@@ -1,5 +1,8 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import ShoppingCart from "../models/ShoppingCart.js";
+import User from "../models/User.js";
+import Orders from "../models/Orders.js"
 dotenv.config();
 
 export const createPayment = async (req, res) => {
@@ -82,3 +85,47 @@ export const capturePayment = async (req, res) => {
 export const cancelPayment = async (req, res) => {
   res.send("cancel order"); //! redireccionar a la pagina del carrito
 };
+
+export const CloseCart = async (req, res) => {
+  const {email} = req.body;
+
+  try{
+  const closeCart = await ShoppingCart.update(
+    {
+      statusOpen: false
+    },
+    {
+    where:{
+      email: email,
+      statusOpen: true
+    }
+  });
+
+  const newShoppingCart = await ShoppingCart.create();
+
+  const selectedUser = await User.findOne({
+    where:{
+      email: email
+    }
+  })
+
+  await selectedUser.addShoppingCart(newShoppingCart);
+
+  const closedCart = await ShoppingCart.findOne({
+    where:{
+      email: email,
+      statusOpen: false
+    },
+    include: {
+      model: Orders,
+      attributes: ["sizeId", "productId", "quantity"],
+    },
+  })
+
+
+  res.send(closedCart)
+}catch(err){
+  console.log(err)
+  res.send(err)
+}
+}
