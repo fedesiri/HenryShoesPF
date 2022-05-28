@@ -39,18 +39,6 @@ export default function Sidebar() {
                 Create Products
               </li>
             </Link>
-            <Link style={{textDecoration: "none"}} to="/create-oferta" className="link">
-              <li className="sidebarListItem">
-                <CreateIcon className="sidebarIcon" />
-                Create Ofert and BetSellers
-              </li>
-            </Link>
-            {/* <Link to="/edit-product" className="link">
-              <li className="sidebarListItem">
-                <CreateIcon className="sidebarIcon" />
-                Edit Product
-              </li>
-            </Link> */}
             <Link style={{textDecoration: "none"}} to="/create-category" className="link">
               <li className="sidebarListItem">
                 <CreateIcon className="sidebarIcon" />
