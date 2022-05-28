@@ -25,7 +25,7 @@ const ShoppingCart = sequelize.define(
 ShoppingCart.belongsToMany(Orders, { through: "ShoppingOrder" })
 Orders.belongsToMany(ShoppingCart, { through: "ShoppingOrder" })
 
-User.hasOne(ShoppingCart, { foreignKey: "email", sourceKey: "email" })
+User.hasMany(ShoppingCart, { foreignKey: "email", sourceKey: "email" })
 ShoppingCart.belongsTo(User, { foreignKey: "email", targetKey: "email" })
 
 export default ShoppingCart;

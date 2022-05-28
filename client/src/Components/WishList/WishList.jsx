@@ -1,41 +1,39 @@
-import React,{useEffect} from 'react'
-import { useSelector,useDispatch } from 'react-redux'
-import {getWishList, deleteWishList} from "../../redux/actions/index"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getWishList, deleteWishList } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faArrowLeft,faTrashAlt, faCartPlus} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faTrashAlt,
+  faCartPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import NavBar from '../NavBar'
 import './WishList.css'
 
+
 const WishList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-const stateRespWishList = useSelector((state)=>state.resWishList)
+  const stateRespWishList = useSelector((state) => state.resWishList);
 
-const stateWish = useSelector((state)=>state.state_WishList)
-// console.log( "esto me llega",stateWish.data)
-const userInfo = useSelector((state) => state.userInfo);
+  const stateWish = useSelector((state) => state.state_WishList);
+  // console.log( "esto me llega",stateWish.data)
+  const userInfo = useSelector((state) => state.userInfo);
 
-
-
-useEffect(() => {
-  if ( userInfo !== null){ 
-    dispatch(getWishList({ email: userInfo.email }))
+  useEffect(() => {
+    if (userInfo !== null) {
+      dispatch(getWishList({ email: userInfo.email }));
     }
-}, [stateRespWishList])
+  }, [stateRespWishList]);
 
-
-
-function handleDelete(e){
- 
-  let id = Number(e.currentTarget.value)
-  e.preventDefault()
-  if ( userInfo !== null){ 
-    dispatch(deleteWishList(  {productId: id,
-        email: userInfo.email     
-      }))
+  function handleDelete(e) {
+    let id = Number(e.currentTarget.value);
+    e.preventDefault();
+    if (userInfo !== null) {
+      dispatch(deleteWishList({ productId: id, email: userInfo.email }));
     }
-}
+  }
 
 
 
@@ -81,3 +79,4 @@ function handleDelete(e){
 }
 
 export default WishList
+
