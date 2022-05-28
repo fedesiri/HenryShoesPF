@@ -24,6 +24,7 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
+  GET_ALL_CATEGORIES,
 } from "../actions/types";
 
 const intialState = {
@@ -36,6 +37,7 @@ const intialState = {
   details: {},
   page: 1,
   brands: [],
+  categories:[],
   ofertSelect: [],
   filter: { brand: "All", gender: "filterByGender" },
   inOfertDestacado: [],
@@ -158,6 +160,13 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         brands: payload,
       };
+
+      case GET_ALL_CATEGORIES:
+        return {
+          ...state,
+          categories: payload,
+        };
+        
     case SET_CURRENT_PAGE:
       return { ...state, page: payload };
 

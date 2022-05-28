@@ -3,7 +3,7 @@ import Category from "../models/Category.js";
 export const getCategory = (req, res, next) => {
   Category.findAll()
     .then(function (categories) {
-      if (!categories) return res.sendStatus(404);
+      if (!categories) return res.status(404).send({ message: "There are no Categories." });
       res.json(categories);
     })
     .catch(next); 
