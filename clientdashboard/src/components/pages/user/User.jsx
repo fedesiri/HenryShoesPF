@@ -1,12 +1,9 @@
 import {
-    CalendarToday,
     LocationSearching,
     MailOutline,
     PermIdentity,
-    PhoneAndroid,
   } from "@material-ui/icons";
 import { useEffect, useState } from "react";
-  import { Link } from "react-router-dom";
   import "./user.css";
   import axios from 'axios'
   import { useParams } from "react-router-dom";

@@ -14,7 +14,7 @@ import VerOferta from "./VerOferta";
 const CargarOferta = () => {
   const dispatch = useDispatch();
   const onOfert = useSelector((state) => state.ofertSelect);
-  const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
+  // const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
   const resBack =useSelector((state)=> state.res_back_productOferts)
 
 
