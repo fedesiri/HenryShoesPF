@@ -31,12 +31,13 @@ useEffect(() => {
 
 
 let array =[]
-if(userInfo){
+if(userInfo && stateWish.data !== ""){
 if (stateWish.data.products !==undefined || stateWish.data.products !== null || stateWish.data.products.length !== 0 ){
     stateWish.data.products.forEach(e => {
         array.push(e.id)
     });
 }}
+console.log(array)
 
     function handleWishList(e){
 if(!userInfo){
@@ -45,7 +46,7 @@ if(!userInfo){
     alert("You need to register")
 }
 
-        if(userInfo){ 
+        if(userInfo && stateWish.data !== "" ){ 
        e.preventDefault()
        if ( array.length !== 0 && array.includes(id)){
         dispatch(deleteWishList(
