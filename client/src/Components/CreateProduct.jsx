@@ -31,14 +31,13 @@ const CreateProduct = () => {
   }
   BrandGetter(reduxProducts);
 
-  
+  const [image, setImage] = useState("");  
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     product: "",
     brand: "",
     description: "",
     price: "",
-    image: "",
     gender: "",
     year: "",
     category: "",
@@ -56,7 +55,6 @@ const CreateProduct = () => {
       !input.brand ||
       !input.gender ||
       !input.description ||
-      !input.image ||
       !input.category
     ) {
       error.incomplete = "Missing Fields";
@@ -77,6 +75,24 @@ const CreateProduct = () => {
     );
   };
 
+  const HandleOnChangeImage = async(e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("image", files[0]);
+    data.append("HenryShoes", "HenryShoes");
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/henryshoes/HenryShoes/upload`,
+      {
+        method: "POST",
+        body: data
+    }
+    );
+    const file = await res.json();
+    console.log(res);
+    setImage(file.secure_url);
+  }
+  console.log(image)
+
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.getElementById("CreateForm");
@@ -95,7 +111,7 @@ const CreateProduct = () => {
             brandName: input.brand,
             description: input.description,
             price: input.price,
-            image: input.image,
+            image: image,
             gender: input.gender,
             year: input.year,
             CategName: input.category,
@@ -129,8 +145,8 @@ const CreateProduct = () => {
           <label>Image: </label>
         </div>
         <div>
-          <form name="uploadImage" id="uploadImage" encType="multipart/form-data" onSubmit={HandleOnChange}>
-          <input name="image" type="file" onChange={HandleOnChange} />
+          <form name="image" id="image" encType="multipart/form-data" onSubmit={HandleOnChangeImage}>
+          <input name="image" type="file" onChange={HandleOnChangeImage} />
           </form>
         </div>
 
