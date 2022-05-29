@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { filterOfertDestacado } from "../../redux/actions/index";
 import ImagesPromotion from "./ImagesPromotion";
-import { Container, BackBtn } from "../../styles/PromotionEstilo";
+import { Container, BackBtn, BtnDiv, CardContainer, CardDetail, CardImage, CardInfo } from "../../styles/Promotion";
 import "./Promotion.css";
+
 
 const Promotion = () => {
   const product_Promotion = useSelector((state) => state.inOfertAux);
@@ -61,28 +62,35 @@ const Promotion = () => {
     return aplicar;
   }
 
-  return currentProducto.length === 0 ? (
-    <ImagesPromotion />
-  ) : (
-    <Container>
-      <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
-      {currentProducto.length === 0 ? (
-        <h1>holis</h1>
-      ) : (
-        currentProducto.map((e, index) => (
-          <div className="father1" key={index}>
-            <Link to={`/details/${e.id}`}>
-            <h1> {string_lentgMax(e.model)}</h1>
-            <h3>Before: {e.price}$</h3>
-            <h2>Now : {calculoDescuento(e.price, e.porcentaje)}$</h2>
-            <p> {e.porcentaje}% </p>
-            <img src={e.image} alt={e.model} />
-            </Link>
-          </div>
-        ))
-      )}
-      <BackBtn onClick={handleNextbtn}>Next</BackBtn>
-    </Container>
+  return currentProducto.length === 0 ? (<ImagesPromotion />) : (
+    <div>
+      <BtnDiv>
+        <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
+        <BackBtn onClick={handleNextbtn}>Next</BackBtn>
+      </BtnDiv>
+      <Container>
+        {currentProducto.length === 0 ? (
+          <h1>holis</h1>
+        ) : (
+          currentProducto.map((e, index) => (
+            <CardContainer key={index}>
+              <CardDetail to={`/details/${e.id}`}>
+              <CardInfo>
+                <h1> {string_lentgMax(e.model)}</h1>
+                <h3>Before: {e.price}$</h3>
+                <h2>Now : {calculoDescuento(e.price, e.porcentaje)}$</h2>
+                <p> {e.porcentaje}% </p>
+              </CardInfo>
+              <CardImage>
+                <img src={e.image} alt={e.model} />
+              </CardImage>
+              
+              </CardDetail>
+            </CardContainer>
+          ))
+        )}
+      </Container>
+    </div>
   );
 };
 

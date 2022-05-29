@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { filterOfertDestacado } from "../../redux/actions/index";
 import ImagesBestSellers from "./ImagesBestSellers"
-import { Container, BackBtn } from "../../styles/PromotionEstilo";
+import { Container, BackBtn, CardInfo, CardDetail, CardImage, CardContainer, BtnDiv } from "../../styles/BestSeller";
+import "./Promotion.css";
 
 const BestSellers = () => {
   const product_Destacado = useSelector((state) => state.inBestSellerAux);
@@ -63,23 +63,31 @@ const BestSellers = () => {
 
 
   return currentProducto.length === 0 ? (<ImagesBestSellers/>):(
-    <Container>
-      <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
+    <div>
+      <BtnDiv>
+        <BackBtn onClick={handlePrevbtn}>Prev</BackBtn>
+        <BackBtn onClick={handleNextbtn}>Next</BackBtn>
+      </BtnDiv>
+      <Container>
       {currentProducto.map((e) => (
-        <div className="father1"  key={e.id}>
-          <Link to={`/details/${e.id}`}>
-          <h1>{ string_lentgMax(  e.model)}</h1>
-          <h2> {e.price}$</h2>
-          {e.porcentaje&& <p>{e.porcentaje}%</p> }
-            { e.porcentaje&&  <h2>
-              Now :  {calculoDescuento(e.price,e.porcentaje) }$
+        <CardContainer  key={e.id}>
+          <CardDetail to={`/details/${e.id}`}>
+          <CardInfo>
+            <h1>{ string_lentgMax(  e.model)}</h1>
+            <h2> {e.price}$</h2>
+            {e.porcentaje&& <p>{e.porcentaje}%</p> }
+              { e.porcentaje&&  <h2>
+                Now :  {calculoDescuento(e.price,e.porcentaje) }$
             </h2>}
-            <img src={e.image} alt={e.model} />
-          </Link>
-        </div>
+          </CardInfo>
+          <CardImage>
+          <img src={e.image} alt={e.model} />
+          </CardImage>
+          </CardDetail>
+        </CardContainer>
       ))}
-      <BackBtn onClick={handleNextbtn}>Next</BackBtn>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
