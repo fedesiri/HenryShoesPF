@@ -26,6 +26,10 @@ import {
   FETCH_USER_AUTH,
   ADD_WISH_LIST,
   GET_WISH_LIST,
+  FETCH_USER,
+  PLACE_ORDER,
+  PAYMENT_SUCCESS,
+  CLEAR_SHOPPINGCART,
 } from "../actions/types";
 
 const intialState = {
@@ -100,12 +104,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         userInfo: payload,
+        // shoppingCartUserRegister: [],
       };
 
     case POST_LOG_OUT:
       return {
         ...state,
         userInfo: null,
+
       };
 
     case FILTER:
@@ -146,7 +152,6 @@ export default function rootReducer(state = intialState, { type, payload }) {
           brand: payload.brand,
           gender: payload.gender,
         },
-
       };
 
     case ORDER_PRODUCTS:
@@ -251,21 +256,21 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemInCart
           ? {
-            ...state,
-            shoppingCart: auxCartState.map((item) =>
-              item.id === newItem.id && item.sizes === newItem.sizes
-                ? {
-                  ...item,
-                  quantity:
-                    Number(item.quantity) + Number(newItem.quantity),
-                }
-                : item
-            ),
-          }
+              ...state,
+              shoppingCart: auxCartState.map((item) =>
+                item.id === newItem.id && item.sizes === newItem.sizes
+                  ? {
+                      ...item,
+                      quantity:
+                        Number(item.quantity) + Number(newItem.quantity),
+                    }
+                  : item
+              ),
+            }
           : {
-            ...state,
-            shoppingCart: [...state.shoppingCart].concat(newItem),
-          };
+              ...state,
+              shoppingCart: [...state.shoppingCart].concat(newItem),
+            };
       } else {
         // let auxCartState5 = state.shoppingCart;
         let auxCartState = state.shoppingCartUserRegister;
@@ -277,23 +282,23 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemInCart
           ? {
-            ...state,
-            shoppingCartUserRegister: auxCartState.map((item) =>
-              item.id === newItem.id && item.sizes === newItem.sizes
-                ? {
-                  ...item,
-                  quantity:
-                    Number(item.quantity) + Number(newItem.quantity),
-                }
-                : item
-            ),
-          }
+              ...state,
+              shoppingCartUserRegister: auxCartState.map((item) =>
+                item.id === newItem.id && item.sizes === newItem.sizes
+                  ? {
+                      ...item,
+                      quantity:
+                        Number(item.quantity) + Number(newItem.quantity),
+                    }
+                  : item
+              ),
+            }
           : {
-            ...state,
-            shoppingCartUserRegister: [
-              ...state.shoppingCartUserRegister,
-            ].concat(newItem),
-          };
+              ...state,
+              shoppingCartUserRegister: [
+                ...state.shoppingCartUserRegister,
+              ].concat(newItem),
+            };
       }
 
     case REMOVE_SHOPPING_CART:
@@ -339,17 +344,17 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemToDelete.quantity > 1
           ? {
-            ...state,
-            shoppingCart: state.shoppingCart.map((item) =>
-              item.id === payload.id && item.sizes === payload.sizes
-                ? { ...item, quantity: item.quantity - 1 }
-                : item
-            ),
-          }
+              ...state,
+              shoppingCart: state.shoppingCart.map((item) =>
+                item.id === payload.id && item.sizes === payload.sizes
+                  ? { ...item, quantity: item.quantity - 1 }
+                  : item
+              ),
+            }
           : {
-            ...state,
-            shoppingCart: firstFilter1.concat(secondFilter1),
-          };
+              ...state,
+              shoppingCart: firstFilter1.concat(secondFilter1),
+            };
       } else {
         let itemToDelete = state.shoppingCartUserRegister.find(
           (item) => item.id === payload.id && item.sizes === payload.sizes
@@ -364,18 +369,18 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemToDelete.quantity > 1
           ? {
-            ...state,
-            shoppingCartUserRegister: state.shoppingCartUserRegister.map(
-              (item) =>
-                item.id === payload.id && item.sizes === payload.sizes
-                  ? { ...item, quantity: item.quantity - 1 }
-                  : item
-            ),
-          }
+              ...state,
+              shoppingCartUserRegister: state.shoppingCartUserRegister.map(
+                (item) =>
+                  item.id === payload.id && item.sizes === payload.sizes
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+              ),
+            }
           : {
-            ...state,
-            shoppingCartUserRegister: firstFilter1.concat(secondFilter1),
-          };
+              ...state,
+              shoppingCartUserRegister: firstFilter1.concat(secondFilter1),
+            };
       }
     }
 
@@ -394,9 +399,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
             shoppingCart: auxCartState2.map((item) =>
               item.id === newItem2.id && item.sizes === newItem2.sizes
                 ? {
-                  ...item,
-                  quantity: Number(item.quantity) + 1,
-                }
+                    ...item,
+                    quantity: Number(item.quantity) + 1,
+                  }
                 : item
             ),
           }
@@ -415,9 +420,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
             shoppingCartUserRegister: auxCartState2.map((item) =>
               item.id === newItem2.id && item.sizes === newItem2.sizes
                 ? {
-                  ...item,
-                  quantity: Number(item.quantity) + 1,
-                }
+                    ...item,
+                    quantity: Number(item.quantity) + 1,
+                  }
                 : item
             ),
           }
@@ -450,14 +455,32 @@ export default function rootReducer(state = intialState, { type, payload }) {
     case ADD_WISH_LIST:
       return {
         ...state,
-        resWishList: payload
-      }
+        resWishList: payload,
+      };
     case GET_WISH_LIST:
       return {
         ...state,
-        state_WishList: payload
-      }
-
+        state_WishList: payload,
+      };
+    case FETCH_USER:
+      return {
+        ...state,
+        userInfo: payload,
+      };
+    case PLACE_ORDER:
+      return {
+        ...state
+      };
+      case PAYMENT_SUCCESS:
+        return {
+          ...state,
+            
+        }
+        case CLEAR_SHOPPINGCART:
+          return {
+            ...state,
+            shoppingCartUserRegister: [],
+          }
 
     default:
       return { ...state };

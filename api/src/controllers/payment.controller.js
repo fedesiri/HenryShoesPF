@@ -6,8 +6,9 @@ import Orders from "../models/Orders.js"
 dotenv.config();
 
 export const createPayment = async (req, res) => {
-    // console.log(req.body)
-    const {email} = req.body
+    // console.log("SOY BODY PAYYY", req.body)
+    console.log("TOTAL", req.body.total)
+    const {email, total} = req.body
     let denegatedOrders = [];
 
     try {
@@ -38,7 +39,7 @@ export const createPayment = async (req, res) => {
         {
           amount: {
             currency_code: "USD",
-            value: req.body.total,
+            value: total,
           },
           description: "Compra de productos",
         },
@@ -107,13 +108,14 @@ export const capturePayment = async (req, res) => {
         }
     })
 
-    // console.log(response.data);
-  res.send("capture order"); //! redireccionar a la pagina de gracias por comprar o perfil usuario/ordenes
+    console.log(response.data);
+  res.redirect("http://localhost:3000/payment-success"); //! redireccionar a la pagina de gracias por comprar o perfil usuario/ordenes
 };
 
 export const cancelPayment = async (req, res) => {
-  res.send("cancel order"); //! redireccionar a la pagina del carrito
+  res.redirect('http://localhost:3000/payment-cancel'); //! redireccionar a la pagina del carrito
 };
+
 
 export const CloseCart = async (req, res) => {
   const {email} = req.body;

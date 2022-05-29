@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import Brands from "../models/Brands.js";
 import Category from "../models/Category.js";
+import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
 import Sizes from "../models/Sizes.js";
 
@@ -21,6 +22,12 @@ export const getAllProducts = async (req, res) => {
         model: {
           [Op.iLike]: `%${name}%`,
         },
+      },
+      include: {
+        model: Brands,
+        attributes: ["name"],
+        model: Sizes,
+        attributes: ["size"],
       },
     });
 
@@ -83,6 +90,8 @@ export async function createProduct(req, res) {
       brandName,
       year,
       CategName,
+      size,
+      stock
     } = req.body;
 
     let productCreate = await Products.create({
@@ -105,8 +114,24 @@ export async function createProduct(req, res) {
       where: { name: CategName },
     });
 
+    const [sizes, createdSize] = await Sizes.findOrCreate({
+      where:{
+        size: size
+      }
+    })
+
     productCreate.setBrand(newBrand.name);
     productCreate.setCategory(categ.name);
+    await productCreate.addSizes(sizes)
+    
+    await Orders.findOrCreate({
+        where:{
+          productId: productCreate.id,
+          sizeId: size,
+          stock: stock
+        }
+      });
+      console.log(productCreate)
     res.status(200).json({ message: "Product created successfully." });
   } catch (error) {
     res.status(500).send({ message: error.message });

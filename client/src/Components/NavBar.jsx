@@ -75,13 +75,6 @@ export default function NavBar() {
         </Banner>
 
         <SearchNav>
-          {/* {userInfo ? (
-            <Link to="/wish-list">
-              <DivWishList>
-                Wish List <FontAwesomeIcon icon={faHeart} />
-              </DivWishList>
-            </Link>
-          ) : null}   */}
           <div>
             <SearchBar />
           </div>
@@ -93,7 +86,7 @@ export default function NavBar() {
           </div>
                   
           <div>
-            {userInfo ? null : (
+            {userInfo || userInfo === "you are not authenticated" ? null : (
               <LoginDiv>
                 <LoginBtn onClick={openLogin}>Login</LoginBtn>
               </LoginDiv>

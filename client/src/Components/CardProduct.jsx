@@ -5,12 +5,16 @@ import {
   CardInfo,
   ButtonHeart,
   ButtonHe,
+  PorcentajeDiv
 } from "../styles/CardProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { addWishList, deleteWishList } from "../redux/actions/index";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import './ShoppingCart/ShoppingCart.css'
+import {  toast } from "react-toastify"
+
 
 export default function CardProduct({
   id,
@@ -24,8 +28,8 @@ export default function CardProduct({
   const userInfo = useSelector((state) => state.userInfo);
   const stateRespWishList = useSelector((state) => state.resWishList);
   // console.log(stateRespWishList.status)
+  console.log(porcentaje)
   const { allProducts, products, page } = useSelector((state) => state);
-  console.log(page);
   const [local, setLocal] = useState(false);
   console.log(stateWish);
   useEffect(() => {
@@ -62,8 +66,14 @@ export default function CardProduct({
   function handleWishList(e) {
     if (!userInfo) {
       e.preventDefault();
-
-      alert("You need to register") }
+      toast.warn("You need to register", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });}
     
    if(userInfo  ){ 
        if ( array.length !== 0 && array.includes(id)){
@@ -83,8 +93,6 @@ export default function CardProduct({
           }))
           setLocal(true)
       }
-
-
                  }
                 }
 
@@ -103,7 +111,9 @@ export default function CardProduct({
             <FontAwesomeIcon icon={faHeart} />{" "}
           </ButtonHe>
         )}
-
+          {porcentaje!==null &&<PorcentajeDiv>
+          {porcentaje}% 
+          </PorcentajeDiv>}
         <CardImage>
           <img src={image} alt="" />
         </CardImage>
@@ -114,11 +124,10 @@ export default function CardProduct({
           <div>
             <p>
               <span>Price</span>:${price}
-              <span>% {porcentaje}</span>
-              <span>
-                {" "}
+              
+             {porcentaje!==null &&   <div>
                 Now: ${price - Math.ceil((price * porcentaje) / 100)}{" "}
-              </span>
+              </div>}
             </p>
           </div>
         </CardInfo>

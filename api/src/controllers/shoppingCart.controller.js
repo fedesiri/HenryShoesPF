@@ -44,3 +44,23 @@ export const getShoppingHistory = async (req, res) => {
     res.send(err.message);
   }
 };
+
+export const getAllShoppingHistory = async (req, res) => {
+
+  try {
+    const selectedCart = await ShoppingCart.findAll({
+      where: {
+        statusOpen: false
+      },
+      include: {
+        model: Orders,
+        attributes: ["sizeId", "productId", "quantity"],
+      },
+    });
+
+    res.status(200).send(selectedCart);
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+};

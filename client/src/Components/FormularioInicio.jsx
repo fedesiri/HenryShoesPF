@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postLogIn } from "../redux/actions/index";
 import { SubmitBtn } from "../styles/FormularioInicio";
@@ -11,10 +11,7 @@ import GoogleLoginComponent from "./GoogleLoginComponent";
 
 const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
+
 
   const [email, setEmail] = useState({ field: "", validated: null });
   const [password, setPassword] = useState({ field: "", validated: null });
@@ -58,7 +55,7 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
             JSON.stringify(response.payload)
           );
           closeLogin();
-          navigate(redirect || "/");
+          // navigate(-1);
         } else {
           return;
         }

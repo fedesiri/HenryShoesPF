@@ -4,6 +4,7 @@ import Category from "./Category.js";
 import Sizes from "./Sizes.js";
 import User from "./User.js";
 import products_sizes from './products_sizes.js'
+import ShoppingCart from "./ShoppingCart.js";
 
 const Products = sequelize.define(
   "products",
@@ -33,7 +34,7 @@ const Products = sequelize.define(
 
     image: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     gender: {
       type: DataTypes.STRING,

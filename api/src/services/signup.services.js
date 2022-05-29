@@ -72,6 +72,7 @@ export const signUpService = async (req, res) => {
       });
 
       return {
+        id: newUser.id,
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,

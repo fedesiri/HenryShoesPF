@@ -64,6 +64,7 @@ export const HandleStock = async (req,res) => {
 export const createOrder = async (req, res) => {
   const { data, email } = req.body;
   const ordenes = data;
+  console.log(req.body);
 
   try {
     const selectedCart = await ShoppingCart.findOne({
@@ -79,15 +80,15 @@ export const createOrder = async (req, res) => {
     for (let i = 0; i < ordenes.length; i++) {
       const pruebas = await products_sizes.findOne({
         where: {
-          productId: ordenes[i].productId,
-          sizeId: ordenes[i].sizeId,
+          productId: ordenes[i].id,
+          sizeId: ordenes[i].sizes,
         },
       });
       if (await pruebas) {
         let thisOrder = await Orders.findOrCreate({
           where: {
-            productId: ordenes[i].productId,
-            sizeId: ordenes[i].sizeId,
+            productId: ordenes[i].id,
+            sizeId: ordenes[i].sizes,
           },
         });
         let thisStock = thisOrder[0].dataValues.stock;
@@ -95,20 +96,20 @@ export const createOrder = async (req, res) => {
           const newOrder = await Orders.update(
             {
               quantity: ordenes[i].quantity,
-              // stock: thisStock - ordenes[i].quantity,
+              // stock: thisStock - data[i].quantity,
             },
             {
               where: {
-                productId: ordenes[i].productId,
-                sizeId: ordenes[i].sizeId,
+                productId: ordenes[i].id,
+                sizeId: ordenes[i].sizes,
               },
             }
           );
 
           const selectedOrder = await Orders.findOne({
             where: {
-              productId: ordenes[i].productId,
-              sizeId: ordenes[i].sizeId,
+              productId: ordenes[i].id,
+              sizeId: ordenes[i].sizes,
             },
           });
 

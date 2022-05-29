@@ -36,6 +36,19 @@ const User = sequelize.define(
     },
     address: {
       type: DataTypes.TEXT,
+      isAlphanumeric: true,
+    },
+    address2:{
+      type: DataTypes.TEXT,
+      isAlphanumeric: true,
+    },
+    city: {
+      type: DataTypes.STRING,
+    }, 'province/region': {
+      type: DataTypes.STRING,
+    }, zipcode: {
+      type: DataTypes.TEXT,
+      isAlphanumeric: true,
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
@@ -54,7 +67,9 @@ const User = sequelize.define(
         }
       },
       beforeUpdate: (user) => {
+        if (user.password) {
         user.password = bcrypt.hashSync(user.password, 10);
+      } 
       },
     },
   }
