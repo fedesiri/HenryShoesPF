@@ -125,9 +125,9 @@ export default function CardProduct({
             <p>
               <span>Price</span>:${price}
               
-             {porcentaje!==null &&  <span>
+             {porcentaje!==null &&   <div>
                 Now: ${price - Math.ceil((price * porcentaje) / 100)}{" "}
-              </span> }
+              </div>}
             </p>
           </div>
         </CardInfo>
