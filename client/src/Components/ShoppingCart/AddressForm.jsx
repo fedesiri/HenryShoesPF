@@ -166,7 +166,7 @@ const handleOnSubmit = async (e) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Button onClick={(e) => handleOnSubmit(e)} variant="contained" color="primary">
+            <Button style={{ backgroundColor: "black", color: "white", borderRadius: "0.75rem" }} onClick={(e) => handleOnSubmit(e)} variant="contained" color="primary">
               Save
             </Button>
           </Grid>
