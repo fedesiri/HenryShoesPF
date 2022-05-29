@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import './ShoppingCart/ShoppingCart.css'
+import {  toast } from "react-toastify"
+
 
 export default function CardProduct({
   id,
@@ -64,8 +66,14 @@ export default function CardProduct({
   function handleWishList(e) {
     if (!userInfo) {
       e.preventDefault();
-
-      alert("You need to register") }
+      toast.warn("You need to register", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });}
     
    if(userInfo  ){ 
        if ( array.length !== 0 && array.includes(id)){
@@ -85,8 +93,6 @@ export default function CardProduct({
           }))
           setLocal(true)
       }
-
-
                  }
                 }
 

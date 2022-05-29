@@ -89,6 +89,7 @@ const Details = () => {
 
   // }, [])
 
+
   async function CargarCarrito() {
     if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
       toast.warn("Complete size and quantity", {
@@ -117,6 +118,7 @@ const Details = () => {
         );
         console.log(response.data);
       }
+
       // console.log("esto envias al carrito ", itemsCarts);
 
       toast.success("Product added successfully to cart!", {
