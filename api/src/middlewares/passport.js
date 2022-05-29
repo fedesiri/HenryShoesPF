@@ -54,10 +54,14 @@ export const signInGoogle = new GoogleStrategy(
           name: "user",
         },
       });
-      console.log(user, "USER PASSPORT")
+      console.log(user[0], "USER PASSPORT")
       await roleUser.addUser(user[0]);
-      const newCart = await ShoppingCart.create({});
-      await user[0].addShoppingCart(newCart);
+      const newCart = await ShoppingCart.findOrCreate({
+        where: {
+          email: user[0].email,
+        }
+      });
+      // await user[0].addShoppingCart(newCart);
 
       if (user && user[0]) return done(null, user && user[0]);
     } catch (error) {
