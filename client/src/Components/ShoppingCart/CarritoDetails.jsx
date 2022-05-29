@@ -142,7 +142,11 @@ const CartDetails = () => {
         <AddBtn> Go to Shopping Cart</AddBtn>
       </Link>
 
-      <AddBtn>Checkout</AddBtn>
+      <AddBtn>
+       <Link style={{textDecoration: "none", color: "white"}} to='/checkout'>
+       Checkout
+       </Link> 
+        </AddBtn>
     </div>
   );
 };

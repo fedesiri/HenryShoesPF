@@ -208,7 +208,7 @@ const UserAccount = () => {
                   name="address"
                   id="address"
                   type="text"
-                  placeholder={user.address}
+                  placeholder={userInfo.address}
                   className="userUpdateInput"
                   onChange={HandleOnChange}
                 />
