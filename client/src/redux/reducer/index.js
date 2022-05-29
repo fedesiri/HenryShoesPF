@@ -104,12 +104,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         userInfo: payload,
+        // shoppingCartUserRegister: [],
       };
 
     case POST_LOG_OUT:
       return {
         ...state,
         userInfo: null,
+
       };
 
     case FILTER:

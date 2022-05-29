@@ -89,9 +89,7 @@ const Details = () => {
 
   // }, [])
 
-  
-
-  function CargarCarrito() {
+  async function CargarCarrito() {
     if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
       toast.warn("Complete size and quantity", {
         position: "top-center",
@@ -104,6 +102,21 @@ const Details = () => {
       });
     } else {
       dispatch(addShoppingCart(itemsCarts));
+      if (userInfo) {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/orders/create`,
+          {
+            email: userInfo.email,
+            data: [{
+              sizes: itemsCarts.sizes,
+              id: itemsCarts.id,
+              quantity: 1,
+
+            }],
+          }
+        );
+        console.log(response.data);
+      }
       // console.log("esto envias al carrito ", itemsCarts);
 
       toast.success("Product added successfully to cart!", {
@@ -169,7 +182,7 @@ const Details = () => {
           <p>{detail.model}</p>
           <h3>Price:</h3>
           <p> ${detail.price}</p>
-          {console.log(detail.price, "SOY PRICE")}
+          {/* {console.log(detail.price, "SOY PRICE")} */}
           {detail.porcentaje && (
             <>
               <p> %{detail.porcentaje}</p>
@@ -195,7 +208,7 @@ const Details = () => {
           </SizeDiv>
           <SizeDiv>
             <h3>selected sizes: </h3>
-            <h3b>{itemsCarts.sizes}</h3b>
+            <h3>{itemsCarts.sizes}</h3>
           </SizeDiv>
           <StockDiv>
             <h3>Quantity: </h3>
