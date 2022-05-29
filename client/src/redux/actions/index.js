@@ -29,6 +29,10 @@ import {
   FETCH_USER_AUTH,
   ADD_WISH_LIST,
   GET_WISH_LIST,
+  FETCH_USER,
+  PLACE_ORDER,
+  PAYMENT_SUCCESS,
+  CLEAR_SHOPPINGCART,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -127,7 +131,6 @@ export function postLogIn({ email, password }) {
     }
   };
 }
-
 
 export const postLogOut = () => {
   return {
@@ -244,13 +247,7 @@ export const clearDetail = () => {
   };
 };
 
-export const postRegister = ({
-  name,
-  lastname,
-  password,
-  email,
-  address,
-}) => {
+export const postRegister = ({ name, lastname, password, email, address }) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
@@ -311,15 +308,18 @@ export const combineStateCart = (payload) => {
 export const getShoppingCart = () => {
   return {
     type: GET_SHOPPING_CART,
-  }
-}
+  };
+};
 
 export const fetchUserAuthenticated = () => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/auth`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/user/auth`,
+        {
+          withCredentials: true,
+        }
+      );
 
       return dispatch({
         type: FETCH_USER_AUTH,
@@ -332,48 +332,87 @@ export const fetchUserAuthenticated = () => {
 };
 
 export const addWishList = (payload) => {
-  console.log(payload)
+  console.log(payload);
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/wishlist/add`, payload
+      `${process.env.REACT_APP_API_URL}/wishlist/add`,
+      payload
     );
-    console.log(result)
+    console.log(result);
     return dispatch({
       type: ADD_WISH_LIST,
       payload: result,
     });
   };
-}
-
+};
 
 export const getWishList = (payload) => {
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/wishlist`, payload
+      `${process.env.REACT_APP_API_URL}/wishlist`,
+      payload
     );
     return dispatch({
       type: GET_WISH_LIST,
       payload: result,
     });
   };
-}
-
-
+};
 
 export const deleteWishList = (payload) => {
   // console.log(payload)
   return async function (dispatch) {
     let result = await axios.put(
-      `${process.env.REACT_APP_API_URL}/wishlist/remove`, payload
-
+      `${process.env.REACT_APP_API_URL}/wishlist/remove`,
+      payload
     );
     return dispatch({
       type: ADD_WISH_LIST,
       payload: result,
     });
+  };
+};
 
+export const fetchDataUserUpdated = (payload) => {
+  // console.log(payload)
+  return async function (dispatch) {
+    const response = await axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/user/${payload}`,
+    });
+    // console.log(response)
+    return dispatch({
+      type: FETCH_USER,
+      payload: response.data,
+    });
+  };
+};
+
+export const placeOrder = (payload) => {
+  console.log(payload);
+  return async function (dispatch) {
+    const response = await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/orders/create`,
+      data: payload,
+    });
+    toast(response.data.message)
+    if(response.data.message === "Stock is not enough."){
+     setTimeout(()=> {
+       window.location.href = '/cart'
+     }, 3000)
+    }
+    return dispatch({
+      type: PLACE_ORDER,
+      payload: response.data,
+    });
+  };
+};
+
+export const clearShoppingCart = () => {
+  return {
+    type: CLEAR_SHOPPINGCART,
   };
 }
-

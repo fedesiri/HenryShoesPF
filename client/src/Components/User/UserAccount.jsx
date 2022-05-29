@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CalendarToday,
   LocationSearching,
@@ -9,21 +9,33 @@ import {
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./userAccount.css";
+import { fetchUserAuthenticated } from "../../redux/actions";
 
 const UserAccount = () => {
   const userInfo = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({});
+  // console.log(user)
 
-  // async function findUser(){
-  //     try {
-  //       const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${userId}`);
-  //       return response.data
-  //     } catch (err) {
-  //       console.error(err)
-  //     }
-  //   }
+  
+  async function findUser(){
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${userInfo.id}`);
+      return response.data
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData(){
+      const result = await findUser()
+      setUser(result)
+    }
+    fetchData()
+  }, [])
 
   const [input, setInput] = useState({
     name: "",
@@ -46,32 +58,6 @@ const UserAccount = () => {
     regexPassword: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
   };
 
-  //   const validate = (input) => {
-  //     let errors = {};
-  //     if (!input.name) {
-  //       errors.name = "Name is required";
-  //     }
-  //     if (expression.regexName.test(input.name)) {
-  //       errors.name = "Name must be letters";
-  //     }
-  //     if (!input.lastname) {
-  //       errors.lastname = "Lastname is required";
-  //     }
-  //     if (expression.regexName.test(input.lastname)) {
-  //       errors.lastname = "Lastname must be letters";
-  //     }
-
-  //     if (!expression.regexPassword.test(input.password)) {
-  //       errors.password =
-  //         "Password must be at least 8 characters long and contain at least one number and one letter";
-  //     }
-  //     if (input.password !== input.passwordConfirm) {
-  //       errors.passwordConfirm = "Passwords must match";
-  //     }
-  //     setErrors(errors);
-  //     return errors;
-  //   };
-  //   console.log(errors);
 
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
@@ -82,7 +68,7 @@ const UserAccount = () => {
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(userInfo.name)
     try {
       let newData = {
         name: input.name || userInfo.name,

@@ -14,8 +14,10 @@ import { DelButton, AddButton } from "../../styles/Button";
 import { BackBtn } from "../../styles/Details";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import VerifyPay  from "./VerifyPay"
-
+import FormularioInicio from "../FormularioInicio";
+import FormularioCrearCuenta from "../FormularioCrearCuenta";
+import Modal from "../Modal/Modal";
+import { useModal } from "../Modal/hooks/useModal";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,10 @@ const ShoppingCart = () => {
   );
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
+
+  const [isOpenLogin, openLogin, closeLogin] = useModal(false);
+  const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
+    useModal(false);
 
   useEffect(() => {
     if (userInfo) {
@@ -56,8 +62,6 @@ const ShoppingCart = () => {
       image: e.image,
       inOferta: e.inOferta,
       model: e.model,
-      porcentaje: e.porcentaje,
-      price: e.price,
     });
   });
 
@@ -97,18 +101,17 @@ const ShoppingCart = () => {
 
   let contador = 1;
 
-  //const handleCheckout = async () => {
-    //if (userInfo) {
-    //  const {data: {links}} = await axios.post(`${process.env.REACT_APP_API_URL}/payment/create-order`, { total: sumPrice });
-    //  var redirectUrl = links[1].href
-    //  console.log(redirectUrl)
-    //  window.location.href = redirectUrl
-   // } else {
-   //   console.log("no hay usuario")
-      // navigate("/");
-      //aqui agregar opcion para abrir el modal de login
-  //  }
- // }
+
+  const handleVerifyLogin = () => {
+    if (userInfo) {
+      navigate("/checkout");
+    } else {
+      openLogin();
+      if (userInfo) {
+        window.location.href = "/checkout";
+      }
+    }
+  };
 
   return (
     <div>
@@ -130,8 +133,11 @@ const ShoppingCart = () => {
                 <h2>{contador}-</h2>
                 <img src={e.image} alt="imagenes" />
                 <div className="repar2">
-                  <Link to={`/details/${e.id}`} style={{textDecoration: "none"}}>
-                  <h3 style={{color: "black"}}> {e.model} </h3>
+                  <Link
+                    to={`/details/${e.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <h3 style={{ color: "black" }}> {e.model} </h3>
                   </Link>
                 </div>
                 <h2> Size: {e.sizes} </h2>
@@ -182,7 +188,6 @@ const ShoppingCart = () => {
                     Add One
                   </AddButton>
                 </div>
-                
               </div>
             ))}
           </div>
@@ -191,15 +196,22 @@ const ShoppingCart = () => {
             <div className="carritopegajoso">
               <h1> Order items {sumItems} units</h1>{" "}
               <h1> Total ${sumPrice} </h1>
-              <button>Confirm and Pay</button>
+              <button onClick={(e) => handleVerifyLogin(e)}>
+                Confirm and Pay
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-
-<VerifyPay/>
-
+      <Modal isOpen={isOpenLogin} closeModal={closeLogin}>
+        <FormularioInicio
+          closeLogin={closeLogin}
+          openCreateAccount={openCreateAccount}
+        />
+      </Modal>
+      <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
+        <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
+      </Modal>
     </div>
   );
 };

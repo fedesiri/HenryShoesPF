@@ -1,179 +1,186 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-
-import { useSelector,useDispatch } from 'react-redux'
-
-
-
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"
+import { changeDataUserPayment, fetchDataUserUpdated, fetchUserAuthenticated } from "../../redux/actions";
 
 
-
-
-
-const useStyles = makeStyles((theme) => ({
-    
-    button: {
-      marginTop: theme.spacing(3),
-      marginLeft: theme.spacing(1),
-    },
-  }));
-
-
-
-
-
-
-
-
-
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     marginTop: theme.spacing(3),
+//     marginLeft: theme.spacing(1),
+//   },
+// }));
 
 export default function AddressForm() {
-    const userInfo = useSelector((state) => state.userInfo);
+  const userInfo = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch()
+  const [input, setInput] = useState({
+    name: "",
+    lastname: "",
+    address: "",
+    address2: "",
+    state: "",
+    zipcode: "",
+    city: "",
+  })
+
+useEffect(() => {
+  dispatch(fetchDataUserUpdated(userInfo.id))
+}, [dispatch, userInfo.id])
 
 
-    const classes = useStyles();
+const handleOnChange = (e) => {
+  setInput({
+    ...input,
+    [e.target.name]: e.target.value,
+  });
+}
+// console.log(input)
 
-
+const handleOnSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    let newData = {
+      name: input.name || userInfo.name,
+      lastname: input.lastname || userInfo.lastname,
+      address: input.address || userInfo.address,
+      address2: input.address2 || userInfo.address2,
+      state: input.state || userInfo.state,
+      zipcode: input.zipcode || userInfo.zipcode,
+      city: input.city || userInfo.city,
+    };
+    const response = await axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}/user/edit/${userInfo.id}`,
+      data: newData,
+    });
+    // console.log(userInfo.id)
+    await dispatch(fetchDataUserUpdated(userInfo.id))
+    toast(response.data.message);    
+    document.getElementById("name").value = "";
+    document.getElementById("lastname").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("address2").value = "";
+    document.getElementById("state").value = "";
+    document.getElementById("zipcode").value = "";
+    document.getElementById("city").value = "";
+  } catch (error) {
+    console.log(error)
+  }
+}
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Information
       </Typography>
-      { }
-{ !userInfo&&
-      <Grid container spacing={3}>
-      <Grid item xs={12}>
-          <TextField
-            required
-            id="email"
-            name="email"
-            label="Email"
-            fullWidth
-            autoComplete="on"
-          />
-        </Grid>  
 
-
-       <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            type="password"
-            id="password"
-            name="password"
-            label="Password"
-          />
-        </Grid> 
-        
-        
-     <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            type="password"
-            id="password"
-            name="password"
-            label="Verify Password"
-          />
+      {!userInfo ? null : (
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <label>Name</label>
+            <TextField
+              required
+              id="name"
+              name="name"
+              onChange={handleOnChange}
+              fullWidth
+              placeholder={userInfo.name}
+              autoComplete="given-name"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <label>Last name</label>
+            <TextField
+              required
+              id="lastname"
+              name="lastname"
+              onChange={handleOnChange}
+              placeholder={userInfo.lastname}
+              fullWidth
+              autoComplete="family-name"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <label>Address 1</label>
+            <TextField
+              required
+              id="address"
+              name="address"
+              onChange={handleOnChange}
+              placeholder={userInfo.address}
+              fullWidth
+              autoComplete="shipping address-line1"
+            />
+          </Grid>
+          <Grid item xs={12}>
+          <label>Address 2</label>
+            <TextField
+              id="address2"
+              name="address2"
+              placeholder={userInfo.address2}
+              onChange={handleOnChange}
+              fullWidth
+              autoComplete="shipping address-line2"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <label>City</label>
+            <TextField
+              required
+              id="city"
+              name="city"
+              placeholder={userInfo.city}
+              onChange={handleOnChange}
+              fullWidth
+              autoComplete="shipping address-level2"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <label>State/Province/Region</label>
+            <TextField
+              id="state"
+              name="state"
+              placeholder={userInfo['province/region']}
+              onChange={handleOnChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <label>Zip / Postal code</label>
+            <TextField
+              required
+              id="zipcode"
+              name="zipcode"
+              placeholder={userInfo.zipcode}
+              onChange={handleOnChange}
+              fullWidth
+              autoComplete="shipping postal-code"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button onClick={(e) => handleOnSubmit(e)} variant="contained" color="primary">
+              Save
+            </Button>
+          </Grid>
         </Grid>
-
-        <Grid item xs={12}> 
-        <Button 
-            variant="contained"
-            color="primary"
-            className={classes.button}>
-                      LOGIN
-        </Button>
-        </Grid>
-
-        </Grid> 
-        }
-
-        
-
-        {!userInfo? (null):
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-          />
-        </Grid>
-       
-      </Grid>
-}
-
+      )}
+      <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable
+        />
     </React.Fragment>
   );
 }

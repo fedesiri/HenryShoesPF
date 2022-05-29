@@ -16,7 +16,8 @@ import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import WishList from "./Components/WishList/WishList"
 import UserProfile from "./Components/User/UserProfile";
-import UserAccount from "./Components/User/UserAccount";
+import VerifyPay from "./Components/ShoppingCart/VerifyPay";
+import PaymentSuccess from "./Components/ShoppingCart/PaymentSuccess";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -37,6 +38,8 @@ function App() {
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/wish-list" element={<WishList />} />
         <Route path='/profile' element={<UserProfile />} />
+        <Route path='/checkout' element={<VerifyPay />} />
+        <Route path='/payment-success' element={<PaymentSuccess />} />
 
       </Routes>
     </ContentWrapper>

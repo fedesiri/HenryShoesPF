@@ -89,7 +89,7 @@ const Details = () => {
 
   // }, [])
 
-  console.log(detail.sizes);
+  console.log(detail.sizes, "HOLAAAAAA");
 
   function CargarCarrito() {
     if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
