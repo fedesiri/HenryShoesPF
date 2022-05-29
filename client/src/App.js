@@ -11,13 +11,14 @@ import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import { useSelector } from "react-redux";
-import LoginSuccess from "./Components/Containers/LoginSuccess";
+import LoginSuccess from "./Components/containers/LoginSuccess";
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import WishList from "./Components/WishList/WishList"
 import UserProfile from "./Components/User/UserProfile";
 import VerifyPay from "./Components/ShoppingCart/VerifyPay";
 import PaymentSuccess from "./Components/ShoppingCart/PaymentSuccess";
+import PaymentCancel from "./Components/ShoppingCart/PaymentCancel";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -40,6 +41,7 @@ function App() {
         <Route path='/profile' element={<UserProfile />} />
         <Route path='/checkout' element={<VerifyPay />} />
         <Route path='/payment-success' element={<PaymentSuccess />} />
+        <Route path='/payment-cancel' element={<PaymentCancel />} />
 
       </Routes>
     </ContentWrapper>

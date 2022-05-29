@@ -89,7 +89,7 @@ const Details = () => {
 
   // }, [])
 
-  console.log(detail.sizes, "HOLAAAAAA");
+  
 
   function CargarCarrito() {
     if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
@@ -104,7 +104,7 @@ const Details = () => {
       });
     } else {
       dispatch(addShoppingCart(itemsCarts));
-      console.log("esto envias al carrito ", itemsCarts);
+      // console.log("esto envias al carrito ", itemsCarts);
 
       toast.success("Product added successfully to cart!", {
         position: toast.POSITION.TOP_CENTER,
@@ -124,8 +124,8 @@ const Details = () => {
   }
   function handleTalle(e) {
     // e.preventDefault()
-    console.log(e.target.value);
-    console.log(e.target.name);
+    // console.log(e.target.value);
+    // console.log(e.target.name);
 
     setItemsCarts({
       ...itemsCarts,

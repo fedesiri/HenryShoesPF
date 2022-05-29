@@ -113,7 +113,7 @@ export const capturePayment = async (req, res) => {
 };
 
 export const cancelPayment = async (req, res) => {
-  res.send("cancel order"); //! redireccionar a la pagina del carrito
+  res.redirect('http://localhost:3000/payment-cancel'); //! redireccionar a la pagina del carrito
 };
 
 
