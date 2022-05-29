@@ -17,7 +17,7 @@ import { AddBtn } from "../../styles/Details";
 const CartDetails = () => {
   const dispatch = useDispatch();
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  console.log(cartDetail1);
+  // console.log(cartDetail1);
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
@@ -26,7 +26,7 @@ const CartDetails = () => {
   //si no esta registrado es null
 
   const arrayAll = useSelector((state) => state.allProducts);
-  console.log(arrayAll);
+  // console.log(arrayAll);
 
   useEffect(() => {
     if (userInfo) {
@@ -44,7 +44,7 @@ const CartDetails = () => {
   } else {
     cartDetail = cartDetail1;
   }
-  console.log(cartDetail);
+  // console.log(cartDetail);
 
   let arraySeleccion = [];
   arrayAll.forEach((e) => {
@@ -66,7 +66,7 @@ const CartDetails = () => {
     })
   );
 
-  console.log(newArray);
+  // console.log(newArray);
   function handleDeleteProductoCart(parametro) {
     dispatch(removeProductCart(parametro));
   }

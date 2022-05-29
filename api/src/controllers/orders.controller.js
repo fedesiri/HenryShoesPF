@@ -64,7 +64,7 @@ export const HandleStock = async (req,res) => {
 export const createOrder = async (req, res) => {
   const { data, email } = req.body;
   const ordenes = data;
-  // console.log(data[0].id, data[0].sizes);
+  console.log(req.body);
 
   try {
     const selectedCart = await ShoppingCart.findOne({
