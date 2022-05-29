@@ -40,10 +40,10 @@ export const PrevNext = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0.4rem auto;
+    margin:  0.4rem;
     width:100%;
     background-color: rgba(17, 25, 40, 0.25);
-    padding: 0.4rem;
+    padding: 0.3rem;
     border-radius: 1rem;
     span {
         text-align: center;
@@ -83,14 +83,16 @@ export const PagedBtns = styled.div`
 
 
 export const NextBtn = styled.button`
+    font-family: 'Helvetica';
     background-color: var(--primary);
     color: var(--text-color);
     border-color:rgba(255, 255, 255, 0)
     border-style: transparent;
     border-radius: 0.4rem;
-    padding: 0.1rem;
+    padding: 0.2rem;
     display: block;
-    width: 45px;
+    font-size: 14px;
+    width: 50px;
     height: 30px;
     :hover {
         background-color: #ff8906;
@@ -102,6 +104,7 @@ export const NextBtn = styled.button`
 `;
 
 export const BckBtn = styled.button`
+    font-family: 'Helvetica';
     background-color: var(--primary);
     color: var(--text-color);
     border-color:rgba(255, 255, 255, 0)
@@ -109,7 +112,8 @@ export const BckBtn = styled.button`
     border-radius: 0.4rem;
     padding: 0.2rem;
     display: block;
-    width: 45px;
+    font-size: 14px;
+    width: 50px;
     height: 30px;
     :hover {
         background-color: #ff8906;
@@ -121,14 +125,16 @@ export const BckBtn = styled.button`
 `;
 
 export const FstPageBtn = styled.button`
+    font-family: 'Helvetica';
     background-color: var(--primary);
     color: var(--text-color);
     border-color:rgba(255, 255, 255, 0)
     border-style: transparent;
     border-radius: 0.4rem;
-    padding: 0.1rem;
+    padding: 0.2rem;
     display: block;
-    width: 45px;
+    font-size: 14PX;
+    width: 50px;
     height: 30px;
     :hover {
         background-color: #ff8906;
@@ -140,14 +146,16 @@ export const FstPageBtn = styled.button`
 `;
 
 export const LstPageBtn = styled.button`
+    font-family: 'Helvetica';
     background-color: var(--primary);
     color: var(--text-color);
     border-color:rgba(255, 255, 255, 0)
     border-style: transparent;
     border-radius: 0.4rem;
-    padding: 0.1rem;
+    padding: 0.2rem;
     display: block;
-    width: 45px;
+    font-size: 14PX;
+    width: 50px;
     height: 30px;
     :hover {
         background-color: #ff8906;

@@ -70,24 +70,21 @@ export default function NavBar() {
       <NavContainer>
         <Banner>
           <Link to="/">
-            <img src={banner} alt="" width="100%" height="150px" />
+            <img src={banner} alt="" width="100%" height= "150px" />
           </Link>
         </Banner>
 
         <SearchNav>
-          {/* {userInfo ? (
-            <Link to="/wish-list">
-              <DivWishList>
-                Wish List <FontAwesomeIcon icon={faHeart} />
-              </DivWishList>
-            </Link>
-          ) : null} */}
           <div>
             <SearchBar />
           </div>
-
           {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}
-
+          <div>
+            <Link to="/cart">
+              <ChartBtn />
+            </Link>
+          </div>
+                  
           <div>
             {userInfo || userInfo === "you are not authenticated" ? null : (
               <LoginDiv>
@@ -124,11 +121,7 @@ export default function NavBar() {
               </LoginDiv>
             ) : null}
           </div>
-          <div>
-            <Link to="/cart">
-              <ChartBtn />
-            </Link>
-          </div>
+          
         </SearchNav>
       </NavContainer>
       {/* los modals no estan afectando al css!! dejarlos ahi a lo ultimo */}

@@ -26,14 +26,13 @@ export const SearchNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 `;
 
 export const LoginBtn = styled.button`
-border: 1px solid transparent;
+    border: 1px solid transparent;
     padding: .375rem .75rem;
     font-size: 1rem;
-    /* width: 6rem; */
     height: 2.4rem;
     margin-right: 1rem;
     background: black;
@@ -41,7 +40,6 @@ border: 1px solid transparent;
     border: none;
     border-radius: 0.75rem;
     font-family: "Helvetica";
-    /* font-size: 18px; */
     font-weight: bold;
     cursor: pointer;
     overflow: hidden;
@@ -73,17 +71,18 @@ export const SignOutBtn = styled.button`
 `;
 
 export const ChartBtn = styled.button`
-    margin-right: 0.5rem;
+    margin-left: 0.2rem;
     background-image: URL(${Chart});
     background-size: 50%;
     background-repeat:no-repeat;
     background-position: center;
     background-attachment: scroll;
     background-color: white;
+    padding: 0.4rem;
     width: 5rem;
     height: 2.4rem;
     color: white;
-    border: none;
+    border: 1px solid gray;
     border-radius: 0.75rem;
     cursor: pointer;
     overflow: hidden;
@@ -96,6 +95,7 @@ export const ChartBtn = styled.button`
     background-attachment: scroll;
     background-color: black;
     }
+    
 `;
 
 export const DivStateCart = styled.span`

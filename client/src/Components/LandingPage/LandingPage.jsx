@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts, clearDetail } from "../../redux/actions";
-import { LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
+import { Titulo, LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
 
 
 const LandingPage = () => {
@@ -31,13 +31,18 @@ const LandingPage = () => {
       <AdminDiv>
         {userInfo && userInfo?.roleId === 1 && (
           <button>
-            <Link to="/CreateProduct"> Create Product </Link>{" "}
+            <Link to="/CreateProduct" > Create Product </Link>{" "}
           </button>
         )}
       </AdminDiv>
         <SliderDiv>
           <Slider />
         </SliderDiv>
+      <Link to="/CatalogPage" text-decoration="none">
+        <Titulo>
+          <h1>Catalog Page</h1>
+        </Titulo>
+      </Link>
       <FilterContainer>
           <MenBtn
             onClick={() => {
@@ -72,14 +77,17 @@ const LandingPage = () => {
             <h1> CHILD </h1>            
           </ChildBtn>
       </FilterContainer>
-      
       <PromotionDiv>
-        <h1>On Sale</h1>
+        <Titulo>
+          <h1>On Sale</h1>
+        </Titulo>
         <Promotion />
       </PromotionDiv>
       
       <BestSellersDiv>
-        <h1>BestSellers</h1>
+        <Titulo>
+          <h1>BestSellers</h1>
+        </Titulo>
         <BestSellers />
       </BestSellersDiv> 
 
