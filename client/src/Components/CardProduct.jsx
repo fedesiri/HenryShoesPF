@@ -5,12 +5,14 @@ import {
   CardInfo,
   ButtonHeart,
   ButtonHe,
+  PorcentajeDiv
 } from "../styles/CardProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { addWishList, deleteWishList } from "../redux/actions/index";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import './ShoppingCart/ShoppingCart.css'
 
 export default function CardProduct({
   id,
@@ -24,8 +26,8 @@ export default function CardProduct({
   const userInfo = useSelector((state) => state.userInfo);
   const stateRespWishList = useSelector((state) => state.resWishList);
   // console.log(stateRespWishList.status)
+  console.log(porcentaje)
   const { allProducts, products, page } = useSelector((state) => state);
-  console.log(page);
   const [local, setLocal] = useState(false);
   console.log(stateWish);
   useEffect(() => {
@@ -103,7 +105,9 @@ export default function CardProduct({
             <FontAwesomeIcon icon={faHeart} />{" "}
           </ButtonHe>
         )}
-
+          {porcentaje!==null &&<PorcentajeDiv>
+          {porcentaje}% 
+          </PorcentajeDiv>}
         <CardImage>
           <img src={image} alt="" />
         </CardImage>
@@ -114,11 +118,10 @@ export default function CardProduct({
           <div>
             <p>
               <span>Price</span>:${price}
-              <span>% {porcentaje}</span>
-              <span>
-                {" "}
+              
+             {porcentaje!==null &&  <span>
                 Now: ${price - Math.ceil((price * porcentaje) / 100)}{" "}
-              </span>
+              </span> }
             </p>
           </div>
         </CardInfo>

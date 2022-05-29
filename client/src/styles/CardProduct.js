@@ -91,3 +91,16 @@ export const ButtonHe = styled.button`
             color:rgb(94, 103, 196);          
   
 `;
+export const PorcentajeDiv = styled.div`
+background-color: rgb(187, 255, 0);
+display: inline;
+position: absolute;
+width: 3rem;
+height: 2.8rem;
+border-radius: 1rem;
+text-align: center;
+left: 0.5rem;
+top:0.5rem;
+font-size: 1.5rem;
+padding: 0.2rem;
+`;
