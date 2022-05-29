@@ -18,16 +18,16 @@ const PaymentCancel = () => {
     },
   }));
 
-//   useEffect(() => {
-//     setTimeout(() => {
-//       window.location.href = "/cart";
-//     }, 2500);
-//   });
+  useEffect(() => {
+    setTimeout(() => {
+      window.location.href = "/cart";
+    }, 2500);
+  });
   const classes = useStyles();
 
   return (
-    <>
-      <>
+   
+
         <div className={classes.root}>
           <Paper elevation={0}>
             <Alert severity="error">
@@ -42,8 +42,8 @@ const PaymentCancel = () => {
             </Button>
           </Paper>
         </div>
-      </>
-    </>
+   
+
   );
 };
 
