@@ -20426,26 +20426,6 @@ const productsJson = {
       }
     },
     {
-      id: "70a5dad2-76a8-4b4b-a9fd-bc133edfe61a",
-      sku: "VN0A2Z5IV2H",
-      brand: "Vans",
-      name: "Vans Authentic Glitter Purple (W)",
-      colorway: "Fairy Wren/True White",
-      gender: "women",
-      silhouette: "Vans Authentic",
-      releaseYear: "2019",
-      releaseDate: "2019-01-01",
-      retailPrice: 60,
-      estimatedMarketValue: 61,
-      story: "",
-      image: {
-        360: [],
-        original: "https://images.stockx.com/images/Vans-Authentic-Glitter-Purple-W.png?fit=fill&bg=FFFFFF&w=500&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1626903801",
-        small: "https://images.stockx.com/images/Vans-Authentic-Glitter-Purple-W.png?fit=fill&bg=FFFFFF&w=375&h=375&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1626903801",
-        thumbnail: "https://images.stockx.com/images/Vans-Authentic-Glitter-Purple-W.png?fit=fill&bg=FFFFFF&w=200&h=200&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1626903801"
-      }
-    },
-    {
       id: "949bf5c2-8d66-4d82-b126-74c28101eef4",
       sku: "VN0A4BV5T7R",
       brand: "Vans",
