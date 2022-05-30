@@ -118,7 +118,7 @@ export const cancelPayment = async (req, res) => {
 
 
 export const CloseCart = async (req, res) => {
-  const {email} = req.body;
+  const {email, prices} = req.body;
 
   try{
     const selectedCart = await ShoppingCart.findOne({
@@ -128,20 +128,21 @@ export const CloseCart = async (req, res) => {
       },
       include: {
         model: Orders,
-        attributes: ["sizeId", "productId", "quantity", "stock", "id"],
+        attributes: ["sizeId", "productId", "quantity", "stock", "id", "price"],
       },
     });
 
-    console.log(selectedCart.orders,"Esto es selectedd")
+    //console.log(selectedCart.orders,"Esto es selectedd")
 
-    await selectedCart.orders.map((element) => {
+    await selectedCart.orders.map((element, index) => {
 
       const newStock = element.stock-element.quantity
       const id = element.id
 
       element.update({
         id: id,
-        stock: newStock
+        stock: newStock,
+        price: prices[index]
     },
     {
       where:{

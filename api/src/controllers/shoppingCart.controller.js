@@ -34,7 +34,7 @@ export const getShoppingHistory = async (req, res) => {
       },
       include: {
         model: Orders,
-        attributes: ["sizeId", "productId", "quantity"],
+        attributes: ["sizeId", "productId", "quantity", "price"],
       },
     });
 
@@ -54,7 +54,7 @@ export const getAllShoppingHistory = async (req, res) => {
       },
       include: {
         model: Orders,
-        attributes: ["sizeId", "productId", "quantity"],
+        attributes: ["sizeId", "productId", "quantity", "price"],
       },
     });
 
