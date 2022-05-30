@@ -216,6 +216,7 @@ export const clearOfertDestacado = (payload) => {
 };
 
 export const filterOfertDestacado = (payload) => {
+  console.log(payload);
   return {
     type: FILTER_OFERT_DESTACADO,
     payload,

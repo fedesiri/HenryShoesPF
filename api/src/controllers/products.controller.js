@@ -253,7 +253,7 @@ export const deleteDestacado = async (req, res) => {
 
     res.status(200).send("Product removed from 'Best Sellers'");
   } catch (err) {
-    res.status(500).send({ message: error.message });
+    res.status(500).send({ message: err.message });
   }
 };
 
