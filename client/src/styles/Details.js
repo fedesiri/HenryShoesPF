@@ -43,7 +43,6 @@ export const Content1 = styled.div`
         height: auto;
         border-radius: 0.8rem;
     }
-    
     @media (max-width: 808px) {
         width: 90%;
         flex-direction: column;
@@ -56,15 +55,21 @@ export const Content2 = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     align-content: stretch;
-    justify-content: flex-start;
+    
     width:60%;
+    font-family:"Helvetica";
     align-items: stretch;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem 0;
     h3{
+        font-family:"Georgia";
         text-decoration-line: underline;
+    }
+    h4{
+        font-size:25px;
+        font-family:"Trebuchet MS", cursive, sans-serif;
     }
     @media (max-width: 808px) {
         width: 90%;
@@ -92,11 +97,13 @@ export const BtnDiv = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 10px;
-    justify-content: space-evenly;
-    @media (max-width: 808px){
+    justify-content: center;
+    justify-items: center;
+    @media (max-width: 800px){
+        width: 100%;
         flex-direction: column;
-        justify-items: flex-start;
-        align-items: flex-start;
+        justify-items: center;
+        align-items: center;
     }
     
 `;
@@ -113,12 +120,22 @@ export const SizeDiv = styled.div`
             margin-right: 10px;
             align-items: center;
         }
-        h3b{
+        h2{
             text-decoration: bold;
             display:flex;
             justify-content: left;
             margin-right: 10px;
             align-items: center;
+            font-size: 28px;
+        }
+        h1{
+            text-decoration-color: green; 
+            display:flex;
+            justify-content: left;
+            margin-right: 10px;
+            align-items: center;
+            font-size: 32px;
+            color: #62f830f5;
         }
         button{
             backdrop-filter: saturate(50%);
@@ -128,13 +145,13 @@ export const SizeDiv = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1rem;
-            border-radius: 0.2rem;
-            border-style: solid;
+            font-size: 1.5rem;
+            border-radius: 0.3rem;
+            border-style: double;
             border-color: black;
-            min-width: 1rem;
-            padding:  0.3rem;
-            height: 1.5rem;
+            min-width: 2rem;
+            padding:  0.5rem;
+            height: 2rem;
             text-decoration: none;
             cursor: pointer;
             }
@@ -158,19 +175,20 @@ h3 {
 `;
 
 export const AddBtn = styled.button`
-    width: 12rem;
-    height: 2.4rem;
-    margin-right: 1rem;
+    display: flex;  
+    align-items:center;
+    justify-content: center;
+    width: 20rem;
+    padding-top: 5px;
+    height: 2.5rem;
     background: black;
     color: white;
     border: none;
     border-radius: 0.75rem;
-    font-family: "Helvetica", sans-serif;
+    font-family: "Helvetica";
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    overflow: hidden;
-    
     :hover {
     color: black;
     background: white;

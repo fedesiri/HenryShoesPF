@@ -23,12 +23,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
-  const products = useSelector((state) => state.shoppingCartUserRegister)
+  // const products = useSelector((state) => state.shoppingCartUserRegister)
+  const products = useSelector((state) => state.AuxShopingCartBack);
+
   // console.log(products)
 
   const getTotal = () => {
     let total = 0;
-    products.forEach((product) => {
+    products.newArray.forEach((product) => {
       total += product.price * product.quantity;
     });
     return total;
@@ -41,7 +43,7 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
+        {products.newArray.map((product) => (
           <ListItem className={classes.listItem} key={product.id}>
             <ListItemText primary={product.model} secondary={`${"Quantity"}: ${product.quantity}`} />
             <Typography variant="body2">{`$${product.price*product.quantity}`}</Typography>

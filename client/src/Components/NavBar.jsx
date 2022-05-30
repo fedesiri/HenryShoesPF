@@ -15,7 +15,7 @@ import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginBtn, ChartBtn, SignOutBtn, DivStateCart } from "../styles/NavBar";
-import { postLogOut, getShoppingCart } from "../redux/actions/index.js";
+import { postLogOut, getShoppingCart, getCartBack } from "../redux/actions/index.js";
 import "./ShoppingCart/ShoppingCart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -36,7 +36,14 @@ export default function NavBar() {
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
+  console.log(cartDetailRegisterUser)
   const [stateCart, setStateCart] = useState();
+  console.log(stateCart)
+  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+
+
+
+
   let sum = 0;
   useEffect(() => {
     if (cartDetail1) {
@@ -52,6 +59,17 @@ export default function NavBar() {
   useEffect(() => {
     dispatch(getShoppingCart());
   }, [cartDetail1, cartDetailRegisterUser]);
+
+  
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [cartDetail1, resRemoveCart])
+
+
+
+
 
   const signOutHandler = () => {
     dispatch(postLogOut());
@@ -70,24 +88,15 @@ export default function NavBar() {
       <NavContainer>
         <Banner>
           <Link to="/">
-            <img src={banner} alt="" width="100%" height="150px" />
+            <img src={banner} alt="" width="100%" height= "150px" />
           </Link>
         </Banner>
 
         <SearchNav>
-          {/* {userInfo ? (
-            <Link to="/wish-list">
-              <DivWishList>
-                Wish List <FontAwesomeIcon icon={faHeart} />
-              </DivWishList>
-            </Link>
-          ) : null} */}
           <div>
             <SearchBar />
           </div>
-
-          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}
-
+          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}     
           <div>
             {userInfo || userInfo === "you are not authenticated" ? null : (
               <LoginDiv>

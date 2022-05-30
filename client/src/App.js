@@ -11,7 +11,7 @@ import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import { useSelector } from "react-redux";
-import LoginSuccess from "./Components/containers/LoginSuccess";
+import LoginSuccess from "./Components/Containers/LoginSuccess";
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import WishList from "./Components/WishList/WishList"
@@ -42,7 +42,6 @@ function App() {
         <Route path='/checkout' element={<VerifyPay />} />
         <Route path='/payment-success' element={<PaymentSuccess />} />
         <Route path='/payment-cancel' element={<PaymentCancel />} />
-
       </Routes>
     </ContentWrapper>
 
@@ -55,5 +54,7 @@ export default App;
 const ContentWrapper = styled.div`
   min-height: 100vh;
   padding: 3rem;
-  
+  @media (max-width:500px){
+    padding: 0.2rem;
+}  
 `; 

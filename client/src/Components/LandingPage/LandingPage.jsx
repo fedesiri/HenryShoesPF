@@ -8,20 +8,47 @@ import { filter } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts, clearDetail } from "../../redux/actions";
-import { LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
+import { getAllProducts, clearDetail, combineStateCart } from "../../redux/actions";
+import { Titulo, LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
+import Footer from "../Footer";
 
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  const cartDetail1 = useSelector((state) => state.shoppingCart);
+
     //  userInfo&&console.log(userInfo.email)
     //  console.log(userInfo)
   useEffect(() => {
     dispatch(clearDetail());
     dispatch(getAllProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo&& cartDetail1.length !==0) {
+      cartDetail1.forEach(e => {
+         setTimeout(() => {
+           
+         
+      dispatch(combineStateCart(  {
+        email: userInfo.email,
+            data: [{
+              sizes: e.sizes,
+              id: e.id,
+              quantity: 1,
+        }],
+      }
+      ));
+    }, 500);
+
+    })
+}}, []);
+
+
+
+
 
 
 
@@ -31,13 +58,18 @@ const LandingPage = () => {
       <AdminDiv>
         {userInfo && userInfo?.roleId === 1 && (
           <button>
-            <Link to="/CreateProduct"> Create Product </Link>{" "}
+            <Link to="/CreateProduct" > Create Product </Link>{" "}
           </button>
         )}
       </AdminDiv>
         <SliderDiv>
           <Slider />
         </SliderDiv>
+      <Link to="/CatalogPage" text-decoration="none">
+        <Titulo>
+          <h1>Catalog Page</h1>
+        </Titulo>
+      </Link>
       <FilterContainer>
           <MenBtn
             onClick={() => {
@@ -72,17 +104,21 @@ const LandingPage = () => {
             <h1> CHILD </h1>            
           </ChildBtn>
       </FilterContainer>
-      
       <PromotionDiv>
-        <h1>On Sale</h1>
+        <Titulo>
+          <h1>On Sale</h1>
+        </Titulo>
         <Promotion />
       </PromotionDiv>
       
       <BestSellersDiv>
-        <h1>BestSellers</h1>
+        <Titulo>
+          <h1>BestSellers</h1>
+        </Titulo>
         <BestSellers />
       </BestSellersDiv> 
 
+      <Footer/>
     </LandingDiv>
   );
 };

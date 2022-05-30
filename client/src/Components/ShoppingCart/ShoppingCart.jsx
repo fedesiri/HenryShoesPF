@@ -7,6 +7,10 @@ import {
   combineStateCart,
   getAllProducts,
   getShoppingCart,
+  getCartBack,
+  removeBackCart,
+  stateAuxShoppingCart
+  
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import "./ShoppingCart.css";
@@ -18,6 +22,8 @@ import FormularioInicio from "../FormularioInicio";
 import FormularioCrearCuenta from "../FormularioCrearCuenta";
 import Modal from "../Modal/Modal";
 import { useModal } from "../Modal/hooks/useModal";
+import Footer from "../Footer";
+import ShoppingCartAux from "./ShoppingCartAux";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -28,16 +34,13 @@ const ShoppingCart = () => {
   );
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
-
+  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+console.log(resRemoveCart)
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
-  useEffect(() => {
-    if (userInfo) {
-      dispatch(combineStateCart());
-    }
-  }, [dispatch, userInfo]);
+ 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -45,6 +48,42 @@ const ShoppingCart = () => {
       dispatch(getShoppingCart());
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [])
+  
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [cartDetail1, resRemoveCart])
+ 
+
+//   useEffect(() => {
+//     if (userInfo && cartDetail1) {
+//       cartDetail1.forEach(e => {
+         
+//       dispatch(combineStateCart(  {
+//         email: userInfo.email,
+//             data: [{
+//               sizes: e.sizes,
+//               id: e.id,
+//               quantity: 1,
+//         }],
+//       }));
+//     })
+// }}, []);
+
+// useEffect(() => {
+
+//    dispatch(stateAuxShoppingCart(newArray))
+ 
+// }, [])
+
+
 
   let cartDetail = [];
 
@@ -62,6 +101,7 @@ const ShoppingCart = () => {
       image: e.image,
       inOferta: e.inOferta,
       model: e.model,
+      porcentaje: e.porcentaje,
     });
   });
 
@@ -75,24 +115,56 @@ const ShoppingCart = () => {
   }
   mapeoDeCarro(cartDetail);
 
+
+  // let newArrayBack = [];
+  // function mapeoDeCarro(arrayId) {
+  //   arrayId.map((e) =>
+  //     arraySeleccion.forEach((el) => {
+  //       String(el.id) === String(e.id) && newArrayBack.push(Object.assign(e, el));
+  //     })
+  //   );
+  // }
+  // mapeoDeCarro(arrayId);
+  // console.log(newArrayBack)
+
+
+
+
+
+
   let sumItems = Number("");
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
+  console.log(sumItems)
 
   let sumPrice = Number("");
+  console.log(newArray)
   newArray.forEach((e) => {
     let result =
       e.quantity * (e.price - Math.ceil((e.price * e.porcentaje) / 100));
 
     sumPrice += Number(result);
   });
+console.log(sumPrice)
+
 
   function handleDeleteProductoCart(parametro) {
+    if (userInfo){ 
+      parametro.email = userInfo.email;
+      dispatch(removeBackCart(parametro ))
+    }else { 
     dispatch(removeProductCart(parametro));
+    }
   }
   function handleDeleteOneProductoCart(parametro) {
+    console.log(parametro)
+if (userInfo && parametro.quantity === 1){
+  parametro.email = userInfo.email;
+  dispatch(removeBackCart(parametro ))
+} else { 
     dispatch(removeOneProductCart(parametro));
+}
   }
 
   function handleAddOneProductoCart(parametro) {
@@ -116,12 +188,7 @@ const ShoppingCart = () => {
   return (
     <div>
       <NavBar />
-
-      <BackBtn
-        onClick={() => {
-          navigate(-1);
-        }}
-      ></BackBtn>
+      <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
 
       <div className="Cart">
         <h1> ShoppingCart </h1>
@@ -130,28 +197,28 @@ const ShoppingCart = () => {
           <div className="cartBrother">
             {newArray.map((e) => (
               <div className="childrenBro" key={contador++}>
-                <h2>{contador}-</h2>
+                <h3>{contador}-</h3>
                 <img src={e.image} alt="imagenes" />
                 <div className="repar2">
                   <Link
                     to={`/details/${e.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    <h3 style={{ color: "black" }}> {e.model} </h3>
+                    <h2 style={{ color: "black" }}> {e.model} </h2>
                   </Link>
                 </div>
-                <h2> Size: {e.sizes} </h2>
-                <h2> {e.quantity} u</h2>
+                <h4> Size: {e.sizes} </h4>
+                <h3> {e.quantity} u </h3>
                 {!e.porcentaje ? (
-                  <h2> Price: ${e.price * e.quantity} </h2>
+                  <h3> Price: ${e.price * e.quantity} </h3>
                 ) : (
-                  <h2>
+                  <h3>
                     {" "}
                     Price:$
                     {e.quantity *
                       (e.price -
                         Math.ceil((e.price * e.porcentaje) / 100))}{" "}
-                  </h2>
+                  </h3>
                 )}
                 <div className="buttons">
                   <DelButton
@@ -166,11 +233,13 @@ const ShoppingCart = () => {
                     Delete All{" "}
                   </DelButton>
 
-                  <DelButton
+                  <DelButton  
                     onClick={() =>
                       handleDeleteOneProductoCart({
                         id: e.id,
                         sizes: e.sizes,
+                        quantity: e.quantity,
+
                       })
                     }
                   >
@@ -191,6 +260,7 @@ const ShoppingCart = () => {
               </div>
             ))}
           </div>
+          <ShoppingCartAux  newArray={newArray}/>
 
           <div className="Brother2">
             <div className="carritopegajoso">
@@ -212,8 +282,12 @@ const ShoppingCart = () => {
       <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
         <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
       </Modal>
+      <Footer/>
     </div>
   );
 };
 
 export default ShoppingCart;
+
+
+

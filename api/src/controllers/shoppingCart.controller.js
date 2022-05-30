@@ -64,3 +64,29 @@ export const getAllShoppingHistory = async (req, res) => {
     res.send(err.message);
   }
 };
+
+export const removeFromCart = async (req, res) => {
+  const { id, sizes, email } = req.body;
+  console.log("deleteeeeeeee", req.body)
+
+  try {
+    const selectedCart = await ShoppingCart.findOne({
+      where: {
+        email: email
+      }
+    });
+    const selectedOrder = await Orders.findOne({
+      where: {
+        productId: id,
+        sizeId: sizes,
+      }
+    });
+
+    const removedOrder = await selectedCart.removeOrders(selectedOrder);
+
+    res.send("The product has been removed from the Cart")
+  } catch (err) {
+    console.log(err)
+    res.send(err)
+  }
+};

@@ -34,7 +34,7 @@ const Products = sequelize.define(
 
     image: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     gender: {
       type: DataTypes.STRING,
