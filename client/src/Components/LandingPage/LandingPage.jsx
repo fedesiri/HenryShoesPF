@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts, clearDetail } from "../../redux/actions";
 import { Titulo, LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
+import Footer from "../Footer";
 
 
 const LandingPage = () => {
@@ -91,6 +92,7 @@ const LandingPage = () => {
         <BestSellers />
       </BestSellersDiv> 
 
+      <Footer/>
     </LandingDiv>
   );
 };

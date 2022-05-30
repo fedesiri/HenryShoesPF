@@ -18,6 +18,7 @@ import FormularioInicio from "../FormularioInicio";
 import FormularioCrearCuenta from "../FormularioCrearCuenta";
 import Modal from "../Modal/Modal";
 import { useModal } from "../Modal/hooks/useModal";
+import Footer from "../Footer";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -212,6 +213,7 @@ const ShoppingCart = () => {
       <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
         <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
       </Modal>
+      <Footer/>
     </div>
   );
 };
