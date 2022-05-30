@@ -31,6 +31,7 @@ import {
   PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
   GET_BACK_CART,
+  REMOVE_BACK_CART,
 } from "../actions/types";
 
 const intialState = {
@@ -54,6 +55,7 @@ const intialState = {
   resWishList: [],
   state_WishList: [],
   Back_shoppingCart: [],
+  RemoveBackShoppingCart: []
 };
 
 function orderFilters(array, payload) {
@@ -495,7 +497,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         shoppingCartUserRegister: arrayId,
       };
 
+    case REMOVE_BACK_CART:
 
+      return {
+        ...state,
+        RemoveBackShoppingCart: payload
+      }
 
 
 

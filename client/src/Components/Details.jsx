@@ -221,7 +221,7 @@ const Details = () => {
           <SizeDiv>
             <h3>Sizes: </h3>
             {detail.sizes?.map((e) => (
-              <button value={e.size} onClick={(evento) => handleTalle(evento)}>
+              <button key={e.size} value={e.size} onClick={(evento) => handleTalle(evento)}>
                 {e.size}
               </button>
             ))}

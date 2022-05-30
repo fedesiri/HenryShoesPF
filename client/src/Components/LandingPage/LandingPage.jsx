@@ -27,8 +27,10 @@ const LandingPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userInfo && cartDetail1.length !==0) {
+    if (userInfo&& cartDetail1.length !==0) {
       cartDetail1.forEach(e => {
+         setTimeout(() => {
+           
          
       dispatch(combineStateCart(  {
         email: userInfo.email,
@@ -37,7 +39,10 @@ const LandingPage = () => {
               id: e.id,
               quantity: 1,
         }],
-      }));
+      }
+      ));
+    }, 500);
+
     })
 }}, []);
 

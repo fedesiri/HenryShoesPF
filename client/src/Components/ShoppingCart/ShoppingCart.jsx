@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getShoppingCart,
   getCartBack,
+  removeBackCart,
   
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
@@ -31,16 +32,13 @@ const ShoppingCart = () => {
   );
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
-
+  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+console.log(resRemoveCart)
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
-  useEffect(() => {
-    if (userInfo) {
-      dispatch(combineStateCart());
-    }
-  }, [dispatch, userInfo]);
+ 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -59,7 +57,7 @@ const ShoppingCart = () => {
     if(userInfo){
     dispatch(getCartBack(userInfo.email))
     }
-  }, [cartDetail1 ])
+  }, [cartDetail1, resRemoveCart])
  
 
 //   useEffect(() => {
@@ -138,10 +136,21 @@ const ShoppingCart = () => {
   });
 
   function handleDeleteProductoCart(parametro) {
+    if (userInfo){ 
+      parametro.email = userInfo.email;
+      dispatch(removeBackCart(parametro ))
+    }else { 
     dispatch(removeProductCart(parametro));
+    }
   }
   function handleDeleteOneProductoCart(parametro) {
+    console.log(parametro)
+if (userInfo && parametro.quantity === 1){
+  parametro.email = userInfo.email;
+  dispatch(removeBackCart(parametro ))
+} else { 
     dispatch(removeOneProductCart(parametro));
+}
   }
 
   function handleAddOneProductoCart(parametro) {
@@ -185,7 +194,7 @@ const ShoppingCart = () => {
                   </Link>
                 </div>
                 <h4> Size: {e.sizes} </h4>
-                <h3> {e.quantity} u</h3>
+                <h3> {e.quantity} u </h3>
                 {!e.porcentaje ? (
                   <h3> Price: ${e.price * e.quantity} </h3>
                 ) : (
@@ -210,11 +219,13 @@ const ShoppingCart = () => {
                     Delete All{" "}
                   </DelButton>
 
-                  <DelButton
+                  <DelButton  
                     onClick={() =>
                       handleDeleteOneProductoCart({
                         id: e.id,
                         sizes: e.sizes,
+                        quantity: e.quantity,
+
                       })
                     }
                   >
