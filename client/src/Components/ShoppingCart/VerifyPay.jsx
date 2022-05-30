@@ -17,6 +17,7 @@ import { placeOrder } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./verifyPay.css"
+import Footer from "../Footer";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -213,6 +214,7 @@ const VerifyPay = () => {
           </Paper>
         </main>
       </React.Fragment>
+      <Footer/>
     </>
   );
 };

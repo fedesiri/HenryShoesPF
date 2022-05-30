@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../NavBar";
 import "./WishList.css";
+import Footer from "../Footer";
 
 const WishList = () => {
   const dispatch = useDispatch();
@@ -103,6 +104,7 @@ const WishList = () => {
           </table>
         )}
       </div>
+      <Footer/>
     </>
   );
 };

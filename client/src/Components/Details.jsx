@@ -29,6 +29,7 @@ import { LoginBtn } from "../styles/NavBar";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { Button } from "../styles/Form";
+import Footer from "./Footer";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -101,8 +102,8 @@ const Details = () => {
 
 
   async function CargarCarrito() {
-    if (itemsCarts.sizes === undefined || itemsCarts.quantity === undefined) {
-      toast.warn("Complete size and quantity", {
+    if (itemsCarts.sizes === undefined ) {
+      toast.warn("Complete size", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -138,15 +139,15 @@ const Details = () => {
     }
   }
 
-  function handleCantidad(e) {
-    e.preventDefault();
+  // function handleCantidad(e) {
+  //   e.preventDefault();
 
-    console.log(e.target.value);
-    setItemsCarts({
-      ...itemsCarts,
-      quantity: e.target.value,
-    });
-  }
+  //   console.log(e.target.value);
+  //   setItemsCarts({
+  //     ...itemsCarts,
+  //     quantity: 1,
+  //   });
+  // }
   function handleTalle(e) {
     // e.preventDefault()
     // console.log(e.target.value);
@@ -155,6 +156,7 @@ const Details = () => {
     setItemsCarts({
       ...itemsCarts,
       sizes: e.target.value,
+      quantity: 1,
     });
   }
 
@@ -191,25 +193,31 @@ const Details = () => {
       <ContentDiv>
         <Content2>
           <h3>Model:</h3>
-          <p>{detail.model}</p>
+          <h2>{detail.model}</h2>
+          <SizeDiv>
           <h3>Price:</h3>
-          <p> ${detail.price}</p>
+          <h2> ${detail.price}</h2>
+          </SizeDiv>
           {/* {console.log(detail.price, "SOY PRICE")} */}
+          <div>
           {detail.porcentaje && (
-            <>
-              <p> %{detail.porcentaje}</p>
-              <p>
-                {" "}
-                Now: $
-                {detail.price -
+            <SizeDiv>
+              <h3>discount:</h3>
+              <h2>{" "}{detail.porcentaje} %</h2>
+              <h3> Now:</h3> 
+              <h1>${detail.price -
                   Math.ceil((detail.price * detail.porcentaje) / 100)}{" "}
-              </p>
-            </>
+              </h1>
+            </SizeDiv>
+            
           )}
+          </div>
+          <SizeDiv>
           <h3>Gender:</h3>
-          <p> {detail.gender}</p>
+          <h2> {detail.gender}</h2>
           {detail.CategName?.length > 0 ? <h3>Category:</h3> : null}
           {detail.CategName?.length > 0 ? <p>{detail.CategName}</p> : null}
+          </SizeDiv>
           <SizeDiv>
             <h3>Sizes: </h3>
             {detail.sizes?.map((e) => (
@@ -220,49 +228,39 @@ const Details = () => {
           </SizeDiv>
           <SizeDiv>
             <h3>selected sizes: </h3>
-            <h3>{itemsCarts.sizes}</h3>
+            <h2>{itemsCarts.sizes}</h2>
           </SizeDiv>
-          <StockDiv>
+          {/* <StockDiv>
             <h3>Quantity: </h3>
             <StockSelect
               defaultValue="default"
               onChange={(e) => handleCantidad(e)}
             >
-              <option value="default"> Quantity: </option>
+              <option value="1"> Quantity: </option>
               <option value="1"> 1 </option>
               <option value="2"> 2 </option>
               <option value="3"> 3 </option>
               <option value="4"> 4 </option>
               <option value="5"> 5 </option>
             </StockSelect>
-          </StockDiv>
-          <h4>Description:</h4>
-          <p>{detail.description}</p>
+          </StockDiv> */}
+          <h4>Description : {detail.description}</h4>
         </Content2>
         <Content1>
           <img src={detail.image} alt="img zapa" />
         </Content1>
+        
       </ContentDiv>
       <BtnDiv>
-        {userInfo?.roleId === 1 ? (
-          <Link to={`/edit/${addres}`}>
-            <button>Edit Product</button>
-          </Link>
-        ) : null}
-
-        {userInfo?.roleId === 1 ? (
-          <button onClick={(e) => HandleDelete()}> Delete Product </button>
-        ) : userInfo?.roleId === 1 ? (
-          <button onClick={(e) => HandleDelete()}> Delete Product </button>
-        ) : null}
         <AddBtn onClick={(e) => CargarCarrito(e)}>
-          <h3>Add to Shopping Cart</h3>
+          <h4>Add to Shopping Cart</h4>
         </AddBtn>
       </BtnDiv>
 
       <Modal isOpen={isOpenCart} closeModal={closeCart}>
         <CartDetails closeCart={closeCart} />
       </Modal>
+      <Footer/>
     </DetailContainer>
   );
 };

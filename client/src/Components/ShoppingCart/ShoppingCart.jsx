@@ -20,6 +20,7 @@ import FormularioInicio from "../FormularioInicio";
 import FormularioCrearCuenta from "../FormularioCrearCuenta";
 import Modal from "../Modal/Modal";
 import { useModal } from "../Modal/hooks/useModal";
+import Footer from "../Footer";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -164,12 +165,7 @@ const ShoppingCart = () => {
   return (
     <div>
       <NavBar />
-
-      <BackBtn
-        onClick={() => {
-          navigate(-1);
-        }}
-      ></BackBtn>
+      <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
 
       <div className="Cart">
         <h1> ShoppingCart </h1>
@@ -178,28 +174,28 @@ const ShoppingCart = () => {
           <div className="cartBrother">
             {newArray.map((e) => (
               <div className="childrenBro" key={contador++}>
-                <h2>{contador}-</h2>
+                <h3>{contador}-</h3>
                 <img src={e.image} alt="imagenes" />
                 <div className="repar2">
                   <Link
                     to={`/details/${e.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    <h3 style={{ color: "black" }}> {e.model} </h3>
+                    <h2 style={{ color: "black" }}> {e.model} </h2>
                   </Link>
                 </div>
-                <h2> Size: {e.sizes} </h2>
-                <h2> {e.quantity} u</h2>
+                <h4> Size: {e.sizes} </h4>
+                <h3> {e.quantity} u</h3>
                 {!e.porcentaje ? (
-                  <h2> Price: ${e.price * e.quantity} </h2>
+                  <h3> Price: ${e.price * e.quantity} </h3>
                 ) : (
-                  <h2>
+                  <h3>
                     {" "}
                     Price:$
                     {e.quantity *
                       (e.price -
                         Math.ceil((e.price * e.porcentaje) / 100))}{" "}
-                  </h2>
+                  </h3>
                 )}
                 <div className="buttons">
                   <DelButton
@@ -260,6 +256,7 @@ const ShoppingCart = () => {
       <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
         <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
       </Modal>
+      <Footer/>
     </div>
   );
 };

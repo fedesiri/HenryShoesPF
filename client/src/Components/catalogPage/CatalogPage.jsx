@@ -15,6 +15,7 @@ import Loader from "../Load";
 import Paged from "../Paged";
 import CardProduct from "../CardProduct";
 import { Btns, Products, ContainerHome, NoResult, ReloadBtn, Button } from "../../styles/CatalogPage"
+import Footer from "../Footer";
 
 export default function Catalog() {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ export default function Catalog() {
                 )
             )}
         </Products>
+        <Footer/>
     </ContainerHome>
 );
 }

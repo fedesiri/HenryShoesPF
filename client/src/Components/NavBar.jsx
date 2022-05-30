@@ -86,6 +86,7 @@ export default function NavBar() {
               <ChartBtn />
             </Link>
           </div>
+
                   
           <div>
             {userInfo || userInfo === "you are not authenticated" ? null : (
@@ -123,7 +124,11 @@ export default function NavBar() {
               </LoginDiv>
             ) : null}
           </div>
-          
+          <div>
+            <Link to="/cart">
+              <ChartBtn />
+            </Link>
+          </div>
         </SearchNav>
       </NavContainer>
       {/* los modals no estan afectando al css!! dejarlos ahi a lo ultimo */}

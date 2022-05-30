@@ -42,7 +42,6 @@ function App() {
         <Route path='/checkout' element={<VerifyPay />} />
         <Route path='/payment-success' element={<PaymentSuccess />} />
         <Route path='/payment-cancel' element={<PaymentCancel />} />
-
       </Routes>
     </ContentWrapper>
 
