@@ -29,6 +29,7 @@ import { LoginBtn } from "../styles/NavBar";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { Button } from "../styles/Form";
+import Footer from "./Footer";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -253,6 +254,7 @@ const Details = () => {
       <Modal isOpen={isOpenCart} closeModal={closeCart}>
         <CartDetails closeCart={closeCart} />
       </Modal>
+      <Footer/>
     </DetailContainer>
   );
 };

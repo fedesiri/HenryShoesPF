@@ -19,8 +19,6 @@ import UserProfile from "./Components/User/UserProfile";
 import VerifyPay from "./Components/ShoppingCart/VerifyPay";
 import PaymentSuccess from "./Components/ShoppingCart/PaymentSuccess";
 import PaymentCancel from "./Components/ShoppingCart/PaymentCancel";
-import Footer from "./Components/Footer";
-import NavBar from "./Components/NavBar";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -45,7 +43,6 @@ function App() {
         <Route path='/payment-success' element={<PaymentSuccess />} />
         <Route path='/payment-cancel' element={<PaymentCancel />} />
       </Routes>
-      <Footer/>
     </ContentWrapper>
 
   );
