@@ -32,6 +32,10 @@ const Orders = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    }
   },
   { timestamps: true }
 );
