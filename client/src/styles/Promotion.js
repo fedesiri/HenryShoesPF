@@ -53,6 +53,8 @@ export const CardContainer = styled.div`
     img {    
         position: center;    
         border-radius: 0.8rem;
+        position:absoluta;
+        z-index:1;
         @media (max-width: 550px){
             width: 100px;
             height: 100px;
@@ -70,6 +72,7 @@ export const CardContainer = styled.div`
 export const CardImage = styled.div`
     display: flex;
     justify-content: center;
+    z-index:1;
     @media (max-width: 550px){
         width: 100%;
         height: 100%;
@@ -130,6 +133,8 @@ export const CardInfo = styled.div`
         color: red; 
         padding: 0.7rem;
         background-color: yellow;
+        position: absoluta;
+        z-index:1;
         @media (max-width: 550px){
             margin-top:-8px;
             margin-left:60%;

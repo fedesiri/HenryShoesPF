@@ -46,17 +46,16 @@
             border-radius: 0.5rem;
             background-color: rgb(249, 249, 31);
             color: black;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-family: Poppins;
             font-weight: 600;
             
         }
         
-        .carritopegajoso >h1{
-            font-size: 2rem;
+        .carritopegajoso h1{
+            font-size: 1.2rem;
             font-family: Poppins;
             font-weight: 800;
-            font-size:1rem ;
         }
         .Brother2{
             width: 100%;
@@ -65,37 +64,38 @@
         .childrenBro{
             display: flex;
             flex-direction: row;
-            justify-content:space-evenly;
+            justify-content:center;
             align-items: center;
-            
         }
         .childrenBro img{
             display:flex;
-            width: 10%;
-            justify-content:flex-start;
-            align-items: flex-start;
-            justify-items:flex-start;
-            align-content:flex-start;
+            width: 8%;
+            align-items:stretch;
+            align-content:space-around;
             
         }
-        .childrenBro h2{
+        .childrenBro h3{
             display: flex;
+            flex-wrap: nowrap;
             width: 10%;
-            align-items: center;
-            align-content: center;
-            margin-right: 1rem;
-            margin-left: 1rem;
+            align-items:flex-start;
+            align-content:flex-start;
+            margin-right: 0.5rem;
+            margin-left: 0.5rem;
     
         }
     .repar2{
         display: flex;
-        width: 70%;
-        justify-content: center;
+        width: 60%;
+        justify-content: flex-start;
         align-items: center;
-        
-        
     }
-    
+    .repar2 h2{
+        display: flex;
+        font-size: 1.5rem;
+        font-weight: 600;
+        align-items: center;
+    }
     
     
         .list{

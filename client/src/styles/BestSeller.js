@@ -47,6 +47,7 @@ export const CardInfo = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 60px;
+    z-index:2;
     @media (max-width: 550px){
         height: 16px;
     }
@@ -81,6 +82,7 @@ export const CardDetail = styled(Link)`
 export const CardImage = styled.div`
     display: flex;
     justify-content: center;
+    z-index:3;
     @media (max-width: 550px){
         width: 100%;
         height: 100%;
@@ -96,9 +98,11 @@ export const CardContainer = styled.div`
     background-color: var(--background-color);
     border-radius: 0.8rem;
     border-style: solid;
+    z-index:2;
     img {    
         position: center;    
         border-radius: 0.8rem;
+        z-index:3;
         @media (max-width: 550px){
             width: 100px;
             height: 100px;
