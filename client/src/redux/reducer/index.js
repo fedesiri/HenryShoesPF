@@ -485,8 +485,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
 
     case GET_BACK_CART:
-      let infoBack = payload.data[0].orders
-      let arrayId = infoBack.map(e => ({
+      let infoBack = payload.data[0]?.orders
+      let arrayId = infoBack?.map(e => ({
         id: e.productId,
         sizes: e.sizeId,
         quantity: e.quantity
