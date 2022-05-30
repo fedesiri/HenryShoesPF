@@ -3,9 +3,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAllCategory } from "../../../redux/actions/index.js";
+import { getAllCategory, getAllProducts, } from "../../../redux/actions/index.js";
 import { ToastContainer, toast } from "react-toastify";
-import { Button, TextField } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@material-ui/data-grid";
 import "react-toastify/dist/ReactToastify.css";
 import { DeleteOutline } from "@material-ui/icons";
@@ -16,14 +16,18 @@ import "./CreateCategory.css";
 export default function CreateCategory () {
     const dispatch = useDispatch();
     const categories = useSelector ((state) => state.categories);
+    const products = useSelector ((state) => state.allProducts)
 
     useEffect(() => {
-      dispatch(getAllCategory());
+      dispatch(getAllCategory())
+      dispatch(getAllProducts());
     }, [dispatch]);
 
     const [category, SetCategory] = useState({
       name: "",
     });
+    const [arrayIds, setArrayIds] = useState([]);
+    console.log(arrayIds)
 
     const HandleOnChange = (e) => {
       SetCategory((PreValue) => ({
@@ -41,6 +45,7 @@ export default function CreateCategory () {
             url: `${process.env.REACT_APP_API_URL}/admin/create-categories`,
             data: {
               name: category.name,
+              data: arrayIds
             },
           });
           if (response.data) {
@@ -48,8 +53,9 @@ export default function CreateCategory () {
             SetCategory({
               name: "",
             });
+            setArrayIds([]);
             dispatch(getAllCategory());
-            toast.success(response.data.message);
+            toast.success(response.data);
           }
         } catch (error) {
           console.log(error);
@@ -88,6 +94,24 @@ export default function CreateCategory () {
   
     const columns = [
       { field: "id", headerName: "ID", width: 90 },
+        {
+            field: "product",
+            headerName: "Product",
+            width: 500,
+            renderCell: params => {
+                return (
+                    <div className="productListItem">
+                        <img className="productListImg" src={params.row.image} alt="" />
+                        {params.row.model}
+                    </div>
+                );
+            },
+            valueGetter: params => params.row.model,
+      },
+    ];
+
+    const categColumns = [
+            { field: "id", headerName: "ID", width: 90 },
       {
         field: "name",
         headerName: "Category Name",
@@ -126,6 +150,20 @@ export default function CreateCategory () {
                 placeholder="Category Name"
               />{" "}
             </div>
+            <Grid item>
+                <DataGrid
+                    style={{ height: "520px", width: "945px" }}
+                    rows={products}
+                    disableSelectionOnClick
+                    columns={columns}
+                    pageSize={25}
+                    checkboxSelection
+                    onSelectionModelChange={ids => setArrayIds(ids)}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
+                />
+                </Grid>
             <button onClick={(e) => handleOnSubmit(e)} className="addBrandButton">
               Create
             </button>
@@ -141,17 +179,6 @@ export default function CreateCategory () {
             >
               Delete selected
             </Button> */}
-            <DataGrid
-              rows={categories}
-              columns={columns}
-              pageSize={10}
-              checkboxSelection
-              disableSelectionOnClick
-              // onSelectionModelChange={(ids) => setArrayIds(ids)}
-              components={{
-                Toolbar: CustomToolbar,
-              }}
-            />
           </div>
         </div>
         <ToastContainer
@@ -163,6 +190,21 @@ export default function CreateCategory () {
           rtl={false}
           draggable
         />
+            <Grid item>
+              <DataGrid
+              style={{ height: "300px", width: "945px" }}
+              rows={categories}
+              columns={categColumns}
+              pageSize={10}
+              checkboxSelection
+              disableSelectionOnClick
+              // onSelectionModelChange={(ids) => setArrayIds(ids)}
+              components={{
+                Toolbar: CustomToolbar,
+              }}
+            />
+      </Grid>
+    
       </div>
     );
   }
