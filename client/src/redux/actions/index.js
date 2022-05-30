@@ -35,6 +35,7 @@ import {
   CLEAR_SHOPPINGCART,
   GET_BACK_CART,
   REMOVE_BACK_CART,
+  AUX_SHOPPING_CART,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -462,3 +463,12 @@ export const removeBackCart = (payload) => {
     });
   };
 };
+
+export const stateAuxShoppingCart = (payload) => {
+  console.log(payload)
+  return {
+    type: AUX_SHOPPING_CART,
+    payload
+  };
+
+}

@@ -9,6 +9,7 @@ import {
   getShoppingCart,
   getCartBack,
   removeBackCart,
+  stateAuxShoppingCart
   
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
@@ -22,6 +23,7 @@ import FormularioCrearCuenta from "../FormularioCrearCuenta";
 import Modal from "../Modal/Modal";
 import { useModal } from "../Modal/hooks/useModal";
 import Footer from "../Footer";
+import ShoppingCartAux from "./ShoppingCartAux";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -75,6 +77,13 @@ console.log(resRemoveCart)
 //     })
 // }}, []);
 
+// useEffect(() => {
+
+//    dispatch(stateAuxShoppingCart(newArray))
+ 
+// }, [])
+
+
 
   let cartDetail = [];
 
@@ -92,6 +101,7 @@ console.log(resRemoveCart)
       image: e.image,
       inOferta: e.inOferta,
       model: e.model,
+      porcentaje: e.porcentaje,
     });
   });
 
@@ -126,14 +136,18 @@ console.log(resRemoveCart)
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
+  console.log(sumItems)
 
   let sumPrice = Number("");
+  console.log(newArray)
   newArray.forEach((e) => {
     let result =
       e.quantity * (e.price - Math.ceil((e.price * e.porcentaje) / 100));
 
     sumPrice += Number(result);
   });
+console.log(sumPrice)
+
 
   function handleDeleteProductoCart(parametro) {
     if (userInfo){ 
@@ -246,6 +260,7 @@ if (userInfo && parametro.quantity === 1){
               </div>
             ))}
           </div>
+          <ShoppingCartAux  newArray={newArray}/>
 
           <div className="Brother2">
             <div className="carritopegajoso">
@@ -273,3 +288,6 @@ if (userInfo && parametro.quantity === 1){
 };
 
 export default ShoppingCart;
+
+
+

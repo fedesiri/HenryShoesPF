@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import ReactDOM from "react-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -78,19 +78,25 @@ function getStepContent(step) {
 
 const VerifyPay = () => {
   const userInfo = useSelector((state) => state.userInfo);
-  const products = useSelector((state) => state.shoppingCartUserRegister);
+  const products = useSelector((state) => state.AuxShopingCartBack);
+
+  // const products = useSelector((state) => state.shoppingCartUserRegister);
+  console.log( "verifiqueee",products.newArray)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getTotal = () => {
     let total = 0;
-    products.forEach((product) => {
+    products.newArray.forEach((product) => {
       total += product.price * product.quantity;
     });
     return total;
   };
-  const total = getTotal();
+  const total =  getTotal();
   console.log(total);
+
+
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
