@@ -242,18 +242,19 @@ export default function ProductList() {
         <Grid
             container
             direction="column"
-            justifyContent="flex-start"
+            justifyContent="center"
             alignItems="center"
             spacing={3}
+            style={{ height: "100%", width: "100%" }}
         >
             <Grid item container direction="row" justifyContent="space-between" alignItems="center">
                 <Grid
                     item
                     container
-                    justifyContent="flex-start"
+                    justifyContent="center"
                     alignItems="center"
                     xs={4}
-                    spacing={2}
+                    spacing={1}
                 >
                     <Grid item>
                         <h1>Products</h1>
@@ -278,7 +279,7 @@ export default function ProductList() {
                 <Grid
                     item
                     container
-                    justifyContent="flex-end"
+                    justifyContent="center"
                     alignItems="center"
                     xs={4}
                     spacing={2}
@@ -319,9 +320,9 @@ export default function ProductList() {
                     }}
                 />
             </Grid>
-            <Grid item >
+            {/* <Grid item >
               <VerOferta/>
-            </Grid>
+            </Grid> */}
             <ToastContainer
                 position="top-center"
                 autoClose={2000}

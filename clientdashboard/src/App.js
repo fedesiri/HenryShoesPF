@@ -9,6 +9,10 @@ import UserList from "./components/pages/userList/UserList";
 import User from "./components/pages/user/User";
 import CreateBrand from "./components/pages/createBrand/CreateBrand";
 import CreateCategory from "./components/pages/createCategory/CreateCategory";
+import Orders from "./components/pages/orders/Orders";
+import OrderDetail from "./components/orderDetail/OrderDetail";
+import VerOferta from "./components/pages/productList/VerOferta";
+import OnSaleBestsellers from "./components/pages/onSaleBestsellers/OnSaleBestsellers";
 
 
 function App() {
@@ -16,27 +20,31 @@ function App() {
     <Router>
       <Topbar />
       <div className="container">
+      {/* <div> */}
         <Sidebar />
         <Switch>
           {/* HOME */}
-          <Route path="/users">
+          <Route exact path="/users">
             <UserList />
           </Route>
-          <Route path="/user/:userId">
+          <Route exact path="/user/:userId">
             <User />
           </Route>
           {/* NEWUSER verificar si poner o no */}
           {/* PRODUCTLIST */}
-          <Route path="/products">
+          <Route exact path="/products">
             <ProductList />
           </Route>
           {/* PRODUCT */}
-          <Route path="/product/:id">
+          <Route exact path="/product/:id">
             <Product />
           </Route>
           {/* NEWPRODUCT */}
-          <Route path="/create-products">
+          <Route exact path="/create-products">
           <CreateProduct />
+          </Route>
+          <Route exact path="/onsale-bestsellers">
+          <OnSaleBestsellers />
           </Route>
           {/* NEWCATEGORY */}
           <Route path="/create-category">
@@ -45,6 +53,12 @@ function App() {
           {/* NEWBRAND */}
           <Route path="/create-brand">
           <CreateBrand />
+          </Route>
+          <Route path="/orders">
+          <Orders />
+          </Route>
+          <Route path="/detail/:orderId">
+          <OrderDetail />
           </Route>
         </Switch>
       </div>
