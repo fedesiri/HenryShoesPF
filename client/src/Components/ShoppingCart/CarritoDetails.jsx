@@ -34,11 +34,11 @@ const CartDetails = () => {
       dispatch(getCartBack(userInfo.email))
 
     }
-  }, []);
+  }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, []);
+  }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   let cartDetail = [];
   if (userInfo) {
@@ -102,8 +102,7 @@ const CartDetails = () => {
         <div key={index}>
           <img width="200px" src={e.image} alt="imagenes" />
           <h2> {e.model} </h2>
-          <h2> Price: {e.price * e.quantity} $</h2>
-          {!e.porcentaje ? (
+          {e.porcentaje === null ? (
             <h2> Price: {e.price * e.quantity} $</h2>
           ) : (
             <h2>
@@ -115,7 +114,7 @@ const CartDetails = () => {
           )}
           <h2> Quantity: {e.quantity} unidad</h2>
           <h2> Size: {e.sizes} </h2>
-          <DelButton
+          {/* <DelButton
             onClick={() =>
               handleDeleteProductoCart({
                 id: e.id,
@@ -125,8 +124,8 @@ const CartDetails = () => {
           >
             {" "}
             Delete All{" "}
-          </DelButton>
-          <DelButton
+          </DelButton> */}
+          {/* <DelButton
             onClick={() =>
               handleDeleteOneProductoCart({
                 id: e.id,
@@ -136,7 +135,7 @@ const CartDetails = () => {
           >
             {" "}
             Delete One{" "}
-          </DelButton>
+          </DelButton> */}
         </div>
       ))}
 

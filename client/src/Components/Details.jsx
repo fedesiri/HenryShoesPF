@@ -39,7 +39,7 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  console.log(cartDetail1)
+  // console.log(cartDetail1)
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );

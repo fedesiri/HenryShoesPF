@@ -20,7 +20,7 @@ console.log("estoyCARtAUILIAR",products)
  dispatch(stateAuxShoppingCart(newArray))
     }
 
-    }, [newArray])
+    }, [newArray])//  eslint-disable-line react-hooks/exhaustive-deps
     
     console.log(newArray)
 
