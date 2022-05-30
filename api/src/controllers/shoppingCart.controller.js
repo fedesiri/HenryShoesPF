@@ -66,7 +66,7 @@ export const getAllShoppingHistory = async (req, res) => {
 };
 
 export const removeFromCart = async (req, res) => {
-  const { id, size, email } = req.body;
+  const { id, sizes, email } = req.body;
   console.log("deleteeeeeeee", req.body)
 
   try {
@@ -75,11 +75,10 @@ export const removeFromCart = async (req, res) => {
         email: email
       }
     });
-
     const selectedOrder = await Orders.findOne({
       where: {
-        productId: product,
-        sizeId: id,
+        productId: id,
+        sizeId: sizes,
       }
     });
 

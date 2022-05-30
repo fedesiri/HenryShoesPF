@@ -15,7 +15,7 @@ import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginBtn, ChartBtn, SignOutBtn, DivStateCart } from "../styles/NavBar";
-import { postLogOut, getShoppingCart } from "../redux/actions/index.js";
+import { postLogOut, getShoppingCart, getCartBack } from "../redux/actions/index.js";
 import "./ShoppingCart/ShoppingCart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -36,8 +36,14 @@ export default function NavBar() {
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
+  console.log(cartDetailRegisterUser)
   const [stateCart, setStateCart] = useState();
   console.log(stateCart)
+  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+
+
+
+
   let sum = 0;
   useEffect(() => {
     if (cartDetail1) {
@@ -53,6 +59,17 @@ export default function NavBar() {
   useEffect(() => {
     dispatch(getShoppingCart());
   }, [cartDetail1, cartDetailRegisterUser]);
+
+  
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [cartDetail1, resRemoveCart])
+
+
+
+
 
   const signOutHandler = () => {
     dispatch(postLogOut());
@@ -79,15 +96,7 @@ export default function NavBar() {
           <div>
             <SearchBar />
           </div>
-          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}
-          {stateCart}
-          <div>
-            <Link to="/cart">
-              <ChartBtn />
-            </Link>
-          </div>
-
-                  
+          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}     
           <div>
             {userInfo || userInfo === "you are not authenticated" ? null : (
               <LoginDiv>

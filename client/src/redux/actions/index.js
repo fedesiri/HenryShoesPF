@@ -34,6 +34,7 @@ import {
   PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
   GET_BACK_CART,
+  REMOVE_BACK_CART,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -447,3 +448,17 @@ export const getCartBack = (payload) => {
 };
 
 
+export const removeBackCart = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.put(
+      `${process.env.REACT_APP_API_URL}/shoppingcart/remove`,
+      payload
+    );
+    return dispatch({
+      type: REMOVE_BACK_CART,
+      payload: result,
+    });
+  };
+};
