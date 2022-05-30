@@ -47,19 +47,19 @@ console.log(resRemoveCart)
     setTimeout(() => {
       dispatch(getShoppingCart());
     }, 2000);
-  }, []);
+  }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if(userInfo){
     dispatch(getCartBack(userInfo.email))
     }
-  }, [])
+  }, [])//  eslint-disable-line react-hooks/exhaustive-deps
   
   useEffect(() => {
     if(userInfo){
     dispatch(getCartBack(userInfo.email))
     }
-  }, [cartDetail1, resRemoveCart])
+  }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
  
 
 //   useEffect(() => {

@@ -11,25 +11,25 @@ const divStyle = {
   display: "none",
 };
 
-const VerOferta = ({chequeo}) => {
+const VerOferta = () => {
   const dispatch = useDispatch();
   const [ocultar, setOcultar] = useState(false);
   const [chequeo1, setChequeo1] = useState(false)
 
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  
+  let respBackCreate = useSelector ((state)=> state.res_back_productOferts)
+let resDeleteBack = useSelector ((state)=> state.postMsj)
+let resALlproducts = useSelector ((state)=> state.allProducts)
+// console.log(resDeleteBack.status)
 
 useEffect(() => {
-  
-  setChequeo1(!chequeo1)
-    dispatch(filterOfertDestacado());
-}, [chequeo]);
+ dispatch(getAllProducts())
+}, [respBackCreate, resDeleteBack ])//  eslint-disable-line react-hooks/exhaustive-deps
 
 useEffect(() => {
-  setTimeout(() => {
-    dispatch(filterOfertDestacado());  
-  }, 1000);
-}, [chequeo1])
+dispatch(filterOfertDestacado())
+}, [resALlproducts])//  eslint-disable-line react-hooks/exhaustive-deps
+
 
 
   function verProduct() {
@@ -38,24 +38,11 @@ useEffect(() => {
     setOcultar(!ocultar);
   }
   function retornarIdPromotion(e) {
-  
     dispatch(deletePromotion(e.target.value));
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 100);
-    setTimeout(() => {
-      setChequeo1(!chequeo1)
-    }, 500);
   }
 
   function retornarIdDestacado(e) {
-   
-    dispatch(deleteDestacado(e.target.value));
-    
-    setTimeout(() => {
-      dispatch(getAllProducts())
-      setChequeo1(!chequeo1)
-    }, 1000);
+    dispatch(deleteDestacado(e.target.value));  
   }
 
   const productOfert = productsDestacadOfert?.filter((e) => e.inOferta === true);

@@ -15,9 +15,12 @@ const CargarOferta = () => {
   const dispatch = useDispatch();
   const onOfert = useSelector((state) => state.ofertSelect);
   // const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  const resBack =useSelector((state)=> state.res_back_productOferts)
+  let respBackCreate = useSelector ((state)=> state.res_back_productOferts)
+  let resALlproducts = useSelector ((state)=> state.allProducts)
 
-
+  let resDeleteBack = useSelector ((state)=> state.postMsj)
+  // console.log(resDeleteBack.status)
+  
   const [input, setInput] = useState("");
   const [chequeo,setChequeo] = useState(false)
   const [validarProducts, setValidarProducts] = useState({
@@ -26,20 +29,16 @@ const CargarOferta = () => {
     porcentaje: [],
   });
 
+  
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, []); //  eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 1000);
-    
-    setTimeout(() => {
-      dispatch(filterOfertDestacado())
-      setChequeo(!chequeo)
-    }, 3000);
+    dispatch(getAllProducts())
+   }, [respBackCreate, resDeleteBack ])//  eslint-disable-line react-hooks/exhaustive-deps
+   
+   useEffect(() => {
+   dispatch(filterOfertDestacado())
+   }, [resALlproducts])//  eslint-disable-line react-hooks/exhaustive-deps
 
-  }, [resBack]);
+
 
   function inputSearch(e) {
     e.preventDefault();
@@ -202,7 +201,7 @@ const CargarOferta = () => {
         <button type="submit"> Send Products</button>
       </form>
       <div></div>
-      <VerOferta  chequeo={chequeo}/>
+      <VerOferta  />
     </div>
   );
 };
