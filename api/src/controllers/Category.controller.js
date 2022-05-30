@@ -1,4 +1,5 @@
 import Category from "../models/Category.js";
+import Products from "../models/Products.js"
 
 export const getCategory = (req, res, next) => {
   Category.findAll()
@@ -17,17 +18,31 @@ export const getCategoryId = (req, res, next) => {
     .catch(next);
 }; 
 
-export const createCategory = (req, res, next) => {
-  const { name } = req.body;
-  if (!name)
+export const createCategory = async (req, res) => {
+  const { name, data } = req.body;
+  try{
+  if (!name){
     return res.status(404).send("Not enough data to create a category.");
-  Category.create({
+  }else{
+  const newCateg = await Category.create({
     name: name,
-  })
-    .then(function (createdCategory) {
-      res.json(createdCategory);
-    })
-    .catch(next);
+  });
+  
+  for(let i=0; i < data.length; i++){
+    const brandedProduct = await Products.findOne({
+      where:{
+        id: data[i]
+      }
+    });
+   await brandedProduct.setCategory(newCateg)
+  };
+
+  res.send("The Category was succesfully created")
+}
+}catch(err){
+  console.log(err);
+  res.send(err)
+}
 };
 
 export const modifCategory = (req, res, next) => {
