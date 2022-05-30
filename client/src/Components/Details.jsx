@@ -39,6 +39,7 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
+  console.log(cartDetail1)
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
@@ -75,11 +76,20 @@ const Details = () => {
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (userInfo) {
-      dispatch(combineStateCart());
-    }
-  }, [dispatch]);
+//   useEffect(() => {
+//     if (userInfo && cartDetail1) {
+//       cartDetail1.forEach(e => {
+         
+//       dispatch(combineStateCart(  {
+//         email: userInfo.email,
+//             data: [{
+//               sizes: e.sizes,
+//               id: e.id,
+//               quantity: 1,
+//         }],
+//       }));
+//     })
+// }}, []);
 
   // useEffect(() => {
 

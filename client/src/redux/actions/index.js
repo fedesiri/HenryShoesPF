@@ -33,6 +33,7 @@ import {
   PLACE_ORDER,
   PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
+  GET_BACK_CART,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -299,11 +300,23 @@ export const addOneProductCart = (payload) => {
 };
 
 export const combineStateCart = (payload) => {
-  return {
-    type: COMBINE_STATE_CART,
-    payload,
+  console.log(payload)
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/orders/create`,
+        payload
+      );
+      return dispatch({
+        type: COMBINE_STATE_CART,
+        payload: []
+      });
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 };
+
 
 export const getShoppingCart = () => {
   return {
@@ -399,10 +412,10 @@ export const placeOrder = (payload) => {
       data: payload,
     });
     toast(response.data.message)
-    if(response.data.message === "Stock is not enough."){
-     setTimeout(()=> {
-       window.location.href = '/cart'
-     }, 3000)
+    if (response.data.message === "Stock is not enough.") {
+      setTimeout(() => {
+        window.location.href = '/cart'
+      }, 3000)
     }
     return dispatch({
       type: PLACE_ORDER,
@@ -416,3 +429,21 @@ export const clearShoppingCart = () => {
     type: CLEAR_SHOPPINGCART,
   };
 }
+
+
+export const getCartBack = (payload) => {
+  let info = { email: payload }
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/shoppingcart`,
+      info
+    );
+    return dispatch({
+      type: GET_BACK_CART,
+      payload: result,
+    });
+  };
+};
+
+

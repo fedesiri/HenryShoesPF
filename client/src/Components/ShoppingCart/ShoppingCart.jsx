@@ -7,6 +7,8 @@ import {
   combineStateCart,
   getAllProducts,
   getShoppingCart,
+  getCartBack,
+  
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import "./ShoppingCart.css";
@@ -47,6 +49,35 @@ const ShoppingCart = () => {
     }, 2000);
   }, []);
 
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [])
+  
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+    }
+  }, [cartDetail1 ])
+ 
+
+//   useEffect(() => {
+//     if (userInfo && cartDetail1) {
+//       cartDetail1.forEach(e => {
+         
+//       dispatch(combineStateCart(  {
+//         email: userInfo.email,
+//             data: [{
+//               sizes: e.sizes,
+//               id: e.id,
+//               quantity: 1,
+//         }],
+//       }));
+//     })
+// }}, []);
+
+
   let cartDetail = [];
 
   if (userInfo) {
@@ -75,6 +106,23 @@ const ShoppingCart = () => {
     );
   }
   mapeoDeCarro(cartDetail);
+
+
+  // let newArrayBack = [];
+  // function mapeoDeCarro(arrayId) {
+  //   arrayId.map((e) =>
+  //     arraySeleccion.forEach((el) => {
+  //       String(el.id) === String(e.id) && newArrayBack.push(Object.assign(e, el));
+  //     })
+  //   );
+  // }
+  // mapeoDeCarro(arrayId);
+  // console.log(newArrayBack)
+
+
+
+
+
 
   let sumItems = Number("");
   newArray.forEach((e) => {
