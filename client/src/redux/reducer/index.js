@@ -30,6 +30,7 @@ import {
   PLACE_ORDER,
   PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
+  GET_BACK_CART,
 } from "../actions/types";
 
 const intialState = {
@@ -52,6 +53,7 @@ const intialState = {
   res_back_productOferts: [],
   resWishList: [],
   state_WishList: [],
+  Back_shoppingCart: [],
 };
 
 function orderFilters(array, payload) {
@@ -256,21 +258,21 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemInCart
           ? {
-              ...state,
-              shoppingCart: auxCartState.map((item) =>
-                item.id === newItem.id && item.sizes === newItem.sizes
-                  ? {
-                      ...item,
-                      quantity:
-                        Number(item.quantity) + Number(newItem.quantity),
-                    }
-                  : item
-              ),
-            }
+            ...state,
+            shoppingCart: auxCartState.map((item) =>
+              item.id === newItem.id && item.sizes === newItem.sizes
+                ? {
+                  ...item,
+                  quantity:
+                    Number(item.quantity) + Number(newItem.quantity),
+                }
+                : item
+            ),
+          }
           : {
-              ...state,
-              shoppingCart: [...state.shoppingCart].concat(newItem),
-            };
+            ...state,
+            shoppingCart: [...state.shoppingCart].concat(newItem),
+          };
       } else {
         // let auxCartState5 = state.shoppingCart;
         let auxCartState = state.shoppingCartUserRegister;
@@ -282,23 +284,23 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemInCart
           ? {
-              ...state,
-              shoppingCartUserRegister: auxCartState.map((item) =>
-                item.id === newItem.id && item.sizes === newItem.sizes
-                  ? {
-                      ...item,
-                      quantity:
-                        Number(item.quantity) + Number(newItem.quantity),
-                    }
-                  : item
-              ),
-            }
+            ...state,
+            shoppingCartUserRegister: auxCartState.map((item) =>
+              item.id === newItem.id && item.sizes === newItem.sizes
+                ? {
+                  ...item,
+                  quantity:
+                    Number(item.quantity) + Number(newItem.quantity),
+                }
+                : item
+            ),
+          }
           : {
-              ...state,
-              shoppingCartUserRegister: [
-                ...state.shoppingCartUserRegister,
-              ].concat(newItem),
-            };
+            ...state,
+            shoppingCartUserRegister: [
+              ...state.shoppingCartUserRegister,
+            ].concat(newItem),
+          };
       }
 
     case REMOVE_SHOPPING_CART:
@@ -344,17 +346,17 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemToDelete.quantity > 1
           ? {
-              ...state,
-              shoppingCart: state.shoppingCart.map((item) =>
-                item.id === payload.id && item.sizes === payload.sizes
-                  ? { ...item, quantity: item.quantity - 1 }
-                  : item
-              ),
-            }
+            ...state,
+            shoppingCart: state.shoppingCart.map((item) =>
+              item.id === payload.id && item.sizes === payload.sizes
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
           : {
-              ...state,
-              shoppingCart: firstFilter1.concat(secondFilter1),
-            };
+            ...state,
+            shoppingCart: firstFilter1.concat(secondFilter1),
+          };
       } else {
         let itemToDelete = state.shoppingCartUserRegister.find(
           (item) => item.id === payload.id && item.sizes === payload.sizes
@@ -369,18 +371,18 @@ export default function rootReducer(state = intialState, { type, payload }) {
 
         return itemToDelete.quantity > 1
           ? {
-              ...state,
-              shoppingCartUserRegister: state.shoppingCartUserRegister.map(
-                (item) =>
-                  item.id === payload.id && item.sizes === payload.sizes
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-              ),
-            }
+            ...state,
+            shoppingCartUserRegister: state.shoppingCartUserRegister.map(
+              (item) =>
+                item.id === payload.id && item.sizes === payload.sizes
+                  ? { ...item, quantity: item.quantity - 1 }
+                  : item
+            ),
+          }
           : {
-              ...state,
-              shoppingCartUserRegister: firstFilter1.concat(secondFilter1),
-            };
+            ...state,
+            shoppingCartUserRegister: firstFilter1.concat(secondFilter1),
+          };
       }
     }
 
@@ -399,9 +401,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
             shoppingCart: auxCartState2.map((item) =>
               item.id === newItem2.id && item.sizes === newItem2.sizes
                 ? {
-                    ...item,
-                    quantity: Number(item.quantity) + 1,
-                  }
+                  ...item,
+                  quantity: Number(item.quantity) + 1,
+                }
                 : item
             ),
           }
@@ -420,9 +422,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
             shoppingCartUserRegister: auxCartState2.map((item) =>
               item.id === newItem2.id && item.sizes === newItem2.sizes
                 ? {
-                    ...item,
-                    quantity: Number(item.quantity) + 1,
-                  }
+                  ...item,
+                  quantity: Number(item.quantity) + 1,
+                }
                 : item
             ),
           }
@@ -431,14 +433,9 @@ export default function rootReducer(state = intialState, { type, payload }) {
     }
 
     case COMBINE_STATE_CART:
-      if (state.userInfo) {
-        return {
-          ...state,
-          shoppingCartUserRegister: state.shoppingCartUserRegister.concat(
-            state.shoppingCart
-          ),
-          shoppingCart: [],
-        };
+      return {
+        ...state,
+        shoppingCart: payload,
       }
     case FETCH_USER_AUTH:
       return {
@@ -471,16 +468,40 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state
       };
-      case PAYMENT_SUCCESS:
-        return {
-          ...state,
-            
-        }
-        case CLEAR_SHOPPINGCART:
-          return {
-            ...state,
-            shoppingCartUserRegister: [],
-          }
+    case PAYMENT_SUCCESS:
+      return {
+        ...state,
+
+      }
+    case CLEAR_SHOPPINGCART:
+      return {
+        ...state,
+        shoppingCartUserRegister: [],
+      }
+
+
+    case GET_BACK_CART:
+      let infoBack = payload.data[0].orders
+      let arrayId = infoBack.map(e => ({
+        id: e.productId,
+        sizes: e.sizeId,
+        quantity: e.quantity
+      })
+
+      )
+      return {
+        ...state,
+        Back_shoppingCart: arrayId,
+        shoppingCartUserRegister: arrayId,
+      };
+
+
+
+
+
+
+
+
 
     default:
       return { ...state };

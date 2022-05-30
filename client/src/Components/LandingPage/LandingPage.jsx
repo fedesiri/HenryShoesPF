@@ -8,7 +8,7 @@ import { filter } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts, clearDetail } from "../../redux/actions";
+import { getAllProducts, clearDetail, combineStateCart } from "../../redux/actions";
 import { Titulo, LandingDiv, FilterContainer, AdminDiv, PromotionDiv, BestSellersDiv, MenBtn, UnisexBtn, WomenBtn, ChildBtn, SliderDiv } from "../../styles/LandingPage";
 
 
@@ -16,12 +16,33 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
+  const cartDetail1 = useSelector((state) => state.shoppingCart);
+
     //  userInfo&&console.log(userInfo.email)
     //  console.log(userInfo)
   useEffect(() => {
     dispatch(clearDetail());
     dispatch(getAllProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo && cartDetail1.length !==0) {
+      cartDetail1.forEach(e => {
+         
+      dispatch(combineStateCart(  {
+        email: userInfo.email,
+            data: [{
+              sizes: e.sizes,
+              id: e.id,
+              quantity: 1,
+        }],
+      }));
+    })
+}}, []);
+
+
+
+
 
 
 

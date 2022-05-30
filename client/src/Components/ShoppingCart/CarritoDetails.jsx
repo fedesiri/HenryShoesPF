@@ -4,6 +4,7 @@ import {
   removeOneProductCart,
   combineStateCart,
   getAllProducts,
+  getCartBack
 } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -31,8 +32,10 @@ const CartDetails = () => {
   useEffect(() => {
     if (userInfo) {
       dispatch(combineStateCart());
+      dispatch(getCartBack(userInfo.email))
+
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getAllProducts());

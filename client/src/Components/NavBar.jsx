@@ -37,6 +37,7 @@ export default function NavBar() {
     (state) => state.shoppingCartUserRegister
   );
   const [stateCart, setStateCart] = useState();
+  console.log(stateCart)
   let sum = 0;
   useEffect(() => {
     if (cartDetail1) {
@@ -79,6 +80,7 @@ export default function NavBar() {
             <SearchBar />
           </div>
           {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}
+          {stateCart}
           <div>
             <Link to="/cart">
               <ChartBtn />
