@@ -22,6 +22,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.0",
     "react-toastify": "^9.0.1",
+    "react-whatsapp": "^0.2.1",
     "reactstrap": "^9.0.3",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
