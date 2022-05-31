@@ -89,7 +89,7 @@ console.log(products)
     let total = 0;
     products.newArray.forEach((product) => {
 
-      total +=    (product.price-(product.price*product.porcentaje/100)) * product.quantity;
+      total +=    (product.price-Math.ceil(product.price*product.porcentaje/100)) * product.quantity;
     });
     return total;
   };
