@@ -27,7 +27,8 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
-  GET_ALL_CATEGORIES
+  GET_ALL_CATEGORIES,
+  DELETE_PRODUCT,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -107,9 +108,10 @@ export const filter = (filter) => {
 };
 
 export function postLogIn({ email, password }) {
+  console.log(email, password);
   return async function (dispatch) {
     try {
-      const response= await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/signin`,
         {
           email,
@@ -126,7 +128,6 @@ export function postLogIn({ email, password }) {
     }
   };
 }
-
 
 export const postLogOut = () => {
   return {
@@ -260,13 +261,7 @@ export const clearDetail = () => {
   };
 };
 
-export const postRegister = ({
-  name,
-  lastname,
-  password,
-  email,
-  address,
-}) => {
+export const postRegister = ({ name, lastname, password, email, address }) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
@@ -327,15 +322,18 @@ export const combineStateCart = (payload) => {
 export const getShoppingCart = () => {
   return {
     type: GET_SHOPPING_CART,
-  }
-}
+  };
+};
 
 export const fetchUserAuthenticated = () => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/auth`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/user/auth`,
+        {
+          withCredentials: true,
+        }
+      );
 
       return dispatch({
         type: FETCH_USER_AUTH,
@@ -347,3 +345,19 @@ export const fetchUserAuthenticated = () => {
   };
 };
 
+
+
+export const deleteProduct = (id) => {
+  return function (dispatch) {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/admin/delete/${id}`)
+      .then((response) => {
+        console.log(response.data, "deleted");
+        dispatch({
+          type: DELETE_PRODUCT,
+        });
+        dispatch(getAllProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};

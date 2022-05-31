@@ -3,17 +3,26 @@ import { useEffect, useState } from "react";
 import "./createBrand.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@material-ui/data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from "@material-ui/data-grid";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands } from "../../../redux/actions/index.js";
 import { DeleteOutline } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function CreateBrand() {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.brands);
+  const userInfo = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     dispatch(getAllBrands());
@@ -22,7 +31,6 @@ export default function CreateBrand() {
   const [input, setInput] = useState({
     name: "",
   });
-  
 
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
@@ -113,75 +121,86 @@ export default function CreateBrand() {
   const handleDeleteAll = async () => {
     // console.log(arrayIds);
     try {
-        const response = await axios.delete(
-          `${process.env.REACT_APP_API_URL}/admin/delete-all-brands`, {
-            data: {
-              ids: arrayIds,
-            }
-          });
-        if (response.data) {
-          toast.success("Brands deleted successfully");
-          dispatch(getAllBrands());
-        } else {
-          toast.error("Something went wrong");
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/admin/delete-all-brands`,
+        {
+          data: {
+            ids: arrayIds,
+          },
         }
+      );
+      if (response.data) {
+        toast.success("Brands deleted successfully");
+        dispatch(getAllBrands());
+      } else {
+        toast.error("Something went wrong");
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="newBrand">
-      <h1 className="addBrandTitle">New Product</h1>
-      <div className="addBrandContainerForm">
-        <form className="addBrandForm">
-          <div className="addBrandItem">
-            <label>Brand name</label>
-            <TextField
-              onChange={HandleOnChange}
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Brand Name"
-            />{" "}
+    <>
+      {userInfo && userInfo.roleId === 1 ? (
+        <>
+          <div className="newBrand">
+            <h1 className="addBrandTitle">New Product</h1>
+            <div className="addBrandContainerForm">
+              <form className="addBrandForm">
+                <div className="addBrandItem">
+                  <label>Brand name</label>
+                  <TextField
+                    onChange={HandleOnChange}
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Brand Name"
+                  />{" "}
+                </div>
+                <button
+                  onClick={(e) => handleOnSubmit(e)}
+                  className="addBrandButton"
+                >
+                  Create
+                </button>
+              </form>
+              <div className="addBrandRight">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  // className={classes.button}
+                  style={{ display: `${arrayIds.length > 1 ? "" : "none"}` }}
+                  startIcon={<DeleteIcon />}
+                  onClick={handleDeleteAll}
+                >
+                  Delete selected
+                </Button>
+                <DataGrid
+                  rows={brands}
+                  columns={columns}
+                  pageSize={10}
+                  checkboxSelection
+                  disableSelectionOnClick
+                  onSelectionModelChange={(ids) => setArrayIds(ids)}
+                  components={{
+                    Toolbar: CustomToolbar,
+                  }}
+                />
+              </div>
+            </div>
+            <ToastContainer
+              position="top-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              draggable
+            />
           </div>
-          <button onClick={(e) => handleOnSubmit(e)} className="addBrandButton">
-            Create
-          </button>
-        </form>
-        <div className="addBrandRight">
-          <Button
-            variant="contained"
-            color="secondary"
-            // className={classes.button}
-            style={{display: `${arrayIds.length > 1 ? "" : "none"}`}}
-            startIcon={<DeleteIcon />}
-            onClick={handleDeleteAll}
-          >
-            Delete selected
-          </Button>
-          <DataGrid
-            rows={brands}
-            columns={columns}
-            pageSize={10}
-            checkboxSelection
-            disableSelectionOnClick
-            onSelectionModelChange={(ids) => setArrayIds(ids)}
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-          />
-        </div>
-      </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        draggable
-      />
-    </div>
+        </>
+      ) : <Redirect to="/signin" />}
+    </>
   );
 }

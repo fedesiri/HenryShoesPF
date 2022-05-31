@@ -38,7 +38,7 @@ const ShoppingCart = () => {
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
-  useEffect(() => {
+useEffect(() => {
     dispatch(getAllProducts());    
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
 

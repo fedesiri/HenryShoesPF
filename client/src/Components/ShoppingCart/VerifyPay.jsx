@@ -97,8 +97,6 @@ console.log(products)
   console.log(total)
 
 
-
-
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 

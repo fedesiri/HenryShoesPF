@@ -12,6 +12,8 @@ const ShoppingCartAux = (newArray) => {
     }
   }, [newArray]); //  eslint-disable-line react-hooks/exhaustive-deps
 
+  return <div></div>;
+};
 
   return <div></div>;
 };
