@@ -20,6 +20,7 @@ import OnSaleBestsellers from "./components/pages/onSaleBestsellers/OnSaleBestse
 import SignIn from "./components/signin/Signin";
 import ForgotPassword from "./components/signin/ForgotPassword";
 import Home from "./components/pages/home/Home";
+import ChangePassword from "./components/signin/ChangePassword";
 
 function App() {
 
@@ -73,6 +74,9 @@ function App() {
           </Route>
           <Route exact path="/forgot-password">
             <ForgotPassword />
+          </Route>
+          <Route path="/reset-password">
+            <ChangePassword />
           </Route>
         </Switch>
       </div>
