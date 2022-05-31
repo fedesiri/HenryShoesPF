@@ -31,12 +31,14 @@ import {
   GET_WISH_LIST,
   FETCH_USER,
   PLACE_ORDER,
-  PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
   GET_ALL_SIZES
+  FETCH_USER_DATA,
+  GET_STATE_CART,
+
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -127,7 +129,6 @@ export function postLogIn({ email, password }) {
           password,
         }
       );
-      console.log(response.data, "SOY DATA");
       return dispatch({
         type: POST_LOG_IN,
         payload: response.data,
@@ -321,10 +322,10 @@ export const addOneProductCart = (payload) => {
 };
 
 export const combineStateCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/orders/create`,
         payload
       );
@@ -366,14 +367,14 @@ export const fetchUserAuthenticated = () => {
 };
 
 export const addWishList = (payload) => {
-  console.log(payload);
+  // console.log(payload);
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/wishlist/add`,
       payload
     );
-    console.log(result);
+    // console.log(result);
     return dispatch({
       type: ADD_WISH_LIST,
       payload: result,
@@ -425,7 +426,7 @@ export const fetchDataUserUpdated = (payload) => {
 };
 
 export const placeOrder = (payload) => {
-  console.log(payload);
+  // console.log(payload);
   return async function (dispatch) {
     const response = await axios({
       method: "post",
@@ -469,7 +470,7 @@ export const getCartBack = (payload) => {
 
 
 export const removeBackCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
@@ -484,10 +485,31 @@ export const removeBackCart = (payload) => {
 };
 
 export const stateAuxShoppingCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return {
     type: AUX_SHOPPING_CART,
     payload
   };
 
+}
+
+export const fetchUserData = (payload) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${payload}`);
+      return dispatch({
+        type: FETCH_USER_DATA,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const getStateCart = () =>{
+  return {
+    type: GET_STATE_CART
+  }
 }

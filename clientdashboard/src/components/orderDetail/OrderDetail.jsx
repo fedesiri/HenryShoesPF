@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/actions";
+import { Redirect, useParams } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,10 +26,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OrderDetail = () => {
+var {orderId} = useParams()
+console.log(orderId)
+
   const classes = useStyles();
   const products = useSelector((state) => state.products);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
 
   const getOrders = async () => {
     try {
@@ -48,13 +53,17 @@ const OrderDetail = () => {
 
   var id = 1;
   return (
-    <div style={{ width: "100%" }}>
+    <>
+    {userInfo && userInfo.roleId === 1 ? (
+      <>
+      <div style={{ margin: "20px", width: "100%" }}>
       <Paper style={{ width: "50%" }}>
         <h1>Order Detail</h1>
         <br />
         <br />
         {data?.map((item) => (
-          <main key={id++}>
+          item.id === parseInt(orderId) ? 
+          (<main key={id++}>
             <p>
               <b>Order N°: </b> {item.id}
             </p>
@@ -77,23 +86,23 @@ const OrderDetail = () => {
                       alt="shoes"
                       src={String(
                         products
-                          .filter((product) => product.id === order.productId)
-                          .map((img) => img.image)
+                        .filter((product) => product.id === order.productId)
+                        .map((img) => img.image)
                       )}
-                    />
+                      />
                   </ListItemAvatar>
                   <ListItemText
                     primary={products
                       .filter((product) => product.id === order.productId)
                       .map((img) => img.model)}
-                    secondary={
-                      <>
+                      secondary={
+                        <>
                         <Typography
                           component="span"
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Product Id: </b> {order.productId}
                         </Typography>
                         <br />
@@ -102,7 +111,7 @@ const OrderDetail = () => {
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Product Size: </b> {order.sizeId}
                         </Typography>
                         <br />
@@ -120,27 +129,30 @@ const OrderDetail = () => {
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Total: </b>{" "}
                           {order.quantity *
                             products
                               .filter(
                                 (product) => product.id === order.productId
-                              )
-                              .map((img) => img.price)}
+                                )
+                                .map((img) => img.price)}
                         </Typography>
                       </>
                     }
-                  ></ListItemText>
+                    ></ListItemText>
                   <br />
                 </ListItem>
                 <Divider />
               </List>
             ))}
-          </main>
+          </main>) : <Redirect to="/signin" />
         ))}
       </Paper>
     </div>
+      </>
+    ) : null}
+            </>
   );
 };
 

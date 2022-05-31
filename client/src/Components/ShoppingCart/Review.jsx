@@ -31,7 +31,7 @@ export default function Review() {
   const getTotal = () => {
     let total = 0;
     products.newArray.forEach((product) => {
-      total += product.price * product.quantity;
+      total +=    (product.price- Math.ceil(product.price*product.porcentaje/100)) * product.quantity;
     });
     return total;
   }

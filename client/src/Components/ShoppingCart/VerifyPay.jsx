@@ -1,5 +1,4 @@
-import React,{useEffect} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -18,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./verifyPay.css"
 import Footer from "../Footer";
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -79,9 +79,8 @@ function getStepContent(step) {
 const VerifyPay = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const products = useSelector((state) => state.AuxShopingCartBack);
-
+console.log(products)
   // const products = useSelector((state) => state.shoppingCartUserRegister);
-  console.log( "verifiqueee",products.newArray)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -89,13 +88,13 @@ const VerifyPay = () => {
   const getTotal = () => {
     let total = 0;
     products.newArray.forEach((product) => {
-      total += product.price * product.quantity;
+
+      total +=    (product.price-Math.ceil(product.price*product.porcentaje/100)) * product.quantity;
     });
     return total;
   };
   const total =  getTotal();
-  console.log(total);
-
+  console.log(total)
 
 
   const classes = useStyles();
@@ -117,14 +116,13 @@ const VerifyPay = () => {
     dispatch(
       placeOrder({
         email: userInfo.email,
-        data: products,
+        data: products.newArray,
       })
     );
     document.getElementById("pay").style.display = "block";
   };
 
   const handlePay = async () => {
-    console.log("pay", total);
     if (userInfo) {
       const {
         data: { links },
@@ -133,10 +131,8 @@ const VerifyPay = () => {
         { email: userInfo.email, total: total }
       );
       var redirectUrl = links[1].href;
-      console.log(redirectUrl);
       window.location.href = redirectUrl;
     } else {
-      console.log("no hay usuario");
       navigate("/profile");
       // aqui agregar opcion para abrir el modal de login
     }
@@ -219,6 +215,7 @@ const VerifyPay = () => {
             </React.Fragment>
           </Paper>
         </main>
+
       </React.Fragment>
       <Footer/>
     </>

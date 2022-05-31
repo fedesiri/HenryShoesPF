@@ -6,7 +6,7 @@ import { getShoppingCart, getShoppingHistory, getAllShoppingHistory, removeFromC
 const router = Router()
 
 router.post("/", getShoppingCart);
-router.get("/History", getShoppingHistory);
+router.post("/History", getShoppingHistory);
 
 router.get("/allhistory", getAllShoppingHistory)
 

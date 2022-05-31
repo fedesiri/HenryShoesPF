@@ -28,3 +28,6 @@ export const GET_SHOPPING_CART = "GET_SHOPPING_CART";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PIC_KEY = "8eafd6753913a290a197ac5af8b0c36d";
 export const GET_ALL_SIZES = "GET_ALL_SIZES";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+
+

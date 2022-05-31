@@ -15,11 +15,9 @@ export const getAllBrands = async (req, res) => {
 };
 
 export const createBrand = async (req, res) => {
-  console.log(req.body)
   const { name } = req.body; 
-  console.log(name)
   var brandToUpper = name?.charAt(0).toUpperCase() + name?.slice(1);
-  console.log(brandToUpper);
+
 
   try {
     const newBrand = await Brands.findOrCreate({

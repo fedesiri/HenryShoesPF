@@ -5,16 +5,18 @@ import { getAllProducts, getAllSizes } from "../../../redux/actions/index.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CardPrev from "../createProduct/CardPrev"
-
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button, MenuItem, Select } from "@material-ui/core";
 import { PIC_KEY } from "../../../redux/actions/types";
+import { Redirect } from "react-router-dom";
+
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
@@ -61,7 +63,7 @@ const CreateProduct = () => {
       })
     );
   };
-  console.log(error);
+  // console.log(error);
 
 
   const HandleOnSubmit = async (e) => {
@@ -109,6 +111,7 @@ const CreateProduct = () => {
         toast.error("Missing fields")
     }
   };
+
 
   const reduxProducts = useSelector((state) => state.products);
   const genders = [];
@@ -166,7 +169,10 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className="contenedor">
+    <>
+    {userInfo && userInfo.roleId === 1 ? (
+      <>
+<div className="contenedor">
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm" name="CreateForm" id="CreateForm">
@@ -363,6 +369,11 @@ const CreateProduct = () => {
       />
       
     </div>
+      </>
+
+
+    ) : <Redirect to="/signin" />}
+    </>
   );
 };
 

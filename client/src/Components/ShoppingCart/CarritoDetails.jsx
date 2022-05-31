@@ -2,15 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   removeProductCart,
   removeOneProductCart,
-  combineStateCart,
   getAllProducts,
-  getCartBack
+  getCartBack,
 } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./CarritoDetails.css";
-
-import { Navigate } from "react-router-dom";
 
 import { DelButton } from "../../styles/Button";
 import { AddBtn } from "../../styles/Details";
@@ -31,8 +28,7 @@ const CartDetails = () => {
 
   useEffect(() => {
     if (userInfo) {
-      dispatch(getCartBack(userInfo.email))
-
+      dispatch(getCartBack(userInfo.email));
     }
   }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
@@ -57,7 +53,6 @@ const CartDetails = () => {
       inOferta: e.inOferta,
       model: e.model,
       porcentaje: e.porcentaje,
-      price: e.price,
     });
   });
 
@@ -144,10 +139,10 @@ const CartDetails = () => {
       </Link>
 
       <AddBtn>
-       <Link style={{textDecoration: "none", color: "white"}} to='/checkout'>
-       Checkout
-       </Link> 
-        </AddBtn>
+        <Link style={{ textDecoration: "none", color: "white" }} to="/checkout">
+          Checkout
+        </Link>
+      </AddBtn>
     </div>
   );
 };
