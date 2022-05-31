@@ -34,6 +34,7 @@ import {
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
   FETCH_USER_DATA,
+  GET_STATE_CART,
 } from "../actions/types";
 
 const intialState = {
@@ -59,7 +60,8 @@ const intialState = {
   Back_shoppingCart: [],
   RemoveBackShoppingCart: [],
   AuxShopingCartBack: [],
-  postMsj: []
+  postMsj: [],
+  stateCart: [],
 };
 
 function orderFilters(array, payload) {
@@ -483,6 +485,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         shoppingCartUserRegister: [],
+        AuxShopingCartBack: []
       }
 
 
@@ -517,7 +520,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
           ...state,
           userInfo: payload
         }
-
+        case GET_STATE_CART:
+          return {
+            ...state,
+            stateCart: state.AuxShopingCartBack
+          }
 
 
 

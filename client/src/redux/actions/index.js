@@ -36,6 +36,7 @@ import {
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
   FETCH_USER_DATA,
+  GET_STATE_CART,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -485,4 +486,10 @@ export const fetchUserData = (payload) => {
       console.log(error);
     }
   };
+}
+
+export const getStateCart = () =>{
+  return {
+    type: GET_STATE_CART
+  }
 }

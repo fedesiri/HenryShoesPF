@@ -39,14 +39,13 @@ const ShoppingCart = () => {
     useModal(false);
 
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);//  eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(getAllProducts());    
+  }, []); //  eslint-disable-line react-hooks/exhaustive-deps
+
 
   useEffect(() => {
       dispatch(getShoppingCart());
   }, [arrayAll]);//  eslint-disable-line react-hooks/exhaustive-deps
-
-
 
 
   useEffect(() => {
@@ -55,19 +54,11 @@ const ShoppingCart = () => {
 
     }
 
-  }, [])//  eslint-disable-line react-hooks/exhaustive-deps
-  
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-
-  }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
- 
-
-
-
-
+  }, [cartDetail1, resRemoveCart]); //  eslint-disable-line react-hooks/exhaustive-deps
 
 
 
@@ -128,6 +119,7 @@ const ShoppingCart = () => {
   //   );
   // }
 
+
   // mapeoDeCarro(cartDetail);
 
   const getMap = (param) => {
@@ -142,13 +134,11 @@ const ShoppingCart = () => {
   const newArray =  getMap(cartDetail);
 
 
-  
   let sumItems = Number("");
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
 
-  // console.log(sumItems)
 
   let sumPrice = Number("");
 
@@ -158,8 +148,6 @@ const ShoppingCart = () => {
 
     sumPrice += Number(result);
   });
-// console.log(sumPrice)
-
 
 
   function handleDeleteProductoCart(parametro) {
