@@ -15,6 +15,4 @@ const ShoppingCartAux = (newArray) => {
   return <div></div>;
 };
 
-  return <div></div>;
-};
 export default ShoppingCartAux;
