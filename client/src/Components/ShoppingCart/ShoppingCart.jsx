@@ -30,22 +30,29 @@ const ShoppingCart = () => {
   );
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
-  const resRemoveCart = useSelector((state) => state.RemoveBackShoppingCart);
-  // console.log(resRemoveCart);
+
+  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+
+
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
   useEffect(() => {
     dispatch(getAllProducts());
-    setTimeout(() => {
-      dispatch(getShoppingCart());
-    }, 2000);
   }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (userInfo) {
-      dispatch(getCartBack(userInfo.email));
+      dispatch(getShoppingCart());
+  }, [arrayAll]);//  eslint-disable-line react-hooks/exhaustive-deps
+
+
+
+
+  useEffect(() => {
+    if(userInfo){
+    dispatch(getCartBack(userInfo.email))
+
     }
 
   }, [])//  eslint-disable-line react-hooks/exhaustive-deps
@@ -57,6 +64,12 @@ const ShoppingCart = () => {
 
   }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
  
+
+
+
+
+
+
 
 //   useEffect(() => {
 //     if (userInfo && cartDetail1) {
@@ -101,32 +114,41 @@ const ShoppingCart = () => {
     });
   });
 
-  let newArray = [];
-  function mapeoDeCarro(cartDetail) {
-    cartDetail.map((e) =>
-      arraySeleccion.forEach((el) => {
-        String(el.id) === String(e.id) && newArray.push(Object.assign(e, el));
-      })
-    );
-  }
-  mapeoDeCarro(cartDetail);
 
+  // let newArray = [];
+  // function mapeoDeCarro(cartDetail) {
+  //   cartDetail.map((e) =>
   // let newArrayBack = [];
   // function mapeoDeCarro(arrayId) {
   //   arrayId.map((e) =>
+
   //     arraySeleccion.forEach((el) => {
-  //       String(el.id) === String(e.id) && newArrayBack.push(Object.assign(e, el));
+  //       String(el.id) === String(e.id) && newArray.push(Object.assign(e, el));
   //     })
   //   );
   // }
-  // mapeoDeCarro(arrayId);
+
+  // mapeoDeCarro(cartDetail);
+
+  const getMap = (param) => {
+    let array = [];
+    param.map((e) =>
+    arraySeleccion.forEach((el) => {
+      String(el.id) === String(e.id) && array.push(Object.assign(e, el));
+    })
+  );
+    return array;
+  };
+  const newArray =  getMap(cartDetail);
 
 
+  
   let sumItems = Number("");
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
- 
+
+  // console.log(sumItems)
 
   let sumPrice = Number("");
 
@@ -136,7 +158,9 @@ const ShoppingCart = () => {
 
     sumPrice += Number(result);
   });
- 
+// console.log(sumPrice)
+
+
 
   function handleDeleteProductoCart(parametro) {
     if (userInfo) {
@@ -147,12 +171,14 @@ const ShoppingCart = () => {
     }
   }
   function handleDeleteOneProductoCart(parametro) {
-    if (userInfo && parametro.quantity === 1) {
-      parametro.email = userInfo.email;
-      dispatch(removeBackCart(parametro));
-    } else {
-      dispatch(removeOneProductCart(parametro));
-    }
+    // console.log(parametro)
+if (userInfo && parametro.quantity === 1){
+  parametro.email = userInfo.email;
+  dispatch(removeBackCart(parametro ))
+} else { 
+    dispatch(removeOneProductCart(parametro));
+}
+
   }
 
   function handleAddOneProductoCart(parametro) {

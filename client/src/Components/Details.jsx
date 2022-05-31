@@ -253,6 +253,7 @@ const Details = () => {
         <CartDetails closeCart={closeCart} />
       </Modal>
       <Footer/>
+
     </DetailContainer>
   );
 };
