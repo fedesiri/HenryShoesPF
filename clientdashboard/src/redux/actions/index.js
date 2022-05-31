@@ -27,7 +27,8 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
-  GET_ALL_CATEGORIES
+  GET_ALL_CATEGORIES,
+  GET_ALL_SIZES,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -163,6 +164,23 @@ export const getAllBrands = () => {
       });
   };
 };
+
+export const getAllSizes = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/admin/sizes`)
+      .then((response) => {
+        return dispatch({
+          type: GET_ALL_SIZES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+};
+
 
 export const getAllCategory = () => {
   return (dispatch) => {

@@ -79,6 +79,19 @@ export const getDetails = async (req, res) => {
   }
 };
 
+export const getAllSizes= async (req, res) => {
+  try {
+    const allSizes = await Sizes.findAll();
+    if (allSizes.length === 0) {
+      res.status(404).send({ message: "There are no Sizes." });
+    } else {
+      res.status(200).send(allSizes);
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 export async function createProduct(req, res) {
   try {
     let {
@@ -128,7 +141,7 @@ export async function createProduct(req, res) {
         where:{
           productId: productCreate.id,
           sizeId: size,
-          stock: stock
+          // stock: stock
         }
       });
       console.log(productCreate)
@@ -318,3 +331,4 @@ export const deleteManyProducts = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+

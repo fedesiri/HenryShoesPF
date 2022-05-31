@@ -33,6 +33,7 @@ import {
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
+  GET_ALL_SIZES,
 } from "../actions/types";
 
 const intialState = {
@@ -45,6 +46,7 @@ const intialState = {
   details: {},
   page: 1,
   brands: [],
+  sizes: [],
   ofertSelect: [],
   filter: { brand: "All", gender: "filterByGender" },
   inOfertDestacado: [],
@@ -173,6 +175,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         brands: payload,
+      };
+      case GET_ALL_SIZES:
+      return {
+        ...state,
+        sizes: payload,
       };
     case SET_CURRENT_PAGE:
       return { ...state, page: payload };

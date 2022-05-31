@@ -1,7 +1,7 @@
 import "./createProduct.css";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
-import { getAllProducts } from "../../../redux/actions/index.js";
+import { getAllProducts, getAllSizes } from "../../../redux/actions/index.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CardPrev from "../createProduct/CardPrev"
@@ -10,13 +10,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
-import { MenuItem, Select } from "@material-ui/core";
+import { Button, MenuItem, Select } from "@material-ui/core";
+import { PIC_KEY } from "../../../redux/actions/types";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+
 
   const [input, setInput] = useState({
     product: "",
@@ -28,6 +30,7 @@ const CreateProduct = () => {
     gender: "",
     year: "",
     category: "",
+    size: "",
   });
   const [error, setError] = useState({});
 
@@ -60,6 +63,7 @@ const CreateProduct = () => {
   };
   console.log(error);
 
+
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.getElementById("CreateForm");
@@ -78,6 +82,7 @@ const CreateProduct = () => {
               gender: input.gender,
               year: input.year,
               CategName: input.category,
+              size: input.size,
             },
           });
 
@@ -95,6 +100,7 @@ const CreateProduct = () => {
             gender: "",
             year: "",
             category: "",
+            size: "",
           });
         } catch (err) {
           console.log(err);
@@ -104,10 +110,10 @@ const CreateProduct = () => {
     }
   };
 
-  console.log("CREATE PRODUCT", input);
   const reduxProducts = useSelector((state) => state.products);
   const genders = [];
   const brands = [];
+
 
   function GenderGetter(reduxProducts) {
     reduxProducts?.forEach((product) => {
@@ -122,6 +128,42 @@ const CreateProduct = () => {
     });
   }
   BrandGetter(reduxProducts);
+
+  
+  function fileChange() {
+    let photos = document.getElementById("input_image");
+    console.log(photos)
+    Array.from(photos.files).map(async (photo) => {
+      const body = new FormData();
+      body.set("key", PIC_KEY);
+      body.append("image", photo);
+
+      // const options = {
+      //   onUploadProgress: (ProgressEvent) => {
+      //     const { loaded, total } = ProgressEvent;
+      //     let percent = Math.floor((loaded * 100) / total);
+      //     if (percent < 100) {
+      //       setInput((PreValue) => ({
+      //         ...PreValue,
+      //         image: `loading ${percent}%`,
+      //       }));
+      //     }
+      //   },
+      // };
+
+      await axios
+        .post("https://api.imgbb.com/1/upload", body)
+        .then((response) => {
+          setInput((PreValue) => ({
+            ...PreValue,
+            image: response.data.data.url,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }
 
   return (
     <div className="contenedor">
@@ -141,9 +183,23 @@ const CreateProduct = () => {
         </div>
 
         <div className="addProductItem">
-          {/*//! PENDIENTE LA IMAGEN */}
           <label>Image</label>
-          <input name="image" type="file" id="file" />
+          <input 
+          type="text"
+          value={input.image}
+          name="image"
+          onChange={HandleOnChange}
+          placeholder="Paste an URL or choose from your files"/>
+
+          <input
+          autoComplete="off"
+          placeholder=" "
+          type="file"
+          accept="image/*"
+          name="logoImage"
+          id="input_image"
+          onChange={fileChange}
+           />
         </div>
 
         <div style={{ marginTop: "30px" }} className="addProductItem">
@@ -250,6 +306,20 @@ const CreateProduct = () => {
           <input type="text" placeholder="123" />
         </div>
 
+        
+        <div style={{ marginTop: "30px" }} className="addProductItem">
+          <label htmlFor="size" id="size">
+            Sizes: </label>
+            
+          <TextField
+            type="text" placeholder= "24 ... 44" 
+            labelId="size"
+            name="size"
+            id="size"
+            onChange={HandleOnChange}
+            />
+            </div>
+
         <div className="addProductItem">
           <label style={{ marginTop: "30px" }}>Active</label>
           <select name="active" id="active">
@@ -271,7 +341,8 @@ const CreateProduct = () => {
       image={input.image}
       gender= {input.gender}
       year= {input.year}
-      CategName={input.category}>
+      CategName={input.category}
+      size={input.size}>
       </CardPrev>
       </div>
 

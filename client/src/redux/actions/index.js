@@ -36,6 +36,7 @@ import {
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
+  GET_ALL_SIZES
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -93,6 +94,8 @@ export function getProductById(payload) {
     }
   };
 }
+
+
 
 export const createCategory = (category) => {
   return async (dispatch) => {
@@ -162,6 +165,22 @@ export const getAllBrands = () => {
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+};
+
+export const getAllSizes = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/admin/sizes`)
+      .then((response) => {
+        return dispatch({
+          type: GET_ALL_SIZES,
           payload: response.data,
         });
       })
