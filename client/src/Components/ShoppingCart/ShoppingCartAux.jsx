@@ -17,7 +17,9 @@ const products = useSelector((state) => state.AuxShopingCartBack);
     
 
     return (
-      <div>
+      <div></div>
+    )
 
+}
 
 export default ShoppingCartAux;

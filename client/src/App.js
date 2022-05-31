@@ -11,7 +11,7 @@ import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 
-import LoginSuccess from "./Components/Containers/LoginSuccess";
+import LoginSuccess from "./Components/containers/LoginSuccess";
 
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
