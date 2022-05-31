@@ -10,7 +10,9 @@ import EditProduct from "./Components/EditProduct";
 import CreateCategory from "./Components/CreateCategory";
 import styled from "styled-components";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
-import LoginSuccess from "./Components/containers/LoginSuccess";
+
+import LoginSuccess from "./Components/Containers/LoginSuccess";
+
 import ChangePassword from "./Components/ChangePassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import WishList from "./Components/WishList/WishList"
