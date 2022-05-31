@@ -11,8 +11,8 @@ const Reviews = sequelize.define(
             allownull: true,
         },
         rating: {
-            type: DataTypes.ENUM,
-            values: ['1', '2', '3', '4', '5'],
+            type: DataTypes.INTEGER,
+            allownull: false,
         },
     },
     { timestamps: false }    
@@ -21,7 +21,7 @@ const Reviews = sequelize.define(
 Products.hasMany(Reviews);
 Reviews.belongsTo(Products);
 
-User.hasMany(Reviews);
-Reviews.belongsTo(User);
+User.hasMany(Reviews, { foreignKey: "email", sourceKey: "email" });
+Reviews.belongsTo(User, { foreignKey: "email", sourceKey: "email" });
 
 export default Reviews;

@@ -3,6 +3,7 @@ import Brands from "../models/Brands.js";
 import Category from "../models/Category.js";
 import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
+import Reviews from "../models/Reviews.js";
 import Sizes from "../models/Sizes.js";
 
 export const getAllProducts = async (req, res) => {
@@ -66,6 +67,8 @@ export const getDetails = async (req, res) => {
       include: {
         model: Sizes,
         attributes: ["size"],
+        model: Reviews,
+        attributes: ["commentary", "rating", "email"]
       },
     });
 
