@@ -1,11 +1,11 @@
 import "./CardPrev.css";
 
-export default function CardPrev ({ id, model, price, image, brandName, description, gender, year, CategName }){
+export default function CardPrev ({ id, model, price, image, brandName, description, gender, year, CategName, size }){
     return (
         <div className="CardContainer">
             
                 <div className ="CardImage">
-                    <img src={image} alt="image not available" />
+                    <img className="imagen" src={image} alt="image not available" />
                 </div>
                 <div className = "CardInfo">
                     <div>
@@ -47,6 +47,12 @@ export default function CardPrev ({ id, model, price, image, brandName, descript
                     <div>
                     <p>
                         Category Name: {CategName} 
+                    </p>
+                    </div>
+
+                    <div>
+                    <p>
+                        Sizes: {size} 
                     </p>
                     </div>
                 </div>
