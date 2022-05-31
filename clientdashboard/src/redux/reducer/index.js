@@ -47,6 +47,7 @@ const intialState = {
   shoppingCart: [],
   shoppingCartUserRegister: [],
   res_back_productOferts: [],
+  postMsj: []
 };
 
 function orderFilters(array, payload) {

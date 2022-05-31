@@ -38,7 +38,7 @@ const ShoppingCart = () => {
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
-  useEffect(() => {
+useEffect(() => {
     dispatch(getAllProducts());    
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
 
@@ -50,15 +50,15 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if(userInfo){
-    dispatch(getCartBack(userInfo.email))
-    }
-    }, [])
+      dispatch(getCartBack(userInfo.email))}
+  }, [])
+
 
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-  }, [cartDetail1, resRemoveCart]); //  eslint-disable-line react-hooks/exhaustive-deps
+  }, [cartDetail1, resRemoveCart]) //  eslint-disable-line react-hooks/exhaustive-deps
 
 
 
