@@ -58,7 +58,7 @@ const CreateProduct = () => {
       })
     );
   };
-  console.log(error);
+  // console.log(error);
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ const CreateProduct = () => {
     }
   };
 
-  console.log("CREATE PRODUCT", input);
+  // console.log("CREATE PRODUCT", input);
   const reduxProducts = useSelector((state) => state.products);
   const genders = [];
   const brands = [];

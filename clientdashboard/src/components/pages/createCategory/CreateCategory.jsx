@@ -27,7 +27,7 @@ export default function CreateCategory () {
       name: "",
     });
     const [arrayIds, setArrayIds] = useState([]);
-    console.log(arrayIds)
+    // console.log(arrayIds)
 
     const HandleOnChange = (e) => {
       SetCategory((PreValue) => ({
@@ -66,14 +66,14 @@ export default function CreateCategory () {
     };
   
     const handleDelete = (id) => {
-      console.log(id);
+      // console.log(id);
       if (window.confirm("Are you sure you want to delete this Category?")) {
         axios({
           method: "delete",
           url: `${process.env.REACT_APP_API_URL}/admin/delete-category/${id}`,
         })
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             toast.success(res.data.message);
             dispatch(getAllCategory());
           })

@@ -1,35 +1,21 @@
-import { useEffect } from "react"
-import { useDispatch,useSelector } from "react-redux"
-import {
-   
-    stateAuxShoppingCart
-    
-  } from "../../redux/actions/index";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { stateAuxShoppingCart } from "../../redux/actions/index";
 
+const ShoppingCartAux = (newArray) => {
+  const dispatch = useDispatch();
+  // const products = useSelector((state) => state.AuxShopingCartBack);
+  // console.log("estoyCARtAUILIAR",products)
 
-
-const ShoppingCartAux = ( newArray) => {
-
-const dispatch = useDispatch()
-const products = useSelector((state) => state.AuxShopingCartBack);
-console.log("estoyCARtAUILIAR",products)
-
-
-    useEffect(() => {
-    if (newArray){ 
- dispatch(stateAuxShoppingCart(newArray))
+  useEffect(() => {
+    if (newArray) {
+      dispatch(stateAuxShoppingCart(newArray));
     }
+  }, [newArray]);
 
-    }, [newArray])
-    
-    console.log(newArray)
+  // console.log(newArray);
 
+  return <div></div>;
+};
 
-    return (
-      <div>Aux
-
-      </div>
-    )
-  }
-  
-  export default ShoppingCartAux
+export default ShoppingCartAux;

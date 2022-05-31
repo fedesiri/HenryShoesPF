@@ -25,9 +25,7 @@ const GoogleLoginComponent = ({ closeLogin }) => {
     if (newWindow) {
       timer = setInterval(async () => {
         if (newWindow.closed) {
-          console.log("closed");
           const response = await dispatch(fetchUserAuthenticated());
-          console.log(response);
           if (response.payload) {
             window.localStorage.setItem(
               "userInfo",

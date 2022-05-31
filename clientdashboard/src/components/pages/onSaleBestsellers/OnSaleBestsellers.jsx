@@ -1,10 +1,6 @@
-import { Button, Grid } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import DeleteIcon from "@material-ui/icons/Delete";
+import React, { useEffect } from "react";
 import { DeleteOutline } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteDestacado,
@@ -48,7 +44,7 @@ const OnSaleBestsellers = () => {
   }
 
   function retornarIdDestacado(e) {
-      console.log(e)
+      // console.log(e)
     dispatch(deleteDestacado(e));
     setTimeout(() => {
       dispatch(getAllProducts());
@@ -94,7 +90,7 @@ const OnSaleBestsellers = () => {
       headerName: "Action",
       width: 150,
       renderCell: (params) => {
-        console.log(params.row.inDestacados);
+        // console.log(params.row.inDestacados);
         return (
           <>
             <DeleteOutline
@@ -107,18 +103,6 @@ const OnSaleBestsellers = () => {
       },
     },
   ];
-
-  //   const rows = [
-  //     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  //     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  //     { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  //     { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  //     { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  //     { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  //     { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  //     { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  //     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  //   ];
 
   return (
     <div style={{ height: 400, width: "100%", margin: "20px" }}>

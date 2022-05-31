@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 function Copyright() {
   const classes = useStyles();
   return (
-    <Typography variant="body2" color="white" align="center">
+    <Typography variant="body2" color="initial" align="center">
       {"Copyright © "}
       <Link color="secondary" to={"/"} className={classes.click}>
         Henry Shoes

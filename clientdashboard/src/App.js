@@ -51,13 +51,13 @@ function App() {
           <CreateCategory />
           </Route>
           {/* NEWBRAND */}
-          <Route path="/create-brand">
+          <Route exact path="/create-brand">
           <CreateBrand />
           </Route>
-          <Route path="/orders">
+          <Route exact path="/orders">
           <Orders />
           </Route>
-          <Route path="/detail/:orderId">
+          <Route exact path="/detail/:orderId">
           <OrderDetail />
           </Route>
         </Switch>

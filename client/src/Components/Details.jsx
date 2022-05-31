@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   getProductById,
   addShoppingCart,
-  combineStateCart,
+  // combineStateCart,
   getShoppingCart,
 } from "../redux/actions/index";
 import axios from "axios";
@@ -18,17 +17,13 @@ import {
   ContentDiv,
   BtnDiv,
   SizeDiv,
-  StockDiv,
   AddBtn,
-  StockSelect,
 } from "../styles/Details";
 import NavBar from "./NavBar";
 import CartDetails from "./ShoppingCart/CarritoDetails";
 import { toast } from "react-toastify";
-import { LoginBtn } from "../styles/NavBar";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
-import { Button } from "../styles/Form";
 import Footer from "./Footer";
 
 const Details = () => {
@@ -39,10 +34,10 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  console.log(cartDetail1)
-  const cartDetailRegisterUser = useSelector(
-    (state) => state.shoppingCartUserRegister
-  );
+  // console.log(cartDetail1)
+  // const cartDetailRegisterUser = useSelector(
+  //   (state) => state.shoppingCartUserRegister
+  // );
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
   const [itemsCarts, setItemsCarts] = useState({
@@ -115,7 +110,7 @@ const Details = () => {
     } else {
       dispatch(addShoppingCart(itemsCarts));
       if (userInfo) {
-        const response = await axios.post(
+        await axios.post(
           `${process.env.REACT_APP_API_URL}/orders/create`,
           {
             email: userInfo.email,
@@ -127,7 +122,6 @@ const Details = () => {
             }],
           }
         );
-        console.log(response.data);
       }
 
       // console.log("esto envias al carrito ", itemsCarts);
@@ -160,25 +154,23 @@ const Details = () => {
     });
   }
 
-  const HandleDelete = () => {
-    let reply = window.confirm("Are you sure do you want to delete this item?");
-    if (reply === true) {
-      try {
-        axios({
-          method: "delete",
-          url: `${process.env.REACT_APP_API_URL}/admin/delete/${detail.id}`,
-        });
-        navigate("/");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
+  // const HandleDelete = () => {
+  //   let reply = window.confirm("Are you sure do you want to delete this item?");
+  //   if (reply === true) {
+  //     try {
+  //       axios({
+  //         method: "delete",
+  //         url: `${process.env.REACT_APP_API_URL}/admin/delete/${detail.id}`,
+  //       });
+  //       navigate("/");
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
 
-  const user = JSON.parse(window.localStorage.getItem("userInfo"));
-  user ? console.log("logueado") : console.log("no logueado");
 
   return (
     <DetailContainer>
@@ -198,7 +190,6 @@ const Details = () => {
           <h3>Price:</h3>
           <h2> ${detail.price}</h2>
           </SizeDiv>
-          {/* {console.log(detail.price, "SOY PRICE")} */}
           <div>
           {detail.porcentaje && (
             <SizeDiv>

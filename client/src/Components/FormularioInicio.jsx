@@ -38,7 +38,6 @@ const FormularioInicio = ({ closeLogin, openCreateAccount }) => {
             password: password.field,
           })
         );
-        console.log(response, "SOY DATA")
         
         setEmail({
           field: "",
