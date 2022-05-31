@@ -31,9 +31,8 @@ const PaymentSuccess = () => {
 //     })
   // );
 
-  var prices = cartUser?.newArray?.map((e) => e.price);
+  var prices = cartUser?.newArray?.map((e) => (e.price - Math.ceil((e.price * e.porcentaje) / 100)));
   console.log(prices)
-
 
 
     //! AGREGAR EL PRICE DE LOS PRODUCTOS EN EL CARRITO
