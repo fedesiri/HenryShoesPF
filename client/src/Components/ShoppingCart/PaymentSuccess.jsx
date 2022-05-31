@@ -13,8 +13,8 @@ const PaymentSuccess = () => {
     
     const closeCart = async () => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/payment/payment-success`, {email: userInfo.email});
-            console.log(response.data)
+          await axios.post(`${process.env.REACT_APP_API_URL}/payment/payment-success`, {email: userInfo.email});
+            // console.log(response.data)
         } catch (error) {
             console.log(error)
         }

@@ -13,7 +13,6 @@ const ForgotPassword = () => {
    const navigate = useNavigate()
 
     const [email, setEmail] = useState({ field: "", validated: null });
-    console.log(email.field, "SOY EMAIL")
 
     const expression = {
         regexName: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
@@ -33,7 +32,6 @@ const ForgotPassword = () => {
            const response = await axios.put(
             `${process.env.REACT_APP_API_URL}/signin/forgot-password`, {email: email.field}
           );
-           console.log("SOY RESPONSE de FORGOT", response)
            setEmail({
                field: "",
                validated: null,

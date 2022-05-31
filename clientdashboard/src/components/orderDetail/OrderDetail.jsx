@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/actions";
+import { useParams } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OrderDetail = () => {
+var {orderId} = useParams()
+console.log(orderId)
+
   const classes = useStyles();
   const products = useSelector((state) => state.products);
   const [data, setData] = useState([]);
@@ -48,13 +52,14 @@ const OrderDetail = () => {
 
   var id = 1;
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ margin: "20px", width: "100%" }}>
       <Paper style={{ width: "50%" }}>
         <h1>Order Detail</h1>
         <br />
         <br />
         {data?.map((item) => (
-          <main key={id++}>
+          item.id === parseInt(orderId) ? 
+          (<main key={id++}>
             <p>
               <b>Order N°: </b> {item.id}
             </p>
@@ -137,7 +142,7 @@ const OrderDetail = () => {
                 <Divider />
               </List>
             ))}
-          </main>
+          </main>) : null
         ))}
       </Paper>
     </div>

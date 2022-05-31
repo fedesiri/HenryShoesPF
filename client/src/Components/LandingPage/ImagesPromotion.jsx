@@ -1,7 +1,7 @@
 
 import React from 'react'
 import './ImagesPromotion.css'
-import styled from 'styled-components'
+
 
 
 const ImagesPromotion = () => {

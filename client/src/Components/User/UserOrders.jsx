@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useCallback, useEffect, useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,12 +6,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import "./orders.css";
-import { Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import OrderDetail from "../../orderDetail/OrderDetail";
+import "./userOrders.css";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -21,27 +21,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Orders = () => {
-  // console.log(params);
-
+const UserOrders = () => {
   const classes = useStyles();
-
+  const userInfo = useSelector((state) => state.userInfo);
   const [data, setData] = useState([]);
 
-  const getOrders = async () => {
+  const getOrders = useCallback(async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/shoppingcart/allhistory`
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/shoppingcart/History`,
+        { email: userInfo.email }
       );
       setData(response.data);
     } catch (error) {
       console.log(error);
     }
-  };
-  // console.log(data);
+  }, [userInfo.email]);
+
+
   useEffect(() => {
     getOrders();
-  }, []);
+  }, [getOrders]);
 
   return (
     <>
@@ -57,7 +57,7 @@ const Orders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {data?.map((row) => (
               <TableRow key={row.id}>
                 <TableCell className="tableCell">{row.id}</TableCell>
                 <TableCell className="tableCell">{row.email}</TableCell>
@@ -74,7 +74,12 @@ const Orders = () => {
                     className={classes.button}
                     startIcon={<MoreHorizIcon />}
                   >
-                    <Link style={{textDecoration: "none", color: "black"}} to={`/detail/${row.id}`}>Details</Link>
+                    <Link
+                      style={{ textDecoration: "none", color: "black" }}
+                      to={`/detail/${row.id}`}
+                    >
+                      Details
+                    </Link>
                   </Button>
                 </TableCell>
               </TableRow>
@@ -82,9 +87,8 @@ const Orders = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <OrderDetail data={data} /> */}
     </>
   );
 };
 
-export default Orders;
+export default UserOrders;

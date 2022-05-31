@@ -116,7 +116,7 @@ export function postLogIn({ email, password }) {
           password,
         }
       );
-      console.log(response.data, "SOY DATA");
+
       return dispatch({
         type: POST_LOG_IN,
         payload: response.data,
