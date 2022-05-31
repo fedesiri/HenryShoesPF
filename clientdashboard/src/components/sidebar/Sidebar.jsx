@@ -3,12 +3,12 @@ import {
   LineStyle,
   PermIdentity,
   Storefront,
-  AttachMoney,
+ 
 } from "@material-ui/icons";
 import CreateIcon from '@material-ui/icons/Create';
 import StoreIcon from '@material-ui/icons/Store';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -65,10 +65,6 @@ export default function Sidebar() {
                 Orders
               </li>
             </NavLink>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
           </ul>
         </div>
       </div>

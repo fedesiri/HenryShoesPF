@@ -4,19 +4,15 @@ import {
   removeProductCart,
   removeOneProductCart,
   addOneProductCart,
-  combineStateCart,
   getAllProducts,
   getShoppingCart,
   getCartBack,
   removeBackCart,
-  stateAuxShoppingCart
-  
 } from "../../redux/actions/index";
 import NavBar from "../NavBar";
 import "./ShoppingCart.css";
 import { DelButton, AddButton } from "../../styles/Button";
 import { BackBtn } from "../../styles/Details";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import FormularioInicio from "../FormularioInicio";
 import FormularioCrearCuenta from "../FormularioCrearCuenta";
@@ -34,13 +30,11 @@ const ShoppingCart = () => {
   );
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
-  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
-console.log(resRemoveCart)
+  const resRemoveCart = useSelector((state) => state.RemoveBackShoppingCart);
+  // console.log(resRemoveCart);
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
-
- 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -50,15 +44,17 @@ console.log(resRemoveCart)
   }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if(userInfo){
-    dispatch(getCartBack(userInfo.email))
+    if (userInfo) {
+      dispatch(getCartBack(userInfo.email));
     }
+
   }, [])//  eslint-disable-line react-hooks/exhaustive-deps
   
   useEffect(() => {
-    if(userInfo){
-    dispatch(getCartBack(userInfo.email))
+    if (userInfo) {
+      dispatch(getCartBack(userInfo.email));
     }
+
   }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
  
 
@@ -77,13 +73,13 @@ console.log(resRemoveCart)
 //     })
 // }}, []);
 
-// useEffect(() => {
-
-//    dispatch(stateAuxShoppingCart(newArray))
- 
-// }, [])
 
 
+  // useEffect(() => {
+
+  //    dispatch(stateAuxShoppingCart(newArray))
+
+  // }, [])
 
   let cartDetail = [];
 
@@ -115,7 +111,6 @@ console.log(resRemoveCart)
   }
   mapeoDeCarro(cartDetail);
 
-
   // let newArrayBack = [];
   // function mapeoDeCarro(arrayId) {
   //   arrayId.map((e) =>
@@ -125,46 +120,39 @@ console.log(resRemoveCart)
   //   );
   // }
   // mapeoDeCarro(arrayId);
-  // console.log(newArrayBack)
-
-
-
-
 
 
   let sumItems = Number("");
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
-  console.log(sumItems)
+ 
 
   let sumPrice = Number("");
-  console.log(newArray)
+
   newArray.forEach((e) => {
     let result =
       e.quantity * (e.price - Math.ceil((e.price * e.porcentaje) / 100));
 
     sumPrice += Number(result);
   });
-console.log(sumPrice)
-
+ 
 
   function handleDeleteProductoCart(parametro) {
-    if (userInfo){ 
+    if (userInfo) {
       parametro.email = userInfo.email;
-      dispatch(removeBackCart(parametro ))
-    }else { 
-    dispatch(removeProductCart(parametro));
+      dispatch(removeBackCart(parametro));
+    } else {
+      dispatch(removeProductCart(parametro));
     }
   }
   function handleDeleteOneProductoCart(parametro) {
-    console.log(parametro)
-if (userInfo && parametro.quantity === 1){
-  parametro.email = userInfo.email;
-  dispatch(removeBackCart(parametro ))
-} else { 
-    dispatch(removeOneProductCart(parametro));
-}
+    if (userInfo && parametro.quantity === 1) {
+      parametro.email = userInfo.email;
+      dispatch(removeBackCart(parametro));
+    } else {
+      dispatch(removeOneProductCart(parametro));
+    }
   }
 
   function handleAddOneProductoCart(parametro) {
@@ -172,7 +160,6 @@ if (userInfo && parametro.quantity === 1){
   }
 
   let contador = 1;
-
 
   const handleVerifyLogin = () => {
     if (userInfo) {
@@ -188,7 +175,11 @@ if (userInfo && parametro.quantity === 1){
   return (
     <div>
       <NavBar />
-      <BackBtn onClick={() => {navigate(-1)}}></BackBtn>
+      <BackBtn
+        onClick={() => {
+          navigate(-1);
+        }}
+      ></BackBtn>
 
       <div className="Cart">
         <h1> ShoppingCart </h1>
@@ -233,13 +224,12 @@ if (userInfo && parametro.quantity === 1){
                     Delete All{" "}
                   </DelButton>
 
-                  <DelButton  
+                  <DelButton
                     onClick={() =>
                       handleDeleteOneProductoCart({
                         id: e.id,
                         sizes: e.sizes,
                         quantity: e.quantity,
-
                       })
                     }
                   >
@@ -260,7 +250,7 @@ if (userInfo && parametro.quantity === 1){
               </div>
             ))}
           </div>
-          <ShoppingCartAux  newArray={newArray}/>
+          <ShoppingCartAux newArray={newArray} />
 
           <div className="Brother2">
             <div className="carritopegajoso">
@@ -282,12 +272,9 @@ if (userInfo && parametro.quantity === 1){
       <Modal isOpen={isOpenCreateAccount} closeModal={closeCreateAccount}>
         <FormularioCrearCuenta closeCreateAccount={closeCreateAccount} />
       </Modal>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
 
 export default ShoppingCart;
-
-
-

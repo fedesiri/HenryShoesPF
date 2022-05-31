@@ -278,7 +278,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         let itemInCart = state.shoppingCartUserRegister.find(
           (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
-        console.log(state.shoppingCartUserRegister);
+        // console.log(state.shoppingCartUserRegister);
 
         return itemInCart
           ? {

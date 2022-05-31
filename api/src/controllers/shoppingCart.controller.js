@@ -25,6 +25,7 @@ export const getShoppingCart = async (req, res) => {
 
 export const getShoppingHistory = async (req, res) => {
   const email = req.body.email;
+  console.log(req.body)
 
   try {
     const selectedCart = await ShoppingCart.findAll({

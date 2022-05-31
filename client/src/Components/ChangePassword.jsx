@@ -11,7 +11,6 @@ const ChangePassword = () => {
   const {token} = useParams()
   const navigate = useNavigate()
     const [password, setPassword] = useState({ field: "", validated: null });
-    console.log(password.field, "SOY PASSWORD")
     const expression = {
         regexName: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
         regexEmail: /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/,
@@ -34,7 +33,6 @@ const ChangePassword = () => {
               }
             }
           );
-           console.log("SOY RESPONSE de CHANGE", response)
           setPassword({
             field: "",
             validated: null,

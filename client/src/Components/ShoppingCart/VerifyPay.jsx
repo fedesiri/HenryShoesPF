@@ -1,5 +1,4 @@
-import React,{useEffect} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -81,7 +80,7 @@ const VerifyPay = () => {
   const products = useSelector((state) => state.AuxShopingCartBack);
 
   // const products = useSelector((state) => state.shoppingCartUserRegister);
-  console.log( "verifiqueee",products.newArray)
+  // console.log( "verifiqueee",products.newArray)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -94,7 +93,7 @@ const VerifyPay = () => {
     return total;
   };
   const total =  getTotal();
-  console.log(total);
+
 
 
 
@@ -124,7 +123,6 @@ const VerifyPay = () => {
   };
 
   const handlePay = async () => {
-    console.log("pay", total);
     if (userInfo) {
       const {
         data: { links },
@@ -133,10 +131,8 @@ const VerifyPay = () => {
         { email: userInfo.email, total: total }
       );
       var redirectUrl = links[1].href;
-      console.log(redirectUrl);
       window.location.href = redirectUrl;
     } else {
-      console.log("no hay usuario");
       navigate("/profile");
       // aqui agregar opcion para abrir el modal de login
     }

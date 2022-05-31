@@ -33,6 +33,7 @@ import {
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
+  FETCH_USER_DATA,
 } from "../actions/types";
 
 const intialState = {
@@ -285,7 +286,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         let itemInCart = state.shoppingCartUserRegister.find(
           (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
-        console.log(state.shoppingCartUserRegister);
+        // console.log(state.shoppingCartUserRegister);
 
         return itemInCart
           ? {
@@ -511,7 +512,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         AuxShopingCartBack: payload
       }
-
+      case FETCH_USER_DATA:
+        return{
+          ...state,
+          userInfo: payload
+        }
 
 
 

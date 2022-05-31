@@ -22,7 +22,7 @@ export default function CreateBrand() {
   const [input, setInput] = useState({
     name: "",
   });
-  console.log(input);
+  
 
   const HandleOnChange = (e) => {
     setInput((PreValue) => ({
@@ -59,14 +59,12 @@ export default function CreateBrand() {
   };
 
   const handleDelete = (id) => {
-    console.log(id);
     if (window.confirm("Are you sure you want to delete this brand?")) {
       axios({
         method: "delete",
         url: `${process.env.REACT_APP_API_URL}/admin/delete-brand/${id}`,
       })
         .then((res) => {
-          console.log(res);
           toast.success(res.data.message);
           dispatch(getAllBrands());
         })
@@ -113,7 +111,7 @@ export default function CreateBrand() {
   const [arrayIds, setArrayIds] = useState([]);
 
   const handleDeleteAll = async () => {
-    console.log(arrayIds);
+    // console.log(arrayIds);
     try {
         const response = await axios.delete(
           `${process.env.REACT_APP_API_URL}/admin/delete-all-brands`, {
