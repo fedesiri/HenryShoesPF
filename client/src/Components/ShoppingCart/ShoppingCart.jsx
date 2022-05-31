@@ -41,34 +41,39 @@ const ShoppingCart = () => {
     setTimeout(() => {
       dispatch(getShoppingCart());
     }, 2000);
-  }, []);
+  }, []);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-  }, []);
 
+  }, [])//  eslint-disable-line react-hooks/exhaustive-deps
+  
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-  }, [cartDetail1, resRemoveCart]);
 
-  //   useEffect(() => {
-  //     if (userInfo && cartDetail1) {
-  //       cartDetail1.forEach(e => {
+  }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
+ 
 
-  //       dispatch(combineStateCart(  {
-  //         email: userInfo.email,
-  //             data: [{
-  //               sizes: e.sizes,
-  //               id: e.id,
-  //               quantity: 1,
-  //         }],
-  //       }));
-  //     })
-  // }}, []);
+//   useEffect(() => {
+//     if (userInfo && cartDetail1) {
+//       cartDetail1.forEach(e => {
+         
+//       dispatch(combineStateCart(  {
+//         email: userInfo.email,
+//             data: [{
+//               sizes: e.sizes,
+//               id: e.id,
+//               quantity: 1,
+//         }],
+//       }));
+//     })
+// }}, []);
+
+
 
   // useEffect(() => {
 

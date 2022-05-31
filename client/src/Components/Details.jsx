@@ -38,6 +38,7 @@ const Details = () => {
   // const cartDetailRegisterUser = useSelector(
   //   (state) => state.shoppingCartUserRegister
   // );
+
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
   const [itemsCarts, setItemsCarts] = useState({

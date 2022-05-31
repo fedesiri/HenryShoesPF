@@ -33,10 +33,12 @@ export default function NavBar() {
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
+
   // console.log(cartDetailRegisterUser);
   const [stateCart, setStateCart] = useState();
   // console.log(stateCart);
   const resRemoveCart = useSelector((state) => state.RemoveBackShoppingCart);
+
 
   let sum = 0;
   useEffect(() => {
@@ -48,17 +50,20 @@ export default function NavBar() {
       cartDetailRegisterUser.map((e) => (sum += Number(e.quantity)));
       setStateCart(sum);
     }
-  }, [cartDetail1, cartDetailRegisterUser, userInfo]);
+  }, [cartDetail1, cartDetailRegisterUser, userInfo]);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(getShoppingCart());
-  }, [cartDetail1, cartDetailRegisterUser]);
+  }, [cartDetail1, cartDetailRegisterUser]);//  eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-  }, [cartDetail1, resRemoveCart]);
+
+  }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
+
+
 
   const signOutHandler = () => {
     dispatch(postLogOut());

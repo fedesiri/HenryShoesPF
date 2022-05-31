@@ -11,9 +11,10 @@ const ShoppingCartAux = (newArray) => {
     if (newArray) {
       dispatch(stateAuxShoppingCart(newArray));
     }
-  }, [newArray]);
+    }, [newArray])//  eslint-disable-line react-hooks/exhaustive-deps
+    
 
-  // console.log(newArray);
+    
 
   return <div></div>;
 };

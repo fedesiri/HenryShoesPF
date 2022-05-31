@@ -58,7 +58,8 @@ const intialState = {
   state_WishList: [],
   Back_shoppingCart: [],
   RemoveBackShoppingCart: [],
-  AuxShopingCartBack: []
+  AuxShopingCartBack: [],
+  postMsj: []
 };
 
 function orderFilters(array, payload) {
