@@ -11,9 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { MenuItem, Select } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
@@ -124,7 +126,10 @@ const CreateProduct = () => {
   BrandGetter(reduxProducts);
 
   return (
-    <div className="contenedor">
+    <>
+    {userInfo && userInfo.roleId === 1 ? (
+      <>
+<div className="contenedor">
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm" name="CreateForm" id="CreateForm">
@@ -292,6 +297,11 @@ const CreateProduct = () => {
       />
       
     </div>
+      </>
+
+
+    ) : <Redirect to="/signin" />}
+    </>
   );
 };
 

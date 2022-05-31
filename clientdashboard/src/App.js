@@ -1,6 +1,11 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./app.css";
 import ProductList from "./components/pages/productList/ProductList";
 import Product from "./components/pages/product/Product";
@@ -11,27 +16,30 @@ import CreateBrand from "./components/pages/createBrand/CreateBrand";
 import CreateCategory from "./components/pages/createCategory/CreateCategory";
 import Orders from "./components/pages/orders/Orders";
 import OrderDetail from "./components/orderDetail/OrderDetail";
-import VerOferta from "./components/pages/productList/VerOferta";
 import OnSaleBestsellers from "./components/pages/onSaleBestsellers/OnSaleBestsellers";
-
+import SignIn from "./components/signin/Signin";
+import ForgotPassword from "./components/signin/ForgotPassword";
+import Home from "./components/pages/home/Home";
 
 function App() {
+
+
   return (
     <Router>
       <Topbar />
       <div className="container">
-      {/* <div> */}
+        {/* <div> */}
         <Sidebar />
         <Switch>
-          {/* HOME */}
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route exact path="/users">
             <UserList />
           </Route>
           <Route exact path="/user/:userId">
             <User />
           </Route>
-          {/* NEWUSER verificar si poner o no */}
-          {/* PRODUCTLIST */}
           <Route exact path="/products">
             <ProductList />
           </Route>
@@ -41,24 +49,30 @@ function App() {
           </Route>
           {/* NEWPRODUCT */}
           <Route exact path="/create-products">
-          <CreateProduct />
+            <CreateProduct />
           </Route>
           <Route exact path="/onsale-bestsellers">
-          <OnSaleBestsellers />
+            <OnSaleBestsellers />
           </Route>
           {/* NEWCATEGORY */}
           <Route path="/create-category">
-          <CreateCategory />
+            <CreateCategory />
           </Route>
           {/* NEWBRAND */}
           <Route exact path="/create-brand">
-          <CreateBrand />
+            <CreateBrand />
           </Route>
           <Route exact path="/orders">
-          <Orders />
+            <Orders />
           </Route>
           <Route exact path="/detail/:orderId">
-          <OrderDetail />
+            <OrderDetail />
+          </Route>
+          <Route exact path="/signin">
+            <SignIn />
+          </Route>
+          <Route exact path="/forgot-password">
+            <ForgotPassword />
           </Route>
         </Switch>
       </div>

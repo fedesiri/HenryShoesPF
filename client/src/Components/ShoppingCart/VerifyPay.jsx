@@ -95,7 +95,6 @@ console.log(products)
   };
   const total =  getTotal();
 console.log(total)
-=
 
 
   const classes = useStyles();

@@ -25,6 +25,7 @@ import {
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
   GET_ALL_CATEGORIES,
+  DELETE_PRODUCT,
 } from "../actions/types";
 
 const intialState = {
@@ -452,6 +453,10 @@ export default function rootReducer(state = intialState, { type, payload }) {
         shoppingCart: state.shoppingCart,
         shoppingCartUserRegister: state.shoppingCartUserRegister,
       };
+      case DELETE_PRODUCT:
+        return{
+          ...state,
+        }
 
     default:
       return { ...state };

@@ -1,7 +1,20 @@
+.newBrand{
+  height: 100vh;
+}
+.addBrandTitle{
+  margin-left: 35px;
+}
+.addCatContainerForm{
+  display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: start; 
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+
 .addCategoryContainerForm{
     display: grid;
       grid-template-columns: 50% 50%;
       justify-items: start;
-      height: 100vh;
       margin-bottom: 50px;
     }

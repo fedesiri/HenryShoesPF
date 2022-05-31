@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,7 @@ console.log(orderId)
   const products = useSelector((state) => state.products);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
 
   const getOrders = async () => {
     try {
@@ -52,7 +53,10 @@ console.log(orderId)
 
   var id = 1;
   return (
-    <div style={{ margin: "20px", width: "100%" }}>
+    <>
+    {userInfo && userInfo.roleId === 1 ? (
+      <>
+      <div style={{ margin: "20px", width: "100%" }}>
       <Paper style={{ width: "50%" }}>
         <h1>Order Detail</h1>
         <br />
@@ -82,23 +86,23 @@ console.log(orderId)
                       alt="shoes"
                       src={String(
                         products
-                          .filter((product) => product.id === order.productId)
-                          .map((img) => img.image)
+                        .filter((product) => product.id === order.productId)
+                        .map((img) => img.image)
                       )}
-                    />
+                      />
                   </ListItemAvatar>
                   <ListItemText
                     primary={products
                       .filter((product) => product.id === order.productId)
                       .map((img) => img.model)}
-                    secondary={
-                      <>
+                      secondary={
+                        <>
                         <Typography
                           component="span"
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Product Id: </b> {order.productId}
                         </Typography>
                         <br />
@@ -107,7 +111,7 @@ console.log(orderId)
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Product Size: </b> {order.sizeId}
                         </Typography>
                         <br />
@@ -125,27 +129,30 @@ console.log(orderId)
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary"
-                        >
+                          >
                           <b>Total: </b>{" "}
                           {order.quantity *
                             products
                               .filter(
                                 (product) => product.id === order.productId
-                              )
-                              .map((img) => img.price)}
+                                )
+                                .map((img) => img.price)}
                         </Typography>
                       </>
                     }
-                  ></ListItemText>
+                    ></ListItemText>
                   <br />
                 </ListItem>
                 <Divider />
               </List>
             ))}
-          </main>) : null
+          </main>) : <Redirect to="/signin" />
         ))}
       </Paper>
     </div>
+      </>
+    ) : null}
+            </>
   );
 };
 

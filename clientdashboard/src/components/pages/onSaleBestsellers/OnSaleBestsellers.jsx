@@ -10,50 +10,63 @@ import {
 } from "../../../redux/actions";
 
 const OnSaleBestsellers = () => {
-    const dispatch = useDispatch();
-    const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-        
-  
-  useEffect(() => {
-      dispatch(getAllProducts());
-      setTimeout(() => {
-        dispatch(filterOfertDestacado());
-        }, 1000);
-    }, [dispatch]);
+  const dispatch = useDispatch();
+  const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
+  let respBackCreate = useSelector((state) => state.res_back_productOferts);
+  let resDeleteBack = useSelector((state) => state.postMsj);
+  let resALlproducts = useSelector((state) => state.allProducts);
 
-    
-    const productOfert = productsDestacadOfert?.filter(
-      (e) => e.inOferta === true
-    );
-  
-    const productDestacado = productsDestacadOfert?.filter(
-      (e) => e.inDestacados === true
-    );
-    
-    const products = [...productOfert, ...productDestacado];
-    // console.log(products)
+  // useEffect(() => {
+  //   dispatch(getAllProducts());
+  // }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [respBackCreate, resDeleteBack]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    dispatch(filterOfertDestacado());
+  }, [resALlproducts]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+  const productOfert = productsDestacadOfert?.filter(
+    (e) => e.inOferta === true
+  );
+
+  const productDestacado = productsDestacadOfert?.filter(
+    (e) => e.inDestacados === true
+  );
+
+  const products = [...productOfert, ...productDestacado];
+  // console.log(products)
+
+  // function retornarIdPromotion(e) {
+  //   dispatch(deletePromotion(e));
+  //   setTimeout(() => {
+  //     dispatch(getAllProducts());
+  //   }, 100);
+  //   setTimeout(() => {
+  //     dispatch(filterOfertDestacado());
+  //   }, 200);
+  // }
 
   function retornarIdPromotion(e) {
     dispatch(deletePromotion(e));
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 100);
-    setTimeout(() => {
-        dispatch(filterOfertDestacado());
-      }, 200);
   }
 
   function retornarIdDestacado(e) {
-      // console.log(e)
     dispatch(deleteDestacado(e));
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 100);
-    setTimeout(() => {
-        dispatch(filterOfertDestacado());
-      }, 200);
   }
- 
+
+  // function retornarIdDestacado(e) {
+  //   // console.log(e)
+  //   dispatch(deleteDestacado(e));
+  //   setTimeout(() => {
+  //     dispatch(getAllProducts());
+  //   }, 100);
+  //   setTimeout(() => {
+  //     dispatch(filterOfertDestacado());
+  //   }, 200);
+  // }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -96,7 +109,11 @@ const OnSaleBestsellers = () => {
             <DeleteOutline
               className="productListDelete"
               value={params.row.id}
-                onClick={(e) => params.row.inDestacados ?  retornarIdDestacado(params.row.id) : retornarIdPromotion(params.row.id)}
+              onClick={(e) =>
+                params.row.inDestacados
+                  ? retornarIdDestacado(params.row.id)
+                  : retornarIdPromotion(params.row.id)
+              }
             />
           </>
         );
@@ -105,11 +122,12 @@ const OnSaleBestsellers = () => {
   ];
 
   return (
-    <div style={{ height: 400, width: "100%", margin: "20px" }}>
+    <div style={{ width: "100%", margin: "20px" }}>
       <DataGrid
+        style={{ width: "100%", height: "100%" }}
         rows={products}
         columns={columns}
-        pageSize={5}
+        pageSize={10}
         rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick

@@ -51,8 +51,8 @@ const ShoppingCart = () => {
   useEffect(() => {
     if(userInfo){
     dispatch(getCartBack(userInfo.email))
-
     }
+    }, [])
 
   useEffect(() => {
     if (userInfo) {
