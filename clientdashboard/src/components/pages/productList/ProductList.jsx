@@ -22,6 +22,9 @@ import axios from "axios";
 import { Button, Grid } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import VerOferta from "./VerOferta";
+import Modal from "../../Modal/Modal";
+import { useModal } from "../../Modal/hooks/useModal.js";
+import HandleStock  from "../handleStock/HandleStock"
 
 export default function ProductList() {
     const dispatch = useDispatch();
@@ -42,6 +45,9 @@ export default function ProductList() {
     useEffect(() => {
         dispatch(getAllProducts());
     }, [dispatch]);
+
+    const [isOpenStock, openStock, closeStock] = useModal(false);
+    const[selectedProd, setSelectedProd] = useState("");
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -94,6 +100,11 @@ export default function ProductList() {
             ...validarProducts,
             porcentaje: str,
         });
+    };
+
+    const clickStock = (e) => {
+        setSelectedProd(e.target.value)
+        openStock();
     }
 
     function handleSubmit(e) {
@@ -173,7 +184,20 @@ export default function ProductList() {
                 );
             },
         },
-        // { field: "stock", headerName: "Stock", width: 140 },
+         { 
+             field: "stock", 
+             headerName: "Stock",
+              width: 140,
+              height: 300, 
+              renderCell: params => {
+                return (
+                    <div className="productListItem">
+                        <button onClick={(e) => clickStock(e)} className="productListEdit"
+                        value={params.row.id}>Stock</button>
+                    </div>
+                )
+              }
+            },
         // {
         //   field: "status",
         //   headerName: "Status",
@@ -254,7 +278,7 @@ export default function ProductList() {
                     justifyContent="center"
                     alignItems="center"
                     xs={4}
-                    spacing={1}
+                    spacing={2}
                 >
                     <Grid item>
                         <h1>Products</h1>
@@ -332,6 +356,9 @@ export default function ProductList() {
                 rtl={false}
                 draggable
             />
+     <Modal isOpen={isOpenStock} closeModal={closeStock}>
+        <HandleStock closeStock={closeStock} product={selectedProd}/>
+      </Modal>
         </Grid>
     );
 }

@@ -65,7 +65,7 @@ export const getDetails = async (req, res) => {
     const Models_Id = await Products.findByPk(id, {
       include: {
         model: Sizes,
-        attributes: ["size"],
+        attributes: ["size", "id"],
       },
     });
 
