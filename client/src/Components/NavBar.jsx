@@ -40,14 +40,15 @@ export default function NavBar() {
   const resRemoveCart = useSelector((state) => state.RemoveBackShoppingCart);
 
 
-  let sum = 0;
   useEffect(() => {
+    let sum = 0;
+
     if (cartDetail1) {
-      cartDetail1.map((e) => (sum += Number(e.quantity)));
+     sum=  cartDetail1.length;
       setStateCart(sum);
     }
     if (cartDetailRegisterUser && userInfo) {
-      cartDetailRegisterUser.map((e) => (sum += Number(e.quantity)));
+      sum= cartDetailRegisterUser.length;
       setStateCart(sum);
     }
   }, [cartDetail1, cartDetailRegisterUser, userInfo]);//  eslint-disable-line react-hooks/exhaustive-deps

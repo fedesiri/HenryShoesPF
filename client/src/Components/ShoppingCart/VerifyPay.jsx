@@ -81,7 +81,6 @@ const VerifyPay = () => {
   const products = useSelector((state) => state.AuxShopingCartBack);
 console.log(products)
   // const products = useSelector((state) => state.shoppingCartUserRegister);
-  // console.log( "verifiqueee",products.newArray)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -89,11 +88,13 @@ console.log(products)
   const getTotal = () => {
     let total = 0;
     products.newArray.forEach((product) => {
-      total += product.price * product.quantity;
+
+      total +=    (product.price-(product.price*product.porcentaje/100)) * product.quantity;
     });
     return total;
   };
   const total =  getTotal();
+  console.log(total)
 
 
 
