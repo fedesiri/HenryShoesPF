@@ -24,8 +24,11 @@ export const createCategory = async (req, res) => {
   if (!name){
     return res.status(404).send("Not enough data to create a category.");
   }else{
-  const newCateg = await Category.create({
-    name: name,
+  const newCateg = await Category.findOrCreate({
+    where:{
+      name: name,
+
+    }
   });
   
   for(let i=0; i < data.length; i++){

@@ -73,7 +73,8 @@ export const removeFromCart = async (req, res) => {
   try {
     const selectedCart = await ShoppingCart.findOne({
       where: {
-        email: email
+        email: email,
+        statusOpen: true
       }
     });
     const selectedOrder = await Orders.findOne({

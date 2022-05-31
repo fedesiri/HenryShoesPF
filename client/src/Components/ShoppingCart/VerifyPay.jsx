@@ -116,7 +116,7 @@ const VerifyPay = () => {
     dispatch(
       placeOrder({
         email: userInfo.email,
-        data: products,
+        data: products.newArray,
       })
     );
     document.getElementById("pay").style.display = "block";

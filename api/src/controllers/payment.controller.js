@@ -7,7 +7,7 @@ dotenv.config();
 
 export const createPayment = async (req, res) => {
     // console.log("SOY BODY PAYYY", req.body)
-    console.log("TOTAL", req.body.total)
+    // console.log("TOTAL", req.body.total)
     const {email, total} = req.body
     let denegatedOrders = [];
 
