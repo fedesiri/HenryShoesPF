@@ -10,13 +10,14 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import "./userAccount.css";
 import { fetchUserData } from "../../redux/actions";
+import bcryptjs from "bcryptjs";
 // import { fetchUserAuthenticated } from "../../redux/actions";
 
 const UserAccount = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const dispatch = useDispatch()
   const [user, setUser] = useState({});
-  // console.log(user)
+  console.log(userInfo)
 
   
   async function findUser(){
@@ -77,7 +78,7 @@ const UserAccount = () => {
         name: input.name || userInfo.name,
         lastname: input.lastname || userInfo.lastname,
         address: input.address || userInfo.address,
-        password: input.passwordConfirm || userInfo.passwordConfirm,
+        password: bcryptjs.hashSync(input.passwordConfirm || userInfo.passwordConfirm, 10),
       };
       const response = await axios({
         method: "put",
