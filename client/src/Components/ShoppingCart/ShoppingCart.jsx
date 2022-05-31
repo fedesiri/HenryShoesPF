@@ -52,14 +52,13 @@ const ShoppingCart = () => {
     if(userInfo){
       dispatch(getCartBack(userInfo.email))}
   }, [])
-    
 
 
   useEffect(() => {
     if (userInfo) {
       dispatch(getCartBack(userInfo.email));
     }
-  }, [cartDetail1, resRemoveCart]); //  eslint-disable-line react-hooks/exhaustive-deps
+  }, [cartDetail1, resRemoveCart]) //  eslint-disable-line react-hooks/exhaustive-deps
 
 
 
