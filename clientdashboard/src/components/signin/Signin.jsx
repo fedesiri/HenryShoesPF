@@ -147,11 +147,11 @@ export default function SignIn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
+            {/* <Grid item xs>
               <Link href="/forgot-password" variant="body2">
                 Forgot password?
               </Link>
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
         <ToastContainer
