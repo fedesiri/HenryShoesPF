@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/", getOrder);
 router.post("/create", createOrder);
-router.get("/stock", getStock);
-router.post("/stock", HandleStock); 
+router.post("/stock", getStock);
+router.post("/HandleStock", HandleStock); 
 
 export default router;

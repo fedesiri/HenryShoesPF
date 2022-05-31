@@ -7,9 +7,10 @@ export const getStock = async (req, res) => {
   const sizeId = req.body.sizeId;
   try {
     if (sizeId) {
-      const stock = await Orders.findOrCreate({
+      for(let i = 0; i < sizeId.length; i++){
+      const order = await Orders.findOrCreate({
         where: {
-          sizeId: sizeId,
+          sizeId: sizeId[i].size,
           productId: productId,
         },
         include: {
@@ -17,7 +18,13 @@ export const getStock = async (req, res) => {
           attribute: ["email"],
         },
       });
-      stock ? res.send(stock) : res.send(5);
+    };
+    const stock = await Orders.findAll({
+      where: {
+        productId: productId
+      }
+    })
+      await stock ? res.send(stock) : res.send(5);
     } else {
       const stock = await Orders.findAll({
         where: {

@@ -27,7 +27,8 @@ import {
   COMBINE_STATE_CART,
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
-  GET_ALL_CATEGORIES
+  GET_ALL_CATEGORIES,
+  GET_STOCK
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -346,4 +347,25 @@ export const fetchUserAuthenticated = () => {
     }
   };
 };
+
+export const GetStock = ({productId, sizeId}) => {
+return async function (dispatch) {
+  try{
+  const response= await axios.post(
+    `${process.env.REACT_APP_API_URL}/Orders/stock`,
+    {
+      productId,
+      sizeId,
+    }
+  );
+  console.log(response.data, "SOY DATA STOCKKK");
+  return dispatch({
+    type: GET_STOCK,
+    payload: response.data,
+  });
+} catch (error) {
+  console.error(error.response.data.message);
+}  
+}
+}
 

@@ -25,6 +25,7 @@ import {
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
   GET_ALL_CATEGORIES,
+  GET_STOCK
 } from "../actions/types";
 
 const intialState = {
@@ -46,6 +47,7 @@ const intialState = {
   shoppingCart: [],
   shoppingCartUserRegister: [],
   res_back_productOferts: [],
+  stock: []
 };
 
 function orderFilters(array, payload) {
@@ -452,6 +454,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         shoppingCart: state.shoppingCart,
         shoppingCartUserRegister: state.shoppingCartUserRegister,
       };
+
+      case GET_STOCK:
+        return {
+          ...state,
+          stock: payload
+        }
 
     default:
       return { ...state };
