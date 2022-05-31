@@ -465,7 +465,7 @@ export const removeBackCart = (payload) => {
 };
 
 export const stateAuxShoppingCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return {
     type: AUX_SHOPPING_CART,
     payload

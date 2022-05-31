@@ -19,6 +19,7 @@ import axios from "axios";
 import "./verifyPay.css"
 import Footer from "../Footer";
 
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -79,7 +80,7 @@ function getStepContent(step) {
 const VerifyPay = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const products = useSelector((state) => state.AuxShopingCartBack);
-
+console.log(products)
   // const products = useSelector((state) => state.shoppingCartUserRegister);
   console.log( "verifiqueee",products.newArray)
 
@@ -94,8 +95,7 @@ const VerifyPay = () => {
     return total;
   };
   const total =  getTotal();
-  console.log(total);
-
+console.log(total)
 
 
   const classes = useStyles();
@@ -219,6 +219,7 @@ const VerifyPay = () => {
             </React.Fragment>
           </Paper>
         </main>
+
       </React.Fragment>
       <Footer/>
     </>

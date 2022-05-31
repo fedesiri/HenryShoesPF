@@ -6,13 +6,10 @@ import {
     
   } from "../../redux/actions/index";
 
-
-
 const ShoppingCartAux = ( newArray) => {
 
 const dispatch = useDispatch()
 const products = useSelector((state) => state.AuxShopingCartBack);
-console.log("estoyCARtAUILIAR",products)
 
 
     useEffect(() => {
@@ -26,7 +23,7 @@ console.log("estoyCARtAUILIAR",products)
 
 
     return (
-      <div>Aux
+      <div>
 
       </div>
     )

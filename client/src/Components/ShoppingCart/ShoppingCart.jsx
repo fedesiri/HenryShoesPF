@@ -35,19 +35,21 @@ const ShoppingCart = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const arrayAll = useSelector((state) => state.allProducts);
   const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
-console.log(resRemoveCart)
+
   const [isOpenLogin, openLogin, closeLogin] = useModal(false);
   const [isOpenCreateAccount, openCreateAccount, closeCreateAccount] =
     useModal(false);
 
- 
-
   useEffect(() => {
     dispatch(getAllProducts());
-    setTimeout(() => {
-      dispatch(getShoppingCart());
-    }, 2000);
   }, []);//  eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+      dispatch(getShoppingCart());
+  }, [arrayAll]);//  eslint-disable-line react-hooks/exhaustive-deps
+
+
+
 
   useEffect(() => {
     if(userInfo){
@@ -61,6 +63,12 @@ console.log(resRemoveCart)
     }
   }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
  
+
+
+
+
+
+
 
 //   useEffect(() => {
 //     if (userInfo && cartDetail1) {
@@ -105,38 +113,33 @@ console.log(resRemoveCart)
     });
   });
 
-  let newArray = [];
-  function mapeoDeCarro(cartDetail) {
-    cartDetail.map((e) =>
-      arraySeleccion.forEach((el) => {
-        String(el.id) === String(e.id) && newArray.push(Object.assign(e, el));
-      })
-    );
-  }
-  mapeoDeCarro(cartDetail);
-
-
-  // let newArrayBack = [];
-  // function mapeoDeCarro(arrayId) {
-  //   arrayId.map((e) =>
+  // let newArray = [];
+  // function mapeoDeCarro(cartDetail) {
+  //   cartDetail.map((e) =>
   //     arraySeleccion.forEach((el) => {
-  //       String(el.id) === String(e.id) && newArrayBack.push(Object.assign(e, el));
+  //       String(el.id) === String(e.id) && newArray.push(Object.assign(e, el));
   //     })
   //   );
   // }
-  // mapeoDeCarro(arrayId);
-  // console.log(newArrayBack)
+  // mapeoDeCarro(cartDetail);
 
+  const getMap = (param) => {
+    let array = [];
+    param.map((e) =>
+    arraySeleccion.forEach((el) => {
+      String(el.id) === String(e.id) && array.push(Object.assign(e, el));
+    })
+  );
+    return array;
+  };
+  const newArray =  getMap(cartDetail);
 
-
-
-
-
+  
   let sumItems = Number("");
   newArray.forEach((e) => {
     sumItems += Number(e.quantity);
   });
-  console.log(sumItems)
+  // console.log(sumItems)
 
   let sumPrice = Number("");
   console.log(newArray)
@@ -146,7 +149,7 @@ console.log(resRemoveCart)
 
     sumPrice += Number(result);
   });
-console.log(sumPrice)
+// console.log(sumPrice)
 
 
   function handleDeleteProductoCart(parametro) {
@@ -158,7 +161,7 @@ console.log(sumPrice)
     }
   }
   function handleDeleteOneProductoCart(parametro) {
-    console.log(parametro)
+    // console.log(parametro)
 if (userInfo && parametro.quantity === 1){
   parametro.email = userInfo.email;
   dispatch(removeBackCart(parametro ))
