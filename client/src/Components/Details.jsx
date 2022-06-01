@@ -220,8 +220,11 @@ let array = [1,2,3,4,5]
           <SizeDiv>
           <h3>Gender:</h3>
           <h2> {detail.gender}</h2>
+          </SizeDiv>
+
+          <SizeDiv>
           {detail.CategName?.length > 0 ? <h3>Category:</h3> : null}
-          {detail.CategName?.length > 0 ? <p>{detail.CategName}</p> : null}
+          {detail.CategName?.length > 0 ? <h2>{detail.CategName}</h2> : null}
           </SizeDiv>
           <SizeDiv>
             <h3>Sizes: </h3>
