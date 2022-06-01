@@ -134,15 +134,15 @@ const CartDetails = () => {
         </div>
       ))}
 
-      <Link to="/cart">
-        <AddBtn> Go to Shopping Cart</AddBtn>
+      <Link to="/cart" style={{textDecoration: "none"}}>
+        <AddBtn > Go to Shopping Cart</AddBtn>
       </Link>
 
-      <AddBtn>
+      {/* <AddBtn>
         <Link style={{ textDecoration: "none", color: "white" }} to="/checkout">
           Checkout
         </Link>
-      </AddBtn>
+      </AddBtn> */}
     </div>
   );
 };
