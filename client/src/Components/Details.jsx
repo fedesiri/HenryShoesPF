@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import {
   getProductById,
   addShoppingCart,
@@ -26,12 +27,14 @@ import { toast } from "react-toastify";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import Footer from "./Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+
 
 const Details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [number, setNumber] = useState(3);
+
+
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
@@ -42,7 +45,7 @@ const Details = () => {
   // const cartDetailRegisterUser = useSelector(
   //   (state) => state.shoppingCartUserRegister
   // );
-  console.log(stateReview)
+  console.log("infoReview",stateReview)
 
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
@@ -184,18 +187,35 @@ dispatch(getAllRewies(addres))
   // };
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
-let array = [1,2,3,4,5]
+
+  
 
   return (
     <DetailContainer>
       <NavBar />
-
+      <div className="DivfijoStart">
+            {Array(5)
+              .fill()
+              .map((_, index) =>
+                number >= index + 1 ? (
+                  <AiFillStar
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )}
+          </div>
       <BackBtn
         onClick={() => {
           navigate(-1);
         }}
       ></BackBtn>
-
+  
       <ContentDiv>
         <Content2>
           <h3>Model:</h3>
@@ -253,24 +273,25 @@ let array = [1,2,3,4,5]
             </StockSelect>
           </StockDiv> */}
           <h4>Description : {detail.description}</h4>
-          <div> {array.map(e=> <FontAwesomeIcon icon={faStar} />)}{" "}</div>
 
         </Content2>
         <Content1>
           <img src={detail.image} alt="img zapa" />
+          
         </Content1>
-        
+       
       </ContentDiv>
       <BtnDiv>
         <AddBtn onClick={(e) => CargarCarrito(e)} >
           <h4>Add to Shopping Cart</h4>
         </AddBtn>
       </BtnDiv>
-
+    
       <Modal isOpen={isOpenCart} closeModal={closeCart}>
         <CartDetails closeCart={closeCart} />
       </Modal>
       <Footer/>
+
 
     </DetailContainer>
   );
