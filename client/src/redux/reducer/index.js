@@ -55,7 +55,7 @@ const intialState = {
   brands: [],
   sizes: [],
   ofertSelect: [],
-  filter: { brand: "All", gender: "filterByGender" },
+  filter: { brand: "All", gender: "filterByGender", category: "filterByCategory" },
   inOfertDestacado: [],
   inOfertAux: [],
   inBestSellerAux: [],
@@ -105,7 +105,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         products: payload,
         allProducts: payload,
-        filter: { brand: "All", gender: "filterByGender" },
+        filter: { brand: "All", gender: "filterByGender", category: "filterByCategory" },
       };
 
     case GET_ALL_PRODUCTS_BY_BRANDS:
@@ -152,6 +152,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
           return products.filter((product) => product.gender.includes(gender));
         }
       }
+
+      function filterByCategories(products, category){
+        if(category === "filterByCategory"){
+          return products;
+        } else {
+          return products.filter((product) => product.CategName && product.CategName.includes(category))
+        }
+      }
       const productsFilterByBrands = filterByBrand(
         state.allProducts,
         payload.brand
@@ -161,7 +169,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         payload.gender
       );
 
-      let order = orderFilters(productsFilterByGender, state.filter.order);
+      const productsFilterByCategory = filterByCategories(
+        productsFilterByGender,
+        payload.category
+      );
+
+      let order = orderFilters(productsFilterByCategory, state.filter.order);
 
       return {
         ...state,
@@ -171,6 +184,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
           ...state.filter,
           brand: payload.brand,
           gender: payload.gender,
+          category: payload.category
         },
       };
 

@@ -28,7 +28,7 @@ export default function CreateCategory() {
   const categories = useSelector((state) => state.categories);
   const products = useSelector((state) => state.allProducts);
   const userInfo = useSelector((state) => state.userInfo);
-
+  
   useEffect(() => {
     dispatch(getAllCategory());
     dispatch(getAllProducts());
@@ -48,7 +48,7 @@ export default function CreateCategory() {
   };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (category.name) {
       try {
         const response = await axios({
