@@ -10,6 +10,7 @@ import { Redirect, useParams } from "react-router-dom";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { Typography } from "@material-ui/core";
 
 export default function User() {
   const { userId } = useParams();
@@ -82,143 +83,140 @@ export default function User() {
 
   return (
     <>
-      {userInfo && userInfo.roleId === 1 ? (
-        <>
-          <div className="user">
-            <ToastContainer
-              position="top-center"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              draggable
-            />
-            <div className="userTitleContainer">
-              <h1 className="userTitle">Edit User</h1>
-              {/* <Link to="/newUser">
-            <button className="userAddButton">Create</button>
-          </Link> */}
+      <div className="userContainer">
+        {userInfo && userInfo.roleId === 1 ? (
+          <>
+            <div className="userList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Edit User
+              </Typography>
             </div>
-            <div className="userContainer">
-              <div className="userShow">
-                <div className="userShowTop">
-                  <div className="userShowTopTitle">
-                    <span className="userShowUsername">{user.name}</span>
+            <div className="user">
+              <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+              />
+              <div className="innerContainer">
+                <div className="userShow">
+                  <div className="userShowTop">
+                    <div className="userShowTopTitle">
+                      <span className="userUpdateTitle">{user.name}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="userShowBottom">
-                  <span className="userShowTitle">Account Details</span>
-                  <div className="userShowInfo">
-                    <PermIdentity className="userShowIcon" />
-                    <span className="userShowInfoTitle">
-                      {user.name + " " + user.lastname}
-                    </span>
-                  </div>
-                  <div className="userShowInfo">
-                    <FingerprintIcon className="userShowIcon" />
-                    <span className="userShowInfoTitle">{user.id}</span>
-                  </div>
+                  <div className="userShowBottom">
+                    <span className="userShowTitle">Account Details</span>
+                    <div className="userShowInfo">
+                      <PermIdentity className="userShowIcon" />
+                      <span className="userShowInfoTitle">
+                        {user.name + " " + user.lastname}
+                      </span>
+                    </div>
+                    <div className="userShowInfo">
+                      <FingerprintIcon className="userShowIcon" />
+                      <span className="userShowInfoTitle">{user.id}</span>
+                    </div>
 
-                  {/* <span className="userShowTitle">Contact Details</span> */}
-                  {/* <div className="userShowInfo">
-                <PhoneAndroid className="userShowIcon" />
-                <span className="userShowInfoTitle">+1 123 456 67</span>
-              </div> */}
-                  <div className="userShowInfo">
-                    <MailOutline className="userShowIcon" />
-                    <span className="userShowInfoTitle">{user.email}</span>
-                  </div>
-                  <div className="userShowInfo">
-                    <PermIdentity className="userShowIcon" />
-                    <span className="userShowInfoTitle">
-                      Role: {user.roleId}
-                    </span>
-                  </div>
-                  <div className="userShowInfo">
-                    <LocationSearching className="userShowIcon" />
-                    <span className="userShowInfoTitle">{user.address}</span>
+                    <div className="userShowInfo">
+                      <MailOutline className="userShowIcon" />
+                      <span className="userShowInfoTitle">{user.email}</span>
+                    </div>
+                    <div className="userShowInfo">
+                      <PermIdentity className="userShowIcon" />
+                      <span className="userShowInfoTitle">
+                        Role: {user.roleId}
+                      </span>
+                    </div>
+                    <div className="userShowInfo">
+                      <LocationSearching className="userShowIcon" />
+                      <span className="userShowInfoTitle">{user.address}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="userUpdate">
-                <span className="userUpdateTitle">Edit</span>
-                <form className="userUpdateForm">
-                  <div className="userUpdateLeft">
-                    <div className="userUpdateItem">
-                      <label>Name</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        placeholder={user.name}
-                        className="userUpdateInput"
-                        onChange={HandleOnChange}
-                      />
+                <div className="userUpdate">
+                  <span className="userUpdateTitle">Edit</span>
+                  <form className="userUpdateForm">
+                    <div className="userUpdateLeft">
+                      <div className="userUpdateItem">
+                        <label>Name</label>
+                        <input
+                          name="name"
+                          id="name"
+                          type="text"
+                          placeholder={user.name}
+                          className="userUpdateInput"
+                          onChange={HandleOnChange}
+                        />
+                      </div>
+                      <div className="userUpdateItem">
+                        <label>Last name</label>
+                        <input
+                          name="lastname"
+                          id="lastname"
+                          type="text"
+                          placeholder={user.lastname}
+                          className="userUpdateInput"
+                          onChange={HandleOnChange}
+                        />
+                      </div>
+                      <div className="userUpdateItem">
+                        <label>Email</label>
+                        <input
+                          name="email"
+                          id="email"
+                          type="text"
+                          placeholder={user.email}
+                          className="userUpdateInput"
+                          onChange={HandleOnChange}
+                        />
+                      </div>
+                      <div className="userUpdateItem">
+                        <label>Role</label>
+                        <input
+                          name="roleId"
+                          id="roleId"
+                          type="number"
+                          min="1"
+                          max="2"
+                          placeholder={user.roleId}
+                          className="userUpdateInput"
+                          onChange={HandleOnChange}
+                        />
+                      </div>
+                      <div className="userUpdateItem">
+                        <label>Address</label>
+                        <input
+                          name="address"
+                          id="address"
+                          type="text"
+                          placeholder={user.address}
+                          className="userUpdateInput"
+                          onChange={HandleOnChange}
+                        />
+                      </div>
+                      <button
+                        onClick={(e) => HandleOnSubmit(e)}
+                        className="userUpdateButton"
+                      >
+                        Update
+                      </button>
                     </div>
-                    <div className="userUpdateItem">
-                      <label>Last name</label>
-                      <input
-                        name="lastname"
-                        id="lastname"
-                        type="text"
-                        placeholder={user.lastname}
-                        className="userUpdateInput"
-                        onChange={HandleOnChange}
-                      />
-                    </div>
-                    <div className="userUpdateItem">
-                      <label>Email</label>
-                      <input
-                        name="email"
-                        id="email"
-                        type="text"
-                        placeholder={user.email}
-                        className="userUpdateInput"
-                        onChange={HandleOnChange}
-                      />
-                    </div>
-                    <div className="userUpdateItem">
-                      <label>Role</label>
-                      <input
-                        name="roleId"
-                        id="roleId"
-                        type="number"
-                        min="1"
-                        max="2"
-                        placeholder={user.roleId}
-                        className="userUpdateInput"
-                        onChange={HandleOnChange}
-                      />
-                    </div>
-                    <div className="userUpdateItem">
-                      <label>Address</label>
-                      <input
-                        name="address"
-                        id="address"
-                        type="text"
-                        placeholder={user.address}
-                        className="userUpdateInput"
-                        onChange={HandleOnChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="userUpdateRight">
-                    <button
-                      onClick={(e) => HandleOnSubmit(e)}
-                      className="userUpdateButton"
-                    >
-                      Update
-                    </button>
-                  </div>
-                </form>
+                  
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <Redirect to="/signin" />
-      )}
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 }

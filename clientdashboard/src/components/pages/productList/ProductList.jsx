@@ -20,7 +20,7 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function ProductList() {
@@ -111,9 +111,9 @@ export default function ProductList() {
   //     setData(data.filter((item) => item.id !== id));
   //   };
 
-   const HandleDelete = (id) => {
+  const HandleDelete = (id) => {
     window.confirm("Are you sure do you want to delete this item?");
-    dispatch(deleteProduct(id))
+    dispatch(deleteProduct(id));
   };
 
   const columns = [
@@ -191,7 +191,7 @@ export default function ProductList() {
             </Link>
             <DeleteOutline
               className="productListDelete"
-                onClick={() => HandleDelete(params.row.id)}
+              onClick={() => HandleDelete(params.row.id)}
             />
           </>
         );
@@ -235,71 +235,62 @@ export default function ProductList() {
 
   return (
     <>
-      {userInfo && userInfo.roleId ? (
-        <>
-          <Grid
-            container
-            // direction="column"
-            // justifyContent="center"
-            // alignItems="center"
-
-            style={{ height: "100%", width: "100%", margin: "20px" }}
-          >
-            <Grid
-              item
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  style={{ display: `${arrayIds.length > 1 ? "" : "none"}` }}
-                  startIcon={<DeleteIcon />}
-                  onClick={handleDeleteAll}
-                >
-                  Delete selected
-                </Button>
-              </Grid>
-
-              <Grid item xs={4}>
-                  {/* <Link to="/onsale-bestsellers"> */}
-                {/* <Button> View Oferts and Best Sellers </Button> */}
-                  {/* </Link> */}
-              </Grid>
-
-              <Grid
-                item
-                container
-                justifyContent="center"
-                alignItems="center"
-                xs={4}
-                spacing={2}
+      <div className="productsContainer">
+        {userInfo && userInfo.roleId ? (
+          <>
+            <div className="productsList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Products
+              </Typography>
+            </div>
+            <div className="btnContainer">
+              <Button
+                style={{
+                  background: "black",
+                  color: "white",
+                  cursor: "pointer",
+                  width: "300px",
+                }}
+                onClick={handleSubmit}
               >
-                <Grid item>
-                  {validarProducts.id_oferta.length !== 0 && (
-                    <select
-                      defaultValue="default"
-                      className="selectOfert"
-                      onChange={(e) => handlePorcentaje(e)}
-                    >
-                      <option> Percent %: </option>
-                      <option value="10"> 10% </option>
-                      <option value="20"> 20% </option>
-                      <option value="30"> 30% </option>
-                      <option value="40"> 40% </option>
-                      <option value="50"> 50% </option>
-                    </select>
-                  )}
-                </Grid>
+                {" "}
+                Mark as bestsellers or onSale
+              </Button>
 
-                <Button style={{background: "black", color: "white", cursor: "pointer"}} onClick={handleSubmit}> Mark as bestsellers or onSale</Button>
-              </Grid>
-            </Grid>
+              {validarProducts.id_oferta.length !== 0 && (
+                <select
+                  style={{ width: "200px" }}
+                  defaultValue="default"
+                  className="selectOfert"
+                  onChange={(e) => handlePorcentaje(e)}
+                >
+                  <option> Percent %: </option>
+                  <option value="10"> 10% </option>
+                  <option value="20"> 20% </option>
+                  <option value="30"> 30% </option>
+                  <option value="40"> 40% </option>
+                  <option value="50"> 50% </option>
+                </select>
+              )}
 
-            <Grid item>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{
+                  display: `${arrayIds.length > 1 ? "" : "none"}`,
+                  cursor: "pointer",
+                  width: "200px",
+                }}
+                startIcon={<DeleteIcon />}
+                onClick={handleDeleteAll}
+              >
+                Delete selected
+              </Button>
+            </div>
+
+            <div className="productList_container">
               <DataGrid
                 style={{ height: "520px", width: "1200px" }}
                 rows={products}
@@ -312,10 +303,8 @@ export default function ProductList() {
                   Toolbar: CustomToolbar,
                 }}
               />
-            </Grid>
-            {/* <Grid item >
-              <VerOferta/>
-            </Grid> */}
+            </div>
+
             <ToastContainer
               position="top-center"
               autoClose={2000}
@@ -325,11 +314,11 @@ export default function ProductList() {
               rtl={false}
               draggable
             />
-          </Grid>
-        </>
-      ) : (
-        <Redirect to="/signin" />
-      )}
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 }

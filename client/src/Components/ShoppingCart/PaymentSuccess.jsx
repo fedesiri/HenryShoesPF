@@ -65,7 +65,7 @@ const PaymentSuccess = () => {
      closeCart()
       setTimeout(() => {
         dispatch(clearShoppingCart())
-            window.location.href = '/'
+            window.location.href = '/profile'
         }, 3000);
         
     }, [dispatch])

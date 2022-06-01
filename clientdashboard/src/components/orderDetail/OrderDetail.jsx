@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/actions";
 import { Redirect, useParams } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -26,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OrderDetail = () => {
-var {orderId} = useParams()
-console.log(orderId)
+  var { orderId } = useParams();
+  console.log(orderId);
 
   const classes = useStyles();
   const products = useSelector((state) => state.products);
@@ -54,105 +53,114 @@ console.log(orderId)
   var id = 1;
   return (
     <>
-    {userInfo && userInfo.roleId === 1 ? (
-      <>
-      <div style={{ margin: "20px", width: "100%" }}>
-      <Paper style={{ width: "50%" }}>
-        <h1>Order Detail</h1>
-        <br />
-        <br />
-        {data?.map((item) => (
-          item.id === parseInt(orderId) ? 
-          (<main key={id++}>
-            <p>
-              <b>Order N°: </b> {item.id}
-            </p>
-            <p>
-              <b>Customer: </b> {item.email}
-            </p>
-            <p>
-              <b>Date: </b> {item.createdAt}
-            </p>
-            <p>
-              <b>Status: </b> {item.statusOpen === false ? "Closed" : "Open"}
-            </p>
-            <br />
-            <br />
-            {item?.orders?.map((order) => (
-              <List key={id++}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="shoes"
-                      src={String(
-                        products
-                        .filter((product) => product.id === order.productId)
-                        .map((img) => img.image)
-                      )}
-                      />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={products
-                      .filter((product) => product.id === order.productId)
-                      .map((img) => img.model)}
-                      secondary={
-                        <>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                          >
-                          <b>Product Id: </b> {order.productId}
-                        </Typography>
-                        <br />
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                          >
-                          <b>Product Size: </b> {order.sizeId}
-                        </Typography>
-                        <br />
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          <b>Quantity: </b> {order.quantity}
-                        </Typography>
-                        <br />
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                          >
-                          <b>Total: </b>{" "}
-                          {order.quantity *
-                            products
+      {userInfo && userInfo.roleId === 1 ? (
+        <>
+          <div style={{ margin: "20px", width: "100%" }}>
+            <Paper style={{ width: "50%" }}>
+              <h1>Order Detail</h1>
+              <br />
+              <br />
+              {data?.map((item) =>
+                item.id === parseInt(orderId) ? (
+                  <main key={id++}>
+                    <p>
+                      <b>Order N°: </b> {item.id}
+                    </p>
+                    <p>
+                      <b>Customer: </b> {item.email}
+                    </p>
+                    <p>
+                      <b>Date: </b> {item.createdAt}
+                    </p>
+                    <p>
+                      <b>Status: </b>{" "}
+                      {item.statusOpen === false ? "Closed" : "Open"}
+                    </p>
+                    <br />
+                    <br />
+                    {item?.orders?.map((order) => (
+                      <List key={id++}>
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar
+                              alt="shoes"
+                              src={String(
+                                products
+                                  .filter(
+                                    (product) => product.id === order.productId
+                                  )
+                                  .map((img) => img.image)
+                              )}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={products
                               .filter(
                                 (product) => product.id === order.productId
-                                )
-                                .map((img) => img.price)}
-                        </Typography>
-                      </>
-                    }
-                    ></ListItemText>
-                  <br />
-                </ListItem>
-                <Divider />
-              </List>
-            ))}
-          </main>) : null
-        ))}
-      </Paper>
-    </div>
-      </>
-    ) : <Redirect to="/signin" />}
-            </>
+                              )
+                              .map((img) => img.model)}
+                            secondary={
+                              <>
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  className={classes.inline}
+                                  color="textPrimary"
+                                >
+                                  <b>Product Id: </b> {order.productId}
+                                </Typography>
+                                <br />
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  className={classes.inline}
+                                  color="textPrimary"
+                                >
+                                  <b>Product Size: </b> {order.sizeId}
+                                </Typography>
+                                <br />
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  className={classes.inline}
+                                  color="textPrimary"
+                                >
+                                  <b>Quantity: </b> {order.quantity}
+                                </Typography>
+                                <br />
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  className={classes.inline}
+                                  color="textPrimary"
+                                >
+                                  <b>Total: </b>{" "}
+                                  {order.quantity *
+                                    products
+                                      .filter(
+                                        (product) =>
+                                          product.id === order.productId
+                                      )
+                                      .map((img) => img.price)}
+                                </Typography>
+                              </>
+                            }
+                          ></ListItemText>
+                          <br />
+                        </ListItem>
+                        <Divider />
+                      </List>
+                    ))}
+                  </main>
+                ) : null
+              )}
+            </Paper>
+          </div>
+        </>
+      ) : (
+        <Redirect to="/signin" />
+      )}
+    </>
   );
 };
 
