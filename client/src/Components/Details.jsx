@@ -244,7 +244,7 @@ const Details = () => {
         
       </ContentDiv>
       <BtnDiv>
-        <AddBtn onClick={(e) => CargarCarrito(e)}>
+        <AddBtn onClick={(e) => CargarCarrito(e)} >
           <h4>Add to Shopping Cart</h4>
         </AddBtn>
       </BtnDiv>

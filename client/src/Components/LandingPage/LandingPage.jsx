@@ -65,7 +65,7 @@ const LandingPage = () => {
         <SliderDiv>
           <Slider />
         </SliderDiv>
-      <Link to="/CatalogPage" textDecoration="none">
+      <Link to="/CatalogPage" style={{textDecoration: "none", color: "black"}}>
         <Titulo>
           <h1>Catalog Page</h1>
         </Titulo>
