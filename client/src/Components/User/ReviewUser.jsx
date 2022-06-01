@@ -19,8 +19,8 @@ console.log(stateReview)
   const [input, setInput] = useState({
     rating: "",
     commentary: "",
-    productId: "",
-    email: "",
+    productId: producId,
+    email: email,
   });
 // console.log(input)
 

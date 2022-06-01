@@ -6,8 +6,8 @@ export const addReview = async function (req, res) {
 
     try {
         const { rating, commentary, productId, email } = req.body;
-
-        if (rating === '1' || rating === '2' || rating === '3' || rating === '4' || rating === '5') {
+        console.log(req.body)
+        if (rating === 1 || rating === 2 || rating === 3 || rating === 4 || rating === 5) {
 
             let reviewCreate = await Reviews.findOrCreate({
                 where: {

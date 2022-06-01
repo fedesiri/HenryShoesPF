@@ -19,6 +19,7 @@ import { BackBtn } from "../../styles/Details";
 import ReviewUser from "./ReviewUser";
 import SeeReview from "./SeeReview";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
