@@ -2,17 +2,20 @@ import { useSelector } from "react-redux";
 import { FilterDiv } from "../styles/Filters";
 
 export default function Filter({ allProducts, handleOrdered, handleFilter }) {
-  const {brand, gender, order} = useSelector((state) => state.filter);
+  const {brand, gender, order, category} = useSelector((state) => state.filter);
   
   
 
   function handleSelectChange(e) {
     e.preventDefault();
     if (e.target.name === "selectBrand") {
-      handleFilter({ brand: e.target.value, gender: gender });
+      handleFilter({ brand: e.target.value, gender: gender, category: category });
     }
     if (e.target.name === "selectGender") {
-      handleFilter({ brand: brand, gender: e.target.value });
+      handleFilter({ brand: brand, gender: e.target.value, category: category });
+    }
+    if(e.target.name === "selectCategory"){
+      handleFilter({ brand: brand, gender: gender, category: e.target.value})
     }
   }
 
@@ -31,6 +34,16 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
     });
   }
   allGenders(allProducts);
+
+  const categories = [];
+  function allCategories(allProducts) {
+    allProducts?.forEach((product) => {
+        if (product.CategName && !categories.includes(product.CategName)) categories.push(product.CategName);
+    });
+  }
+  allCategories(allProducts);
+
+  console.log(categories, 'soy categories')
 
   return (
     <FilterDiv>
@@ -57,6 +70,18 @@ export default function Filter({ allProducts, handleOrdered, handleFilter }) {
                 </option>
             ))}
         </select>
+        
+          {categories.length ? (
+            <select value={category} name="selectCategory" onChange={handleSelectChange}> 
+            <option value="filterByCategory">Categories</option>
+            {categories?.map((product, index) => (
+              <option key={index} value={product}>
+                {product}
+              </option>
+            ) )}
+      </select>
+          ) : null }
+        
     </FilterDiv>
 );
 }

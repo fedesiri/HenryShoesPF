@@ -24,23 +24,27 @@ export const createCategory = async (req, res) => {
   if (!name){
     return res.status(404).send("Not enough data to create a category.");
   }else{
-  const newCateg = await Category.create({
-      name: name,
-  });
-  
+    let category = await Category.findOne({
+      where: {
+        name: name.toLowerCase(), 
+      }
+    })
+    if (!category){
+      category = await Category.create({
+          name: name,
+      });
+    }  
   for(let i=0; i < data.length; i++){
     const brandedProduct = await Products.findOne({
       where:{
         id: data[i]
       }
     });
-   await brandedProduct.setCategory(newCateg)
+   await brandedProduct.setCategory(category)
   };
-
   res.send("The Category was succesfully created")
-}
+} 
 }catch(err){
-  console.log(err);
   res.send(err)
 }
 };
