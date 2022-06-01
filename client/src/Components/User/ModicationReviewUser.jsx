@@ -3,10 +3,12 @@ import { useSelector,useDispatch} from "react-redux";
 import { ModificationReview } from "../../redux/actions";
 import './Review.css'
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 
 
-const ModicationReviewUser = ({  id}) => {
+const ModicationReviewUser = ({ setOpen, id}) => {
+  console.log(id)
   // const userInfo = useSelector((state) => state.reviews_user_id);
     const dispatch = useDispatch()
   // console.log(userInfo)
@@ -16,7 +18,7 @@ const ModicationReviewUser = ({  id}) => {
     const [input, setInput] = useState({
       rating: Number(""),
       commentary: "",
-      id: "",
+      id: id,
     });
   console.log(input)
   
@@ -25,14 +27,13 @@ const ModicationReviewUser = ({  id}) => {
       ...input,
       id:id,
     })
-  }, [])
-  
-  
-  
-  
-  
-  
-  
+  }, [number])
+  useEffect(() => {
+    setInput({
+      ...input,
+      rating: number
+    })
+  }, [number])
   
     function handleChange(e) {
       e.preventDefault();
@@ -46,20 +47,33 @@ const ModicationReviewUser = ({  id}) => {
       e.preventDefault()
   
       if (input.rating === "" || input.commentary === "") {
-        return alert("No se puede enviar , complete las categorias");
+        return  toast.warning("Complete the category!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       } else {
         dispatch(ModificationReview(input))
-  
-  
+        toast("Thank you for leaving your opinion!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setInput({
           rating: "",
           commentary: "",
          
         });
+        setOpen(false)
       }
     }
   
-    let array = [1, 2, 3, 4, 5];
     const handleText = () => {
       switch (number || hoverStar) {
         case 0:
@@ -99,79 +113,50 @@ const ModicationReviewUser = ({  id}) => {
   return (
     <div className="ContainerReview3">
 
-    {input.rating}
-    {input.commentary}
-    {/* <form > */}
-
-    <form onSubmit={e => handleSubmit(e)}>
-      <h1>¿Cuantas estrellas le darias? </h1>
-      {array.map((e) => (
-        <button
-          key={e}
-          name="rating"
-          value={e}
-          onClick={(e) => handleChange(e)}
-        >
-          {e}
-        </button>
-      ))}
-      {/* rating */}
-
-      <div></div>
-
-      <label>
-        <h2> ¿Que te parecio el producto?</h2>
-        <input
-          type="text"
-          name="commentary"
-          placeholder="Commentary"
-          value={input.commentary}
-          onChange={(e) => handleChange(e)}
-        />
-      </label>
-
-      <button type="submit"> Enviar Opinion</button> 
-    </form>
-
-
-
-
-
-
-    <div className="product">
-            <img
-              style={{ width: 60, height: 60, objectFit: "cover" }}
-              src="https://tanhungphatit.vn/images/detailed/93/iphone-13-blue-1-600x600.jpg"
-              alt="name"
-            />
-            <h1>Iphone 13</h1>
-          </div>
-          <div>
-            <h1>{handleText()}</h1>
-            {Array(5)
-              .fill()
-              .map((_, index) =>
-                number >= index + 1 || hoverStar >= index + 1 ? (
-                  <AiFillStar
-                    onMouseOver={() => !number && setHoverStar(index + 1)}
-                    onMouseLeave={() => setHoverStar(undefined)}
-                    style={{ color: "orange" }}
-                    onClick={() => setNumber(index + 1)}
-                  />
-                ) : (
-                  <AiOutlineStar
-                    onMouseOver={() => !number && setHoverStar(index + 1)}
-                    onMouseLeave={() => setHoverStar(undefined)}
-                    style={{ color: "orange" }}
-                    onClick={() => setNumber(index + 1)}
-                  />
-                )
-              )}
-          </div>
-          <textarea placeholder={handlePlaceHolder()}></textarea>
-          <button className={` ${!number && "disabled"} `}>Submit</button>
-
-
+<form className="formReview" onSubmit={e => handleSubmit(e)}>
+       
+       <div className="formReview">  
+          <h3>What did you think of your product?</h3>
+                   <h3>{handleText()}</h3>
+                   <div>  
+                   {Array(5)
+                     .fill()
+                     .map((_, index) =>
+                       number >= index + 1 || hoverStar >= index + 1 ? (
+                         <AiFillStar className="iconreview"
+                           onMouseOver={() => !number && setHoverStar(index + 1)}
+                           onMouseLeave={() => setHoverStar(undefined)}
+                           style={{ color: "orange" }}
+                           onClick={() => setNumber(index + 1)}
+                         />
+                       ) : (
+                         <AiOutlineStar  className="iconreview"
+                           onMouseOver={() => !number && setHoverStar(index + 1)}
+                           onMouseLeave={() => setHoverStar(undefined)}
+                           style={{ color: "orange" }}
+                           onClick={() => setNumber(index + 1)}
+                         />
+                       )
+                     )}
+                     </div>
+                 </div>
+       <div className="flex2">   
+               <label>
+                 <h3> Tell other people about your product</h3>
+                 <input className="inputReview"
+                   type="text"
+                   name="commentary"
+                   value={input.commentary}
+                   placeholder={handlePlaceHolder()}
+                   onChange={(e) => handleChange(e)}
+                 />
+               </label>
+       
+               <button type="submit"> Send</button> 
+               </div>
+             </form>
+  
+  
 
 
 

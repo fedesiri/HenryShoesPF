@@ -535,6 +535,7 @@ export const sendReview = (payload) => {
 
 
 export const ModificationReview = (payload) => {
+  console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
