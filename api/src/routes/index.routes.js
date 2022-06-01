@@ -12,7 +12,7 @@ import ordersRoutes from './orders.routes.js'
 import wishlistRoutes from './wishlist.routes.js'
 import paymentRoutes from './payment.routes.js'
 import reviewsRoutes from "./reviews.routes.js"
-
+const router = Router();
 
 router.use(morgan("dev"));
 router.use(express.urlencoded({ extended: false }));
