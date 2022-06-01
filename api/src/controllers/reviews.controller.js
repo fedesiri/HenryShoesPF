@@ -6,7 +6,6 @@ export const addReview = async function (req, res) {
 
     try {
         const { rating, commentary, productId, email } = req.body;
-        console.log(req.body)
 
         if (rating === '1' || rating === '2' || rating === '3' || rating === '4' || rating === '5') {
 
@@ -131,3 +130,46 @@ export const modifyReview = async (req, res) => {
     }
 
 }
+
+
+export const getReviewsId_Products = async (req, res) => {
+    const { productId } = req.body;
+    console.log("holaa", productId)
+    try {
+
+        const myReviews = await Reviews.findAll({
+            where: {
+                productId: productId
+            },
+            include: {
+                model: Products,
+                attributes: ["model", "id"]
+            },
+        })
+        await myReviews
+        res.send(myReviews)
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    };
+};
+
+// let id = req.params.id;
+// try {
+//   const Models_Id = await Products.findByPk(id, {
+//     include: [{
+//       model: Sizes,
+//       attributes: ["size"]},
+//       {model: Reviews,
+//       attributes: ["commentary", "rating", "email"]
+//     }],
+//   });
+
+//   if (Models_Id !== null) {
+//     res.status(200).json(Models_Id);
+//   } else {
+//     res.status(404).send({ message: "Product not found." });
+//   }
+// } catch (err) {
+//   res.status(500).send({ message: err.message });
+// }

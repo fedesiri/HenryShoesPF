@@ -6,6 +6,7 @@ import {
   addShoppingCart,
   // combineStateCart,
   getShoppingCart,
+  getAllRewies,
 } from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,8 @@ import { toast } from "react-toastify";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import Footer from "./Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -34,10 +37,12 @@ const Details = () => {
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
+  const stateReview = useSelector((state)=> state. All_Review)
   // console.log(cartDetail1)
   // const cartDetailRegisterUser = useSelector(
   //   (state) => state.shoppingCartUserRegister
   // );
+  console.log(stateReview)
 
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
@@ -71,6 +76,14 @@ const Details = () => {
       // model: product.model,
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+useEffect (()=>{
+  
+dispatch(getAllRewies(addres))
+  
+
+},[])
+
 
 //   useEffect(() => {
 //     if (userInfo && cartDetail1) {
@@ -171,7 +184,7 @@ const Details = () => {
   // };
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
-
+let array = [1,2,3,4,5]
 
   return (
     <DetailContainer>
@@ -237,6 +250,8 @@ const Details = () => {
             </StockSelect>
           </StockDiv> */}
           <h4>Description : {detail.description}</h4>
+          <div> {array.map(e=> <FontAwesomeIcon icon={faStar} />)}{" "}</div>
+
         </Content2>
         <Content1>
           <img src={detail.image} alt="img zapa" />
