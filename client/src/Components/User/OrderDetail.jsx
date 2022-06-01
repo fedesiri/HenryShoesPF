@@ -16,6 +16,8 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 import { BackBtn } from "../../styles/Details";
+import ReviewUser from "./ReviewUser";
+import SeeReview from "./SeeReview";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +55,9 @@ const OrderDetail = () => {
     getOrders();
     dispatch(getAllProducts());
   }, [dispatch]);
+
+
+
 
   var id = 1;
   return (
@@ -175,14 +180,26 @@ const OrderDetail = () => {
                       ></ListItemText>
                       <br />
                     </ListItem>
+                    <button >Add Commentary</button>
+  
+                    <ReviewUser email={item.email} producId={order.productId}   />
+                   
+                      <SeeReview    email={item.email} producId={order.productId}  id ={item.id}        />
+
+                     
+
                     <Divider />
                   </List>
                 ))}
               </main>
+              
             ) : null
           )}
+
         </Paper>
+
       </div>
+
       <Footer />
     </>
   );

@@ -36,6 +36,9 @@ import {
   GET_ALL_SIZES,
   FETCH_USER_DATA,
   GET_STATE_CART,
+  SEND_REVIEW,
+  MODIFICATION_REVIEW,
+  REVIEW_ID_USER,
 
 } from "../actions/types";
 
@@ -65,6 +68,8 @@ const intialState = {
   AuxShopingCartBack: [],
   postMsj: [],
   stateCart: [],
+  postMsjReview: [],
+  reviews_user_id: []
 };
 
 function orderFilters(array, payload) {
@@ -180,7 +185,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         brands: payload,
       };
-      case GET_ALL_SIZES:
+    case GET_ALL_SIZES:
       return {
         ...state,
         sizes: payload,
@@ -523,17 +528,33 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         AuxShopingCartBack: payload
       }
-      case FETCH_USER_DATA:
-        return{
-          ...state,
-          userInfo: payload
-        }
-        case GET_STATE_CART:
-          return {
-            ...state,
-            stateCart: state.AuxShopingCartBack
-          }
+    case FETCH_USER_DATA:
+      return {
+        ...state,
+        userInfo: payload
+      }
+    case GET_STATE_CART:
+      return {
+        ...state,
+        stateCart: state.AuxShopingCartBack
+      }
 
+    case SEND_REVIEW:
+      return {
+        ...state,
+        postMsjReview: payload
+      }
+    case MODIFICATION_REVIEW:
+      return {
+        ...state,
+        postMsjReview: payload
+      }
+    case REVIEW_ID_USER:
+      return {
+        ...state,
+        reviews_user_id: payload
+
+      }
 
 
 

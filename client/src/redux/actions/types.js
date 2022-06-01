@@ -37,4 +37,6 @@ export const GET_ALL_SIZES = "GET_ALL_SIZES"
 export const FETCH_USER_AUTH = "FETCH_USER_AUTH";
 export const FETCH_USER_DATA = "FETCH_USER_DATA";
 export const GET_STATE_CART = "GET_STATE_CART";
-
+export const SEND_REVIEW = "SEND_REVIEW";
+export const MODIFICATION_REVIEW = " MODIFICATION_REVIEW";
+export const REVIEW_ID_USER = "REVIEW_ID_USER";

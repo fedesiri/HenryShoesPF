@@ -8,6 +8,6 @@ router.get('/:email', getReviews)
 router.get("/:productId/:email", getSpecificReview)
 router.get("/", getAllReviews)
 router.delete("/:idReview", deleteReiew)
-router.post("/modifyReview", modifyReview)
+router.put("/modifyReview", modifyReview)
 
 export default router;
