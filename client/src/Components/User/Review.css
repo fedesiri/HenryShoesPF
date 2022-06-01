@@ -7,3 +7,38 @@
     background-color: aqua;
 
 }
+
+
+
+
+
+/*   
+  
+   .product {
+    display: flex;
+    align-items: center;
+  }
+  .product h1 {
+    font-size: 20px;
+  }
+  textarea {
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  .ContainerReview3 >button {
+    background: blue;
+    color: #fff;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px 0;
+    border: none;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  .ContainerReview3 > button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+   */
