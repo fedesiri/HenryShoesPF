@@ -1,17 +1,65 @@
 .ContainerReview1{
-    border:solid;
-    background-color: yellow;
+  margin-top: 2rem;
+    border:thin solid ;
+    border-radius: 0.5rem;
+    border-color: grey;
+    
 }
 .ContainerReview3{
-    border:solid;
-    background-color: aqua;
+  margin-top: 2rem;
 
+    border-radius: 0.5rem;
+    border-color: grey;
 }
 
+.iconreview{
+  font-size: 3rem;
+}
 
+.flex2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flex2 label{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.formReview{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.formReview h3{
+  margin-left: auto;
+  margin-right: auto;
+}
+.formReview div {
+  margin-left: auto;
+  margin-right: auto;
+}
 
-
-
+.formReview button {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  background-color: yellow;
+  border-radius: 0.9rem;
+  font-size: 2rem;
+}
+.inputReview{
+  display: block;
+  width: 100%;
+  font-size: 1.2rem;
+  border:thin solid;
+  border-radius:1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
 /*   
   
    .product {
@@ -37,8 +85,15 @@
     font-weight: bolder;
     cursor: pointer;
   }
-  .ContainerReview3 > button.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+ 
    */
+   .seeReviewContainer2{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+   }
+
+   .DivfijoStart{
+     font-size: 1rem;
+   }
