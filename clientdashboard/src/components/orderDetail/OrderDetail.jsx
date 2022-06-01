@@ -146,12 +146,12 @@ console.log(orderId)
                 <Divider />
               </List>
             ))}
-          </main>) : <Redirect to="/signin" />
+          </main>) : null
         ))}
       </Paper>
     </div>
       </>
-    ) : null}
+    ) : <Redirect to="/signin" />}
             </>
   );
 };
