@@ -520,6 +520,7 @@ export const getStateCart = () => {
 
 
 export const sendReview = (payload) => {
+  console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
