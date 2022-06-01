@@ -39,6 +39,7 @@ import {
   SEND_REVIEW,
   MODIFICATION_REVIEW,
   REVIEW_ID_USER,
+  GET_ALL_REVIEWS_ID,
 
 } from "../actions/types";
 
@@ -69,7 +70,8 @@ const intialState = {
   postMsj: [],
   stateCart: [],
   postMsjReview: [],
-  reviews_user_id: []
+  reviews_user_id: [],
+  All_Review: []
 };
 
 function orderFilters(array, payload) {
@@ -554,6 +556,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         reviews_user_id: payload
 
+      }
+    case GET_ALL_REVIEWS_ID:
+      return {
+        ...state,
+        All_Review: payload
       }
 
 
