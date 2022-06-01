@@ -436,7 +436,7 @@ export const placeOrder = (payload) => {
       url: `${process.env.REACT_APP_API_URL}/orders/create`,
       data: payload,
     });
-    toast(response.data.message)
+    // toast(response.data.message)
     if (response.data.message === "Stock is not enough.") {
       setTimeout(() => {
         window.location.href = '/cart'

@@ -1,11 +1,10 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import "./createBrand.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import {
   DataGrid,
-  GridToolbar,
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarDensitySelector,
@@ -142,22 +141,29 @@ export default function CreateBrand() {
 
   return (
     <>
-      {userInfo && userInfo.roleId === 1 ? (
-        <>
-          <div className="newBrand">
-            <h1 className="addBrandTitle">New Product</h1>
-            <div className="addBrandContainerForm">
+      <div className="brandsContainer">
+        {userInfo && userInfo.roleId === 1 ? (
+          <>
+            <div className="productsList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Create Brand
+              </Typography>
+            </div>
+
+            <div className="brandGrid">
               <form className="addBrandForm">
-                <div className="addBrandItem">
-                  <label>Brand name</label>
-                  <TextField
-                    onChange={HandleOnChange}
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Brand Name"
-                  />{" "}
-                </div>
+                <label>
+                  <h3>Brand name</h3>
+                </label>
+                <TextField
+                  onChange={HandleOnChange}
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Brand Name"
+                />{" "}
                 <button
                   onClick={(e) => handleOnSubmit(e)}
                   className="addBrandButton"
@@ -170,11 +176,12 @@ export default function CreateBrand() {
                   variant="contained"
                   color="secondary"
                   // className={classes.button}
-                  style={{ display: `${arrayIds.length > 1 ? "" : "none"}` }}
+                  // style={{ display: `${arrayIds.length > 1 ? "" : "none"}` }}
+                  style={{margin: "5px"}}
                   startIcon={<DeleteIcon />}
                   onClick={handleDeleteAll}
                 >
-                  Delete selected
+                  Delete all selected
                 </Button>
                 <DataGrid
                   rows={brands}
@@ -187,20 +194,22 @@ export default function CreateBrand() {
                     Toolbar: CustomToolbar,
                   }}
                 />
+                <ToastContainer
+                  position="top-center"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  draggable
+                />
               </div>
             </div>
-            <ToastContainer
-              position="top-center"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              draggable
-            />
-          </div>
-        </>
-      ) : <Redirect to="/signin" />}
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 }

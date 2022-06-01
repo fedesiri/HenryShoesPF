@@ -1,10 +1,10 @@
 import "./userList.css";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
@@ -40,6 +40,17 @@ export default function UserList() {
       toast.error(error.response.data.message);
     }
   };
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    );
+  }
 
   const columns = [
     { field: "name", headerName: "Name", width: 150 },
@@ -94,30 +105,41 @@ export default function UserList() {
   }
   return (
     <>
-      {userInfo && userInfo.roleId === 1 ? (
-        <>
-          <div className="userList">
-            <ToastContainer
-              position="top-center"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              draggable
-            />
-            <DataGrid
-            style={{heigth: "100vh"}}
-              rows={data}
-              disableSelectionOnClick
-              columns={columns}
-              pageSize={10}
-            />
-          </div>
-        </>
-      ) : (
-        <Redirect to="/signin" />
-      )}
+      <div className="userContainer">
+        {userInfo && userInfo.roleId === 1 ? (
+          <>
+            <div className="userList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{color: "grey"}}> / Users</Typography>
+            </div>
+            <div className="userList_container">
+              <div className="userList">
+                <ToastContainer
+                  position="top-center"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  draggable
+                />
+                <DataGrid
+                  style={{ heigth: "100vh" }}
+                  rows={data}
+                  disableSelectionOnClick
+                  columns={columns}
+                  pageSize={10}
+                  components={{
+                    Toolbar: CustomToolbar,
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 }
