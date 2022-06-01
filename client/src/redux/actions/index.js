@@ -38,6 +38,9 @@ import {
   GET_ALL_SIZES,
   FETCH_USER_DATA,
   GET_STATE_CART,
+  SEND_REVIEW,
+  MODIFICATION_REVIEW,
+  REVIEW_ID_USER,
 
 } from "./types";
 
@@ -501,15 +504,61 @@ export const fetchUserData = (payload) => {
         type: FETCH_USER_DATA,
         payload: response.data,
       });
-      
+
     } catch (error) {
       console.log(error);
     }
   };
 }
 
-export const getStateCart = () =>{
+export const getStateCart = () => {
   return {
     type: GET_STATE_CART
   }
 }
+
+
+
+export const sendReview = (payload) => {
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/reviews`,
+      payload
+    );
+    return dispatch({
+      type: SEND_REVIEW,
+      payload: result,
+    });
+  };
+};
+
+
+export const ModificationReview = (payload) => {
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.put(
+      `${process.env.REACT_APP_API_URL}/reviews/modifyReview`,
+      payload
+    );
+    return dispatch({
+      type: MODIFICATION_REVIEW,
+      payload: result,
+    });
+  };
+};
+
+export const see_ReviewIdUser = (payload) => {
+  let { productId, email } = payload
+
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/reviews/${productId}/${email}`
+    );
+    return dispatch({
+      type: REVIEW_ID_USER,
+      payload: result,
+    });
+  };
+};
