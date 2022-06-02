@@ -33,7 +33,7 @@ const Orders = () => {
         `${process.env.REACT_APP_API_URL}/shoppingcart/allhistory`
       );
       setData(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
