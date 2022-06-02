@@ -348,15 +348,11 @@ export const fetchUserAuthenticated = () => {
   };
 };
 
-export const GetStock = ({productId, sizeId}) => {
+export const GetStock = (productId) => {
 return async function (dispatch) {
   try{
-  const response= await axios.post(
-    `${process.env.REACT_APP_API_URL}/Orders/stock`,
-    {
-      productId,
-      sizeId,
-    }
+  const response= await axios.get(
+    `${process.env.REACT_APP_API_URL}/Orders/productStock/${productId}`,
   );
   console.log(response.data, "SOY DATA STOCKKK");
   return dispatch({
