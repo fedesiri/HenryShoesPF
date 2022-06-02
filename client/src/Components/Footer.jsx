@@ -8,7 +8,9 @@ import TwitterIcon from '@material-ui/icons/Twitter'
 import { Box, Grid,  Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link} from "react-router-dom";
-
+import ChatBot from "./ChatBot";
+import Modal from "./Modal/Modal";
+import { useModal } from "./Modal/hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   mainFooter: {
@@ -70,6 +72,8 @@ function Copyright() {
 const Footer = () => {
   const classes = useStyles();
 
+  const [isOpenChatbot, openChatBot, closeChatBot] = useModal(false);
+
   return (
     <Box color="secondary" className={classes.mainFooter}>
       <Divider className={classes.divider}></Divider>
@@ -89,12 +93,10 @@ const Footer = () => {
           <Grid item>
             <Typography variant="h6">HenryShoes</Typography>
             <ul className={classes.list}>
-              <Typography
-                className={classes.text}
-                component={Link}
-                to={"/rutadelrobot"}
-              >
-                HenryShoes Assistance
+              <Typography>
+                <button onClick={openChatBot} style={{backgroundColor:"black", color:"white"}}>
+                  HenryShoes assistant
+                </button >
               </Typography>
               <Typography>Payment terms</Typography>
               <Typography
@@ -159,6 +161,13 @@ const Footer = () => {
           <Copyright />
         </Box>
       </Grid>
+      <Modal isOpen={isOpenChatbot} closeModal={closeChatBot}>
+      <div className="App">
+      <ChatBot 
+       closeChatBot={closeChatBot}
+      />
+      </div>
+      </Modal>
     </Box>
   );
 };
