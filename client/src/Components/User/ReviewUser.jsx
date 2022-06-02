@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 
 
-const ReviewUser = ({ email, producId }) => {
+const ReviewUser = ({ email, producId , setOpen}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const dispatch = useDispatch()
   const stateReview = useSelector((state)=> state. All_Review)
@@ -85,6 +85,7 @@ useEffect (()=>{
         commentary: "",
        
       });
+      setOpen(false)
     }
   }
 

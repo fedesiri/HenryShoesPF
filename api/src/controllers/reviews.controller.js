@@ -110,13 +110,12 @@ export const deleteReiew = async (req, res) => {
 
 export const modifyReview = async (req, res) => {
     const { rating, commentary, id } = req.body
-    let ratingg = Number(rating)
     console.log("modification", req.body)
     try {
-        if (commentary && ratingg) {
+        if (commentary && rating) {
             await Reviews.update({
-                commentary: commentary,
-                rating: ratingg,
+                commentary,
+                rating,
             },
                 {
                     where: { id: id }
@@ -135,11 +134,12 @@ export const modifyReview = async (req, res) => {
 export const getReviewsId_Products = async (req, res) => {
     const { productId } = req.body;
     console.log("holaa", productId)
+    let produc_id = Number(productId)
     try {
 
         const myReviews = await Reviews.findAll({
             where: {
-                productId: productId
+                productId: produc_id
             },
             include: {
                 model: Products,

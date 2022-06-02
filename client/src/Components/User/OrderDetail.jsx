@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllProducts, getAllRewies } from "../../redux/actions";
+import { getAllProducts, getAllRewies, getEmailReview} from "../../redux/actions";
 import NavBar from "../NavBar";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
@@ -35,6 +35,12 @@ const OrderDetail = () => {
   var { orderId } = useParams();
   console.log(orderId);
   const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userInfo);
+console.log(userInfo?.email)
+
+
+const userEmail_review = useSelector((state) => state.email_reviews);
+console.log(userEmail_review?.data?.map(e=>e.productId))
 
   const classes = useStyles();
   const products = useSelector((state) => state.products);
@@ -44,6 +50,7 @@ const OrderDetail = () => {
   const stateReview = useSelector((state)=> state. All_Review)
   
   const stateModifyReview = useSelector((state)=> state. postMsjReview)
+  
 
 console.log(stateReview)
   const dispatch = useDispatch();
@@ -74,8 +81,16 @@ console.log(stateReview)
       getOrders();
       dispatch(getAllProducts())
       dispatch(getAllRewies(idSend));
+      if(userInfo){ 
+        dispatch(getEmailReview(userInfo.email))
+         }
     }, [stateModifyReview]);
 
+useEffect(() => {
+  if(userInfo){ 
+ dispatch(getEmailReview(userInfo.email))
+  }
+}, [])
 
 
 
@@ -84,6 +99,10 @@ setOpen(!open)
 setIdSend(e.target.value )
   }
 
+
+
+     let verifyInfoUser = userEmail_review?.data?.map(e=>e.productId)
+     console.log (verifyInfoUser)
 
   var id = 1;
   return (
@@ -208,10 +227,11 @@ setIdSend(e.target.value )
                     </ListItem>
                     <button  value={order.productId}  onClick={(e)=>abrirComponente(e)}>Comment on the product</button>
 
-                   { (open && stateReview?.data?.length === 0 ) &&<ReviewUser email={item.email} producId={order.productId}   />
+                   { (open && (!verifyInfoUser.includes(order.productId))  ) &&<ReviewUser email={item.email} producId={order.productId} 
+                   setOpen={setOpen}/>
             }
                    
-                { (open && stateReview?.data?.length !== 0 ) &&   <SeeReview    email={item.email} producId={order.productId}  id ={item.id}        />
+                { (open &&(verifyInfoUser.includes(order.productId)) ) &&   <SeeReview    email={item.email} producId={order.productId}         />
             }
                      
 

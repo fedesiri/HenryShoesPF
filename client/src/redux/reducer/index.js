@@ -40,6 +40,7 @@ import {
   MODIFICATION_REVIEW,
   REVIEW_ID_USER,
   GET_ALL_REVIEWS_ID,
+  GET_EMAIL_REVIEWS,
 
 } from "../actions/types";
 
@@ -71,7 +72,8 @@ const intialState = {
   stateCart: [],
   postMsjReview: [],
   reviews_user_id: [],
-  All_Review: []
+  All_Review: [],
+  email_reviews: [],
 };
 
 function orderFilters(array, payload) {
@@ -153,8 +155,8 @@ export default function rootReducer(state = intialState, { type, payload }) {
         }
       }
 
-      function filterByCategories(products, category){
-        if(category === "filterByCategory"){
+      function filterByCategories(products, category) {
+        if (category === "filterByCategory") {
           return products;
         } else {
           return products.filter((product) => product.CategName && product.CategName.includes(category))
@@ -577,7 +579,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
         All_Review: payload
       }
 
-
+    case GET_EMAIL_REVIEWS:
+      return {
+        ...state,
+        email_reviews: payload
+      }
 
     default:
       return { ...state };
