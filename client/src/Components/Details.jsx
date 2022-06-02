@@ -6,6 +6,7 @@ import {
   getProductById,
   addShoppingCart,
   // combineStateCart,
+  clearDetail,
   getShoppingCart,
   getAllRewies,
 } from "../redux/actions/index";
@@ -27,25 +28,23 @@ import { toast } from "react-toastify";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import Footer from "./Footer";
-
+import './Details.css'
 
 const Details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [number, setNumber] = useState(3);
-
-
+  const [number, setNumber] = useState(0);
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
-  const stateReview = useSelector((state)=> state. All_Review)
+  const stateReview = useSelector((state)=> state.All_Review)
   // console.log(cartDetail1)
   // const cartDetailRegisterUser = useSelector(
   //   (state) => state.shoppingCartUserRegister
   // );
-  console.log("infoReview",stateReview)
+  console.log("infoReview",stateReview?.data)
 
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
@@ -61,6 +60,11 @@ const Details = () => {
       dispatch(getProductById(addres));
     }, 1000);
     dispatch(getShoppingCart());
+    return () => {
+     dispatch(clearDetail())
+     setNumber(0)
+    }
+
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // dispatch(getProductById(addres));
@@ -83,9 +87,15 @@ const Details = () => {
 useEffect (()=>{
   
 dispatch(getAllRewies(addres))
-  
-
 },[])
+
+useEffect(() => {
+ let valueStart =   total_Rating/ totalLength 
+ if (valueStart){
+ setNumber(Math.ceil(valueStart))}
+ if (!valueStart){
+  setNumber(0)}
+}, [stateReview?.data])
 
 
 //   useEffect(() => {
@@ -187,29 +197,34 @@ dispatch(getAllRewies(addres))
   // };
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+function totalRating(){ 
+let totalRating= 0
+stateReview?.data?.forEach(e => {
+  totalRating  +=  Number(e.rating)
+});
+return totalRating
+}
+let total_Rating= totalRating()
 
-  
+function total_length(){
+  let total = stateReview?.data?.length
+  return total
+}
+let totalLength = total_length()
+
+function totalCommentary (){
+  let total = stateReview?.data?.map( e=>  ({commentary:  e.commentary,
+                                            rating: e.rating }  )  )
+  return total
+}
+let arrayCommentary = totalCommentary()
+
+
 
   return (
     <DetailContainer>
       <NavBar />
-      <div className="DivfijoStart">
-            {Array(5)
-              .fill()
-              .map((_, index) =>
-                number >= index + 1 ? (
-                  <AiFillStar
-                    style={{ color: "orange" }}
-                    // onClick={() => setNumber(1)}
-                  />
-                ) : (
-                  <AiOutlineStar
-                    style={{ color: "orange" }}
-                    // onClick={() => setNumber(1)}
-                  />
-                )
-              )}
-          </div>
+     
       <BackBtn
         onClick={() => {
           navigate(-1);
@@ -220,6 +235,25 @@ dispatch(getAllRewies(addres))
         <Content2>
           <h3>Model:</h3>
           <h2>{detail.model}</h2>
+
+          <div className="DivfijoStart">
+            {Array(5)
+              .fill()
+              .map((_, index) =>
+                number >= index + 1 ? (
+                  <AiFillStar className="IconRewiueTop"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="IconRewiueTop"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )} <p className="opinion">{totalLength}</p> <p className="opinion"> opinions</p>
+          </div>
+
           <SizeDiv>
           <h3>Price:</h3>
           <h2> ${detail.price}</h2>
@@ -276,6 +310,7 @@ dispatch(getAllRewies(addres))
 
         </Content2>
         <Content1>
+       
           <img src={detail.image} alt="img zapa" />
           
         </Content1>
@@ -290,6 +325,59 @@ dispatch(getAllRewies(addres))
       <Modal isOpen={isOpenCart} closeModal={closeCart}>
         <CartDetails closeCart={closeCart} />
       </Modal>
+      <hr/>
+          { (number === 0 || number === "NaN" )?(null):  (<div className="ReviewDetailContainer" >  
+
+          <h1>Product  Reviews</h1>
+          <div className="ReviewChildrenContainer">  
+          <h3>{number}</h3>
+          <div className="childrenReview">
+            {Array(5)
+              .fill()
+              .map((_, index) =>
+                number >= index + 1 ? (
+                  <AiFillStar className="ReviewIconChildren"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="ReviewIconChildren"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )}
+              <p>Average between {totalLength} opinions</p>
+          </div>
+          </div>
+                  <hr/>
+                    <div>
+                    {arrayCommentary?.map((e,index)=>
+                      <div key={index}>
+    {Array(5)
+              .fill()
+              .map((_, index) =>
+                e.rating >= index + 1 ? (
+                  <AiFillStar className="startCommentary"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="startCommentary"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )}
+
+                     <h4 className="commentaryh4"> {e.commentary}  </h4>   
+                         
+                        </div>
+                      )}
+                    </div>
+                    <hr/>   
+
+          </div>)}
       <Footer/>
 
 
