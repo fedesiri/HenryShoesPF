@@ -6,8 +6,9 @@ import './Review.css'
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 
-const SeeReview = ({ email, producId, id }) => {
+const SeeReview = ({ email, producId }) => {
   const userInfo = useSelector((state) => state.reviews_user_id);
+  console.log(userInfo?.data?.id)
   const dispatch = useDispatch();
   const [number, setNumber] = useState("");
   const [open, setOpen] = useState (false)
@@ -27,6 +28,7 @@ useEffect(() => {
   dispatch(see_ReviewIdUser({ productId: producId, email: email }))},
    [stateModifyReview]);
 
+let id = (userInfo?.data?.id)
 
 
 
@@ -85,7 +87,7 @@ setOpen(!open)
         <button onClick={(e)=>openComponente(e)}>Modification</button>
 
        { open && <ModicationReviewUser setOpen={setOpen}  rating={userInfo?.data?.rating} commentary={userInfo?.data?.commentary}
-               email={email} producId={producId} id={id} />}
+               email={email} producId={producId} id ={id} />}
       </div>
     </div>
   );

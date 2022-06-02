@@ -42,6 +42,7 @@ import {
   MODIFICATION_REVIEW,
   REVIEW_ID_USER,
   GET_ALL_REVIEWS_ID,
+  GET_EMAIL_REVIEWS,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -575,6 +576,21 @@ export const getAllRewies = (payload) => {
       info);
     return dispatch({
       type: GET_ALL_REVIEWS_ID,
+      payload: result,
+    });
+  };
+};
+
+
+
+
+export const getEmailReview = (payload) => {
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/reviews/${payload}`)
+    return dispatch({
+      type: GET_EMAIL_REVIEWS,
       payload: result,
     });
   };
