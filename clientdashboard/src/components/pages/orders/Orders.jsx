@@ -33,6 +33,7 @@ const Orders = () => {
         `${process.env.REACT_APP_API_URL}/shoppingcart/allhistory`
       );
       setData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +66,7 @@ const Orders = () => {
                       <TableCell className="tableCell">Date</TableCell>
                       <TableCell className="tableCell">Status</TableCell>
                       <TableCell className="tableCell">Details</TableCell>
+                      <TableCell className="tableCell">Total</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -94,6 +96,9 @@ const Orders = () => {
                               Details
                             </Link>
                           </Button>
+                        </TableCell>
+                        <TableCell className="tableCell">
+                          {row.orders.reduce( (acc, curr) => acc + (curr.price * curr.quantity), 0)}
                         </TableCell>
                       </TableRow>
                     ))}

@@ -6,7 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import "./user.css";
 import axios from "axios";
-import { Redirect, useParams } from "react-router-dom";
+import { NavLink, Redirect, useParams } from "react-router-dom";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -87,7 +87,10 @@ export default function User() {
         {userInfo && userInfo.roleId === 1 ? (
           <>
             <div className="userList_pageTitle">
-              <Typography variant="body1">Dashboard</Typography>
+              <NavLink to="/users" style={{color: "black"}}>
+              <Typography variant="body1">Users</Typography>
+
+              </NavLink>
               <Typography variant="body1" style={{ color: "grey" }}>
                 {" "}
                 / Edit User
