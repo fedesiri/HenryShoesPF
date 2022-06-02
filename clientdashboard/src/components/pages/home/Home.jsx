@@ -2,6 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import WidgetHome from "./WidgetHome";
+import LastOrders from "./LastOrders";
+
 const Home = () => {
   const userInfo = useSelector((state) => state.userInfo);
 
@@ -18,8 +21,9 @@ const Home = () => {
   return (
     <>
       {userInfo && userInfo.roleId === 1 ? (
-        <div>
-          <h1>Home</h1>
+        <div className="home">
+          <WidgetHome />
+          <LastOrders />
         </div>
       ) : (
         <Redirect to="/signin" />

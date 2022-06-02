@@ -4,10 +4,29 @@ import CreateIcon from "@material-ui/icons/Create";
 import StoreIcon from "@material-ui/icons/Store";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postLogOut } from "../../redux/actions";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
+
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 export default function Sidebar() {
+  const classes = useStyles();
+  const dispatch = useDispatch()
   const userInfo = useSelector((state) => state.userInfo);
+
+  const signOutHandler = () => {
+    dispatch(postLogOut());
+    window.localStorage.removeItem("userInfo");
+    window.location.href = "/signin";
+  };
   return (
     <>
       {userInfo && userInfo.roleId === 1 ? (
@@ -97,6 +116,19 @@ export default function Sidebar() {
                       Orders
                     </li>
                   </NavLink>
+                  <li>
+                  {userInfo && userInfo.roleId === 1 ? (
+              <Button
+              onClick={signOutHandler}
+                variant="contained"
+                color="default"
+                className={classes.button}
+                startIcon={<ExitToAppIcon />}
+              >
+                Log out
+              </Button>
+            ) : null}
+                  </li>
                 </ul>
               </div>
             </div>

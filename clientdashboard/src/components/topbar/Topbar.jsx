@@ -37,7 +37,7 @@ export default function Topbar() {
          </Link>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
+          {/* <div className="topbarIconContainer">
             {userInfo && userInfo.roleId === 1 ? (
               <Button
               onClick={signOutHandler}
@@ -49,7 +49,7 @@ export default function Topbar() {
                 Log out
               </Button>
             ) : null}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
