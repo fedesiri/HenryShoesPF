@@ -8,7 +8,7 @@ import {
   getAllProducts,
 } from "../../../redux/actions/index.js";
 import { ToastContainer, toast } from "react-toastify";
-import { Grid, TextField } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import {
   DataGrid,
   GridToolbarColumnsButton,
@@ -28,7 +28,7 @@ export default function CreateCategory() {
   const categories = useSelector((state) => state.categories);
   const products = useSelector((state) => state.allProducts);
   const userInfo = useSelector((state) => state.userInfo);
-  
+
   useEffect(() => {
     dispatch(getAllCategory());
     dispatch(getAllProducts());
@@ -148,13 +148,20 @@ export default function CreateCategory() {
 
   return (
     <>
-      {userInfo && userInfo.roleId === 1 ? (
-        <>
-          <div className="newBrand">
-            <h1 className="addBrandTitle">New Category</h1>
-            <div className="addCatContainerForm">
-              <form className="addBrandForm">
-                <div className="addBrandItem">
+      <div className="categoryContainer">
+        {userInfo && userInfo.roleId === 1 ? (
+          <>
+            <div className="addCategory_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Add Brand
+              </Typography>
+            </div>
+
+            <div className="categoryGrid">
+              <div className="addCategoryLeft">
+                <form className="addCategoryForm">
                   <label>Category name</label>
                   <TextField
                     onChange={HandleOnChange}
@@ -163,47 +170,39 @@ export default function CreateCategory() {
                     type="text"
                     placeholder="Category Name"
                   />{" "}
-                </div>
-                <Grid item>
-                  <DataGrid
-                    style={{ height: "500px", width: "500px" }}
-                    rows={products}
-                    disableSelectionOnClick
-                    columns={columns}
-                    pageSize={25}
-                    checkboxSelection
-                    onSelectionModelChange={(ids) => setArrayIds(ids)}
-                    components={{
-                      Toolbar: CustomToolbar,
-                    }}
-                  />
-                </Grid>
-                <button
-                  onClick={(e) => handleOnSubmit(e)}
-                  className="addBrandButton"
-                >
-                  Create
-                </button>
-              </form>
-              <div className="addBrandRight">
-                <Grid item>
-                  <DataGrid
-                    style={{
-                      height: "500px",
-                      width: "500px",
-                      marginTop: "80px",
-                    }}
-                    rows={categories}
-                    columns={categColumns}
-                    pageSize={10}
-                    checkboxSelection
-                    disableSelectionOnClick
-                    // onSelectionModelChange={(ids) => setArrayIds(ids)}
-                    components={{
-                      Toolbar: CustomToolbar,
-                    }}
-                  />
-                </Grid>
+                  <button
+                  style={{marginBottom: "10px"}}
+                    onClick={(e) => handleOnSubmit(e)}
+                    className="addBrandButton"
+                  >
+                    Create
+                  </button>
+                </form>
+
+                <DataGrid
+                  rows={products}
+                  disableSelectionOnClick
+                  columns={columns}
+                  pageSize={25}
+                  checkboxSelection
+                  onSelectionModelChange={(ids) => setArrayIds(ids)}
+                  components={{
+                    Toolbar: CustomToolbar,
+                  }}
+                />
+              </div>
+              <div className="addCategoryRight">
+                <DataGrid
+                  rows={categories}
+                  columns={categColumns}
+                  pageSize={10}
+                  checkboxSelection
+                  disableSelectionOnClick
+                  // onSelectionModelChange={(ids) => setArrayIds(ids)}
+                  components={{
+                    Toolbar: CustomToolbar,
+                  }}
+                />
               </div>
             </div>
             <ToastContainer
@@ -215,11 +214,11 @@ export default function CreateCategory() {
               rtl={false}
               draggable
             />
-          </div>
-        </>
-      ) : (
-        <Redirect to="/signin" />
-      )}
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 }

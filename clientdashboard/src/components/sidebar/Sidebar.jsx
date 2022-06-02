@@ -54,7 +54,7 @@ export default function Sidebar() {
                   >
                     <li className="sidebarListItem">
                       <CreateIcon className="sidebarIcon" />
-                      Create Products
+                      Add Products
                     </li>
                   </NavLink>
                   <NavLink
@@ -74,7 +74,7 @@ export default function Sidebar() {
                   >
                     <li className="sidebarListItem">
                       <CreateIcon className="sidebarIcon" />
-                      Create Category
+                      Add Category
                     </li>
                   </NavLink>
                   <NavLink
@@ -84,7 +84,7 @@ export default function Sidebar() {
                   >
                     <li className="sidebarListItem">
                       <CreateIcon className="sidebarIcon" />
-                      Create Brand
+                      Add Brand
                     </li>
                   </NavLink>
                   <NavLink

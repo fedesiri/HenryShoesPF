@@ -8,9 +8,13 @@ import {
   filterOfertDestacado,
   getAllProducts,
 } from "../../../redux/actions";
+import { Redirect } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import "./onSaleBestsellers.css"
 
 const OnSaleBestsellers = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
   let respBackCreate = useSelector((state) => state.res_back_productOferts);
   let resDeleteBack = useSelector((state) => state.postMsj);
@@ -100,8 +104,8 @@ const OnSaleBestsellers = () => {
     },
     {
       field: "action",
-      headerName: "Action",
-      width: 150,
+      headerName: "Delete from onSale or Bestsellers",
+      width: 400,
       renderCell: (params) => {
         // console.log(params.row.inDestacados);
         return (
@@ -122,17 +126,33 @@ const OnSaleBestsellers = () => {
   ];
 
   return (
-    <div style={{ width: "100%", margin: "20px" }}>
-      <DataGrid
-        style={{ width: "100%", height: "100%" }}
-        rows={products}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-    </div>
+    <>
+      <div className="onsaleContainer">
+        {userInfo && userInfo.roleId ? (
+          <>
+            <div className="onSaleList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Products on Sale & Bestsellers
+              </Typography>
+            </div>
+            <div className="onSaleList_container">
+              <DataGrid
+                rows={products}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+                disableSelectionOnClick
+              />
+            </div>
+          </>
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </div>
+    </>
   );
 };
 
