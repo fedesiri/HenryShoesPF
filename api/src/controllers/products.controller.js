@@ -64,12 +64,16 @@ export const getDetails = async (req, res) => {
   let id = req.params.id;
   try {
     const Models_Id = await Products.findByPk(id, {
-      include: [{
+      include: [
+        {
         model: Sizes,
-        attributes: ["size"]},
-        {model: Reviews,
+        attributes: ["size", "id"],
+      },
+        {
+          model: Reviews,
         attributes: ["commentary", "rating", "email"]
       }],
+
     });
 
     if (Models_Id !== null) {

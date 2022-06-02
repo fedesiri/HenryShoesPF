@@ -25,9 +25,9 @@ import {
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
   GET_ALL_CATEGORIES,
+  GET_STOCK,
   GET_ALL_SIZES,
   DELETE_PRODUCT,
-
 } from "../actions/types";
 
 const intialState = {
@@ -50,6 +50,7 @@ const intialState = {
   shoppingCart: [],
   shoppingCartUserRegister: [],
   res_back_productOferts: [],
+  stock: [],
   postMsj: []
 };
 
@@ -466,6 +467,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
       case DELETE_PRODUCT:
         return{
           ...state,
+        }
+
+      case GET_STOCK:
+        return {
+          ...state,
+          stock: payload
         }
 
     default:

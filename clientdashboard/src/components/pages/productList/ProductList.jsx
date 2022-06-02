@@ -12,16 +12,23 @@ import { Link, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getAllProducts,
-  sendOfertToBack,
-  clearOfertSelect,
-  deleteProduct,
+    getAllProducts,
+    sendOfertToBack,
+    clearOfertSelect,
+    GetStock,
+    deleteProduct,
+
 } from "../../../redux/actions";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { Button, Grid, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import VerOferta from "./VerOferta";
+import Modal from "../../Modal/Modal";
+import { useModal } from "../../Modal/hooks/useModal.js";
+import HandleStock  from "../handleStock/HandleStock";
+
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -40,9 +47,21 @@ export default function ProductList() {
     porcentaje: [],
   });
 
+
+    const [isOpenStock, openStock, closeStock] = useModal(false);
+    const[selectedProd, setSelectedProd] = useState("");
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         dispatch(filterOfertDestacado());
+    //         setChequeo(!chequeo);
+    //     }, 3000);
+    // }, [resBack]);
+
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+
 
   function handleValidarProductsPromotion(e) {
     var str = String(e.target.value);
@@ -75,12 +94,19 @@ export default function ProductList() {
       });
     }
   }
+  
   function handlePorcentaje(e) {
     var str = e.target.value;
     setValidarProducts({
       ...validarProducts,
       porcentaje: str,
     });
+  }
+  
+  const clickStock = (e) => {
+        setSelectedProd(e.target.value)
+        dispatch(GetStock(e.target.value))
+        openStock();
   }
 
   function handleSubmit(e) {
@@ -111,10 +137,12 @@ export default function ProductList() {
   //     setData(data.filter((item) => item.id !== id));
   //   };
 
+
   const HandleDelete = (id) => {
     window.confirm("Are you sure do you want to delete this item?");
     dispatch(deleteProduct(id));
   };
+
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -168,12 +196,20 @@ export default function ProductList() {
         );
       },
     },
-    // { field: "stock", headerName: "Stock", width: 140 },
-    // {
-    //   field: "status",
-    //   headerName: "Status",
-    //   width: 120,
-    // },
+     { 
+             field: "stock", 
+             headerName: "Stock",
+              width: 140,
+              height: 300, 
+              renderCell: params => {
+                return (
+                    <div className="productListItem">
+                        <button onClick={(e) => clickStock(e)} className="productListEdit"
+                        value={params.row.id}>Stock</button>
+                    </div>
+                )
+              }
+            },
     {
       field: "price",
       headerName: "Price",
@@ -223,7 +259,7 @@ export default function ProductList() {
   };
 
   function CustomToolbar() {
-    return (
+    return (        
       <GridToolbarContainer>
         <GridToolbarColumnsButton />
         <GridToolbarFilterButton />
@@ -232,6 +268,7 @@ export default function ProductList() {
       </GridToolbarContainer>
     );
   }
+
 
   return (
     <>
@@ -303,7 +340,9 @@ export default function ProductList() {
                   Toolbar: CustomToolbar,
                 }}
               />
+              
             </div>
+            
 
             <ToastContainer
               position="top-center"
@@ -313,11 +352,18 @@ export default function ProductList() {
               closeOnClick
               rtl={false}
               draggable
-            />
+            />          
+   
+
           </>
         ) : (
           <Redirect to="/signin" />
         )}
+        
+        <Modal isOpen={isOpenStock} closeModal={closeStock}>
+        <HandleStock closeStock={closeStock} product={selectedProd}/>
+      </Modal>
+      
       </div>
     </>
   );

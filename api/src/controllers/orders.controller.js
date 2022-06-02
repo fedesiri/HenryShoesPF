@@ -7,9 +7,10 @@ export const getStock = async (req, res) => {
   const sizeId = req.body.sizeId;
   try {
     if (sizeId) {
-      const stock = await Orders.findOrCreate({
+      for(let i = 0; i < sizeId.length; i++){
+      const order = await Orders.findOrCreate({
         where: {
-          sizeId: sizeId,
+          sizeId: sizeId[i].size,
           productId: productId,
         },
         include: {
@@ -17,7 +18,13 @@ export const getStock = async (req, res) => {
           attribute: ["email"],
         },
       });
-      stock ? res.send(stock) : res.send(5);
+    };
+    const stock = await Orders.findAll({
+      where: {
+        productId: productId
+      }
+    })
+      await stock ? res.send(stock) : res.send(5);
     } else {
       const stock = await Orders.findAll({
         where: {
@@ -32,38 +39,36 @@ export const getStock = async (req, res) => {
 };
 
 export const getProductStock = async (req, res) => {
-const productId = req.params
-console.log(productId, "soy params")
 
-try {
-  const allSizes = await products_sizes.findAll({
-    where:{
-      productId: productId.productId
-    }
-  });
-   console.log( await allSizes, "Soy all sizes")
-  for (let i = 0; i < await allSizes.length; i++){
-    const newStock = await Orders.findOrCreate({
+  const productId = req.params  
+  try {
+    const allSizes = await products_sizes.findAll({
       where:{
-        productId: productId.productId,
-        sizeId: allSizes[i].sizeId
+        productId: productId.productId
       }
     });
-    console.log(newStock)
-  };
+    
+    for (let i = 0; i < await allSizes.length; i++){
+      const newStock = await Orders.findOrCreate({
+        where:{
+          productId: productId.productId,
+          sizeId: allSizes[i].sizeId
+        }
+      });
+    };
+    
+    const allStock = await Orders.findAll({
+      where:{
+        productId: productId.productId
+      }
+    })
+    res.send( await allStock)
+  } catch (error) {
+    console.error(error)
+  }
   
-  const allStock = await Orders.findAll({
-    where:{
-      productId: productId.productId
-    }
-  })
-  res.send( await allStock)
-} catch (error) {
-  console.log(error)
-  res.send(error)
-}
+  };
 
-};
 
 export const HandleStock = async (req,res) => {
   const {productId, sizeId, stock} = req.body;
@@ -90,7 +95,7 @@ export const HandleStock = async (req,res) => {
         },
       }
     );
-  res.send("The stock is up to date")
+  res.send({message: "The stock is up to date"})
   }catch(err){res.send(err)}
   
   };
