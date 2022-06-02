@@ -15,4 +15,5 @@ router.post("/stock", getStock);
 router.post("/HandleStock", HandleStock); 
 router.get("/productStock/:productId", getProductStock)
 
+
 export default router;

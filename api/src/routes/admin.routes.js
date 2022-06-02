@@ -7,7 +7,8 @@ import {
   ofertSelect,
   deletePromotion,
   deleteDestacado,
-  deleteManyProducts
+  deleteManyProducts,
+  getAllSizes
 } from "../controllers/products.controller.js";
 import {
   getCategory,
@@ -42,6 +43,9 @@ router.post("/create-brand", createBrand)
 router.put("/update-brand/:id", updateBrand)
 router.delete("/delete-brand/:id", deleteBrand)
 router.delete("/delete-all-brands", deleteManyBrands)
+
+//sizes
+router.get("/sizes", getAllSizes)
 
 //User
 // router.put('/update/user', passport.authenticate('jwt', {session: false}), roleVerify, userUpdateController);

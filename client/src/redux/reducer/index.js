@@ -33,6 +33,15 @@ import {
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
+  GET_ALL_SIZES,
+  FETCH_USER_DATA,
+  GET_STATE_CART,
+  SEND_REVIEW,
+  MODIFICATION_REVIEW,
+  REVIEW_ID_USER,
+  GET_ALL_REVIEWS_ID,
+  GET_EMAIL_REVIEWS,
+
 } from "../actions/types";
 
 const intialState = {
@@ -45,8 +54,9 @@ const intialState = {
   details: {},
   page: 1,
   brands: [],
+  sizes: [],
   ofertSelect: [],
-  filter: { brand: "All", gender: "filterByGender" },
+  filter: { brand: "All", gender: "filterByGender", category: "filterByCategory" },
   inOfertDestacado: [],
   inOfertAux: [],
   inBestSellerAux: [],
@@ -58,7 +68,12 @@ const intialState = {
   Back_shoppingCart: [],
   RemoveBackShoppingCart: [],
   AuxShopingCartBack: [],
-  postMsj: []
+  postMsj: [],
+  stateCart: [],
+  postMsjReview: [],
+  reviews_user_id: [],
+  All_Review: [],
+  email_reviews: [],
 };
 
 function orderFilters(array, payload) {
@@ -92,7 +107,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         products: payload,
         allProducts: payload,
-        filter: { brand: "All", gender: "filterByGender" },
+        filter: { brand: "All", gender: "filterByGender", category: "filterByCategory" },
       };
 
     case GET_ALL_PRODUCTS_BY_BRANDS:
@@ -139,6 +154,14 @@ export default function rootReducer(state = intialState, { type, payload }) {
           return products.filter((product) => product.gender.includes(gender));
         }
       }
+
+      function filterByCategories(products, category) {
+        if (category === "filterByCategory") {
+          return products;
+        } else {
+          return products.filter((product) => product.CategName && product.CategName.includes(category))
+        }
+      }
       const productsFilterByBrands = filterByBrand(
         state.allProducts,
         payload.brand
@@ -148,7 +171,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
         payload.gender
       );
 
-      let order = orderFilters(productsFilterByGender, state.filter.order);
+      const productsFilterByCategory = filterByCategories(
+        productsFilterByGender,
+        payload.category
+      );
+
+      let order = orderFilters(productsFilterByCategory, state.filter.order);
 
       return {
         ...state,
@@ -158,6 +186,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
           ...state.filter,
           brand: payload.brand,
           gender: payload.gender,
+          category: payload.category
         },
       };
 
@@ -173,6 +202,11 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         brands: payload,
+      };
+    case GET_ALL_SIZES:
+      return {
+        ...state,
+        sizes: payload,
       };
     case SET_CURRENT_PAGE:
       return { ...state, page: payload };
@@ -285,7 +319,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         let itemInCart = state.shoppingCartUserRegister.find(
           (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
-        console.log(state.shoppingCartUserRegister);
+        // console.log(state.shoppingCartUserRegister);
 
         return itemInCart
           ? {
@@ -482,6 +516,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         shoppingCartUserRegister: [],
+        AuxShopingCartBack: []
       }
 
 
@@ -511,11 +546,44 @@ export default function rootReducer(state = intialState, { type, payload }) {
         ...state,
         AuxShopingCartBack: payload
       }
+    case FETCH_USER_DATA:
+      return {
+        ...state,
+        userInfo: payload
+      }
+    case GET_STATE_CART:
+      return {
+        ...state,
+        stateCart: state.AuxShopingCartBack
+      }
 
+    case SEND_REVIEW:
+      return {
+        ...state,
+        postMsjReview: payload
+      }
+    case MODIFICATION_REVIEW:
+      return {
+        ...state,
+        postMsjReview: payload
+      }
+    case REVIEW_ID_USER:
+      return {
+        ...state,
+        reviews_user_id: payload
 
+      }
+    case GET_ALL_REVIEWS_ID:
+      return {
+        ...state,
+        All_Review: payload
+      }
 
-
-
+    case GET_EMAIL_REVIEWS:
+      return {
+        ...state,
+        email_reviews: payload
+      }
 
     default:
       return { ...state };

@@ -31,11 +31,18 @@ import {
   GET_WISH_LIST,
   FETCH_USER,
   PLACE_ORDER,
-  PAYMENT_SUCCESS,
   CLEAR_SHOPPINGCART,
   GET_BACK_CART,
   REMOVE_BACK_CART,
   AUX_SHOPPING_CART,
+  GET_ALL_SIZES,
+  FETCH_USER_DATA,
+  GET_STATE_CART,
+  SEND_REVIEW,
+  MODIFICATION_REVIEW,
+  REVIEW_ID_USER,
+  GET_ALL_REVIEWS_ID,
+  GET_EMAIL_REVIEWS,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -94,6 +101,8 @@ export function getProductById(payload) {
   };
 }
 
+
+
 export const createCategory = (category) => {
   return async (dispatch) => {
     try {
@@ -124,7 +133,6 @@ export function postLogIn({ email, password }) {
           password,
         }
       );
-      console.log(response.data, "SOY DATA");
       return dispatch({
         type: POST_LOG_IN,
         payload: response.data,
@@ -162,6 +170,22 @@ export const getAllBrands = () => {
       .then((response) => {
         return dispatch({
           type: GET_ALL_BRANDS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+};
+
+export const getAllSizes = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/admin/sizes`)
+      .then((response) => {
+        return dispatch({
+          type: GET_ALL_SIZES,
           payload: response.data,
         });
       })
@@ -302,10 +326,10 @@ export const addOneProductCart = (payload) => {
 };
 
 export const combineStateCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/orders/create`,
         payload
       );
@@ -347,14 +371,14 @@ export const fetchUserAuthenticated = () => {
 };
 
 export const addWishList = (payload) => {
-  console.log(payload);
+  // console.log(payload);
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/wishlist/add`,
       payload
     );
-    console.log(result);
+    // console.log(result);
     return dispatch({
       type: ADD_WISH_LIST,
       payload: result,
@@ -406,14 +430,14 @@ export const fetchDataUserUpdated = (payload) => {
 };
 
 export const placeOrder = (payload) => {
-  console.log(payload);
+  // console.log(payload);
   return async function (dispatch) {
     const response = await axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/orders/create`,
       data: payload,
     });
-    toast(response.data.message)
+    // toast(response.data.message)
     if (response.data.message === "Stock is not enough.") {
       setTimeout(() => {
         window.location.href = '/cart'
@@ -450,7 +474,7 @@ export const getCartBack = (payload) => {
 
 
 export const removeBackCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return async function (dispatch) {
     // cambiar la ruta
     const result = await axios.put(
@@ -465,10 +489,109 @@ export const removeBackCart = (payload) => {
 };
 
 export const stateAuxShoppingCart = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return {
     type: AUX_SHOPPING_CART,
     payload
   };
 
 }
+
+export const fetchUserData = (payload) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${payload}`);
+      return dispatch({
+        type: FETCH_USER_DATA,
+        payload: response.data,
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const getStateCart = () => {
+  return {
+    type: GET_STATE_CART
+  }
+}
+
+
+
+export const sendReview = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/reviews`,
+      payload
+    );
+    return dispatch({
+      type: SEND_REVIEW,
+      payload: result,
+    });
+  };
+};
+
+
+export const ModificationReview = (payload) => {
+  console.log(payload)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.put(
+      `${process.env.REACT_APP_API_URL}/reviews/modifyReview`,
+      payload
+    );
+    return dispatch({
+      type: MODIFICATION_REVIEW,
+      payload: result,
+    });
+  };
+};
+
+export const see_ReviewIdUser = (payload) => {
+  let { productId, email } = payload
+
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/reviews/${productId}/${email}`
+    );
+    return dispatch({
+      type: REVIEW_ID_USER,
+      payload: result,
+    });
+  };
+};
+
+export const getAllRewies = (payload) => {
+  let info = { productId: payload }
+  console.log(info)
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/reviews/all`,
+      info);
+    return dispatch({
+      type: GET_ALL_REVIEWS_ID,
+      payload: result,
+    });
+  };
+};
+
+
+
+
+export const getEmailReview = (payload) => {
+  return async function (dispatch) {
+    // cambiar la ruta
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/reviews/${payload}`)
+    return dispatch({
+      type: GET_EMAIL_REVIEWS,
+      payload: result,
+    });
+  };
+};

@@ -43,7 +43,7 @@ export const editUser = async (req, res) => {
       {
         name: name,
         email: email,
-        password: password ? bcrypt.hashSync(password, 10) : null,
+        password: password,
         lastname: lastname,
         address: address ? address : address2,
         roleId: roleId,

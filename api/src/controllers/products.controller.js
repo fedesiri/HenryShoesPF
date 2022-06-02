@@ -3,17 +3,18 @@ import Brands from "../models/Brands.js";
 import Category from "../models/Category.js";
 import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
+import Reviews from "../models/Reviews.js";
 import Sizes from "../models/Sizes.js";
 
 export const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Products.findAll({
-      include: {
+      include: [{
         model: Brands,
-        attributes: ["name"],
-        model: Sizes,
+        attributes: ["name"]},
+        {model: Sizes,
         attributes: ["size"],
-      },
+      }],
     });
 
     const { name } = req.query;
@@ -63,10 +64,16 @@ export const getDetails = async (req, res) => {
   let id = req.params.id;
   try {
     const Models_Id = await Products.findByPk(id, {
-      include: {
+      include: [
+        {
         model: Sizes,
         attributes: ["size", "id"],
       },
+        {
+          model: Reviews,
+        attributes: ["commentary", "rating", "email"]
+      }],
+
     });
 
     if (Models_Id !== null) {
@@ -76,6 +83,19 @@ export const getDetails = async (req, res) => {
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
+  }
+};
+
+export const getAllSizes= async (req, res) => {
+  try {
+    const allSizes = await Sizes.findAll();
+    if (allSizes.length === 0) {
+      res.status(404).send({ message: "There are no Sizes." });
+    } else {
+      res.status(200).send(allSizes);
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -128,7 +148,7 @@ export async function createProduct(req, res) {
         where:{
           productId: productCreate.id,
           sizeId: size,
-          stock: stock
+          // stock: stock
         }
       });
       console.log(productCreate)
@@ -318,3 +338,4 @@ export const deleteManyProducts = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+

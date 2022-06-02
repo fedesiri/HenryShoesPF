@@ -1,0 +1,49 @@
+
+.ReviewDetailContainer >h1{
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.ReviewDetailContainer h3{
+  font-size: 5rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+.ReviewChildrenContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ReviewIconChildren{
+  font-size: 3.5rem;
+}
+.childrenReview{
+  margin-left: 5rem;
+}
+.childrenReview p{
+font-size: 1.5rem;
+}
+
+.startCommentary{
+  font-size: 1.5rem;
+}
+.commentaryh4{
+  margin-bottom: 1rem;
+}
+
+.DivfijoStart{
+  position: relative;
+  
+  display: flex;
+  flex-direction: row;
+  
+  
+}
+.IconRewiueTop{
+  font-size: 2rem;
+}
+.opinion{
+  margin-top: 0.2rem;
+  margin-left: 0.2rem;
+}
+

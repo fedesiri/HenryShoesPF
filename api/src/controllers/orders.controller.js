@@ -39,9 +39,8 @@ export const getStock = async (req, res) => {
 };
 
 export const getProductStock = async (req, res) => {
-  const productId = req.params
-  console.log(productId, "soy params")
-  
+
+  const productId = req.params  
   try {
     const allSizes = await products_sizes.findAll({
       where:{
@@ -65,11 +64,11 @@ export const getProductStock = async (req, res) => {
     })
     res.send( await allStock)
   } catch (error) {
-    console.log(error)
-    res.send(error)
+    console.error(error)
   }
   
   };
+
 
 export const HandleStock = async (req,res) => {
   const {productId, sizeId, stock} = req.body;

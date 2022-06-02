@@ -3,19 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import FormularioInicio from "./FormularioInicio";
 import FormularioCrearCuenta from "./FormularioCrearCuenta";
-import {
-  NavContainer,
-  Banner,
-  LoginDiv,
-  SearchNav,
-  DivWishList,
-} from "../styles/NavBar";
+import { NavContainer, Banner, LoginDiv, SearchNav } from "../styles/NavBar";
 import banner from "../static/banner.png";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginBtn, ChartBtn, SignOutBtn, DivStateCart } from "../styles/NavBar";
-import { postLogOut, getShoppingCart, getCartBack } from "../redux/actions/index.js";
+import { LoginBtn, ChartBtn, DivStateCart } from "../styles/NavBar";
+import {
+  postLogOut,
+  getShoppingCart,
+  getCartBack,
+} from "../redux/actions/index.js";
 import "./ShoppingCart/ShoppingCart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -30,26 +28,27 @@ import {
 export default function NavBar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo)
   const navigate = useNavigate();
   const cartDetail1 = useSelector((state) => state.shoppingCart);
   const cartDetailRegisterUser = useSelector(
     (state) => state.shoppingCartUserRegister
   );
-  // console.log(cartDetailRegisterUser)
+
+  // console.log(cartDetailRegisterUser);
   const [stateCart, setStateCart] = useState();
-  // console.log(stateCart)
-  const resRemoveCart = useSelector((state)=>state.RemoveBackShoppingCart)
+  // console.log(stateCart);
+  const resRemoveCart = useSelector((state) => state.RemoveBackShoppingCart);
 
 
-  let sum = 0;
   useEffect(() => {
+    let sum = 0;
+
     if (cartDetail1) {
-      cartDetail1.map((e) => (sum += Number(e.quantity)));
+     sum=  cartDetail1.length;
       setStateCart(sum);
     }
     if (cartDetailRegisterUser && userInfo) {
-      cartDetailRegisterUser.map((e) => (sum += Number(e.quantity)));
+      sum= cartDetailRegisterUser.length;
       setStateCart(sum);
     }
   }, [cartDetail1, cartDetailRegisterUser, userInfo]);//  eslint-disable-line react-hooks/exhaustive-deps
@@ -58,14 +57,12 @@ export default function NavBar() {
     dispatch(getShoppingCart());
   }, [cartDetail1, cartDetailRegisterUser]);//  eslint-disable-line react-hooks/exhaustive-deps
 
-  
   useEffect(() => {
-    if(userInfo){
-    dispatch(getCartBack(userInfo.email))
+    if (userInfo) {
+      dispatch(getCartBack(userInfo.email));
     }
+
   }, [cartDetail1, resRemoveCart])//  eslint-disable-line react-hooks/exhaustive-deps
-
-
 
 
 
@@ -86,7 +83,7 @@ export default function NavBar() {
       <NavContainer>
         <Banner>
           <Link to="/">
-            <img src={banner} alt="" width="100%" height= "150px" />
+            <img src={banner} alt="" width="100%" height="150px" />
           </Link>
         </Banner>
 
@@ -94,7 +91,7 @@ export default function NavBar() {
           <div>
             <SearchBar />
           </div>
-          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}     
+          {stateCart !== 0 && <DivStateCart>{stateCart}</DivStateCart>}
           <div>
             {userInfo || userInfo === "you are not authenticated" ? null : (
               <LoginDiv>
@@ -105,7 +102,12 @@ export default function NavBar() {
             {userInfo ? (
               <LoginDiv>
                 <Dropdown isOpen={dropdown} toggle={openCloseDropdown}>
-                  <DropdownToggle style={{background: "black", borderRadius: "0.75rem"}} caret>{userInfo.name}</DropdownToggle>
+                  <DropdownToggle
+                    style={{ background: "black", borderRadius: "0.75rem" }}
+                    caret
+                  >
+                    {userInfo.name}
+                  </DropdownToggle>
 
                   <DropdownMenu>
                     <DropdownItem>

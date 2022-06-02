@@ -1,10 +1,6 @@
-import { Button, Grid } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import DeleteIcon from "@material-ui/icons/Delete";
+import React, { useEffect } from "react";
 import { DeleteOutline } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteDestacado,
@@ -12,52 +8,69 @@ import {
   filterOfertDestacado,
   getAllProducts,
 } from "../../../redux/actions";
+import { Redirect } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import "./onSaleBestsellers.css"
 
 const OnSaleBestsellers = () => {
-    const dispatch = useDispatch();
-    const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-        
-  
-  useEffect(() => {
-      dispatch(getAllProducts());
-      setTimeout(() => {
-        dispatch(filterOfertDestacado());
-        }, 1000);
-    }, [dispatch]);
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
+  const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
+  let respBackCreate = useSelector((state) => state.res_back_productOferts);
+  let resDeleteBack = useSelector((state) => state.postMsj);
+  let resALlproducts = useSelector((state) => state.allProducts);
 
-    
-    const productOfert = productsDestacadOfert?.filter(
-      (e) => e.inOferta === true
-    );
-  
-    const productDestacado = productsDestacadOfert?.filter(
-      (e) => e.inDestacados === true
-    );
-    
-    const products = [...productOfert, ...productDestacado];
-    // console.log(products)
+  // useEffect(() => {
+  //   dispatch(getAllProducts());
+  // }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [respBackCreate, resDeleteBack]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    dispatch(filterOfertDestacado());
+  }, [resALlproducts]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+  const productOfert = productsDestacadOfert?.filter(
+    (e) => e.inOferta === true
+  );
+
+  const productDestacado = productsDestacadOfert?.filter(
+    (e) => e.inDestacados === true
+  );
+
+  const products = [...productOfert, ...productDestacado];
+  // console.log(products)
+
+  // function retornarIdPromotion(e) {
+  //   dispatch(deletePromotion(e));
+  //   setTimeout(() => {
+  //     dispatch(getAllProducts());
+  //   }, 100);
+  //   setTimeout(() => {
+  //     dispatch(filterOfertDestacado());
+  //   }, 200);
+  // }
 
   function retornarIdPromotion(e) {
     dispatch(deletePromotion(e));
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 100);
-    setTimeout(() => {
-        dispatch(filterOfertDestacado());
-      }, 200);
   }
 
   function retornarIdDestacado(e) {
-      console.log(e)
     dispatch(deleteDestacado(e));
-    setTimeout(() => {
-      dispatch(getAllProducts());
-    }, 100);
-    setTimeout(() => {
-        dispatch(filterOfertDestacado());
-      }, 200);
   }
- 
+
+  // function retornarIdDestacado(e) {
+  //   // console.log(e)
+  //   dispatch(deleteDestacado(e));
+  //   setTimeout(() => {
+  //     dispatch(getAllProducts());
+  //   }, 100);
+  //   setTimeout(() => {
+  //     dispatch(filterOfertDestacado());
+  //   }, 200);
+  // }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -91,16 +104,20 @@ const OnSaleBestsellers = () => {
     },
     {
       field: "action",
-      headerName: "Action",
-      width: 150,
+      headerName: "Delete from onSale or Bestsellers",
+      width: 400,
       renderCell: (params) => {
-        console.log(params.row.inDestacados);
+        // console.log(params.row.inDestacados);
         return (
           <>
             <DeleteOutline
               className="productListDelete"
               value={params.row.id}
-                onClick={(e) => params.row.inDestacados ?  retornarIdDestacado(params.row.id) : retornarIdPromotion(params.row.id)}
+              onClick={(e) =>
+                params.row.inDestacados
+                  ? retornarIdDestacado(params.row.id)
+                  : retornarIdPromotion(params.row.id)
+              }
             />
           </>
         );
@@ -108,29 +125,34 @@ const OnSaleBestsellers = () => {
     },
   ];
 
-  //   const rows = [
-  //     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  //     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  //     { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  //     { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  //     { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  //     { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  //     { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  //     { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  //     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  //   ];
-
   return (
-    <div style={{ height: 400, width: "100%", margin: "20px" }}>
-      <DataGrid
-        rows={products}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-    </div>
+    <>
+      <div className="onsaleContainer">
+        {userInfo && userInfo.roleId ? (
+          <>
+            <div className="onSaleList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Products on Sale & Bestsellers
+              </Typography>
+            </div>
+            <div className="onSaleList_container">
+              <DataGrid
+                rows={products}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+                disableSelectionOnClick
+              />
+            </div>
+          </>
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </div>
+    </>
   );
 };
 

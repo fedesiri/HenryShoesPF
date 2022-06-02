@@ -28,7 +28,9 @@ import {
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
   GET_ALL_CATEGORIES,
-  GET_STOCK
+  GET_STOCK,
+  GET_ALL_SIZES,
+  DELETE_PRODUCT,
 } from "./types";
 
 export const getAllProducts = (name) => {
@@ -108,16 +110,17 @@ export const filter = (filter) => {
 };
 
 export function postLogIn({ email, password }) {
+  console.log(email, password);
   return async function (dispatch) {
     try {
-      const response= await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/signin`,
         {
           email,
           password,
         }
       );
-      console.log(response.data, "SOY DATA");
+
       return dispatch({
         type: POST_LOG_IN,
         payload: response.data,
@@ -127,7 +130,6 @@ export function postLogIn({ email, password }) {
     }
   };
 }
-
 
 export const postLogOut = () => {
   return {
@@ -164,6 +166,23 @@ export const getAllBrands = () => {
       });
   };
 };
+
+export const getAllSizes = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/admin/sizes`)
+      .then((response) => {
+        return dispatch({
+          type: GET_ALL_SIZES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+};
+
 
 export const getAllCategory = () => {
   return (dispatch) => {
@@ -261,13 +280,7 @@ export const clearDetail = () => {
   };
 };
 
-export const postRegister = ({
-  name,
-  lastname,
-  password,
-  email,
-  address,
-}) => {
+export const postRegister = ({ name, lastname, password, email, address }) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
@@ -328,15 +341,18 @@ export const combineStateCart = (payload) => {
 export const getShoppingCart = () => {
   return {
     type: GET_SHOPPING_CART,
-  }
-}
+  };
+};
 
 export const fetchUserAuthenticated = () => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/auth`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/user/auth`,
+        {
+          withCredentials: true,
+        }
+      );
 
       return dispatch({
         type: FETCH_USER_AUTH,
@@ -348,20 +364,38 @@ export const fetchUserAuthenticated = () => {
   };
 };
 
+
 export const GetStock = (productId) => {
 return async function (dispatch) {
   try{
   const response= await axios.get(
     `${process.env.REACT_APP_API_URL}/Orders/productStock/${productId}`,
   );
-  console.log(response.data, "SOY DATA STOCKKK");
   return dispatch({
     type: GET_STOCK,
     payload: response.data,
   });
 } catch (error) {
-  console.error(error.response.data.message);
+  console.error(error);
 }  
 }
 }
+
+
+
+
+export const deleteProduct = (id) => {
+  return function (dispatch) {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/admin/delete/${id}`)
+      .then((response) => {
+        console.log(response.data, "deleted");
+        dispatch({
+          type: DELETE_PRODUCT,
+        });
+        dispatch(getAllProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};
 

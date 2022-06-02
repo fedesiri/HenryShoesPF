@@ -14,23 +14,21 @@ const divStyle = {
 const VerOferta = () => {
   const dispatch = useDispatch();
   const [ocultar, setOcultar] = useState(false);
-  const [chequeo1, setChequeo1] = useState(false)
+  const [chequeo1, setChequeo1] = useState(false);
 
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
-  let respBackCreate = useSelector ((state)=> state.res_back_productOferts)
-let resDeleteBack = useSelector ((state)=> state.postMsj)
-let resALlproducts = useSelector ((state)=> state.allProducts)
-// console.log(resDeleteBack.status)
+  let respBackCreate = useSelector((state) => state.res_back_productOferts);
+  let resDeleteBack = useSelector((state) => state.postMsj);
+  let resALlproducts = useSelector((state) => state.allProducts);
+  // console.log(resDeleteBack.status)
 
-useEffect(() => {
- dispatch(getAllProducts())
-}, [respBackCreate, resDeleteBack ])//  eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [respBackCreate, resDeleteBack]); //  eslint-disable-line react-hooks/exhaustive-deps
 
-useEffect(() => {
-dispatch(filterOfertDestacado())
-}, [resALlproducts])//  eslint-disable-line react-hooks/exhaustive-deps
-
-
+  useEffect(() => {
+    dispatch(filterOfertDestacado());
+  }, [resALlproducts]); //  eslint-disable-line react-hooks/exhaustive-deps
 
   function verProduct() {
     dispatch(getAllProducts());
@@ -42,15 +40,16 @@ dispatch(filterOfertDestacado())
   }
 
   function retornarIdDestacado(e) {
-    dispatch(deleteDestacado(e.target.value));  
+    dispatch(deleteDestacado(e.target.value));
   }
 
-  const productOfert = productsDestacadOfert?.filter((e) => e.inOferta === true);
- 
+  const productOfert = productsDestacadOfert?.filter(
+    (e) => e.inOferta === true
+  );
+
   const productDestacado = productsDestacadOfert?.filter(
     (e) => e.inDestacados === true
   );
-
 
   return (
     <div>

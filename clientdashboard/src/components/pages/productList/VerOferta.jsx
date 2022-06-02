@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   filterOfertDestacado,
@@ -19,17 +19,17 @@ const VerOferta = ({chequeo}) => {
   const productsDestacadOfert = useSelector((state) => state.inOfertDestacado);
   
 
-useEffect(() => {
+// useEffect(() => {
   
-  setChequeo1(!chequeo1)
-    dispatch(filterOfertDestacado());
-}, [chequeo]);
+//   setChequeo1(!chequeo1)
+//     dispatch(filterOfertDestacado());
+// }, [chequeo]);
 
-useEffect(() => {
-  setTimeout(() => {
-    dispatch(filterOfertDestacado());  
-  }, 1000);
-}, [chequeo1])
+// useEffect(() => {
+//   setTimeout(() => {
+//     dispatch(filterOfertDestacado());  
+//   }, 1000);
+// }, [chequeo1])
 
 
   function verProduct() {

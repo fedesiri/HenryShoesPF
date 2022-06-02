@@ -25,7 +25,9 @@ import {
   GET_SHOPPING_CART,
   FETCH_USER_AUTH,
   GET_ALL_CATEGORIES,
-  GET_STOCK
+  GET_STOCK,
+  GET_ALL_SIZES,
+  DELETE_PRODUCT,
 } from "../actions/types";
 
 const intialState = {
@@ -38,6 +40,7 @@ const intialState = {
   details: {},
   page: 1,
   brands: [],
+  sizes: [],
   categories:[],
   ofertSelect: [],
   filter: { brand: "All", gender: "filterByGender" },
@@ -47,7 +50,8 @@ const intialState = {
   shoppingCart: [],
   shoppingCartUserRegister: [],
   res_back_productOferts: [],
-  stock: []
+  stock: [],
+  postMsj: []
 };
 
 function orderFilters(array, payload) {
@@ -161,6 +165,12 @@ export default function rootReducer(state = intialState, { type, payload }) {
       return {
         ...state,
         brands: payload,
+      };
+
+      case GET_ALL_SIZES:
+      return {
+        ...state,
+        sizes: payload,
       };
 
       case GET_ALL_CATEGORIES:
@@ -280,7 +290,7 @@ export default function rootReducer(state = intialState, { type, payload }) {
         let itemInCart = state.shoppingCartUserRegister.find(
           (item) => item.id === newItem.id && item.sizes === newItem.sizes
         );
-        console.log(state.shoppingCartUserRegister);
+        // console.log(state.shoppingCartUserRegister);
 
         return itemInCart
           ? {
@@ -454,6 +464,10 @@ export default function rootReducer(state = intialState, { type, payload }) {
         shoppingCart: state.shoppingCart,
         shoppingCartUserRegister: state.shoppingCartUserRegister,
       };
+      case DELETE_PRODUCT:
+        return{
+          ...state,
+        }
 
       case GET_STOCK:
         return {

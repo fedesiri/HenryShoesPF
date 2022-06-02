@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
-  CalendarToday,
   LocationSearching,
   MailOutline,
   PermIdentity,
-  PhoneAndroid,
 } from "@material-ui/icons";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./userAccount.css";
-import { fetchUserAuthenticated } from "../../redux/actions";
+import { fetchUserData } from "../../redux/actions";
+import bcryptjs from "bcryptjs";
+// import { fetchUserAuthenticated } from "../../redux/actions";
 
 const UserAccount = () => {
   const userInfo = useSelector((state) => state.userInfo);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const [user, setUser] = useState({});
-  // console.log(user)
+  console.log(userInfo)
 
   
   async function findUser(){
@@ -35,7 +35,12 @@ const UserAccount = () => {
       setUser(result)
     }
     fetchData()
+   
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchUserData(userInfo.id))
+  }, [dispatch, userInfo.id])
 
   const [input, setInput] = useState({
     name: "",
@@ -68,13 +73,12 @@ const UserAccount = () => {
 
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(userInfo.name)
     try {
       let newData = {
         name: input.name || userInfo.name,
         lastname: input.lastname || userInfo.lastname,
         address: input.address || userInfo.address,
-        password: input.passwordConfirm || userInfo.passwordConfirm,
+        password: input.passwordConfirm ? bcryptjs.hashSync(input?.passwordConfirm, 10) : userInfo.password,
       };
       const response = await axios({
         method: "put",
@@ -82,6 +86,7 @@ const UserAccount = () => {
         data: newData,
       });
       setUser({ ...user, ...newData });
+      dispatch(fetchUserData(userInfo.id))
       document.getElementById("name").value = "";
       document.getElementById("lastname").value = "";
       document.getElementById("address").value = "";
@@ -89,7 +94,7 @@ const UserAccount = () => {
       document.getElementById("passwordConfirm").value = "";
       toast(response.data.message);
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err);
     }
   };
   const showPassword = () => {
@@ -144,20 +149,10 @@ const UserAccount = () => {
               <FingerprintIcon className="userShowIcon" />
               <span className="userShowInfoTitle">{userInfo.id}</span>
             </div>
-
-            {/* <span className="userShowTitle">Contact Details</span> */}
-            {/* <div className="userShowInfo">
-            <PhoneAndroid className="userShowIcon" />
-            <span className="userShowInfoTitle">+1 123 456 67</span>
-          </div> */}
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
               <span className="userShowInfoTitle">{userInfo.email}</span>
             </div>
-            {/* <div className="userShowInfo">
-            <PermIdentity className="userShowIcon" />
-            <span className="userShowInfoTitle">Role: {userInfo.roleId}</span>
-          </div> */}
             <div className="userShowInfo">
               <LocationSearching className="userShowIcon" />
               <span className="userShowInfoTitle">{userInfo.address}</span>

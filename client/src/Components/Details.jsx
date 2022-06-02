@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import {
   getProductById,
   addShoppingCart,
-  combineStateCart,
+  // combineStateCart,
+  clearDetail,
   getShoppingCart,
+  getAllRewies,
 } from "../redux/actions/index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,31 +20,32 @@ import {
   ContentDiv,
   BtnDiv,
   SizeDiv,
-  StockDiv,
   AddBtn,
-  StockSelect,
 } from "../styles/Details";
 import NavBar from "./NavBar";
 import CartDetails from "./ShoppingCart/CarritoDetails";
 import { toast } from "react-toastify";
-import { LoginBtn } from "../styles/NavBar";
 import Modal from "./Modal/Modal";
 import { useModal } from "./Modal/hooks/useModal";
-import { Button } from "../styles/Form";
 import Footer from "./Footer";
+import './Details.css'
 
 const Details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [number, setNumber] = useState(0);
   const params = useParams();
   let addres = params.id;
   const detail = useSelector((state) => state.details);
   const userInfo = useSelector((state) => state.userInfo);
   const cartDetail1 = useSelector((state) => state.shoppingCart);
+  const stateReview = useSelector((state)=> state.All_Review)
   // console.log(cartDetail1)
-  const cartDetailRegisterUser = useSelector(
-    (state) => state.shoppingCartUserRegister
-  );
+  // const cartDetailRegisterUser = useSelector(
+  //   (state) => state.shoppingCartUserRegister
+  // );
+  console.log("infoReview",stateReview?.data)
+
   const [isOpenCart, openCart, closeCart] = useModal(false);
 
   const [itemsCarts, setItemsCarts] = useState({
@@ -57,6 +60,11 @@ const Details = () => {
       dispatch(getProductById(addres));
     }, 1000);
     dispatch(getShoppingCart());
+    return () => {
+     dispatch(clearDetail())
+     setNumber(0)
+    }
+
   }, []); //  eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // dispatch(getProductById(addres));
@@ -75,6 +83,20 @@ const Details = () => {
       // model: product.model,
     });
   }, [product]); //  eslint-disable-line react-hooks/exhaustive-deps
+
+useEffect (()=>{
+  
+dispatch(getAllRewies(addres))
+},[])
+
+useEffect(() => {
+ let valueStart =   total_Rating/ totalLength 
+ if (valueStart){
+ setNumber(Math.ceil(valueStart))}
+ if (!valueStart){
+  setNumber(0)}
+}, [stateReview?.data])
+
 
 //   useEffect(() => {
 //     if (userInfo && cartDetail1) {
@@ -115,7 +137,7 @@ const Details = () => {
     } else {
       dispatch(addShoppingCart(itemsCarts));
       if (userInfo) {
-        const response = await axios.post(
+        await axios.post(
           `${process.env.REACT_APP_API_URL}/orders/create`,
           {
             email: userInfo.email,
@@ -127,7 +149,6 @@ const Details = () => {
             }],
           }
         );
-        console.log(response.data);
       }
 
       // console.log("esto envias al carrito ", itemsCarts);
@@ -160,45 +181,83 @@ const Details = () => {
     });
   }
 
-  const HandleDelete = () => {
-    let reply = window.confirm("Are you sure do you want to delete this item?");
-    if (reply === true) {
-      try {
-        axios({
-          method: "delete",
-          url: `${process.env.REACT_APP_API_URL}/admin/delete/${detail.id}`,
-        });
-        navigate("/");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
+  // const HandleDelete = () => {
+  //   let reply = window.confirm("Are you sure do you want to delete this item?");
+  //   if (reply === true) {
+  //     try {
+  //       axios({
+  //         method: "delete",
+  //         url: `${process.env.REACT_APP_API_URL}/admin/delete/${detail.id}`,
+  //       });
+  //       navigate("/");
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
 
   // let talles = [35, 36, 37, 38, 39, 40, 41, 42, 43];
+function totalRating(){ 
+let totalRating= 0
+stateReview?.data?.forEach(e => {
+  totalRating  +=  Number(e.rating)
+});
+return totalRating
+}
+let total_Rating= totalRating()
 
-  const user = JSON.parse(window.localStorage.getItem("userInfo"));
-  user ? console.log("logueado") : console.log("no logueado");
+function total_length(){
+  let total = stateReview?.data?.length
+  return total
+}
+let totalLength = total_length()
+
+function totalCommentary (){
+  let total = stateReview?.data?.map( e=>  ({commentary:  e.commentary,
+                                            rating: e.rating }  )  )
+  return total
+}
+let arrayCommentary = totalCommentary()
+
+
 
   return (
     <DetailContainer>
       <NavBar />
-
+     
       <BackBtn
         onClick={() => {
           navigate(-1);
         }}
       ></BackBtn>
-
+  
       <ContentDiv>
         <Content2>
           <h3>Model:</h3>
           <h2>{detail.model}</h2>
+
+          <div className="DivfijoStart">
+            {Array(5)
+              .fill()
+              .map((_, index) =>
+                number >= index + 1 ? (
+                  <AiFillStar className="IconRewiueTop"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="IconRewiueTop"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )} <p className="opinion">{totalLength}</p> <p className="opinion"> opinions</p>
+          </div>
+
           <SizeDiv>
           <h3>Price:</h3>
           <h2> ${detail.price}</h2>
           </SizeDiv>
-          {/* {console.log(detail.price, "SOY PRICE")} */}
           <div>
           {detail.porcentaje && (
             <SizeDiv>
@@ -215,8 +274,11 @@ const Details = () => {
           <SizeDiv>
           <h3>Gender:</h3>
           <h2> {detail.gender}</h2>
+          </SizeDiv>
+
+          <SizeDiv>
           {detail.CategName?.length > 0 ? <h3>Category:</h3> : null}
-          {detail.CategName?.length > 0 ? <p>{detail.CategName}</p> : null}
+          {detail.CategName?.length > 0 ? <h2>{detail.CategName}</h2> : null}
           </SizeDiv>
           <SizeDiv>
             <h3>Sizes: </h3>
@@ -245,22 +307,80 @@ const Details = () => {
             </StockSelect>
           </StockDiv> */}
           <h4>Description : {detail.description}</h4>
+
         </Content2>
         <Content1>
+       
           <img src={detail.image} alt="img zapa" />
+          
         </Content1>
-        
+       
       </ContentDiv>
       <BtnDiv>
-        <AddBtn onClick={(e) => CargarCarrito(e)}>
+        <AddBtn onClick={(e) => CargarCarrito(e)} >
           <h4>Add to Shopping Cart</h4>
         </AddBtn>
       </BtnDiv>
-
+    
       <Modal isOpen={isOpenCart} closeModal={closeCart}>
         <CartDetails closeCart={closeCart} />
       </Modal>
+      <hr/>
+          { (number === 0 || number === "NaN" )?(null):  (<div className="ReviewDetailContainer" >  
+
+          <h1>Product  Reviews</h1>
+          <div className="ReviewChildrenContainer">  
+          <h3>{number}</h3>
+          <div className="childrenReview">
+            {Array(5)
+              .fill()
+              .map((_, index) =>
+                number >= index + 1 ? (
+                  <AiFillStar className="ReviewIconChildren"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="ReviewIconChildren"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )}
+              <p>Average between {totalLength} opinions</p>
+          </div>
+          </div>
+                  <hr/>
+                    <div>
+                    {arrayCommentary?.map((e,index)=>
+                      <div key={index}>
+    {Array(5)
+              .fill()
+              .map((_, index) =>
+                e.rating >= index + 1 ? (
+                  <AiFillStar className="startCommentary"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                ) : (
+                  <AiOutlineStar className="startCommentary"
+                    style={{ color: "orange" }}
+                    // onClick={() => setNumber(1)}
+                  />
+                )
+              )}
+
+                     <h4 className="commentaryh4"> {e.commentary}  </h4>   
+                         
+                        </div>
+                      )}
+                    </div>
+                    <hr/>   
+
+          </div>)}
       <Footer/>
+
+
     </DetailContainer>
   );
 };

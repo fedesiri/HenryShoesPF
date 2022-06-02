@@ -9,10 +9,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import "./orders.css";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import OrderDetail from "../../orderDetail/OrderDetail";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Orders = () => {
+  const userInfo = useSelector((state) => state.userInfo);
 
   const classes = useStyles();
 
@@ -32,55 +33,84 @@ const Orders = () => {
         `${process.env.REACT_APP_API_URL}/shoppingcart/allhistory`
       );
       setData(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     getOrders();
   }, []);
 
   return (
     <>
-      <TableContainer component={Paper} className="table">
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className="tableCell">ID</TableCell>
-              <TableCell className="tableCell">Customer</TableCell>
-              <TableCell className="tableCell">Date</TableCell>
-              <TableCell className="tableCell">Status</TableCell>
-              <TableCell className="tableCell">Details</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell className="tableCell">{row.id}</TableCell>
-                <TableCell className="tableCell">{row.email}</TableCell>
-                <TableCell className="tableCell">{row.createdAt}</TableCell>
-                <TableCell className="tableCell">
-                  <span className={`status ${row.statusOpen}`}>
-                    {row.statusOpen === false ? "Closed" : "Open"}
-                  </span>
-                </TableCell>
-                <TableCell className="tableCell">
-                  <Button
-                    variant="contained"
-                    color="default"
-                    className={classes.button}
-                    startIcon={<MoreHorizIcon />}
-                  >
-                    <Link style={{textDecoration: "none", color: "black"}} to={`/detail/${data.id}`}>Details</Link>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/* <OrderDetail data={data} /> */}
+      <div className="ordersContainer">
+        {userInfo && userInfo.roleId === 1 ? (
+          <>
+            <div className="ordersList_pageTitle">
+              <Typography variant="body1">Dashboard</Typography>
+              <Typography variant="body1" style={{ color: "grey" }}>
+                {" "}
+                / Orders
+              </Typography>
+            </div>
+
+            <div className="orderList_container">
+              <TableContainer component={Paper} className="table">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className="tableCell">ID</TableCell>
+                      <TableCell className="tableCell">Customer</TableCell>
+                      <TableCell className="tableCell">Date</TableCell>
+                      <TableCell className="tableCell">Status</TableCell>
+                      <TableCell className="tableCell">Details</TableCell>
+                      <TableCell className="tableCell">Total</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell className="tableCell">{row.id}</TableCell>
+                        <TableCell className="tableCell">{row.email}</TableCell>
+                        <TableCell className="tableCell">
+                          {row.createdAt}
+                        </TableCell>
+                        <TableCell className="tableCell">
+                          <span className={`status ${row.statusOpen}`}>
+                            {row.statusOpen === false ? "Closed" : "Open"}
+                          </span>
+                        </TableCell>
+                        <TableCell className="tableCell">
+                          <Button
+                            variant="contained"
+                            color="default"
+                            className={classes.button}
+                            startIcon={<MoreHorizIcon />}
+                          >
+                            <Link
+                              style={{ textDecoration: "none", color: "black" }}
+                              to={`/detail/${row.id}`}
+                            >
+                              Details
+                            </Link>
+                          </Button>
+                        </TableCell>
+                        <TableCell className="tableCell">
+                          {row.orders.reduce( (acc, curr) => acc + (curr.price * curr.quantity), 0)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          </>
+        ) : (
+          <Redirect to="/signin" />
+        )}
+      </div>
     </>
   );
 };

@@ -65,7 +65,7 @@ const LandingPage = () => {
         <SliderDiv>
           <Slider />
         </SliderDiv>
-      <Link to="/CatalogPage" text-decoration="none">
+      <Link to="/CatalogPage" style={{textDecoration: "none", color: "black"}}>
         <Titulo>
           <h1>Catalog Page</h1>
         </Titulo>
@@ -73,7 +73,7 @@ const LandingPage = () => {
       <FilterContainer>
           <MenBtn
             onClick={() => {
-              dispatch(filter({ brand: "All", gender: "men" }));
+              dispatch(filter({ brand: "All", gender: "men", category: "filterByCategory"  }));
               navigate("/catalogPage");
             }}
           >                 
@@ -81,7 +81,7 @@ const LandingPage = () => {
           </MenBtn> 
           <UnisexBtn
             onClick={() => {
-              dispatch(filter({ brand: "All", gender: "unisex" }));
+              dispatch(filter({ brand: "All", gender: "unisex", category: "filterByCategory" }));
               navigate("/catalogPage");
             }}
           > 
@@ -89,7 +89,7 @@ const LandingPage = () => {
           </UnisexBtn>
           <WomenBtn
             onClick={() => {
-              dispatch(filter({ brand: "All", gender: "women" }));
+              dispatch(filter({ brand: "All", gender: "women", category: "filterByCategory" }));
               navigate("/catalogPage");
             }}
           >
@@ -97,7 +97,7 @@ const LandingPage = () => {
           </WomenBtn>
           <ChildBtn
             onClick={() => {
-              dispatch(filter({ brand: "All", gender: "child" }));
+              dispatch(filter({ brand: "All", gender: "child", category: "filterByCategory" }));
               navigate("/catalogPage");
             }}
           >

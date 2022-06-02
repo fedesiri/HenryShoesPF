@@ -70,7 +70,7 @@ const WishList = () => {
               {stateWish.data.products?.map((e, index) => (
                 <tr key={index}>
                   <td>
-                    <img src={e.image} />{" "}
+                    <img src={e.image} alt={e.model} />{" "}
                   </td>
                   <td> {e.model} </td>
                   <td>
