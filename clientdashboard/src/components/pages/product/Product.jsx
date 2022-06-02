@@ -9,6 +9,9 @@ import { MenuItem, Select } from "@material-ui/core";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { PIC_KEY } from "../../../redux/actions/types";
+import CardPrev from "../createProduct/CardPrev"
+
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -93,17 +96,64 @@ const Product = () => {
     }
   };
 
-  return (
+  function fileChange() {
+    let photos = document.getElementById("input_image");
+    console.log(photos)
+    Array.from(photos.files).map(async (photo) => {
+      const body = new FormData();
+      body.set("key", PIC_KEY);
+      body.append("image", photo);
+
+      // const options = {
+      //   onUploadProgress: (ProgressEvent) => {
+      //     const { loaded, total } = ProgressEvent;
+      //     let percent = Math.floor((loaded * 100) / total);
+      //     if (percent < 100) {
+      //       setInput((PreValue) => ({
+      //         ...PreValue,
+      //         image: `loading ${percent}%`,
+      //       }));
+      //     }
+      //   },
+      // };
+
+      await axios
+        .post("https://api.imgbb.com/1/upload", body)
+        .then((response) => {
+          setInput((PreValue) => ({
+            ...PreValue,
+            image: response.data.data.url,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }
+
+  const imagen = {
+    src : 'https://static.vecteezy.com/system/resources/previews/002/100/274/non_2x/one-line-drawing-of-shoe-sneakers-a-sport-shoes-for-hand-drawing-minimalism-design-sketch-sneakers-for-your-creativity-isolated-on-white-background-fashion-style-concept-illustration-vector.jpg'
+  }
+
+
+    return (
     <>
       {userInfo && userInfo.roleId === 1 ? (
         <>
+     
           <div className="product">
+
             <div className="productTitleContainer">
               <h1 className="productTitle">Edit product</h1>
               <Link to="/create-products">
                 <button className="productAddButton">Create</button>
               </Link>
             </div>
+
+            <div className="productBottom">
+              <div className="productForm">
+                <div className="productFormLeft">
+                <h4>Current product information.</h4>
             <div className="productTop">
               {/* <div className="productTopLeft">
             <Chart data={products} dataKey="Sales" title="Sales Performance"/>
@@ -154,10 +204,46 @@ const Product = () => {
                       {detail.description}
                     </span>
                   </div>
-                </div>
+                  {/* <div
+                    className="productUpload"
+                    style={{ flexDirection: "column" }}
+                  > */}
+                  </div>
+                    </div>
+                      </div>
+                  </div>
+
+                  <div
+                  className="productFormRight"
+                  style={{ justifyContent: "center", marginRight: "100px" }}
+                >
+        
+                  <label style={{ display: "flex", justifyContent: "center" }}>
+                    Actual Image 
+                  </label>
+                  <div
+                    className="productUpload"
+                    style={{ flexDirection: "column" }}
+                  >
+                    <img
+                      width="300"
+                      style={{
+                        boxShadow: "-7px 10px 5px 2px rgba(219,218,218,0.75)",
+                        marginBottom: "15px",
+                      }}
+                      src={detail.image}
+                      alt={detail.image}
+                    />
+
+                      </div>
+                         </div>
               </div>
             </div>
+
+            <div>
             <div className="productBottom">
+            <h4 style={{ marginBottom: "20px" }}>Edit the information here...</h4>
+            
               <form className="productForm">
                 <div className="productFormLeft">
                   <label htmlFor="product">Product Name</label>
@@ -268,30 +354,53 @@ const Product = () => {
                   className="productFormRight"
                   style={{ justifyContent: "center", marginRight: "100px" }}
                 >
-                  <label style={{ display: "flex", justifyContent: "center" }}>
-                    Actual Image
-                  </label>
-                  <div
+        
+                   <div
                     className="productUpload"
                     style={{ flexDirection: "column" }}
                   >
-                    <img
-                      width="200"
-                      style={{
-                        boxShadow: "-7px 10px 5px 2px rgba(219,218,218,0.75)",
-                        marginBottom: "15px",
-                      }}
-                      src={detail.image}
-                      alt={detail.model}
-                    />
-                    <label htmlFor="file">
+      
+          <div className="addProductItem">
+          <label>Image</label>
+          <input 
+          type="text"
+          value={input.image}
+          name="image"
+          onChange={HandleOnChange}
+          placeholder="Paste an URL or choose from your files"/>
+
+          <input
+          autoComplete="off"
+          placeholder=" "
+          type="file"
+          accept="image/*"
+          name="logoImage"
+          id="input_image"
+          onChange={fileChange}
+           />
+        </div>
+
+        <div>
+        <CardPrev
+      model={input.product}
+      brandName= {input.brandName}
+      description = {input.description}
+      price= {input.price} 
+      image= {input.image ? input.image : imagen.src}
+      gender= {input.gender}
+      year= {input.year}
+      CategName={input.category}>
+      </CardPrev>
+      </div>
+                    <label style={{ marginTop: "20px", marginLeft: "115px"}} htmlFor="file">
                       <Publish />
                     </label>
-                    <input type="file" id="file" style={{ display: "none" }} />
+                    <input type="file" id="file" style={{ display: "none"  }} />
                   </div>
                   <button
                     onClick={(e) => HandleOnSubmit(e)}
                     className="productButton"
+                    style={{ justifyContent: "center", marginLeft: "115px" }}
                   >
                     Update
                   </button>
@@ -307,6 +416,7 @@ const Product = () => {
                 draggable
               />
             </div>
+          </div>
           </div>
         </>
       ) : (
