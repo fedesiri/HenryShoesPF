@@ -89,11 +89,11 @@ const Footer = () => {
           <Grid item>
             <Typography variant="h6">HenryShoes</Typography>
             <ul className={classes.list}>
-              <Typography>
-                <button onClick={openChatBot} style={{backgroundColor:"black", color:"white"}}>
-                HenryShoes assistant
-              </button > 
-              
+              <Typography
+                className={classes.text}
+                component={Link}
+                to={"/rutadelrobot"}
+              >
                 HenryShoes Assistance
               </Typography>
               <Typography>Payment terms</Typography>
