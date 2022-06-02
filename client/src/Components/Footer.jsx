@@ -164,7 +164,7 @@ const Footer = () => {
       <Modal isOpen={isOpenChatbot} closeModal={closeChatBot}>
       <div className="App">
       <ChatBot 
-       closeChatBot={closeChatBot}
+        closeChatBot={closeChatBot}
       />
       </div>
       </Modal>
