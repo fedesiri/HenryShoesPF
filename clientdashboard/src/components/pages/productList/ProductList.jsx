@@ -15,6 +15,7 @@ import {
     getAllProducts,
     sendOfertToBack,
     clearOfertSelect,
+    GetStock
 } from "../../../redux/actions";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -104,6 +105,7 @@ export default function ProductList() {
 
     const clickStock = (e) => {
         setSelectedProd(e.target.value)
+        dispatch(GetStock(e.target.value))
         openStock();
     }
 

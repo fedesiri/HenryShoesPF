@@ -31,23 +31,35 @@ const stock = useSelector((state) => state.stock)
 const Stockproduct = SelectedProduct.sizes
 console.log(stock, "llego el stooockk")
 
-const getStock = useCallback(async () => {
-     try { 
-     await SelectedProduct
-    if(SelectedProduct){
-     (dispatch(GetStock({productId: SelectedProduct.id, sizeId: Stockproduct})) )
-    }    
-    } catch (error) {
-      console.log(error);
-    }
-  },[]);
 
 
+const[newStock, setNewStock] = useState("");
 
 useEffect(() => {
     dispatch(getProductById(id));
-    getStock();
 }, [product]);
+
+const HandleOnChange = (e) => {
+    setNewStock(e.target.value)
+}
+
+const HandleStock = async ({productId, sizeId}) => {
+try{
+    const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/orders/HandleStock`,
+        data: {
+          productId: productId,
+          sizeId: sizeId,
+          stock: newStock
+        },
+      });
+
+      toast(response.data.message);
+}catch(err){
+console.log(err)
+}
+}
 
 
 const columns = [
@@ -57,11 +69,11 @@ const columns = [
       renderCell: params => {
         return (
             <div className="productListItem">
-                {params.row.size}
+                {params.row.sizeId}
             </div>
         );
     },
-    valueGetter: params => params.row.size,
+    valueGetter: params => params.row.sizeId,
 },
     { field: "Stock",
      headerName: "Stock",
@@ -73,7 +85,27 @@ const columns = [
             </div>
         );
     },
-    valueGetter: stock => stock.row.stock
+    valueGetter: params => params.row.stock
+},
+{ field: "editStock",
+     headerName: "Edit Stock",
+     width: 200,
+     renderCell: params => {
+        return (
+            <div className="productListItem">
+                <input
+                    id="handleStock"
+                    name="handleStock"      
+                    type="number"
+                    defaultValue={params.row.stock}
+                    placeholder={params.row.stock}
+                    onChange={(e) => HandleOnChange(e)}
+                    />
+                    <button type="submit" onClick={(e) => HandleStock({productId: params.row.productId, sizeId: params.row.sizeId})}>Save</button>
+            </div>
+        );
+    },
+    valueGetter: params => params.row.stock
 }
 ]
 
@@ -94,7 +126,7 @@ return(
                 <Grid item>
                 <DataGrid
                     style={{ height: "500px", width: "550px" }}
-                    rows={Stockproduct?Stockproduct:[]}
+                    rows={stock?stock:[]}
                     disableSelectionOnClick
                     columns={columns}
                     pageSize={15}
