@@ -31,6 +31,40 @@ export const getStock = async (req, res) => {
   }
 };
 
+export const getProductStock = async (req, res) => {
+const productId = req.params
+console.log(productId, "soy params")
+
+try {
+  const allSizes = await products_sizes.findAll({
+    where:{
+      productId: productId.productId
+    }
+  });
+   console.log( await allSizes, "Soy all sizes")
+  for (let i = 0; i < await allSizes.length; i++){
+    const newStock = await Orders.findOrCreate({
+      where:{
+        productId: productId.productId,
+        sizeId: allSizes[i].sizeId
+      }
+    });
+    console.log(newStock)
+  };
+  
+  const allStock = await Orders.findAll({
+    where:{
+      productId: productId.productId
+    }
+  })
+  res.send( await allStock)
+} catch (error) {
+  console.log(error)
+  res.send(error)
+}
+
+};
+
 export const HandleStock = async (req,res) => {
   const {productId, sizeId, stock} = req.body;
   try{
