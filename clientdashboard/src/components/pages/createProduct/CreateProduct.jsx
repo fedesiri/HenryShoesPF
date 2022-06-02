@@ -168,6 +168,12 @@ const CreateProduct = () => {
     });
   }
 
+  const imagen = {
+    src : 'https://static.vecteezy.com/system/resources/previews/002/100/274/non_2x/one-line-drawing-of-shoe-sneakers-a-sport-shoes-for-hand-drawing-minimalism-design-sketch-sneakers-for-your-creativity-isolated-on-white-background-fashion-style-concept-illustration-vector.jpg'
+  }
+
+
+
   return (
     <>
     {userInfo && userInfo.roleId === 1 ? (
@@ -344,7 +350,7 @@ const CreateProduct = () => {
       brandName= {input.brand}
       description = {input.description}
       price= {input.price} 
-      image={input.image}
+      image= {input.image ? input.image : imagen.src}
       gender= {input.gender}
       year= {input.year}
       CategName={input.category}

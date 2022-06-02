@@ -8,12 +8,14 @@
     transition: all 0.2s 0s ease;
     display: grid;
     margin-left: 15%;
-    margin-top: 20%;
+    margin-top: 10%;
     justify-items: center;
     align-items: center;
     box-shadow: 5px 5px 5px 2px gray, 8px 8px 8px 5px white;
 
 }
+
+
 
 .CardImage {
     height: 200px;
