@@ -23,7 +23,6 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.0",
-    "react-simple-chatbot": "^0.6.1",
     "react-toastify": "^9.0.1",
     "react-whatsapp": "^0.2.1",
     "reactstrap": "^9.0.3",
