@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 
 
 
-const ReviewUser = ({ email, producId , setOpen}) => {
+const ReviewUser = ({ email, producId , setOpenAddReview}) => {
   const userInfo = useSelector((state) => state.userInfo);
   const dispatch = useDispatch()
   const stateReview = useSelector((state)=> state. All_Review)
-console.log(stateReview)
+// console.log(stateReview)
   const [number, setNumber] = useState(0);
   const [hoverStar, setHoverStar] = useState(undefined);
 
@@ -85,7 +85,8 @@ useEffect (()=>{
         commentary: "",
        
       });
-      setOpen(false)
+      setOpenAddReview(false)
+      setNumber(0)
     }
   }
 

@@ -36,23 +36,20 @@ const OrderDetail = () => {
   console.log(orderId);
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo);
-console.log(userInfo?.email)
-
-
 const userEmail_review = useSelector((state) => state.email_reviews);
-console.log(userEmail_review?.data?.map(e=>e.productId))
-
+console.log("infodeEmail",userEmail_review?.data)
   const classes = useStyles();
   const products = useSelector((state) => state.products);
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [display, setDisplay] = useState(false);
+  console.log("soyelDisplay",display)
+const [openAddReview, setOpenAddReview] = useState(false)
   const [idSend, setIdSend] = useState ("")
-  const stateReview = useSelector((state)=> state. All_Review)
+  const stateReview = useSelector((state)=> state.All_Review)
+  console.log(stateReview)
+  const stateModifyReview = useSelector((state)=> state.postMsjReview)
   
-  const stateModifyReview = useSelector((state)=> state. postMsjReview)
-  
-
-console.log(stateReview)
   const dispatch = useDispatch();
 
   const getOrders = async () => {
@@ -92,17 +89,25 @@ useEffect(() => {
   }
 }, [])
 
-
+// 
 
   function abrirComponente(e){
-setOpen(!open)
-setIdSend(e.target.value )
+    e.preventDefault()
+    console.log("buenardaaaa",e.target.value)
+// setOpen(!open)
+// setIdSend(e.target.value )
+
+let verifyInfoUser = userEmail_review?.data?.map(e=>e.productId)
+console.log (verifyInfoUser)
+    if(verifyInfoUser?.includes(Number(e.target.value))){
+      setDisplay(true)
+    }else{
+      setOpenAddReview(!openAddReview)
+    }
   }
 
 
 
-     let verifyInfoUser = userEmail_review?.data?.map(e=>e.productId)
-     console.log (verifyInfoUser)
 
   var id = 1;
   return (
@@ -226,13 +231,16 @@ setIdSend(e.target.value )
                       <br />
                     </ListItem>
                     <button  value={order.productId}  onClick={(e)=>abrirComponente(e)}>Comment on the product</button>
-
-                   { (open && (!verifyInfoUser.includes(order.productId))  ) &&<ReviewUser email={item.email} producId={order.productId} 
-                   setOpen={setOpen}/>
-            }
+                                {console.log(order.productId)}
+                   {/* (open && (!verifyInfoUser.includes(order.productId))  ) && */}
                    
-                { (open &&(verifyInfoUser.includes(order.productId)) ) &&   <SeeReview    email={item.email} producId={order.productId}         />
-            }
+                   { openAddReview && <ReviewUser email={item.email} producId={order.productId} 
+                   setOpenAddReview={setOpenAddReview}/>}
+            
+                   
+                {/* (open &&(verifyInfoUser.includes(order.productId)) ) &&   */}
+                
+                 { display &&<SeeReview   setDisplay={setDisplay}  email={item.email} producId={order.productId}  />}
                      
 
                     <Divider />

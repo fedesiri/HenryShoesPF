@@ -552,6 +552,7 @@ export const ModificationReview = (payload) => {
 };
 
 export const see_ReviewIdUser = (payload) => {
+  console.log(payload)
   let { productId, email } = payload
 
   return async function (dispatch) {

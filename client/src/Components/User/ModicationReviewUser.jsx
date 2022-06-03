@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 
 const ModicationReviewUser = ({ setOpen, id}) => {
-  console.log(id)
+  // console.log(id)
   // const userInfo = useSelector((state) => state.reviews_user_id);
     const dispatch = useDispatch()
   // console.log(userInfo)
@@ -20,7 +20,7 @@ const ModicationReviewUser = ({ setOpen, id}) => {
       commentary: "",
       id: id,
     });
-  console.log(input)
+  // console.log(input)
   
   useEffect(() => {
     setInput({
